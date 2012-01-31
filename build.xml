@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Napile JVM" default="main" basedir=".">
+	<property name="src" location="src/main/java"/>
+	<property name="resource" location="src/main/resource"/>
+	<property name="lib" location="dist/lib"/>
+	<property name="build" value="build"/>
+	<property name="build.classes" value="${build}/classes"/>
+	<property name="build.resources" value="${build}/resources"/>
+
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="clean" description="Remove output files/directories.">
+		<delete dir="${build}"/>
+	</target>
+
+	<target name="make" description="Create the output directories.">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build.classes}"/>
+		<mkdir dir="${build.resources}"/>
+	</target>
+
+	<target name="compile" description="Compile the source.">
+		<javac destdir="${build.classes}" optimize="off" debug="on" source="1.6" target="1.6" encoding="UTF-8" nowarn="off" srcdir="${src}">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+	<target name="compile.resource" description="Compile resources.">
+		<copydir src="${resource}" dest="${build.resources}" />
+	</target>
+
+	<target name="jar" description="Create the jar file">
+		<tstamp>
+			<format property="build.tstamp" pattern="HH:mm dd.MM.yyyy " />
+		</tstamp>
+		<jar destfile="${build}/napile-jvm.jar">
+			<fileset dir="${build.classes}"/>
+			<manifest>
+				<attribute name="Build-By" value="${user.name}" />
+				<attribute name="Build-Date" value="${build.tstamp}" />
+			</manifest>
+		</jar>
+		<jar destfile="${build}/napile-jvm-resources.jar">
+			<fileset dir="${build.resources}"/>
+			<manifest>
+				<attribute name="Build-By" value="${user.name}" />
+				<attribute name="Build-Date" value="${build.tstamp}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="main">
+		<antcall target="clean"/>
+		<antcall target="make"/>
+		<antcall target="compile"/>
+		<antcall target="compile.resource"/>
+		<antcall target="jar"/>
+	</target>
+</project>
