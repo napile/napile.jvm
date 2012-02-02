@@ -12,4 +12,11 @@ public class AssertUtil
 			throw new IllegalArgumentException("Cant be null");
 		return val;
 	}
+
+	public static <T> T assertNotNull(T val)
+	{
+		if(val != null)
+			throw new IllegalArgumentException("Cant be not null");
+		return val;
+	}
 }

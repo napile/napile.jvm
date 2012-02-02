@@ -1,14 +1,13 @@
 package org.napile.jvm.vm;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.napile.jvm.ForDebug;
+import org.apache.log4j.Logger;
 import org.napile.jvm.objects.classinfo.ClassInfo;
-import org.napile.jvm.objects.classinfo.parsing.ClassParser;
+import org.napile.jvm.objects.classinfo.parsing.filemapping.FileMapping;
+import org.napile.jvm.util.ClasspathUtil;
+import org.napile.jvm.util.ForDebug;
 
 /**
  * @author VISTALL
@@ -16,40 +15,29 @@ import org.napile.jvm.objects.classinfo.parsing.ClassParser;
  */
 public class VmContext
 {
+	private static final Logger LOGGER = Logger.getLogger(VmContext.class);
+
 	private Map<String, ClassInfo> _classpath = new HashMap<String, ClassInfo>();
 	private String _mainClass;
 
+	private Map<String, FileMapping> _fileMapping = new HashMap<String, FileMapping>();
+
 	public VmContext()
 	{
-
+		//
 	}
 
-	public void initClassPath(String name)
+	public ClassInfo getClassInfoOrParse(String name)
 	{
-		String[] split = name.split(";");
+		ClassInfo classInfo = _classpath.get(name);
+		if(classInfo != null)
+			return classInfo;
 
-		for(String str : split)
-		{
-			File f = new File(str);
-			if(!f.exists())
-				continue;
+		FileMapping fileMapping = _fileMapping.get(name);
+		if(fileMapping == null)
+			return null;
 
-			if(f.isFile() && f.getName().endsWith(".class"))    // maybe better
-			{
-				try
-				{
-					ClassParser classParser = new ClassParser(new FileInputStream(f));
-
-					ClassInfo classInfo = classParser.parse();
-					if(classInfo != null)
-						_classpath.put(classInfo.getName(), classInfo);
-				}
-				catch(IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}
+		return ClasspathUtil.parseClass(this, fileMapping.openSteam(), fileMapping.getName());
 	}
 
 	@ForDebug
@@ -60,14 +48,14 @@ public class VmContext
 			System.out.println(name);
 	}
 
-	public ClassInfo getClassInfo(String name)
-	{
-		return _classpath.get(name);
-	}
-
 	public void addClassInfo(ClassInfo classInfo)
 	{
 		_classpath.put(classInfo.getName(), classInfo);
+	}
+
+	public void addMapping(String name, FileMapping fileMapping)
+	{
+		_fileMapping.put(name, fileMapping);
 	}
 
 	public void setMainClass(String mainClass)

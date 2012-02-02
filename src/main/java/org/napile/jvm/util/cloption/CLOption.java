@@ -1,5 +1,6 @@
 package org.napile.jvm.util.cloption;
 
+import org.napile.jvm.util.ClasspathUtil;
 import org.napile.jvm.vm.VmContext;
 
 /**
@@ -22,7 +23,7 @@ public enum CLOption
 		@Override
 		public void process(VmContext context, String value)
 		{
-			context.initClassPath(value);
+			ClasspathUtil.initClassPath(context, value);
 		}
 	});
 

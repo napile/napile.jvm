@@ -4,32 +4,19 @@ package org.napile.jvm.objects.classinfo;
  * @author VISTALL
  * @date 16:01/31.01.2012
  */
-public class ClassInfo
+public interface ClassInfo extends ReflectInfo
 {
 	public static final int MAGIC_HEADER = 0xCAFEBABE;
 
-	private FieldInfo[] _fields = FieldInfo.EMPTY_ARRAY;
+	public static final ClassInfo[] EMPTY_ARRAY = new ClassInfo[0];
 
-	private ClassInfo _superClass;
-	private String _name;
+	public String getName();
 
-	public ClassInfo(String name)
-	{
-		_name = name;
-	}
+	public FieldInfo[] getFields();
 
-	public String getName()
-	{
-		return _name;
-	}
+	public MethodInfo[] getMethods();
 
-	public FieldInfo[] getFields()
-	{
-		return _fields;
-	}
+	public ClassInfo getSuperClass();
 
-	public void setSuperClass(ClassInfo superClass)
-	{
-		_superClass = superClass;
-	}
+	public ClassInfo[] getInterfaces();
 }

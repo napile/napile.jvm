@@ -5,17 +5,16 @@ import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
 import org.napile.jvm.vm.VmContext;
 import org.napile.jvm.vm.VmInterface;
-import org.napile.jvm.vm.VmUtil;
 
 /**
  * @author VISTALL
  * @date 17:36/31.01.2012
  */
-public class JavaVmInterfaceImpl implements VmInterface
+public class VmInterfaceImpl implements VmInterface
 {
 	private VmContext _vmContext;
 
-	public JavaVmInterfaceImpl(VmContext vmContext)
+	public VmInterfaceImpl(VmContext vmContext)
 	{
 		_vmContext = vmContext;
 	}
@@ -23,11 +22,7 @@ public class JavaVmInterfaceImpl implements VmInterface
 	@Override
 	public ClassInfo getClass(String name)
 	{
-		ClassInfo classInfo = _vmContext.getClassInfo(name);
-		if(classInfo != null)
-			return classInfo;
-
-		return VmUtil.makeClassInfo(this, name);
+		return _vmContext.getClassInfoOrParse(name);
 	}
 
 	@Override

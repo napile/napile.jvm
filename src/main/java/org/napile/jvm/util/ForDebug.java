@@ -1,4 +1,4 @@
-package org.napile.jvm;
+package org.napile.jvm.util;
 
 /**
  * @author VISTALL
