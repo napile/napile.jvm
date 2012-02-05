@@ -14,7 +14,7 @@ public class ExitUtil
 	public static void exitAbnormal(String value, Object... arg)
 	{
 		if(value != null)
-			LOGGER.error(LocalizeMaker.getInstance().makeString(value, arg));
+			LOGGER.error(LocalizeMaker.getInstance().makeString(value, arg), new Error());
 
 		System.exit(-1);
 	}

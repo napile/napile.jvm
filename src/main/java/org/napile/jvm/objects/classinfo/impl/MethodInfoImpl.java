@@ -9,10 +9,12 @@ import org.napile.jvm.objects.classinfo.MethodInfo;
  */
 public class MethodInfoImpl implements MethodInfo
 {
-	private ClassInfo _returnType;
-	private ClassInfo[] _parameters;
+	private final ClassInfo _returnType;
+	private final ClassInfo[] _parameters;
 	private short _flags;
 	private String _name;
+
+	private ClassInfo[] _throwExceptions;
 
 	public MethodInfoImpl(ClassInfo returnType, ClassInfo[] parameters, String name, short flags)
 	{
@@ -26,5 +28,34 @@ public class MethodInfoImpl implements MethodInfo
 	public String getName()
 	{
 		return _name;
+	}
+
+	@Override
+	public int getFlags()
+	{
+		return _flags;
+	}
+
+	public void setThrowExceptions(ClassInfo[] throwsClassInfo)
+	{
+		_throwExceptions = throwsClassInfo;
+	}
+
+	@Override
+	public ClassInfo[] getThrowExceptions()
+	{
+		return _throwExceptions;
+	}
+
+	@Override
+	public ClassInfo getReturnType()
+	{
+		return _returnType;
+	}
+
+	@Override
+	public ClassInfo[] getParameters()
+	{
+		return _parameters;
 	}
 }

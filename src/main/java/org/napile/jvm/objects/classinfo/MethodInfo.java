@@ -10,4 +10,10 @@ public interface MethodInfo extends ReflectInfo
 	public static final String STATIC_CONSTRUCTOR_NAME = "<cinit>";
 
 	public static final MethodInfo[] EMPTY_ARRAY = new MethodInfo[0];
+
+	ClassInfo getReturnType();
+
+	ClassInfo[] getParameters();
+
+	ClassInfo[] getThrowExceptions();
 }

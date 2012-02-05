@@ -31,6 +31,12 @@ public class ClassInfoImpl implements ClassInfo
 	}
 
 	@Override
+	public int getFlags()
+	{
+		return _flags;
+	}
+
+	@Override
 	public FieldInfo[] getFields()
 	{
 		return _fields;

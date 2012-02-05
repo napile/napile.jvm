@@ -15,7 +15,8 @@ public class LocalizeMaker
 	{
 		{"class.s1.not.found", "Class '{0}' not found."},
 		{"invalid.constant.value.class.s1", "Invalid constant value. Class '{0}'"} ,
-		{"invalid.attribute.class.s1", "Invalid attribute '{0}'. Class '{1}'"}
+		{"invalid.attribute.class.s1", "Invalid attribute '{0}'. Class '{1}'"},
+		{"not.found.s1.s2.s3", "Not found static method by '{0}.{1}({2})'"}
 	};
 
 	private Map<String, String> _values = new HashMap<String, String>(VALUES.length);

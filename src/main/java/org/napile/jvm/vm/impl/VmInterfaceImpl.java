@@ -32,9 +32,31 @@ public class VmInterfaceImpl implements VmInterface
 	}
 
 	@Override
-	public MethodInfo getMethod(ClassInfo info, String name, ClassInfo[] param)
+	public MethodInfo getMethod(ClassInfo info, String name, String... params)
 	{
-		return null;
+		MethodInfo returnMethod = null;
+		MethodInfo[] methodInfos = info.getMethods();
+		for(MethodInfo methodInfo : methodInfos)
+		{
+			if(!methodInfo.getName().equals(name))
+				continue;
+			ClassInfo[] paramTypes = methodInfo.getParameters();
+			if(paramTypes.length != params.length)
+				continue;
+
+			loop:
+			{
+				
+				for(int i = 0; i < params.length; i++)
+				{
+					if(!paramTypes[i].getName().equals(params[i]))
+						break loop;
+				}
+
+				returnMethod = methodInfo;
+			}
+		}
+		return returnMethod;
 	}
 
 	@Override

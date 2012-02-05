@@ -11,22 +11,21 @@ import java.io.InputStream;
  */
 public class SingleFileMapping implements FileMapping
 {
-	private String _fileName;
+	private File _file;
 
-	public SingleFileMapping(String file)
+	public SingleFileMapping(File file)
 	{
-		_fileName = file;
+		_file = file;
 	}
 
 	@Override
 	public InputStream openSteam()
 	{
-		File f = new File(_fileName);
-		if(!f.exists())
+		if(!_file.exists())
 			return null;
 		try
 		{
-			return new FileInputStream(f);
+			return new FileInputStream(_file);
 		}
 		catch(FileNotFoundException e)
 		{
@@ -38,6 +37,6 @@ public class SingleFileMapping implements FileMapping
 	@Override
 	public String getName()
 	{
-		return _fileName;
+		return _file.getAbsolutePath();
 	}
 }

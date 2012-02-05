@@ -24,6 +24,12 @@ public class ArrayClassInfoImpl implements ClassInfo
 	}
 
 	@Override
+	public int getFlags()
+	{
+		return 0;
+	}
+
+	@Override
 	public FieldInfo[] getFields()
 	{
 		return FieldInfo.EMPTY_ARRAY;

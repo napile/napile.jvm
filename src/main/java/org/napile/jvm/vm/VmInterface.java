@@ -24,7 +24,7 @@ public interface VmInterface
 
 	FieldInfo getField(ClassInfo info, String name);
 
-	MethodInfo getMethod(ClassInfo info, String name, ClassInfo[] param);
+	MethodInfo getMethod(ClassInfo info, String name, String... params);
 
 	VmContext getVmContext();
 }

@@ -3,7 +3,9 @@ package org.napile.jvm;
 import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.jvm.localize.LocalizeMaker;
+import org.napile.jvm.objects.Flags;
 import org.napile.jvm.objects.classinfo.ClassInfo;
+import org.napile.jvm.objects.classinfo.MethodInfo;
 import org.napile.jvm.util.ExitUtil;
 import org.napile.jvm.util.cloption.CLProcessor;
 import org.napile.jvm.vm.VmContext;
@@ -40,6 +42,13 @@ public class Main
 		if(mainClass == null)
 		{
 			ExitUtil.exitAbnormal("class.s1.not.found", vmContext.getMainClass());
+			return;
+		}
+
+		MethodInfo methodInfo = vmInterface.getMethod(mainClass, "main", "java.lang.String[]");
+		if(methodInfo == null || !Flags.isStatic(methodInfo))
+		{
+			ExitUtil.exitAbnormal("not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
 			return;
 		}
 

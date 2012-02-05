@@ -29,6 +29,12 @@ public class FieldInfoImpl implements FieldInfo
 	}
 
 	@Override
+	public int getFlags()
+	{
+		return _flags;
+	}
+
+	@Override
 	public Object getValue()
 	{
 		return _value;

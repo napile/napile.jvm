@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 import org.apache.log4j.Logger;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.parsing.ClassParser;
+import org.napile.jvm.objects.classinfo.parsing.filemapping.SingleFileMapping;
 import org.napile.jvm.objects.classinfo.parsing.filemapping.ZippedFileMapping;
 import org.napile.jvm.vm.VmContext;
 
@@ -59,12 +60,16 @@ public class ClasspathUtil
 		{
 			try
 			{
-				parseClass(vmContext, new FileInputStream(file), file.getName());
+				ClassParser parser = new ClassParser(vmContext, new FileInputStream(file), file.getName());
+
+				String name = parser.parseQuickName();
+
+				vmContext.addMapping(name, new SingleFileMapping(file));
 			}
 			catch(IOException e)
 			{
 				LOGGER.error(e, e);
-			} 
+			}
 		}
 		else if(ext.equals("jar"))
 		{

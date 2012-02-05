@@ -42,6 +42,31 @@ public class ClassParser
 		_name = name;
 	}
 
+	public String parseQuickName() throws IOException
+	{
+		int magic = _dataInputStream.readInt();
+		if(magic != ClassInfo.MAGIC_HEADER)
+		{
+			ExitUtil.exitAbnormal("Invalid header of file. File: " + _name);
+			return null;
+		}
+
+		int minorVersion = _dataInputStream.readUnsignedShort();
+		int majorVersion = _dataInputStream.readUnsignedShort();
+		if(!VmUtil.isSupported(majorVersion, minorVersion))
+		{
+			ExitUtil.exitAbnormal("Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
+			return null;
+		}
+
+		ConstantPool constantPool = parseConstantPool();
+
+		_dataInputStream.readShort();
+		final String className = getClassName(constantPool, _dataInputStream.readShort());
+
+		return className.replace("/", ".");
+	}
+
 	public ClassInfo parse() throws IOException
 	{
 		int magic = _dataInputStream.readInt();
@@ -99,7 +124,7 @@ public class ClassParser
 		return classInfo;
 	}
 
-	private ConstantPool parseConstantPool()  throws IOException
+	private ConstantPool parseConstantPool() throws IOException
 	{
 		int constantPoolSize = _dataInputStream.readUnsignedShort();
 		ConstantPool constantPool = new ConstantPool(constantPoolSize);
@@ -167,7 +192,7 @@ public class ClassParser
 			for(int j = 0; j < attributeSize; j++)
 			{
 				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
-				if(attributeName.equals(ReflectInfo.CONSTANT_VALUE))
+				if(attributeName.equals(ReflectInfo.ATT_CONSTANT_VALUE))
 				{
 					_dataInputStream.readInt(); // lenght ?mm
 					short index = _dataInputStream.readShort();
@@ -177,7 +202,7 @@ public class ClassParser
 					else
 						fieldInfo.setValue(((ValueConstant) constant).getValue());
 				}
-				else if(attributeName.equals(ReflectInfo.SIGNATURE))
+				else if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
 				{
 					_dataInputStream.readInt(); // lenght ?mm
 					short index = _dataInputStream.readShort();
@@ -189,6 +214,15 @@ public class ClassParser
 					{
 						//TODO [VISTALL] make it
 					}
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_DEPRECATED))
+				{
+					_dataInputStream.readInt(); // must be zero?
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_RUNTIME_VISIBLE_ANNOTATIONS))
+				{
+					//TODO [VISTALL]
+					_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
 				}
 				else
 					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
@@ -212,7 +246,7 @@ public class ClassParser
 
 			ClassInfo returnType = parseType(_vmContext, new StringCharReader(desc.substring(desc.indexOf(')') + 1, desc.length())));
 
-			ClassInfo[] parameters = parseMethodSignature(_vmContext, desc.substring(1, desc.indexOf(')'))) ;
+			ClassInfo[] parameters = parseMethodSignature(_vmContext, desc.substring(1, desc.indexOf(')')));
 
 			MethodInfoImpl methodInfo = new MethodInfoImpl(returnType, parameters, getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			methods[i] = methodInfo;
@@ -220,17 +254,117 @@ public class ClassParser
 			for(int j = 0; j < attributeSize; j++)
 			{
 				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
-				if(attributeName.equals(ReflectInfo.SIGNATURE))
+				if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
 				{
+					_dataInputStream.readInt(); // lenght ?mm
+					short index = _dataInputStream.readShort();
+					Constant constant = constantPool.getConstant(index);
 
+					if(!(constant instanceof ValueConstant))
+						ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+					else
+					{
+						//TODO [VISTALL] make it
+					}
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_EXCEPTIONS))
+				{
+					_dataInputStream.readInt();
+					short numException = _dataInputStream.readShort();
+					ClassInfo[] throwsClassInfo = new ClassInfo[numException];
+					for(int a = 0; a < numException; a++)
+						throwsClassInfo[a] = _vmContext.getClassInfoOrParse(getClassName(constantPool, _dataInputStream.readShort()));
+					methodInfo.setThrowExceptions(throwsClassInfo);
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_CODE))
+				{
+					_dataInputStream.readInt();
+
+					short maxStack = _dataInputStream.readShort();
+					//aLocalMethod.setMaxStack(maxStack);
+
+					short maxLocals = _dataInputStream.readShort();
+					//aLocalMethod.setMaxLocals(maxLocals);
+
+					int codeLen = _dataInputStream.readInt();
+
+					byte[] btArray = new byte[codeLen];
+					_dataInputStream.readFully(btArray);
+					//aLocalMethod.setBytes(btArray);
+
+					// exception_table_length
+					short excLen = _dataInputStream.readShort();
+
+					/**
+					 * startPc - Offset of start of try/catch range. endPc - Offset of end of
+					 * try/catch range. handlerPc - Offset of start of exception handler code.
+					 * catchType - Type of exception handled.
+					 */
+					for(int a = 0; a < excLen; a++)
+					{
+						short startPc = _dataInputStream.readShort();
+						short endPc = _dataInputStream.readShort();
+						short handlerPc = _dataInputStream.readShort();
+						short catchType = _dataInputStream.readShort();
+
+						// If type of class caught is any, then CatchType is 0.
+						//aLocalMethod.addExceptionBlock(startPc, endPc, handlerPc, aCpInfo.getClassName(catchType));
+					}
+
+					parseMethodCodeAttribute(classInfo, methodInfo, constantPool);
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_RUNTIME_VISIBLE_ANNOTATIONS))
+				{
+					//TODO [VISTALL]
+					_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
+				}
+				else if(attributeName.equals(ReflectInfo.ATT_DEPRECATED))
+				{
+					_dataInputStream.readInt(); // must be zero?
 				}
 				else
 					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
 			}
-			break;
+			//break;
 		}
 
 		classInfo.setMethods(methods);
+	}
+
+	private void parseMethodCodeAttribute(ClassInfoImpl classInfo, MethodInfoImpl methodInfo, ConstantPool constantPool) throws IOException
+	{
+		short attrCount = _dataInputStream.readShort();
+
+		for(int a = 0; a < attrCount; a++)
+		{
+			String codeAttributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
+			if(codeAttributeName.equals(ReflectInfo.ATT_LINE_NUMBER_TABLE))
+			{
+				//TODO [VISTALL] 
+				_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
+			}
+			else if(codeAttributeName.equals(ReflectInfo.ATT_STACK_MAP_TABLE))
+			{
+				//TODO [VISTALL]
+				_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
+			}
+			else if(codeAttributeName.equals(ReflectInfo.ATT_LOCAL_VARIABLE_TABLE))
+			{
+				_dataInputStream.readInt(); //len
+
+				short localVarArrLen = _dataInputStream.readShort();
+				for(int ctr = 1; ctr <= localVarArrLen; ctr++)
+				{
+					short startPc = _dataInputStream.readShort();
+					short length = _dataInputStream.readShort();
+					short nameIndex = _dataInputStream.readShort();
+					short descIndex = _dataInputStream.readShort();
+					short frameIndex = _dataInputStream.readShort();
+				}
+			}
+			else
+				ExitUtil.exitAbnormal("invalid.attribute.class.s1", codeAttributeName, classInfo.getName());
+		}
 	}
 
 	private static ClassInfo[] parseMethodSignature(VmContext vmContext, String sig)
@@ -251,11 +385,16 @@ public class ClassParser
 			case '[':  //array
 				int i = 1;//array size
 				while(charReader.next() == firstChar)
-					i ++;
+					i++;
 
 				charReader.back(); //need go back after while
 
 				ClassInfo arrayTypeInfo = parseType(vmContext, charReader);
+				if(arrayTypeInfo == null)
+				{
+					ExitUtil.exitAbnormal("class.s1.not.found", charReader);
+					return null;
+				}
 
 				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo);
 				if(i > 1)
@@ -294,10 +433,11 @@ public class ClassParser
 				while(charReader.next() != ';')
 					b.append(charReader.current());
 
-				ClassInfo classInfo = vmContext.getClassInfoOrParse(b.toString().replace("/", "."));
+				String text = b.toString().replace("/", ".");
+				ClassInfo classInfo = vmContext.getClassInfoOrParse(text);
 				if(classInfo == null)
 				{
-					ExitUtil.exitAbnormal("class.s1.not.found", b.toString());
+					ExitUtil.exitAbnormal("class.s1.not.found", text);
 					return null;
 				}
 				else
@@ -312,16 +452,16 @@ public class ClassParser
 	{
 		if(index == 0)
 			return null;
-		ShortValueConstant shortValueConstant = (ShortValueConstant)constantPool.getConstant(index);
+		ShortValueConstant shortValueConstant = (ShortValueConstant) constantPool.getConstant(index);
 
-		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(shortValueConstant.getValue());
+		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant) constantPool.getConstant(shortValueConstant.getValue());
 
 		return utf8ValueConstant.getValue().replace("/", ".");
 	}
 
 	public static String getSimpleUtf8Name(ConstantPool constantPool, short index)
 	{
-		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(index);
+		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant) constantPool.getConstant(index);
 
 		return utf8ValueConstant.getValue();
 	}

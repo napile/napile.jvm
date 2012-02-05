@@ -38,4 +38,10 @@ public class StringCharReader
 	{
 		return _index < _data.length;
 	}
+
+	@Override
+	public String toString()
+	{
+		return new String(_data);
+	}
 }
