@@ -1,5 +1,6 @@
 package org.napile.jvm.vm.impl;
 
+import org.napile.jvm.objects.Flags;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
@@ -32,7 +33,32 @@ public class VmInterfaceImpl implements VmInterface
 	}
 
 	@Override
+	public FieldInfo getStaticField(ClassInfo info, String name)
+	{
+		return null;
+	}
+
+	@Override
 	public MethodInfo getMethod(ClassInfo info, String name, String... params)
+	{
+		MethodInfo methodInfo = getMethod0(info, name, params);
+		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
+	}
+
+	@Override
+	public MethodInfo getStaticMethod(ClassInfo info, String name, String... params)
+	{
+		MethodInfo methodInfo = getMethod0(info, name, params);
+		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
+	}
+
+	@Override
+	public VmContext getVmContext()
+	{
+		return _vmContext;
+	}
+
+	public static MethodInfo getMethod0(ClassInfo info, String name, String... params)
 	{
 		MethodInfo returnMethod = null;
 		MethodInfo[] methodInfos = info.getMethods();
@@ -40,6 +66,7 @@ public class VmInterfaceImpl implements VmInterface
 		{
 			if(!methodInfo.getName().equals(name))
 				continue;
+
 			ClassInfo[] paramTypes = methodInfo.getParameters();
 			if(paramTypes.length != params.length)
 				continue;
@@ -57,11 +84,5 @@ public class VmInterfaceImpl implements VmInterface
 			}
 		}
 		return returnMethod;
-	}
-
-	@Override
-	public VmContext getVmContext()
-	{
-		return _vmContext;
 	}
 }

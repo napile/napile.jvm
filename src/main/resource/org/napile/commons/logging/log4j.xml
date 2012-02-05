@@ -31,7 +31,7 @@
 		</layout>
 	</appender>
 	<root>
-		<priority value="info"/>
+		<priority value="info, debug"/>
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="CONSOLE_TO_FILE"/>
 	</root>

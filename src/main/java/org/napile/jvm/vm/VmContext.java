@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.parsing.filemapping.FileMapping;
 import org.napile.jvm.util.ClasspathUtil;
-import org.napile.jvm.util.ForDebug;
 
 /**
  * @author VISTALL
@@ -44,12 +43,11 @@ public class VmContext
 		return _classes.get(name);
 	}
 
-	@ForDebug
 	public void print()
 	{
-		System.out.println("ClassInfo list: ");
+		LOGGER.debug("ClassInfo list: " + _classes.size());
 		for(String name : _classes.keySet())
-			System.out.println(name);
+			LOGGER.debug(name);
 	}
 
 	public void addClassInfo(ClassInfo classInfo)
