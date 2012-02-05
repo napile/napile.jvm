@@ -3,14 +3,24 @@ package org.napile.jvm.objects.classinfo.parsing;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.napile.jvm.objects.classinfo.ClassInfo;
+import org.napile.jvm.objects.classinfo.FieldInfo;
+import org.napile.jvm.objects.classinfo.MethodInfo;
+import org.napile.jvm.objects.classinfo.ReflectInfo;
+import org.napile.jvm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.jvm.objects.classinfo.impl.ClassInfoImpl;
+import org.napile.jvm.objects.classinfo.impl.FieldInfoImpl;
+import org.napile.jvm.objects.classinfo.impl.MethodInfoImpl;
 import org.napile.jvm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.jvm.objects.classinfo.parsing.constantpool.value.*;
 import org.napile.jvm.util.ExitUtil;
+import org.napile.jvm.util.StringCharReader;
 import org.napile.jvm.vm.VmContext;
+import org.napile.jvm.vm.VmInterface;
 import org.napile.jvm.vm.VmUtil;
 
 /**
@@ -23,14 +33,16 @@ public class ClassParser
 
 	private final DataInputStream _dataInputStream;
 	private String _name;
+	private VmContext _vmContext;
 
-	public ClassParser(InputStream stream, String name)
+	public ClassParser(VmContext vmContext, InputStream stream, String name)
 	{
+		_vmContext = vmContext;
 		_dataInputStream = new DataInputStream(stream);
 		_name = name;
 	}
 
-	public ClassInfo parse(VmContext context) throws IOException
+	public ClassInfo parse() throws IOException
 	{
 		int magic = _dataInputStream.readInt();
 		if(magic != ClassInfo.MAGIC_HEADER)
@@ -47,12 +59,56 @@ public class ClassParser
 			return null;
 		}
 
+		ConstantPool constantPool = parseConstantPool();
+
+		final short access = _dataInputStream.readShort();
+		final String className = getClassName(constantPool, _dataInputStream.readShort());
+		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
+		ClassInfoImpl classInfo = new ClassInfoImpl(className, access);
+		_vmContext.addClassInfo(classInfo); ///need add fist - for circle depends
+		if(superClassName != null)
+		{
+			ClassInfo superClass = _vmContext.getClassInfoOrParse(superClassName);
+			if(superClass == null)
+			{
+				ExitUtil.exitAbnormal("class.s1.not.found", superClassName);
+				return null;
+			}
+			classInfo.setSuperClass(superClass);
+		}
+
+		final short interfacesSize = _dataInputStream.readShort();
+		ClassInfo[] interfaces = new ClassInfo[interfacesSize];
+		for(int i = 0; i < interfacesSize; i++)
+		{
+			String interfaceName = getClassName(constantPool, _dataInputStream.readShort());
+			ClassInfo interfaceClass = _vmContext.getClassInfoOrParse(interfaceName);
+			if(interfaceClass == null)
+			{
+				ExitUtil.exitAbnormal("class.s1.not.found", interfaceName);
+				return null;
+			}
+			interfaces[i] = interfaceClass;
+		}
+		classInfo.setInterfaces(interfaces);
+
+		parseFields(classInfo, constantPool);
+
+		parseMethods(classInfo, constantPool);
+
+		return classInfo;
+	}
+
+	private ConstantPool parseConstantPool()  throws IOException
+	{
 		int constantPoolSize = _dataInputStream.readUnsignedShort();
 		ConstantPool constantPool = new ConstantPool(constantPoolSize);
+
 		constantPool.addConstantPool(0, NothingConstant.STATIC);
-		//int a = 1;
+
 		for(int i = 1; i < constantPoolSize; i++)
 		{
+			final int indexToPut = i;
 			byte type = _dataInputStream.readByte();
 			Constant constant = null;
 			switch(type)
@@ -89,42 +145,167 @@ public class ClassParser
 					break;
 			}
 
-			constantPool.addConstantPool(i, constant);
-
-			//System.out.println(constant.toString() + ">" + (a ++));
+			constantPool.addConstantPool(indexToPut, constant);
 		}
 
-		final short access = _dataInputStream.readShort();
-		final String className = getClassName(constantPool, _dataInputStream.readShort());
-		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
-		ClassInfoImpl classInfo = new ClassInfoImpl(className, access);
-		if(superClassName != null)
+		return constantPool;
+	}
+
+	private void parseFields(ClassInfoImpl classInfo, ConstantPool constantPool) throws IOException
+	{
+		final short fieldsSize = _dataInputStream.readShort();
+		FieldInfo[] fields = new FieldInfo[fieldsSize];
+		for(int i = 0; i < fields.length; i++)
 		{
-			ClassInfo superClass = context.getClassInfoOrParse(superClassName);
-			if(superClass == null)
+			short accessFlags = _dataInputStream.readShort();
+			short nameIndex = _dataInputStream.readShort();
+			short descIndex = _dataInputStream.readShort();
+
+			FieldInfoImpl fieldInfo = new FieldInfoImpl(parseType(_vmContext, new StringCharReader(getSimpleUtf8Name(constantPool, descIndex))), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
+			fields[i] = fieldInfo;
+			short attributeSize = _dataInputStream.readShort();
+			for(int j = 0; j < attributeSize; j++)
 			{
-				ExitUtil.exitAbnormal("class.s1.not.found", superClassName);
-				return null;
+				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
+				if(attributeName.equals(ReflectInfo.CONSTANT_VALUE))
+				{
+					_dataInputStream.readInt(); // lenght ?mm
+					short index = _dataInputStream.readShort();
+					Constant constant = constantPool.getConstant(index);
+					if(!(constant instanceof ValueConstant))
+						ExitUtil.exitAbnormal("invalid.constant.value.class.s1", classInfo.getName());
+					else
+						fieldInfo.setValue(((ValueConstant) constant).getValue());
+				}
+				else if(attributeName.equals(ReflectInfo.SIGNATURE))
+				{
+					_dataInputStream.readInt(); // lenght ?mm
+					short index = _dataInputStream.readShort();
+					Constant constant = constantPool.getConstant(index);
+
+					if(!(constant instanceof ValueConstant))
+						ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+					else
+					{
+						//TODO [VISTALL] make it
+					}
+				}
+				else
+					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
 			}
-			classInfo.setSuperClass(superClass);
 		}
 
-		final short interfacesSize = _dataInputStream.readShort();
-		ClassInfo[] interfaces = new ClassInfo[interfacesSize];
-		for(int i = 0; i < interfacesSize; i++)
+		classInfo.setFields(fields);
+	}
+
+	private void parseMethods(ClassInfoImpl classInfo, ConstantPool constantPool) throws IOException
+	{
+		final short methodSize = _dataInputStream.readShort();
+		MethodInfo[] methods = new MethodInfo[methodSize];
+		for(int i = 0; i < methods.length; i++)
 		{
-			String interfaceName = getClassName(constantPool, _dataInputStream.readShort());
-			ClassInfo interfaceClass = context.getClassInfoOrParse(interfaceName);
-			if(interfaceClass == null)
-			{
-				ExitUtil.exitAbnormal("class.s1.not.found", interfaceName);
-				return null;
-			}
-			interfaces[i] = interfaceClass;
-		}
-		classInfo.setInterfaces(interfaces);
+			short accessFlags = _dataInputStream.readShort();
+			short nameIndex = _dataInputStream.readShort();
+			short descIndex = _dataInputStream.readShort();
+			//()V
+			String desc = getSimpleUtf8Name(constantPool, descIndex);
 
-		return classInfo;
+			ClassInfo returnType = parseType(_vmContext, new StringCharReader(desc.substring(desc.indexOf(')') + 1, desc.length())));
+
+			ClassInfo[] parameters = parseMethodSignature(_vmContext, desc.substring(1, desc.indexOf(')'))) ;
+
+			MethodInfoImpl methodInfo = new MethodInfoImpl(returnType, parameters, getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
+			methods[i] = methodInfo;
+			short attributeSize = _dataInputStream.readShort();
+			for(int j = 0; j < attributeSize; j++)
+			{
+				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
+				if(attributeName.equals(ReflectInfo.SIGNATURE))
+				{
+
+				}
+				else
+					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+			}
+			break;
+		}
+
+		classInfo.setMethods(methods);
+	}
+
+	private static ClassInfo[] parseMethodSignature(VmContext vmContext, String sig)
+	{
+		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
+		StringCharReader reader = new StringCharReader(sig);
+		while(reader.hasNext())
+			parameters.add(parseType(vmContext, reader));
+
+		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
+	}
+
+	private static ClassInfo parseType(VmContext vmContext, StringCharReader charReader)
+	{
+		char firstChar = charReader.next();
+		switch(firstChar)
+		{
+			case '[':  //array
+				int i = 1;//array size
+				while(charReader.next() == firstChar)
+					i ++;
+
+				charReader.back(); //need go back after while
+
+				ClassInfo arrayTypeInfo = parseType(vmContext, charReader);
+
+				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo);
+				if(i > 1)
+					for(int a = 1; a < i; a++)
+						arrayClass = new ArrayClassInfoImpl(arrayClass);
+
+				ClassInfo storedClassInfo = vmContext.getClass(arrayClass.getName());
+				if(storedClassInfo == null)
+					vmContext.addClassInfo(arrayClass);
+				else
+					arrayClass = storedClassInfo;
+				return arrayClass;
+			case 'J': //long
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_LONG);
+			case 'C':  //char
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_CHAR);
+			case 'B':  //byte
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_BYTE);
+			case 'D':  //double
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_DOUBLE);
+			case 'F':  //float
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_FLOAT);
+			case 'I':  //int
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_INT);
+			case 'S':  //short
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_SHORT);
+			case 'Z':  //boolean
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_BOOLEAN);
+			case 'V':  //void
+				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_VOID);
+			case 'T': //generic
+				//TODO [VISTALL] make it
+				return vmContext.getClassInfoOrParse("java.lang.Object");
+			case 'L': //class
+				StringBuilder b = new StringBuilder();
+				while(charReader.next() != ';')
+					b.append(charReader.current());
+
+				ClassInfo classInfo = vmContext.getClassInfoOrParse(b.toString().replace("/", "."));
+				if(classInfo == null)
+				{
+					ExitUtil.exitAbnormal("class.s1.not.found", b.toString());
+					return null;
+				}
+				else
+					return classInfo;
+			default:
+				LOGGER.error("unknown type: " + firstChar);
+		}
+		return null;
 	}
 
 	private static String getClassName(ConstantPool constantPool, int index)
@@ -136,5 +317,12 @@ public class ClassParser
 		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(shortValueConstant.getValue());
 
 		return utf8ValueConstant.getValue().replace("/", ".");
+	}
+
+	public static String getSimpleUtf8Name(ConstantPool constantPool, short index)
+	{
+		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(index);
+
+		return utf8ValueConstant.getValue();
 	}
 }

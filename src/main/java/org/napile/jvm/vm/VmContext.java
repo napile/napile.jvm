@@ -1,7 +1,6 @@
 package org.napile.jvm.vm;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.napile.jvm.objects.classinfo.ClassInfo;
@@ -17,10 +16,10 @@ public class VmContext
 {
 	private static final Logger LOGGER = Logger.getLogger(VmContext.class);
 
-	private Map<String, ClassInfo> _classpath = new HashMap<String, ClassInfo>();
+	private Map<String, ClassInfo> _classes = new TreeMap<String, ClassInfo>();
 	private String _mainClass;
 
-	private Map<String, FileMapping> _fileMapping = new HashMap<String, FileMapping>();
+	private Map<String, FileMapping> _fileMapping = new HashMap<String, FileMapping> ();
 
 	public VmContext()
 	{
@@ -29,7 +28,7 @@ public class VmContext
 
 	public ClassInfo getClassInfoOrParse(String name)
 	{
-		ClassInfo classInfo = _classpath.get(name);
+		ClassInfo classInfo = _classes.get(name);
 		if(classInfo != null)
 			return classInfo;
 
@@ -40,17 +39,22 @@ public class VmContext
 		return ClasspathUtil.parseClass(this, fileMapping.openSteam(), fileMapping.getName());
 	}
 
+	public ClassInfo getClass(String name)
+	{
+		return _classes.get(name);
+	}
+
 	@ForDebug
 	public void print()
 	{
 		System.out.println("ClassInfo list: ");
-		for(String name : _classpath.keySet())
+		for(String name : _classes.keySet())
 			System.out.println(name);
 	}
 
 	public void addClassInfo(ClassInfo classInfo)
 	{
-		_classpath.put(classInfo.getName(), classInfo);
+		_classes.put(classInfo.getName(), classInfo);
 	}
 
 	public void addMapping(String name, FileMapping fileMapping)

@@ -95,9 +95,9 @@ public class ClasspathUtil
 	{
 		try
 		{
-			ClassParser parser = new ClassParser(stream, name);
+			ClassParser parser = new ClassParser(vmContext, stream, name);
 
-			ClassInfo classInfo = parser.parse(vmContext);
+			ClassInfo classInfo = parser.parse();
 
 			stream.close();
 

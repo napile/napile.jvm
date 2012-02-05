@@ -6,5 +6,8 @@ package org.napile.jvm.objects.classinfo;
  */
 public interface ReflectInfo
 {
+	public static final String CONSTANT_VALUE = "ConstantValue";
+	public static final String SIGNATURE = "Signature";
 
+	String getName();
 }

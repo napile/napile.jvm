@@ -10,6 +10,16 @@ import org.napile.jvm.objects.classinfo.MethodInfo;
  */
 public interface VmInterface
 {
+	String PRIMITIVE_VOID = "void";
+	String PRIMITIVE_BOOLEAN = "boolean";
+	String PRIMITIVE_BYTE = "byte";
+	String PRIMITIVE_SHORT = "short";
+	String PRIMITIVE_INT = "int";
+	String PRIMITIVE_LONG = "long";
+	String PRIMITIVE_FLOAT = "float";
+	String PRIMITIVE_DOUBLE = "double";
+	String PRIMITIVE_CHAR = "char";
+
 	ClassInfo getClass(String name);
 
 	FieldInfo getField(ClassInfo info, String name);

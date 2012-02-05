@@ -18,7 +18,7 @@ public class ClassInfoImpl implements ClassInfo
 	private final String _name;
 	private final int _flags;
 
-	public ClassInfoImpl(String name, short flags)
+	public ClassInfoImpl(String name, int flags)
 	{
 		_name = name;
 		_flags = flags;
@@ -62,6 +62,11 @@ public class ClassInfoImpl implements ClassInfo
 	public void setInterfaces(ClassInfo[] interfaces)
 	{
 		_interfaces = interfaces;
+	}
+
+	public void setFields(FieldInfo[] fs)
+	{
+		_fields = fs;
 	}
 
 	public void setMethods(MethodInfo[] methods)
