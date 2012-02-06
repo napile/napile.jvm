@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.napile.jvm.bytecode.Instruction;
+import org.napile.jvm.bytecode.InstructionFactory;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
@@ -47,7 +49,7 @@ public class ClassParser
 		int magic = _dataInputStream.readInt();
 		if(magic != ClassInfo.MAGIC_HEADER)
 		{
-			ExitUtil.exitAbnormal("Invalid header of file. File: " + _name);
+			ExitUtil.exitAbnormal(null, "Invalid header of file. File: " + _name);
 			return null;
 		}
 
@@ -55,7 +57,7 @@ public class ClassParser
 		int majorVersion = _dataInputStream.readUnsignedShort();
 		if(!VmUtil.isSupported(majorVersion, minorVersion))
 		{
-			ExitUtil.exitAbnormal("Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
+			ExitUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
 			return null;
 		}
 
@@ -72,7 +74,7 @@ public class ClassParser
 		int magic = _dataInputStream.readInt();
 		if(magic != ClassInfo.MAGIC_HEADER)
 		{
-			ExitUtil.exitAbnormal("Invalid header of file. File: " + _name);
+			ExitUtil.exitAbnormal(null, "Invalid header of file. File: " + _name);
 			return null;
 		}
 
@@ -80,7 +82,7 @@ public class ClassParser
 		int majorVersion = _dataInputStream.readUnsignedShort();
 		if(!VmUtil.isSupported(majorVersion, minorVersion))
 		{
-			ExitUtil.exitAbnormal("Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
+			ExitUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
 			return null;
 		}
 
@@ -96,7 +98,7 @@ public class ClassParser
 			ClassInfo superClass = _vmContext.getClassInfoOrParse(superClassName);
 			if(superClass == null)
 			{
-				ExitUtil.exitAbnormal("class.s1.not.found", superClassName);
+				ExitUtil.exitAbnormal(null, "class.s1.not.found", superClassName);
 				return null;
 			}
 			classInfo.setSuperClass(superClass);
@@ -110,7 +112,7 @@ public class ClassParser
 			ClassInfo interfaceClass = _vmContext.getClassInfoOrParse(interfaceName);
 			if(interfaceClass == null)
 			{
-				ExitUtil.exitAbnormal("class.s1.not.found", interfaceName);
+				ExitUtil.exitAbnormal(null, "class.s1.not.found", interfaceName);
 				return null;
 			}
 			interfaces[i] = interfaceClass;
@@ -166,7 +168,7 @@ public class ClassParser
 					constant = new ShortShortConstant(_dataInputStream.readShort(), _dataInputStream.readShort());
 					break;
 				default:
-					ExitUtil.exitAbnormal("Unknown constant pool type: " + type + ". File: " + _name);
+					ExitUtil.exitAbnormal(null, "Unknown constant pool type: " + type + ". File: " + _name);
 					break;
 			}
 
@@ -198,7 +200,7 @@ public class ClassParser
 					short index = _dataInputStream.readShort();
 					Constant constant = constantPool.getConstant(index);
 					if(!(constant instanceof ValueConstant))
-						ExitUtil.exitAbnormal("invalid.constant.value.class.s1", classInfo.getName());
+						ExitUtil.exitAbnormal(null, "invalid.constant.value.class.s1", classInfo.getName());
 					else
 						fieldInfo.setValue(((ValueConstant) constant).getValue());
 				}
@@ -209,7 +211,7 @@ public class ClassParser
 					Constant constant = constantPool.getConstant(index);
 
 					if(!(constant instanceof ValueConstant))
-						ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+						ExitUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
 					else
 					{
 						//TODO [VISTALL] make it
@@ -225,7 +227,7 @@ public class ClassParser
 					_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
 				}
 				else
-					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+					ExitUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
 			}
 		}
 
@@ -261,7 +263,7 @@ public class ClassParser
 					Constant constant = constantPool.getConstant(index);
 
 					if(!(constant instanceof ValueConstant))
-						ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+						ExitUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
 					else
 					{
 						//TODO [VISTALL] make it
@@ -290,6 +292,7 @@ public class ClassParser
 
 					byte[] btArray = new byte[codeLen];
 					_dataInputStream.readFully(btArray);
+					Instruction[] instructions = InstructionFactory.parseByteCode(_name, btArray);
 					//aLocalMethod.setBytes(btArray);
 
 					// exception_table_length
@@ -323,7 +326,7 @@ public class ClassParser
 					_dataInputStream.readInt(); // must be zero?
 				}
 				else
-					ExitUtil.exitAbnormal("invalid.attribute.class.s1", attributeName, classInfo.getName());
+					ExitUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
 			}
 			//break;
 		}
@@ -363,7 +366,7 @@ public class ClassParser
 				}
 			}
 			else
-				ExitUtil.exitAbnormal("invalid.attribute.class.s1", codeAttributeName, classInfo.getName());
+				ExitUtil.exitAbnormal(null, "invalid.attribute.class.s1", codeAttributeName, classInfo.getName());
 		}
 	}
 
@@ -392,7 +395,7 @@ public class ClassParser
 				ClassInfo arrayTypeInfo = parseType(vmContext, charReader);
 				if(arrayTypeInfo == null)
 				{
-					ExitUtil.exitAbnormal("class.s1.not.found", charReader);
+					ExitUtil.exitAbnormal(null, "class.s1.not.found", charReader);
 					return null;
 				}
 
@@ -437,7 +440,7 @@ public class ClassParser
 				ClassInfo classInfo = vmContext.getClassInfoOrParse(text);
 				if(classInfo == null)
 				{
-					ExitUtil.exitAbnormal("class.s1.not.found", text);
+					ExitUtil.exitAbnormal(null, "class.s1.not.found", text);
 					return null;
 				}
 				else

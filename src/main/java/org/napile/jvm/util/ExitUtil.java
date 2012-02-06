@@ -11,10 +11,10 @@ public class ExitUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(ExitUtil.class);
 
-	public static void exitAbnormal(String value, Object... arg)
+	public static void exitAbnormal(Exception e, String value, Object... arg)
 	{
 		if(value != null)
-			LOGGER.error(LocalizeMaker.getInstance().makeString(value, arg), new Error());
+			LOGGER.error(LocalizeMaker.getInstance().makeString(value, arg), e == null ? new Error() : e);
 
 		System.exit(-1);
 	}

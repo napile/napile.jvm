@@ -34,7 +34,7 @@ public class CLProcessor
 			{
 				if(lastOption != null)
 				{
-					ExitUtil.exitAbnormal("Not find value for option: " + lastOption.getOptionName());
+					ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
 					return null;
 				}
 
@@ -52,7 +52,7 @@ public class CLProcessor
 
 		if(lastOption != null)
 		{
-			ExitUtil.exitAbnormal("Not find value for option: " + lastOption.getOptionName());
+			ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
 			return null;
 		}
 		return context;

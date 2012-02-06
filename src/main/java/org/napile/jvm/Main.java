@@ -30,7 +30,7 @@ public class Main
 		VmContext vmContext = p.process();
 		if(vmContext.getMainClass() == null)
 		{
-			ExitUtil.exitAbnormal("Not find main class.");
+			ExitUtil.exitAbnormal(null, "Not find main class.");
 			return;
 		}
 
@@ -40,14 +40,14 @@ public class Main
 		ClassInfo mainClass = vmInterface.getClass(vmContext.getMainClass());
 		if(mainClass == null)
 		{
-			ExitUtil.exitAbnormal("class.s1.not.found", vmContext.getMainClass());
+			ExitUtil.exitAbnormal(null, "class.s1.not.found", vmContext.getMainClass());
 			return;
 		}
 
 		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", "java.lang.String[]");
 		if(methodInfo == null)
 		{
-			ExitUtil.exitAbnormal("not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
+			ExitUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
 			return;
 		}
 
