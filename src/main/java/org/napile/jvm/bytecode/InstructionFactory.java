@@ -4,6 +4,9 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jreversepro.jvm.JVMInstructionSet;
+import org.napile.jvm.bytecode.impl.wide;
+import org.napile.jvm.util.DumpUtil;
 import org.napile.jvm.util.ExitUtil;
 import com.sun.tools.javac.jvm.Mneumonics;
 
@@ -13,14 +16,19 @@ import com.sun.tools.javac.jvm.Mneumonics;
  */
 public class InstructionFactory
 {
-	public static Instruction[] parseByteCode(String name, byte[] data)
+	public static Instruction[] parseByteCode(String name, String methodName, byte[] data)
 	{
 		List<Instruction> instructions = new ArrayList<Instruction>(data.length / 2);
 
 		ByteBuffer byteBuffer = ByteBuffer.wrap(data);
 
+		List<String> parsed = new ArrayList<String>(instructions.size());
+
+		Instruction currentInstruction = null;
+		
 		while(byteBuffer.hasRemaining())
 		{
+			int oldPos = byteBuffer.position();
 			int opcode = byteBuffer.get() & 0xFF;
 
 			try
@@ -31,8 +39,21 @@ public class InstructionFactory
 
 				Instruction instruction = (Instruction)instClass.newInstance();
 
-				instruction.parseData(byteBuffer);
+				boolean iswide = currentInstruction instanceof wide;
 
+				instruction.parseData(byteBuffer, iswide);
+
+				int diff = byteBuffer.position() - oldPos;
+				parsed.add(byteBuffer.position() + " <" + Integer.toHexString(opcode).toUpperCase() + "> " + instClass.getName() + ": " + (diff - 1));
+
+				int size = JVMInstructionSet.getOpcodeLength(opcode, iswide);
+				if(diff != size)
+				{
+					System.out.println("incorrect lenght for: " + instClass.getName() + " need " + (size - 1)+ " get " + (diff - 1) + " wide: " + iswide);
+					System.exit(-1);
+				}
+
+				currentInstruction = instruction;
 				instructions.add(instruction);
 			}
 			catch(Exception e)
@@ -48,7 +69,11 @@ public class InstructionFactory
 					code = e1.getClass().getName();
 				}
 
-				ExitUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3", code, name, byteBuffer.position());
+				for(String in : parsed)
+					System.out.println(in);
+
+				System.out.println(DumpUtil.printData(data, data.length));
+				ExitUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3.method.s4", code, name, byteBuffer.position(), methodName);
 				break;
 			}
 		}

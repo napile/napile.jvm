@@ -12,7 +12,7 @@ import org.napile.jvm.vm.VmInterface;
 public class dconst_1 implements Instruction
 {
 	@Override
-	public void parseData(ByteBuffer buffer)
+	public void parseData(ByteBuffer buffer, boolean wide)
 	{
 
 	}

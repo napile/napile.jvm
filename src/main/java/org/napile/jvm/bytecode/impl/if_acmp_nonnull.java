@@ -12,9 +12,9 @@ import org.napile.jvm.vm.VmInterface;
 public class if_acmp_nonnull implements Instruction
 {
 	@Override
-	public void parseData(ByteBuffer buffer)
+	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-
+		buffer.getShort();
 	}
 
 	@Override

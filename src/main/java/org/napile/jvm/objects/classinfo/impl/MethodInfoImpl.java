@@ -58,4 +58,20 @@ public class MethodInfoImpl implements MethodInfo
 	{
 		return _parameters;
 	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder b = new StringBuilder();
+		b.append(_returnType.getName()).append(" ");
+		b.append(getName()).append("(");
+		for(int i = 0; i < _parameters.length; i++)
+		{
+			b.append(_parameters[i].getName());
+			if(i != (_parameters.length - 1))
+				b.append(", ");
+		}
+		b.append(")") ;
+		return b.toString();
+	}
 }

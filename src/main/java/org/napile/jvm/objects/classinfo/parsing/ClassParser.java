@@ -292,7 +292,7 @@ public class ClassParser
 
 					byte[] btArray = new byte[codeLen];
 					_dataInputStream.readFully(btArray);
-					Instruction[] instructions = InstructionFactory.parseByteCode(_name, btArray);
+					Instruction[] instructions = InstructionFactory.parseByteCode(_name, methodInfo.toString(), btArray);
 					//aLocalMethod.setBytes(btArray);
 
 					// exception_table_length

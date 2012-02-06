@@ -12,9 +12,10 @@ import org.napile.jvm.vm.VmInterface;
 public class invokeinterface implements Instruction
 {
 	@Override
-	public void parseData(ByteBuffer buffer)
+	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-
+		buffer.getShort();
+		buffer.getShort();
 	}
 
 	@Override

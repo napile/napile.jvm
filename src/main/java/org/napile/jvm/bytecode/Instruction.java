@@ -10,7 +10,7 @@ import org.napile.jvm.vm.VmInterface;
  */
 public interface Instruction
 {
-	void parseData(ByteBuffer buffer);
+	void parseData(ByteBuffer buffer, boolean wide);
 
 	void call(VmInterface vmInterface);
 }
