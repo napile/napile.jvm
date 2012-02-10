@@ -16,6 +16,8 @@ public class MethodInfoImpl implements MethodInfo
 
 	private ClassInfo[] _throwExceptions;
 
+	private byte[] _bytecode;
+
 	public MethodInfoImpl(ClassInfo returnType, ClassInfo[] parameters, String name, short flags)
 	{
 		_returnType = returnType;
@@ -73,5 +75,15 @@ public class MethodInfoImpl implements MethodInfo
 		}
 		b.append(")") ;
 		return b.toString();
+	}
+
+	public byte[] getBytecode()
+	{
+		return _bytecode;
+	}
+
+	public void setBytecode(byte[] bytecode)
+	{
+		_bytecode = bytecode;
 	}
 }

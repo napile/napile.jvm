@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.napile.jvm.bytecode.Instruction;
-import org.napile.jvm.bytecode.InstructionFactory;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
@@ -19,9 +17,9 @@ import org.napile.jvm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.jvm.objects.classinfo.impl.MethodInfoImpl;
 import org.napile.jvm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.jvm.objects.classinfo.parsing.constantpool.value.*;
+import org.napile.jvm.util.ClasspathUtil;
 import org.napile.jvm.util.ExitUtil;
 import org.napile.jvm.util.StringCharReader;
-import org.napile.jvm.vm.VmContext;
 import org.napile.jvm.vm.VmInterface;
 import org.napile.jvm.vm.VmUtil;
 
@@ -35,11 +33,11 @@ public class ClassParser
 
 	private final DataInputStream _dataInputStream;
 	private String _name;
-	private VmContext _vmContext;
+	private VmInterface _vmInterface;
 
-	public ClassParser(VmContext vmContext, InputStream stream, String name)
+	public ClassParser(VmInterface vmInterface, InputStream stream, String name)
 	{
-		_vmContext = vmContext;
+		_vmInterface = vmInterface;
 		_dataInputStream = new DataInputStream(stream);
 		_name = name;
 	}
@@ -92,10 +90,10 @@ public class ClassParser
 		final String className = getClassName(constantPool, _dataInputStream.readShort());
 		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
 		ClassInfoImpl classInfo = new ClassInfoImpl(className, access);
-		_vmContext.addClassInfo(classInfo); ///need add fist - for circle depends
+		_vmInterface.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
 		if(superClassName != null)
 		{
-			ClassInfo superClass = _vmContext.getClassInfoOrParse(superClassName);
+			ClassInfo superClass = ClasspathUtil.getClassInfoOrParse(_vmInterface, superClassName);
 			if(superClass == null)
 			{
 				ExitUtil.exitAbnormal(null, "class.s1.not.found", superClassName);
@@ -109,7 +107,7 @@ public class ClassParser
 		for(int i = 0; i < interfacesSize; i++)
 		{
 			String interfaceName = getClassName(constantPool, _dataInputStream.readShort());
-			ClassInfo interfaceClass = _vmContext.getClassInfoOrParse(interfaceName);
+			ClassInfo interfaceClass = ClasspathUtil.getClassInfoOrParse(_vmInterface, interfaceName);
 			if(interfaceClass == null)
 			{
 				ExitUtil.exitAbnormal(null, "class.s1.not.found", interfaceName);
@@ -188,7 +186,7 @@ public class ClassParser
 			short nameIndex = _dataInputStream.readShort();
 			short descIndex = _dataInputStream.readShort();
 
-			FieldInfoImpl fieldInfo = new FieldInfoImpl(parseType(_vmContext, new StringCharReader(getSimpleUtf8Name(constantPool, descIndex))), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
+			FieldInfoImpl fieldInfo = new FieldInfoImpl(parseType(_vmInterface, new StringCharReader(getSimpleUtf8Name(constantPool, descIndex))), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			fields[i] = fieldInfo;
 			short attributeSize = _dataInputStream.readShort();
 			for(int j = 0; j < attributeSize; j++)
@@ -246,9 +244,9 @@ public class ClassParser
 			//()V
 			String desc = getSimpleUtf8Name(constantPool, descIndex);
 
-			ClassInfo returnType = parseType(_vmContext, new StringCharReader(desc.substring(desc.indexOf(')') + 1, desc.length())));
+			ClassInfo returnType = parseType(_vmInterface, new StringCharReader(desc.substring(desc.indexOf(')') + 1, desc.length())));
 
-			ClassInfo[] parameters = parseMethodSignature(_vmContext, desc.substring(1, desc.indexOf(')')));
+			ClassInfo[] parameters = parseMethodSignature(_vmInterface, desc.substring(1, desc.indexOf(')')));
 
 			MethodInfoImpl methodInfo = new MethodInfoImpl(returnType, parameters, getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			methods[i] = methodInfo;
@@ -275,7 +273,7 @@ public class ClassParser
 					short numException = _dataInputStream.readShort();
 					ClassInfo[] throwsClassInfo = new ClassInfo[numException];
 					for(int a = 0; a < numException; a++)
-						throwsClassInfo[a] = _vmContext.getClassInfoOrParse(getClassName(constantPool, _dataInputStream.readShort()));
+						throwsClassInfo[a] = ClasspathUtil.getClassInfoOrParse(_vmInterface, getClassName(constantPool, _dataInputStream.readShort()));
 					methodInfo.setThrowExceptions(throwsClassInfo);
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_CODE))
@@ -292,7 +290,8 @@ public class ClassParser
 
 					byte[] btArray = new byte[codeLen];
 					_dataInputStream.readFully(btArray);
-					Instruction[] instructions = InstructionFactory.parseByteCode(_name, methodInfo.toString(), btArray);
+					methodInfo.setBytecode(btArray);
+
 					//aLocalMethod.setBytes(btArray);
 
 					// exception_table_length
@@ -370,17 +369,17 @@ public class ClassParser
 		}
 	}
 
-	private static ClassInfo[] parseMethodSignature(VmContext vmContext, String sig)
+	private static ClassInfo[] parseMethodSignature(VmInterface vmInterface, String sig)
 	{
 		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
 		StringCharReader reader = new StringCharReader(sig);
 		while(reader.hasNext())
-			parameters.add(parseType(vmContext, reader));
+			parameters.add(parseType(vmInterface, reader));
 
 		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
 	}
 
-	private static ClassInfo parseType(VmContext vmContext, StringCharReader charReader)
+	private static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
 	{
 		char firstChar = charReader.next();
 		switch(firstChar)
@@ -392,7 +391,7 @@ public class ClassParser
 
 				charReader.back(); //need go back after while
 
-				ClassInfo arrayTypeInfo = parseType(vmContext, charReader);
+				ClassInfo arrayTypeInfo = parseType(vmInterface, charReader);
 				if(arrayTypeInfo == null)
 				{
 					ExitUtil.exitAbnormal(null, "class.s1.not.found", charReader);
@@ -404,40 +403,40 @@ public class ClassParser
 					for(int a = 1; a < i; a++)
 						arrayClass = new ArrayClassInfoImpl(arrayClass);
 
-				ClassInfo storedClassInfo = vmContext.getClass(arrayClass.getName());
+				ClassInfo storedClassInfo = vmInterface.getCurrentClassLoader().forName(arrayClass.getName());
 				if(storedClassInfo == null)
-					vmContext.addClassInfo(arrayClass);
+					vmInterface.getCurrentClassLoader().addClassInfo(arrayClass);
 				else
 					arrayClass = storedClassInfo;
 				return arrayClass;
 			case 'J': //long
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_LONG);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_LONG);
 			case 'C':  //char
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_CHAR);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_CHAR);
 			case 'B':  //byte
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_BYTE);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BYTE);
 			case 'D':  //double
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_DOUBLE);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_DOUBLE);
 			case 'F':  //float
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_FLOAT);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_FLOAT);
 			case 'I':  //int
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_INT);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_INT);
 			case 'S':  //short
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_SHORT);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_SHORT);
 			case 'Z':  //boolean
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_BOOLEAN);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BOOLEAN);
 			case 'V':  //void
-				return vmContext.getClassInfoOrParse(VmInterface.PRIMITIVE_VOID);
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_VOID);
 			case 'T': //generic
 				//TODO [VISTALL] make it
-				return vmContext.getClassInfoOrParse("java.lang.Object");
+				return vmInterface.getBootClassLoader().forName("java.lang.Object");
 			case 'L': //class
 				StringBuilder b = new StringBuilder();
 				while(charReader.next() != ';')
 					b.append(charReader.current());
 
 				String text = b.toString().replace("/", ".");
-				ClassInfo classInfo = vmContext.getClassInfoOrParse(text);
+				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, text);
 				if(classInfo == null)
 				{
 					ExitUtil.exitAbnormal(null, "class.s1.not.found", text);

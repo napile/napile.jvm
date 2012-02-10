@@ -1,217 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c365661b-bac9-4559-9ab6-16d25c2c80b3" name="Default" comment="starting work on bytecode parsing">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/DumpUtil.java" />
+    <list default="true" id="c365661b-bac9-4559-9ab6-16d25c2c80b3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/classpath/rt.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/classpath/test/Main.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/Instruction.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/Instruction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/classpath/test/Main.java" afterPath="$PROJECT_DIR$/dist/classpath/test/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aaload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aaload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aconst_null.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aconst_null.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/aload_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/anewarray.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/anewarray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/areturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/areturn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/arraylength.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/arraylength.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/astore_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/athrow.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/athrow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/baload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/baload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/bastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/bastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/bipush.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/bipush.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/breakpoint.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/breakpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/caload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/caload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/castore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/castore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/checkcast.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/checkcast.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2f.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2i.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2i.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2l.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/d2l.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dadd.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dadd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/daload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/daload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dcmpg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dcmpg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dcmpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dcmpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dconst_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dconst_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dconst_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dconst_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ddiv.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ddiv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dload_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dmod.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dmod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dmul.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dmul.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dneg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dneg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dreturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dreturn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dstore_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dsub.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dsub.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2_x1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2_x1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2_x2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup2_x2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup_x1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup_x1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup_x2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/dup_x2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2d.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2d.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2i.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2i.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2l.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/f2l.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fadd.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fadd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/faload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/faload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fcmpg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fcmpg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fcmpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fcmpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fconst_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fdiv.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fdiv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fload_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fmod.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fmod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fmul.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fmul.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fneg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fneg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/freturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/freturn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fstore_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fsub.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/fsub.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/getfield.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/getfield.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/getstatic.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/getstatic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/goto_.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/goto_.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/goto_w.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/goto_w.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2d.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2d.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2f.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2l.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/i2l.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iadd.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iadd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iaload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iaload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iand.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_4.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_4.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_5.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_5.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_m1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iconst_m1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/idiv.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/idiv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmp_nonnull.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmp_nonnull.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmp_null.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmp_null.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmpeq.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmpeq.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmpne.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_acmpne.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpeq.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpeq.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpge.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpgt.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpgt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmple.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmple.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmplt.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmplt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpne.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpne.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifeq.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifeq.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifge.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifgt.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifgt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifle.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iflt.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iflt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifne.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifne.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iinc.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iinc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/imod.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/imod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/imul.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/imul.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ineg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ineg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/instanceof_.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/instanceof_.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2byte.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2byte.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2char.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2char.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2short.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/int2short.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokedynamic.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokedynamic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokeinterface.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokeinterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokespecial.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokespecial.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokestatic.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokestatic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokevirtual.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/invokevirtual.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ior.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ior.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ireturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ireturn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ishl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ishl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ishr.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ishr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/isub.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/isub.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iushr.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iushr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ixor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ixor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/jsr.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/jsr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/jsr_w.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/jsr_w.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2d.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2d.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2f.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2i.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/l2i.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ladd.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ladd.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/laload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/laload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/land.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/land.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lcmp.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lcmp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lconst_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lconst_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lconst_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lconst_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc2w.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc2w.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldiv.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldiv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lmod.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lmod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lmul.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lmul.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lneg.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lneg.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lookupswitch.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lookupswitch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lreturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lreturn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lshl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lshl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lshr.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lshr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore_3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lsub.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lsub.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lushr.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lushr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lxor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lxor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/monitorenter.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/monitorenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/monitorexit.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/monitorexit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/multianewarray.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/multianewarray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/new_.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/new_.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/newarray.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/newarray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/nop.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/nop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/pop.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/pop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/pop2.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/pop2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/putfield.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/putfield.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/putstatic.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/putstatic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ret.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ret.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/return_.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/return_.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/saload.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/saload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/sastore.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/sastore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/sipush.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/sipush.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/swap.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/swap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/tableswitch.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/tableswitch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/wide.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/wide.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/LocalizeMaker.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/LocalizeMaker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/FieldInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/FieldInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/FieldInfoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/FieldInfoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
     </list>
     <ignored path="napile-jvm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -272,58 +84,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="InstructionFactory.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java">
+      <file leaf-file-name="ClasspathUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="84" selection-start="112" selection-end="112" vertical-scroll-proportion="0.07589286">
-              <folding>
-                <element signature="e#546#559#0" expanded="true" />
-                <element signature="e#666#674#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lstore.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="21" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0">
+            <state line="114" column="0" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lload.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="21" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClassParser.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ClassParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="294" column="110" selection-start="10391" selection-end="10391" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VmContext.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MethodInfoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="28" selection-start="1425" selection-end="1425" vertical-scroll-proportion="0.0">
+            <state line="381" column="85" selection-start="13429" selection-end="13429" vertical-scroll-proportion="-0.3601359">
               <folding />
             </state>
           </provider>
@@ -347,22 +120,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/if_icmpeq.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ldc2w.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/ifgt.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/anewarray.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/jreversepro/jvm/Opcodes.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iinc.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/LocalizeMaker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/FileMapping.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ParsingObj.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ParsingObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/DumpUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/multianewarray.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" />
       </list>
     </option>
   </component>
@@ -400,8 +173,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -431,14 +204,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -491,6 +256,86 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -646,15 +491,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="objects" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classinfo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="parsing" />
+              <option name="myItemId" value="classloader" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -692,91 +529,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="nativeimpl" />
+              <option name="myItemId" value="classloader" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lang" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile-jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile-jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="localize" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile-jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile-jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="napile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bytecode" />
+              <option name="myItemId" value="impl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -835,14 +592,6 @@
               <option name="myItemId" value="org" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jreversepro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jvm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -865,24 +614,18 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sun" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javac" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jvm" />
+              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -893,14 +636,14 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="290" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="308" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="304" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="304" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="309" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="979" />
@@ -922,8 +665,8 @@
     <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig" persistUploadOnCheckin="false" />
   <component name="RecentsManager">
@@ -932,14 +675,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="GenFiles" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="GenFiles" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.napile.jvm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.napile.jvm.Main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-cp ./classpath/ test.Main" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/dist" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -1039,37 +787,8 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="false" name="Main" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.napile.jvm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="org.napile.jvm.Main" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-cp classpath/ test.Main" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/dist" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="napile-jvm" />
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.GenFiles" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -1129,7 +848,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21764092" sideWeight="0.6710098" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2171875" sideWeight="0.6710098" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44299674" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40173724" sideWeight="0.4984375" order="9" side_tool="true" content_ui="tabs" />
@@ -1141,7 +860,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.265625" sideWeight="0.55700326" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24479167" sideWeight="0.55700326" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40173724" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1183,7 +902,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting work on bytecode parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="some support for wide bytecodes &#10;some data parsing in instructions" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1201,6 +920,7 @@
     <MESSAGE value="now .class files dont load at start - lazy load&#10;added implementation of VmInterface.getMethod&#10;added dummy parsing of method attributes" />
     <MESSAGE value="some rework api of VmInterface" />
     <MESSAGE value="starting work on bytecode parsing" />
+    <MESSAGE value="some support for wide bytecodes &#10;some data parsing in instructions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1219,118 +939,115 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/Instruction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ExitUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="172" selection-end="172" vertical-scroll-proportion="0.15178572">
+        <state line="16" column="0" selection-start="357" selection-end="357" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iinc.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/FileMapping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0">
+        <state line="8" column="17" selection-start="162" selection-end="162" vertical-scroll-proportion="0.15178572">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/istore.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="25" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0">
+        <state line="20" column="36" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/iload.java">
+    <entry file="jar://G:/programs/JDK/src.zip!/java/util/zip/ZipFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="25" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0">
+        <state line="142" column="11" selection-start="5120" selection-end="5120" vertical-scroll-proportion="-4.9765625">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/nop.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="216" selection-end="216" vertical-scroll-proportion="0.27868852">
+        <state line="25" column="16" selection-start="546" selection-end="546" vertical-scroll-proportion="0.3549107">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/LocalizeMaker.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="65" selection-start="552" selection-end="607" vertical-scroll-proportion="0.0">
+        <state line="44" column="45" selection-start="974" selection-end="974" vertical-scroll-proportion="0.73995537">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/DumpUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="21" selection-start="363" selection-end="363" vertical-scroll-proportion="0.73155737">
+        <state line="29" column="22" selection-start="796" selection-end="796" vertical-scroll-proportion="0.36049107">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="81" selection-start="117" selection-end="117" vertical-scroll-proportion="0.03794643">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="49" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="51" selection-start="552" selection-end="552" vertical-scroll-proportion="0.50421584">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="131" selection-end="131" vertical-scroll-proportion="0.27868852">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="625" selection-end="625" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
+        <state line="14" column="62" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="26" selection-start="407" selection-end="407" vertical-scroll-proportion="0.45286885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="294" column="110" selection-start="10391" selection-end="10391" vertical-scroll-proportion="0.0">
+        <state line="381" column="85" selection-start="13429" selection-end="13429" vertical-scroll-proportion="-0.3601359">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lstore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="21" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lload.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="21" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jreversepro/jvm/Opcodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="27" selection-start="5301" selection-end="5320" vertical-scroll-proportion="0.141217">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jreversepro/jvm/JVMInstructionSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="694" column="39" selection-start="13419" selection-end="13431" vertical-scroll-proportion="0.33295062">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="28" selection-start="1425" selection-end="1425" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/multianewarray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="21" selection-start="362" selection-end="362" vertical-scroll-proportion="0.265625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="84" selection-start="112" selection-end="112" vertical-scroll-proportion="0.07589286">
-          <folding>
-            <element signature="e#546#559#0" expanded="true" />
-            <element signature="e#666#674#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jreversepro.jvm.JVMInstructionSet;
+import org.napile.jvm.bytecode.impl.lookupswitch;
 import org.napile.jvm.bytecode.impl.wide;
 import org.napile.jvm.util.DumpUtil;
 import org.napile.jvm.util.ExitUtil;
@@ -40,6 +41,8 @@ public class InstructionFactory
 				Instruction instruction = (Instruction)instClass.newInstance();
 
 				boolean iswide = currentInstruction instanceof wide;
+				if(instruction instanceof lookupswitch)
+					throw new Exception();
 
 				instruction.parseData(byteBuffer, iswide);
 

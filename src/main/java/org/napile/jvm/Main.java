@@ -27,14 +27,16 @@ public class Main
 
 		CLProcessor p = new CLProcessor(args);
 
-		VmContext vmContext = p.process();
+		VmContext vmContext = new VmContext();
+		VmInterface vmInterface = new VmInterfaceImpl(vmContext);
+
+		p.process(vmInterface);
 		if(vmContext.getMainClass() == null)
 		{
 			ExitUtil.exitAbnormal(null, "Not find main class.");
 			return;
 		}
 
-		VmInterface vmInterface = new VmInterfaceImpl(vmContext);
 		VmUtil.initBootStrap(vmInterface);
 
 		ClassInfo mainClass = vmInterface.getClass(vmContext.getMainClass());
@@ -51,6 +53,9 @@ public class Main
 			return;
 		}
 
+		System.out.println(vmInterface.getBootClassLoader().getLoadedClasses().size());
+
+		//Instruction[] instructions = InstructionFactory.parseByteCode("test", methodInfo.toString(), ((MethodInfoImpl)methodInfo).getBytecode());
 		//if(LOGGER.isDebugEnabled())
 		//	vmContext.print();
 	}

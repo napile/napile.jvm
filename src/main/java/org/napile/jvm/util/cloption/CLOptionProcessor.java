@@ -1,6 +1,6 @@
 package org.napile.jvm.util.cloption;
 
-import org.napile.jvm.vm.VmContext;
+import org.napile.jvm.vm.VmInterface;
 
 /**
  * @author VISTALL
@@ -8,5 +8,5 @@ import org.napile.jvm.vm.VmContext;
  */
 public interface CLOptionProcessor
 {
-	void process(VmContext context, String value);
+	void process(VmInterface vmInterface, String value);
 }

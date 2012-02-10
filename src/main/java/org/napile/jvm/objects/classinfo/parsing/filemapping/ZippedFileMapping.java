@@ -24,9 +24,10 @@ public class ZippedFileMapping implements FileMapping
 	@Override
 	public InputStream openSteam()
 	{
+		ZipFile zipFile = null;
 		try
 		{
-			ZipFile zipFile = new ZipFile(_zipFile);
+			zipFile = new ZipFile(_zipFile);
 			ZipEntry entry = zipFile.getEntry(_entryName);
 
 			return zipFile.getInputStream(entry);

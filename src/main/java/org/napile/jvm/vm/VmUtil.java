@@ -1,7 +1,6 @@
 package org.napile.jvm.vm;
 
 import org.napile.jvm.objects.classinfo.ClassInfo;
-import org.napile.jvm.objects.classinfo.impl.ClassInfoImpl;
 import org.napile.jvm.objects.classinfo.impl.PrimitiveClassInfoImpl;
 import org.napile.jvm.util.AssertUtil;
 
@@ -40,14 +39,7 @@ public class VmUtil
 	{
 		ClassInfo classInfo = new PrimitiveClassInfoImpl(name);
 
-		vmInterface.getVmContext().addClassInfo(classInfo);
-	}
-
-	public static void makeArrayType(String name, VmInterface vmInterface)
-	{
-		ClassInfo classInfo = new ClassInfoImpl(name, 0);
-
-		vmInterface.getVmContext().addClassInfo(classInfo);
+		vmInterface.getBootClassLoader().addClassInfo(classInfo);
 	}
 
 	public static boolean isSupported(int major, int minor)

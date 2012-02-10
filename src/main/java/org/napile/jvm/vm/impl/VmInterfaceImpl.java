@@ -1,9 +1,12 @@
 package org.napile.jvm.vm.impl;
 
+import org.napile.jvm.classloader.JClassLoader;
+import org.napile.jvm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.jvm.objects.Flags;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
+import org.napile.jvm.util.ClasspathUtil;
 import org.napile.jvm.vm.VmContext;
 import org.napile.jvm.vm.VmInterface;
 
@@ -15,6 +18,9 @@ public class VmInterfaceImpl implements VmInterface
 {
 	private VmContext _vmContext;
 
+	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
+	private JClassLoader _currentClassLoader = _bootClassLoader;
+
 	public VmInterfaceImpl(VmContext vmContext)
 	{
 		_vmContext = vmContext;
@@ -23,7 +29,9 @@ public class VmInterfaceImpl implements VmInterface
 	@Override
 	public ClassInfo getClass(String name)
 	{
-		return _vmContext.getClassInfoOrParse(name);
+		ClassInfo classInfo = _currentClassLoader.forName(name);
+
+		return classInfo == null ? ClasspathUtil.getClassInfoOrParse(this, name) : classInfo;
 	}
 
 	@Override
@@ -56,6 +64,18 @@ public class VmInterfaceImpl implements VmInterface
 	public VmContext getVmContext()
 	{
 		return _vmContext;
+	}
+
+	@Override
+	public JClassLoader getBootClassLoader()
+	{
+		return _bootClassLoader;
+	}
+
+	@Override
+	public JClassLoader getCurrentClassLoader()
+	{
+		return _currentClassLoader;
 	}
 
 	public static MethodInfo getMethod0(ClassInfo info, String name, String... params)

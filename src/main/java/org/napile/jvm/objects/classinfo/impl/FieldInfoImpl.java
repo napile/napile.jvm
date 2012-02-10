@@ -40,6 +40,12 @@ public class FieldInfoImpl implements FieldInfo
 		return _value;
 	}
 
+	@Override
+	public ClassInfo getType()
+	{
+		return _type;
+	}
+
 	public void setValue(Object value)
 	{
 		_value = value;

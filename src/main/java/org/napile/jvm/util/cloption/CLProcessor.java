@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Deque;
 
 import org.napile.jvm.util.ExitUtil;
-import org.napile.jvm.vm.VmContext;
+import org.napile.jvm.vm.VmInterface;
 
 /**
  * @author VISTALL
@@ -20,10 +20,8 @@ public class CLProcessor
 		_deque = new ArrayDeque<String>(Arrays.asList(arguments));
 	}
 
-	public VmContext process()
+	public void process(VmInterface vmInterface)
 	{
-		VmContext context = new VmContext();
-
 		CLOption lastOption = null;
 
 		String value = null;
@@ -35,7 +33,7 @@ public class CLProcessor
 				if(lastOption != null)
 				{
 					ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
-					return null;
+					return;
 				}
 
 				lastOption = option;
@@ -44,17 +42,13 @@ public class CLProcessor
 			{
 				CLOptionProcessor processor = (lastOption != null ? lastOption : CLOption.MAIN_CLASS).getOptionProcessor();
 
-				processor.process(context, value);
+				processor.process(vmInterface, value);
 
 				lastOption = null;
 			}
 		}
 
 		if(lastOption != null)
-		{
 			ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
-			return null;
-		}
-		return context;
 	}
 }

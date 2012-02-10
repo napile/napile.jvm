@@ -14,7 +14,19 @@ public class lookupswitch implements Instruction
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
+		buffer.getInt();
+		int result = 0;
+		
+		for(int i = 0; i < 4; i++)
+		{
+			int thisByte = buffer.get(buffer.position()) & 0xFF;
+			result += (int) (Math.pow(256, 3 - i)) * thisByte;
+		}
 
+		if(result < 0)
+			result += 256;
+
+		buffer.getInt();
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package org.napile.jvm.util.cloption;
 
 import org.napile.jvm.util.ClasspathUtil;
-import org.napile.jvm.vm.VmContext;
+import org.napile.jvm.vm.VmInterface;
 
 /**
  * @author VISTALL
@@ -12,18 +12,18 @@ public enum CLOption
 	MAIN_CLASS("-main-class", new CLOptionProcessor()
 	{
 		@Override
-		public void process(VmContext context, String value)
+		public void process(VmInterface vmInterface, String value)
 		{
-			context.setMainClass(value);
+			vmInterface.getVmContext().setMainClass(value);
 		}
 	}),
 
 	CLASSPATH("-cp", new CLOptionProcessor()
 	{
 		@Override
-		public void process(VmContext context, String value)
+		public void process(VmInterface vmInterface, String value)
 		{
-			ClasspathUtil.initClassPath(context, value);
+			ClasspathUtil.initClassPath(vmInterface, value);
 		}
 	});
 

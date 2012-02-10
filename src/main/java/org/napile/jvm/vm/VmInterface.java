@@ -1,5 +1,6 @@
 package org.napile.jvm.vm;
 
+import org.napile.jvm.classloader.JClassLoader;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
@@ -31,4 +32,8 @@ public interface VmInterface
 	MethodInfo getStaticMethod(ClassInfo info, String name, String... params);
 
 	VmContext getVmContext();
+
+	JClassLoader getBootClassLoader();
+
+	JClassLoader getCurrentClassLoader();
 }
