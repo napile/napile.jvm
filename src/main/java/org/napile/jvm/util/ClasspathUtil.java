@@ -99,6 +99,9 @@ public class ClasspathUtil
 
 	public static ClassInfo getClassInfoOrParse(VmInterface vmInterface, String name)
 	{
+		ClassInfo classInfo = vmInterface.getCurrentClassLoader().forName(name);
+		if(classInfo != null)
+			return classInfo;
 		FileMapping fileMapping = vmInterface.getVmContext().getFileMapping(name);
 		if(fileMapping == null)
 			return null;

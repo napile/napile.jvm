@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c365661b-bac9-4559-9ab6-16d25c2c80b3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/classpath/rt.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dist/classpath/test/Main.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/classpath/test/Main.java" afterPath="$PROJECT_DIR$/dist/classpath/test/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lookupswitch.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/impl/lookupswitch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/FieldInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/FieldInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/FieldInfoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/FieldInfoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/impl/MethodInfoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
@@ -84,19 +68,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ClasspathUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
+      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="0" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0">
+            <state line="39" column="42" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.4877232">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassParser.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java">
+      <file leaf-file-name="VmUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="381" column="85" selection-start="13429" selection-end="13429" vertical-scroll-proportion="-0.3601359">
+            <state line="36" column="85" selection-start="1579" selection-end="1579" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VmInterfaceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="84" column="34" selection-start="2068" selection-end="2068" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VmInterface.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="0" selection-start="981" selection-end="981" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,21 +123,21 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/FileMapping.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ParsingObj.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ParsingObject.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOptionProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLOption.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
       </list>
     </option>
   </component>
@@ -814,7 +816,7 @@
     <configuration useDefault="true">C:\Users\VISTALL\AppData\Roaming\Subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
-  <component name="SvnConfiguration17" maxAnnotateRevisions="500">
+  <component name="SvnConfiguration17" maxAnnotateRevisions="500" myUseAcceleration="nothing">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
     <option name="mySSHConnectionTimeout" value="30000" />
@@ -902,7 +904,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="some support for wide bytecodes &#10;some data parsing in instructions" />
+    <option name="LAST_COMMIT_MESSAGE" value="some preparations" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -921,6 +923,7 @@
     <MESSAGE value="some rework api of VmInterface" />
     <MESSAGE value="starting work on bytecode parsing" />
     <MESSAGE value="some support for wide bytecodes &#10;some data parsing in instructions" />
+    <MESSAGE value="some preparations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -953,13 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="36" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://G:/programs/JDK/src.zip!/java/util/zip/ZipFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="142" column="11" selection-start="5120" selection-end="5120" vertical-scroll-proportion="-4.9765625">
@@ -967,37 +963,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="16" selection-start="546" selection-end="546" vertical-scroll-proportion="0.3549107">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="45" selection-start="974" selection-end="974" vertical-scroll-proportion="0.73995537">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="22" selection-start="796" selection-end="796" vertical-scroll-proportion="0.36049107">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="81" selection-start="117" selection-end="117" vertical-scroll-proportion="0.03794643">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="49" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1016,13 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="625" selection-end="625" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="62" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
@@ -1030,23 +991,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/JClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="26" selection-start="407" selection-end="407" vertical-scroll-proportion="0.45286885">
+        <state line="12" column="0" selection-start="204" selection-end="204" vertical-scroll-proportion="0.18973215">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="0" selection-start="2898" selection-end="2898" vertical-scroll-proportion="0.0">
+        <state line="33" column="0" selection-start="688" selection-end="688" vertical-scroll-proportion="0.5066964">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/filemapping/ZippedFileMapping.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="0" selection-start="781" selection-end="781" vertical-scroll-proportion="0.73995537">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="381" column="85" selection-start="13429" selection-end="13429" vertical-scroll-proportion="-0.3601359">
+        <state line="438" column="0" selection-start="15525" selection-end="15525" vertical-scroll-proportion="0.26840317">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="36" selection-start="2723" selection-end="2723" vertical-scroll-proportion="0.41183037">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="0" selection-start="981" selection-end="981" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="34" selection-start="2068" selection-end="2068" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="85" selection-start="1579" selection-end="1579" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="42" selection-start="1059" selection-end="1059" vertical-scroll-proportion="0.4877232">
           <folding />
         </state>
       </provider>

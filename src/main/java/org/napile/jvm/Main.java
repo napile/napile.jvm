@@ -53,8 +53,6 @@ public class Main
 			return;
 		}
 
-		System.out.println(vmInterface.getBootClassLoader().getLoadedClasses().size());
-
 		//Instruction[] instructions = InstructionFactory.parseByteCode("test", methodInfo.toString(), ((MethodInfoImpl)methodInfo).getBytecode());
 		//if(LOGGER.isDebugEnabled())
 		//	vmContext.print();

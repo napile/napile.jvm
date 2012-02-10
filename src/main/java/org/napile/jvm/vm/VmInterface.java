@@ -36,4 +36,6 @@ public interface VmInterface
 	JClassLoader getBootClassLoader();
 
 	JClassLoader getCurrentClassLoader();
+
+	JClassLoader newClassLoader();
 }

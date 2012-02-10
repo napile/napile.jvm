@@ -33,6 +33,8 @@ public class VmUtil
 		AssertUtil.assertNull(vmInterface.getClass("java.lang.Throwable"));
 		AssertUtil.assertNull(vmInterface.getClass("java.lang.Exception"));
 		AssertUtil.assertNull(vmInterface.getClass("java.lang.ClassNotFoundException"));
+
+		vmInterface.newClassLoader(); // change bootstrap classpath - to new instance
 	}
 
 	public static void makePrimitiveType(String name, VmInterface vmInterface)

@@ -78,6 +78,13 @@ public class VmInterfaceImpl implements VmInterface
 		return _currentClassLoader;
 	}
 
+	@Override
+	public JClassLoader newClassLoader()
+	{
+		_currentClassLoader = new SimpleClassLoaderImpl(_currentClassLoader);
+		return _currentClassLoader;
+	}
+
 	public static MethodInfo getMethod0(ClassInfo info, String name, String... params)
 	{
 		MethodInfo returnMethod = null;
