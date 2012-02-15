@@ -6,6 +6,7 @@ public class Main
 {
 	public static void main(String... arg)
 	{
+		int b = 0;
 		int a = 0;
 		switch(a)
 		{
