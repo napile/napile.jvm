@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-import org.napile.jvm.util.ExitUtil;
+import org.napile.jvm.util.BundleUtil;
 import org.napile.jvm.vm.VmInterface;
 
 /**
@@ -32,7 +32,7 @@ public class CLProcessor
 			{
 				if(lastOption != null)
 				{
-					ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
+					BundleUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
 					return;
 				}
 
@@ -49,6 +49,6 @@ public class CLProcessor
 		}
 
 		if(lastOption != null)
-			ExitUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
+			BundleUtil.exitAbnormal(null, "Not find value for option: " + lastOption.getOptionName());
 	}
 }

@@ -7,8 +7,8 @@ import java.util.List;
 import org.jreversepro.jvm.JVMInstructionSet;
 import org.napile.jvm.bytecode.impl.lookupswitch;
 import org.napile.jvm.bytecode.impl.wide;
+import org.napile.jvm.util.BundleUtil;
 import org.napile.jvm.util.DumpUtil;
-import org.napile.jvm.util.ExitUtil;
 import com.sun.tools.javac.jvm.Mneumonics;
 
 /**
@@ -76,7 +76,7 @@ public class InstructionFactory
 					System.out.println(in);
 
 				System.out.println(DumpUtil.printData(data, data.length));
-				ExitUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3.method.s4", code, name, byteBuffer.position(), methodName);
+				BundleUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3.method.s4", code, name, byteBuffer.position(), methodName);
 				break;
 			}
 		}

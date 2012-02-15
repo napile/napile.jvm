@@ -4,6 +4,7 @@ import org.napile.jvm.classloader.JClassLoader;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
+import org.napile.jvm.objects.objectinfo.ObjectInfo;
 
 /**
  * @author VISTALL
@@ -30,6 +31,10 @@ public interface VmInterface
 	MethodInfo getMethod(ClassInfo info, String name, String... params);
 
 	MethodInfo getStaticMethod(ClassInfo info, String name, String... params);
+
+	void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
+
+	void invokeStatic(MethodInfo methodInfo, ObjectInfo... argument);
 
 	VmContext getVmContext();
 

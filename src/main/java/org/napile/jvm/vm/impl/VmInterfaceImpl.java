@@ -6,6 +6,7 @@ import org.napile.jvm.objects.Flags;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
+import org.napile.jvm.objects.objectinfo.ObjectInfo;
 import org.napile.jvm.util.ClasspathUtil;
 import org.napile.jvm.vm.VmContext;
 import org.napile.jvm.vm.VmInterface;
@@ -58,6 +59,18 @@ public class VmInterfaceImpl implements VmInterface
 	{
 		MethodInfo methodInfo = getMethod0(info, name, params);
 		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
+	}
+
+	@Override
+	public void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
+	{
+
+	}
+
+	@Override
+	public void invokeStatic(MethodInfo methodInfo, ObjectInfo... argument)
+	{
+
 	}
 
 	@Override

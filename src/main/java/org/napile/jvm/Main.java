@@ -2,10 +2,9 @@ package org.napile.jvm;
 
 import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
-import org.napile.jvm.localize.LocalizeMaker;
+import org.napile.jvm.util.BundleUtil;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
-import org.napile.jvm.util.ExitUtil;
 import org.napile.jvm.util.cloption.CLProcessor;
 import org.napile.jvm.vm.VmContext;
 import org.napile.jvm.vm.VmInterface;
@@ -18,12 +17,23 @@ import org.napile.jvm.vm.impl.VmInterfaceImpl;
  */
 public class Main
 {
-	private static final Logger LOGGER = Logger.getLogger(ExitUtil.class);
+	public static final Logger LOGGER = Logger.getLogger(Main.class);
 
 	public static void main(String... args)
 	{
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				LOGGER.info("------------ VM Stop  ------------");
+			}
+		}));
+
 		Log4JHelper.load();
-		LocalizeMaker.getInstance();
+		final long startTime = System.currentTimeMillis();
+		LOGGER.info("------------ VM Start ------------");
+		BundleUtil.getInstance();
 
 		CLProcessor p = new CLProcessor(args);
 
@@ -33,7 +43,7 @@ public class Main
 		p.process(vmInterface);
 		if(vmContext.getMainClass() == null)
 		{
-			ExitUtil.exitAbnormal(null, "Not find main class.");
+			BundleUtil.exitAbnormal(null, "main.class.not.found");
 			return;
 		}
 
@@ -42,16 +52,17 @@ public class Main
 		ClassInfo mainClass = vmInterface.getClass(vmContext.getMainClass());
 		if(mainClass == null)
 		{
-			ExitUtil.exitAbnormal(null, "class.s1.not.found", vmContext.getMainClass());
+			BundleUtil.exitAbnormal(null, "class.s1.not.found", vmContext.getMainClass());
 			return;
 		}
 
 		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", "java.lang.String[]");
 		if(methodInfo == null)
 		{
-			ExitUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
 			return;
 		}
+		LOGGER.info("Start time: " + (System.currentTimeMillis() - startTime) + " ms.");
 
 		//Instruction[] instructions = InstructionFactory.parseByteCode("test", methodInfo.toString(), ((MethodInfoImpl)methodInfo).getBytecode());
 		//if(LOGGER.isDebugEnabled())
