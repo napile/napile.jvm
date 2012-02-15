@@ -1,9 +1,11 @@
 package org.napile.vm.vm.impl;
 
+import org.apache.log4j.Logger;
 import org.napile.vm.interpreter.Interpreter;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.interpreter.InterpreterContext;
+import org.napile.vm.interpreter.WorkData;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
@@ -19,6 +21,8 @@ import org.napile.vm.vm.VmInterface;
  */
 public class VmInterfaceImpl implements VmInterface
 {
+	private static final Logger LOGGER = Logger.getLogger(VmInterfaceImpl.class);
+
 	private VmContext _vmContext;
 
 	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
@@ -40,13 +44,15 @@ public class VmInterfaceImpl implements VmInterface
 	@Override
 	public FieldInfo getField(ClassInfo info, String name)
 	{
-		return null;
+		FieldInfo fieldInfo = getField0(info, name);
+		return fieldInfo != null && !Flags.isStatic(fieldInfo) ? fieldInfo : null;
 	}
 
 	@Override
 	public FieldInfo getStaticField(ClassInfo info, String name)
 	{
-		return null;
+		FieldInfo fieldInfo = getField0(info, name);
+		return fieldInfo != null && Flags.isStatic(fieldInfo) ? fieldInfo : null;
 	}
 
 	@Override
@@ -72,9 +78,16 @@ public class VmInterfaceImpl implements VmInterface
 	@Override
 	public void invokeStatic(MethodInfo methodInfo, ObjectInfo... argument)
 	{
-		Interpreter interpreter = new Interpreter(methodInfo.getInstructions(), this);
+		if(Flags.isNative(methodInfo))
+		{
+			LOGGER.info("Native methods is not supported: " + methodInfo.toString());
+		}
+		else
+		{
+			Interpreter interpreter = new Interpreter(methodInfo.getInstructions(), this);
 
-		interpreter.call(new InterpreterContext(methodInfo));
+			interpreter.call(new InterpreterContext(new WorkData(methodInfo, argument)));
+		}
 	}
 
 	@Override
@@ -100,6 +113,15 @@ public class VmInterfaceImpl implements VmInterface
 	{
 		_currentClassLoader = new SimpleClassLoaderImpl(_currentClassLoader);
 		return _currentClassLoader;
+	}
+
+	public static FieldInfo getField0(ClassInfo info, String name)
+	{
+		FieldInfo[] methodInfos = info.getFields();
+		for(FieldInfo fieldInfo : methodInfos)
+			if(fieldInfo.getName().equals(name))
+				return fieldInfo;
+		return null;
 	}
 
 	public static MethodInfo getMethod0(ClassInfo info, String name, String... params)

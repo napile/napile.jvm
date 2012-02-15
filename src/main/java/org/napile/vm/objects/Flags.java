@@ -10,6 +10,11 @@ import org.napile.vm.objects.classinfo.ReflectInfo;
  */
 public class Flags
 {
+	public static boolean isNative(ReflectInfo reflectInfo)
+	{
+		return Modifier.isNative(reflectInfo.getFlags());
+	}
+
 	public static boolean isStatic(ReflectInfo reflectInfo)
 	{
 		return Modifier.isStatic(reflectInfo.getFlags());

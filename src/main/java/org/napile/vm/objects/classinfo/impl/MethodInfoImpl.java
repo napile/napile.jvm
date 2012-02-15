@@ -3,6 +3,7 @@ package org.napile.vm.objects.classinfo.impl;
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
 
 /**
  * @author VISTALL
@@ -18,6 +19,7 @@ public class MethodInfoImpl implements MethodInfo
 
 	private ClassInfo[] _throwExceptions;
 	private Instruction[] _instructions;
+	private LocalVariable[] _localVariables;
 
 	private int _maxStack;
 	private int _maxLocals;
@@ -94,7 +96,13 @@ public class MethodInfoImpl implements MethodInfo
 		return _instructions;
 	}
 
-    public void setInstructions(Instruction[] instructions)
+	@Override
+	public LocalVariable[] getLocalVariables()
+	{
+		return _localVariables;
+	}
+
+	public void setInstructions(Instruction[] instructions)
 	{
 		_instructions = instructions;
 	}
@@ -117,5 +125,10 @@ public class MethodInfoImpl implements MethodInfo
     public void setMaxLocals(int maxLocals)
 	{
 		_maxLocals = maxLocals;
+	}
+
+	public void setLocalVariables(LocalVariable[] localVariables)
+	{
+		_localVariables = localVariables;
 	}
 }

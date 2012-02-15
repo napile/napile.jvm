@@ -4,10 +4,9 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
-import org.napile.vm.objects.classinfo.parsing.constantpool.value.ShortValueConstant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.value.Utf8ValueConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortValueConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -27,14 +26,10 @@ public class ldc1 implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		ClassInfo classInfo = context.getLastMethod().getParent();
-
-		ConstantPool constantPool = classInfo.getConstantPool();
+		ConstantPool constantPool = context.getLastWork().getConstantPool();
 
 		ShortValueConstant constant = (ShortValueConstant)constantPool.getConstant(_index);
 
 		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(constant.getValue());
-
-		System.out.println(utf8ValueConstant.getValue());
 	}
 }

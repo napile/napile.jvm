@@ -1,4 +1,6 @@
-package org.napile.vm.objects.classinfo.parsing.constantpool.value;
+package org.napile.vm.objects.classinfo.parsing.constantpool.binary;
+
+import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
 
 /**
  * @author VISTALL

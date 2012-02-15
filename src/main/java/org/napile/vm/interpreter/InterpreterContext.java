@@ -3,7 +3,6 @@ package org.napile.vm.interpreter;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -12,17 +11,28 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class InterpreterContext
 {
-	private Deque<MethodInfo> _stack = new ArrayDeque<MethodInfo>();
+	private Deque<WorkData> _stack = new ArrayDeque<WorkData>();
 
-	private ObjectInfo<?> _value;
+	private Deque<ObjectInfo<?>> _values = new ArrayDeque<ObjectInfo<?>>(2);
 
-	public InterpreterContext(MethodInfo methodInfo)
+	public InterpreterContext(WorkData... methodInfo)
 	{
-		_stack.add(methodInfo);
+		for(WorkData d : methodInfo)
+			_stack.add(d);
 	}
 
-	public MethodInfo getLastMethod()
+	public WorkData getLastWork()
 	{
 		return _stack.peekLast();
+	}
+
+	public void push(ObjectInfo<?> val)
+	{
+		_values.add(val);
+	}
+
+	public ObjectInfo<?> pop()
+	{
+		return _values.pop();
 	}
 }

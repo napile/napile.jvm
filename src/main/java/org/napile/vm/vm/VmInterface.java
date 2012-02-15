@@ -21,6 +21,7 @@ public interface VmInterface
 	String PRIMITIVE_FLOAT = "float";
 	String PRIMITIVE_DOUBLE = "double";
 	String PRIMITIVE_CHAR = "char";
+	String JAVA_LANG_STRING = "java.lang.String";
 
 	ClassInfo getClass(String name);
 

@@ -65,7 +65,8 @@ public class Main
 		}
 
 		vmInterface.invokeStatic(methodInfo); //TODO [VISTALL] arguments
-		//if(LOGGER.isDebugEnabled())
-		//	vmContext.print();
+
+		System.out.println("BootLoader: " + vmInterface.getBootClassLoader().getLoadedClasses().size());
+		System.out.println("CurrentLoader: " + vmInterface.getCurrentClassLoader().getLoadedClasses().size());
 	}
 }

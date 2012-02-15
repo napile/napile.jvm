@@ -2,6 +2,7 @@ package org.napile.vm.objects.classinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
  * @author VISTALL
@@ -13,7 +14,7 @@ public class FieldInfoImpl implements FieldInfo
 	private short _flags;
 	private String _name;
 
-	private Object _value;
+	private ObjectInfo<?> _value;
 
 	public FieldInfoImpl(ClassInfo type, String name, short flags)
 	{
@@ -35,7 +36,13 @@ public class FieldInfoImpl implements FieldInfo
 	}
 
 	@Override
-	public Object getValue()
+	public void setValue(ObjectInfo<?> value)
+	{
+		_value = value;
+	}
+
+	@Override
+	public ObjectInfo<?> getValue()
 	{
 		return _value;
 	}
@@ -44,10 +51,5 @@ public class FieldInfoImpl implements FieldInfo
 	public ClassInfo getType()
 	{
 		return _type;
-	}
-
-	public void setValue(Object value)
-	{
-		_value = value;
 	}
 }

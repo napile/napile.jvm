@@ -17,8 +17,11 @@ import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
+import org.napile.vm.objects.classinfo.parsing.constantpool.Constant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
-import org.napile.vm.objects.classinfo.parsing.constantpool.value.*;
+import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.binary.*;
+import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
 import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.StringCharReader;
@@ -88,11 +91,14 @@ public class ClassParser
 
 		ConstantPool constantPool = parseConstantPool();
 
+
 		final short access = _dataInputStream.readShort();
 		final String className = getClassName(constantPool, _dataInputStream.readShort());
 		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
 		ClassInfoImpl classInfo = new ClassInfoImpl(constantPool, className, access);
 		_vmInterface.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
+		constantPool.makeCached(_vmInterface); //after adding class to ClassLoader - make cached pool
+
 		if(superClassName != null)
 		{
 			ClassInfo superClass = ClasspathUtil.getClassInfoOrParse(_vmInterface, superClassName);
@@ -172,6 +178,7 @@ public class ClassParser
 					break;
 			}
 
+			constant.setType(type);
 			constantPool.addConstantPool(indexToPut, constant);
 		}
 
@@ -202,7 +209,7 @@ public class ClassParser
 					if(!(constant instanceof ValueConstant))
 						BundleUtil.exitAbnormal(null, "invalid.constant.value.class.s1", classInfo.getName());
 					else
-						fieldInfo.setValue(((ValueConstant) constant).getValue());
+						fieldInfo.setValue(VmUtil.convertToVm(fieldInfo.getType(), ((ValueConstant) constant).getValue()));
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
 				{
@@ -353,15 +360,29 @@ public class ClassParser
 			{
 				_dataInputStream.readInt(); //len
 
-				short localVarArrLen = _dataInputStream.readShort();
-				for(int ctr = 1; ctr <= localVarArrLen; ctr++)
+				short variableCount = _dataInputStream.readShort();
+				LocalVariable[] localVariables = new LocalVariable[variableCount];
+				for(int i = 0; i < variableCount; i++)
 				{
 					short startPc = _dataInputStream.readShort();
 					short length = _dataInputStream.readShort();
 					short nameIndex = _dataInputStream.readShort();
 					short descIndex = _dataInputStream.readShort();
 					short frameIndex = _dataInputStream.readShort();
+
+					String name = getSimpleUtf8Name(constantPool, nameIndex);
+					String typeName = getSimpleUtf8Name(constantPool, descIndex);
+					ClassInfo typeClassInfo = parseType(_vmInterface, new StringCharReader(typeName));
+					if(typeClassInfo == null)
+					{
+						BundleUtil.exitAbnormal(null, "class.s1.not.found", typeName);
+						return;
+					}
+
+					LocalVariable variable = new LocalVariable(startPc, length, name, typeClassInfo, frameIndex);
+					localVariables[i] = variable;
 				}
+				methodInfo.setLocalVariables(localVariables);
 			}
 			else
 				BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", codeAttributeName, classInfo.getName());
@@ -378,7 +399,7 @@ public class ClassParser
 		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
 	}
 
-	private static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
+	public static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
 	{
 		char firstChar = charReader.next();
 		switch(firstChar)
@@ -449,7 +470,7 @@ public class ClassParser
 		return null;
 	}
 
-	private static String getClassName(ConstantPool constantPool, int index)
+	public static String getClassName(ConstantPool constantPool, int index)
 	{
 		if(index == 0)
 			return null;

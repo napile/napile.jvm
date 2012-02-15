@@ -1,6 +1,13 @@
 package org.napile.vm.objects.classinfo.parsing.constantpool;
 
-import org.napile.vm.objects.classinfo.parsing.constantpool.value.Constant;
+import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.parsing.ClassParser;
+import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortShortConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldConstant;
+import org.napile.vm.util.ClasspathUtil;
+import org.napile.vm.util.StringCharReader;
+import org.napile.vm.vm.VmInterface;
 
 /**
  * @author VISTALL
@@ -36,5 +43,30 @@ public class ConstantPool
 	public Constant getConstant(int val)
 	{
 		return _constants[val];
+	}
+
+	public void makeCached(VmInterface vmInterface)
+	{
+		for(int i = 0; i < _constants.length; i++)
+		{
+			Constant constant = _constants[i];
+			if(constant == null)
+				continue;
+			switch(constant.getType())
+			{
+				case CP_FIELD_DEF:
+					ShortShortConstant shortShortConstant = (ShortShortConstant)constant;
+
+					ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, ClassParser.getClassName(this, shortShortConstant.getFirstShort()));
+					ShortShortConstant fieldInfoConstant = (ShortShortConstant)getConstant(shortShortConstant.getSecondShort());
+
+					String name = ((Utf8ValueConstant)getConstant(fieldInfoConstant.getFirstShort())).getValue();
+
+					ClassInfo typeClassInfo = ClassParser.parseType(vmInterface, new StringCharReader(((Utf8ValueConstant) getConstant(fieldInfoConstant.getSecondShort())).getValue().replace("/", ".")));
+
+					_constants[i] = new FieldConstant(classInfo, typeClassInfo, name);
+					break;
+			}
+		}
 	}
 }

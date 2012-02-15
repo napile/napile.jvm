@@ -4,6 +4,9 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
+import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldConstant;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -12,15 +15,23 @@ import org.napile.vm.vm.VmInterface;
  */
 public class putstatic implements Instruction
 {
+	private int _index;
+
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-		buffer.getShort();
+		_index = buffer.getShort();
 	}
 
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
+		WorkData workData = context.getLastWork();
 
+		FieldConstant constant = (FieldConstant)workData.getConstantPool().getConstant(_index);
+
+		FieldInfo fieldInfo = vmInterface.getStaticField(constant.getClassInfo(), constant.getName());
+
+		fieldInfo.setValue(context.pop());
 	}
 }

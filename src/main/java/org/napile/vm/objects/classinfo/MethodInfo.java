@@ -1,6 +1,7 @@
 package org.napile.vm.objects.classinfo;
 
 import org.napile.vm.bytecode.Instruction;
+import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
 
 /**
  * @author VISTALL
@@ -22,4 +23,6 @@ public interface MethodInfo extends ReflectInfo
 	ClassInfo[] getThrowExceptions();
 
 	Instruction[] getInstructions();
+
+	LocalVariable[] getLocalVariables();
 }

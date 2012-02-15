@@ -1,10 +1,10 @@
-package org.napile.vm.objects.classinfo.parsing.constantpool.value;
+package org.napile.vm.objects.classinfo.parsing.constantpool;
 
 /**
  * @author VISTALL
  * @date 3:34/02.02.2012
  */
-public abstract class ValueConstant<T> implements Constant
+public abstract class ValueConstant<T> extends Constant
 {
 	private T _value;
 

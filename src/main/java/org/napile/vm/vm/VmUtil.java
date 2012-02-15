@@ -40,6 +40,34 @@ public class VmUtil
 		vmInterface.newClassLoader(); // change bootstrap class loader - to new instance
 	}
 
+	public static ObjectInfo<?> convertToVm(ClassInfo classInfo, Object object)
+	{
+		if(classInfo.getName().equals(VmInterface.PRIMITIVE_BYTE))
+			return new ByteObjectInfo(null, classInfo, ((Number)object).byteValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_SHORT))
+			return new ShortObjectInfo(null, classInfo, ((Number)object).shortValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_INT))
+			return new IntObjectInfo(null, classInfo, ((Number)object).intValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_LONG))
+			return new LongObjectInfo(null, classInfo, ((Number)object).longValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_FLOAT))
+			return new FloatObjectInfo(null, classInfo, ((Number)object).floatValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_DOUBLE))
+			return new DoubleObjectInfo(null, classInfo, ((Number)object).doubleValue());
+		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_CHAR))
+		{
+			int val = (Integer)object;
+			return new CharObjectInfo(null, classInfo, (char)val);
+		}
+		else
+		{
+			System.out.println(classInfo.getName() + " is not convertable. Value: " + object);
+		}
+			//throw new IllegalArgumentException(classInfo.getName() + " is not convertable. Value: " + object);
+
+		return null;
+	}
+
 	public static <T> void makePrimitiveType(String name, VmInterface vmInterface, Class<? extends ObjectInfo<T>> clazz, T value)
 	{
 		PrimitiveClassInfoImpl classInfo = new PrimitiveClassInfoImpl(name);
