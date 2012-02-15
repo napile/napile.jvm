@@ -209,7 +209,13 @@ public class ClassParser
 					if(!(constant instanceof ValueConstant))
 						BundleUtil.exitAbnormal(null, "invalid.constant.value.class.s1", classInfo.getName());
 					else
-						fieldInfo.setValue(VmUtil.convertToVm(fieldInfo.getType(), ((ValueConstant) constant).getValue()));
+					{
+						ValueConstant<?> valueConstant =  (ValueConstant) constant;
+						if(valueConstant.getType() == ConstantPool.CP_STRING)
+							valueConstant = (ValueConstant)constantPool.getConstant(((ShortValueConstant)valueConstant).getValue());
+
+						fieldInfo.setTempValue(valueConstant.getValue());
+					}
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
 				{

@@ -23,7 +23,7 @@ public interface ClassInfo extends ReflectInfo
 
 	public ClassInfo[] getInterfaces();
 
-	public ObjectInfo<?> nullValue();
+	public ObjectInfo nullValue();
 
 	public ConstantPool getConstantPool();
 }

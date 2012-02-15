@@ -21,6 +21,8 @@ public interface VmInterface
 	String PRIMITIVE_FLOAT = "float";
 	String PRIMITIVE_DOUBLE = "double";
 	String PRIMITIVE_CHAR = "char";
+	String PRIMITIVE_CHAR_ARRAY = "char[]";
+	//
 	String JAVA_LANG_STRING = "java.lang.String";
 
 	ClassInfo getClass(String name);
@@ -36,6 +38,8 @@ public interface VmInterface
 	void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
 
 	void invokeStatic(MethodInfo methodInfo, ObjectInfo... argument);
+
+	ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments);
 
 	VmContext getVmContext();
 

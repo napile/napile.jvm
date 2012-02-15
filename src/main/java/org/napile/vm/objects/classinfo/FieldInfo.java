@@ -10,9 +10,9 @@ public interface FieldInfo extends ReflectInfo
 {
 	public static final FieldInfo[] EMPTY_ARRAY = new FieldInfo[0];
 
-	void setValue(ObjectInfo<?> value);
+	void setValue(ObjectInfo value);
 
-	ObjectInfo<?> getValue();
+	ObjectInfo getValue();
 
 	ClassInfo getType();
 }

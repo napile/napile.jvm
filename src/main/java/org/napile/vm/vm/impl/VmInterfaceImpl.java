@@ -1,9 +1,9 @@
 package org.napile.vm.vm.impl;
 
 import org.apache.log4j.Logger;
-import org.napile.vm.interpreter.Interpreter;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
+import org.napile.vm.interpreter.Interpreter;
 import org.napile.vm.interpreter.InterpreterContext;
 import org.napile.vm.interpreter.WorkData;
 import org.napile.vm.objects.Flags;
@@ -11,6 +11,8 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.vm.VmContext;
 import org.napile.vm.vm.VmInterface;
@@ -72,7 +74,16 @@ public class VmInterfaceImpl implements VmInterface
 	@Override
 	public void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
 	{
+		if(Flags.isNative(methodInfo))
+		{
+			LOGGER.info("Native methods is not supported: " + methodInfo.toString());
+		}
+		else
+		{
+			Interpreter interpreter = new Interpreter(methodInfo.getInstructions(), this);
 
+			interpreter.call(new InterpreterContext(new WorkData(methodInfo, argument)));
+		}
 	}
 
 	@Override
@@ -88,6 +99,18 @@ public class VmInterfaceImpl implements VmInterface
 
 			interpreter.call(new InterpreterContext(new WorkData(methodInfo, argument)));
 		}
+	}
+
+	@Override
+	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
+	{
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, constructorTypes));
+
+		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
+
+		invoke(methodInfo, classObjectInfo, arguments);
+
+		return classObjectInfo;
 	}
 
 	@Override

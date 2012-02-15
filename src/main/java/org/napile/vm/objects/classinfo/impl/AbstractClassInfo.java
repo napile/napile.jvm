@@ -10,7 +10,7 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public abstract class AbstractClassInfo implements ClassInfo
 {
-	private ObjectInfo<?> _nullValue;
+	private ObjectInfo _nullValue;
 
 	public void setNullValue(ObjectInfo nullValue)
 	{
@@ -18,7 +18,7 @@ public abstract class AbstractClassInfo implements ClassInfo
 	}
 
 	@Override
-	public final ObjectInfo<?> nullValue()
+	public final ObjectInfo nullValue()
 	{
 		return _nullValue;
 	}

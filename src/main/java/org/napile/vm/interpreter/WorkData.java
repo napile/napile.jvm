@@ -10,10 +10,10 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class WorkData
 {
-	private ObjectInfo<?>[] _arguments;
+	private ObjectInfo[] _arguments;
 	private MethodInfo _methodInfo;
 
-	public WorkData(MethodInfo methodInfo, ObjectInfo<?>[] arguments)
+	public WorkData(MethodInfo methodInfo, ObjectInfo[] arguments)
 	{
 		_methodInfo = methodInfo;
 		_arguments = arguments;

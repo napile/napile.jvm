@@ -14,7 +14,9 @@ public class FieldInfoImpl implements FieldInfo
 	private short _flags;
 	private String _name;
 
-	private ObjectInfo<?> _value;
+	private ObjectInfo _value;
+
+	private Object _tempValue;
 
 	public FieldInfoImpl(ClassInfo type, String name, short flags)
 	{
@@ -36,13 +38,13 @@ public class FieldInfoImpl implements FieldInfo
 	}
 
 	@Override
-	public void setValue(ObjectInfo<?> value)
+	public void setValue(ObjectInfo value)
 	{
 		_value = value;
 	}
 
 	@Override
-	public ObjectInfo<?> getValue()
+	public ObjectInfo getValue()
 	{
 		return _value;
 	}
@@ -51,5 +53,15 @@ public class FieldInfoImpl implements FieldInfo
 	public ClassInfo getType()
 	{
 		return _type;
+	}
+
+	public Object getTempValue()
+	{
+		return _tempValue;
+	}
+
+	public void setTempValue(Object tempValue)
+	{
+		_tempValue = tempValue;
 	}
 }

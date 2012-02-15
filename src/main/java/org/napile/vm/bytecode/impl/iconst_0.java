@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.objects.objectinfo.impl.IntObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
 import org.napile.vm.vm.VmInterface;
 
 /**

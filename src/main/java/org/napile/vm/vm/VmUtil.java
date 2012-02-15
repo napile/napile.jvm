@@ -6,7 +6,9 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.impl.PrimitiveClassInfoImpl;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.*;
+import org.napile.vm.objects.objectinfo.impl.primitive.*;
 import org.napile.vm.util.AssertUtil;
+import org.napile.vm.util.ClasspathUtil;
 
 /**
  * @author VISTALL
@@ -14,7 +16,7 @@ import org.napile.vm.util.AssertUtil;
  */
 public class VmUtil
 {
-	public static final ObjectInfo<?> OBJECT_NULL = new ObjectInfo<Object>(null, null, null);
+	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null, null);
 
 	public static void initBootStrap(VmInterface vmInterface)
 	{
@@ -40,7 +42,7 @@ public class VmUtil
 		vmInterface.newClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static ObjectInfo<?> convertToVm(ClassInfo classInfo, Object object)
+	public static ObjectInfo convertToVm(VmInterface vmInterface, ClassInfo classInfo, Object object)
 	{
 		if(classInfo.getName().equals(VmInterface.PRIMITIVE_BYTE))
 			return new ByteObjectInfo(null, classInfo, ((Number)object).byteValue());
@@ -59,6 +61,20 @@ public class VmUtil
 			int val = (Integer)object;
 			return new CharObjectInfo(null, classInfo, (char)val);
 		}
+		else if(classInfo.getName().equals(VmInterface.JAVA_LANG_STRING))
+		{
+			ClassInfo primitiveCharClassInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR);
+			ClassInfo primitiveCharClassArrayInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, VmInterface.PRIMITIVE_CHAR_ARRAY);
+
+			char[] data = ((String)object).toCharArray();
+			CharObjectInfo[] cData = new CharObjectInfo[data.length];
+			for(int i = 0; i < data.length; i++)
+				cData[i] = new CharObjectInfo(null, primitiveCharClassInfo, data[i]);
+
+			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(null, primitiveCharClassArrayInfo, cData);
+
+			return AssertUtil.assertNull(vmInterface.newObject(classInfo, new String[] {VmInterface.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
+		}
 		else
 		{
 			System.out.println(classInfo.getName() + " is not convertable. Value: " + object);
@@ -68,7 +84,7 @@ public class VmUtil
 		return null;
 	}
 
-	public static <T> void makePrimitiveType(String name, VmInterface vmInterface, Class<? extends ObjectInfo<T>> clazz, T value)
+	public static <T> void makePrimitiveType(String name, VmInterface vmInterface, Class<? extends ValueObjectInfo<T>> clazz, T value)
 	{
 		PrimitiveClassInfoImpl classInfo = new PrimitiveClassInfoImpl(name);
 		if(clazz != null)

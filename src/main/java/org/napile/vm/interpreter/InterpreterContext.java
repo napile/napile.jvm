@@ -13,7 +13,7 @@ public class InterpreterContext
 {
 	private Deque<WorkData> _stack = new ArrayDeque<WorkData>();
 
-	private Deque<ObjectInfo<?>> _values = new ArrayDeque<ObjectInfo<?>>(2);
+	private Deque<ObjectInfo> _values = new ArrayDeque<ObjectInfo>(2);
 
 	public InterpreterContext(WorkData... methodInfo)
 	{
@@ -26,12 +26,12 @@ public class InterpreterContext
 		return _stack.peekLast();
 	}
 
-	public void push(ObjectInfo<?> val)
+	public void push(ObjectInfo val)
 	{
 		_values.add(val);
 	}
 
-	public ObjectInfo<?> pop()
+	public ObjectInfo pop()
 	{
 		return _values.pop();
 	}
