@@ -9,13 +9,13 @@ public class Main
 		int a = 0;
 		switch(a)
 		{
-			case 0:
+			case 5:
 				System.out.println("0");
 				break;
-			case 1:
+			case 3:
 				System.out.println("1");
 				break;
-			case 2:
+			case 10:
 				System.out.println("2");
 				break;
 		}

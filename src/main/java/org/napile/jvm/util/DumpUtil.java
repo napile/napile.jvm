@@ -6,7 +6,7 @@ package org.napile.jvm.util;
  */
 public class DumpUtil
 {
-	public static String printData(byte[] data, int len)
+	public static String toString(byte[] data, int len)
 	{
 		StringBuilder result = new StringBuilder();
 

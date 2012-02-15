@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jreversepro.jvm.JVMInstructionSet;
-import org.napile.jvm.bytecode.impl.lookupswitch;
 import org.napile.jvm.bytecode.impl.wide;
 import org.napile.jvm.util.BundleUtil;
 import org.napile.jvm.util.DumpUtil;
@@ -26,7 +25,7 @@ public class InstructionFactory
 		List<String> parsed = new ArrayList<String>(instructions.size());
 
 		Instruction currentInstruction = null;
-		
+
 		while(byteBuffer.hasRemaining())
 		{
 			int oldPos = byteBuffer.position();
@@ -41,8 +40,6 @@ public class InstructionFactory
 				Instruction instruction = (Instruction)instClass.newInstance();
 
 				boolean iswide = currentInstruction instanceof wide;
-				if(instruction instanceof lookupswitch)
-					throw new Exception();
 
 				instruction.parseData(byteBuffer, iswide);
 
@@ -50,7 +47,7 @@ public class InstructionFactory
 				parsed.add(byteBuffer.position() + " <" + Integer.toHexString(opcode).toUpperCase() + "> " + instClass.getName() + ": " + (diff - 1));
 
 				int size = JVMInstructionSet.getOpcodeLength(opcode, iswide);
-				if(diff != size)
+				if(size >= 0 && diff != size)
 				{
 					System.out.println("incorrect lenght for: " + instClass.getName() + " need " + (size - 1)+ " get " + (diff - 1) + " wide: " + iswide);
 					System.exit(-1);
@@ -75,12 +72,12 @@ public class InstructionFactory
 				for(String in : parsed)
 					System.out.println(in);
 
-				System.out.println(DumpUtil.printData(data, data.length));
+				System.out.println(DumpUtil.toString(data, data.length));
 				BundleUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3.method.s4", code, name, byteBuffer.position(), methodName);
 				break;
 			}
 		}
 
-		return null;
+		return instructions.isEmpty() ? Instruction.EMPTY_ARRAY : instructions.toArray(new Instruction[instructions.size()]);
 	}
 }

@@ -14,7 +14,7 @@ public class fload implements Instruction
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-
+		buffer.get();
 	}
 
 	@Override

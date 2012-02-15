@@ -1,5 +1,6 @@
 package org.napile.jvm.objects.classinfo.impl;
 
+import org.napile.jvm.bytecode.Instruction;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
 
@@ -15,8 +16,10 @@ public class MethodInfoImpl implements MethodInfo
 	private String _name;
 
 	private ClassInfo[] _throwExceptions;
+	private Instruction[] _instructions;
 
-	private byte[] _bytecode;
+	private int _maxStack;
+	private int _maxLocals;
 
 	public MethodInfoImpl(ClassInfo returnType, ClassInfo[] parameters, String name, short flags)
 	{
@@ -77,13 +80,34 @@ public class MethodInfoImpl implements MethodInfo
 		return b.toString();
 	}
 
-	public byte[] getBytecode()
+	@Override
+	public Instruction[] getInstructions()
 	{
-		return _bytecode;
+		return _instructions;
 	}
 
-	public void setBytecode(byte[] bytecode)
+    public void setInstructions(Instruction[] instructions)
 	{
-		_bytecode = bytecode;
+		_instructions = instructions;
+	}
+
+	public int getMaxStack()
+	{
+		return _maxStack;
+	}
+
+    public void setMaxStack(int maxStack)
+	{
+		_maxStack = maxStack;
+	}
+
+    public int getMaxLocals()
+	{
+		return _maxLocals;
+	}
+
+    public void setMaxLocals(int maxLocals)
+	{
+		_maxLocals = maxLocals;
 	}
 }

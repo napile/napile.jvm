@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.napile.jvm.bytecode.Instruction;
+import org.napile.jvm.bytecode.InstructionFactory;
 import org.napile.jvm.objects.classinfo.ClassInfo;
 import org.napile.jvm.objects.classinfo.FieldInfo;
 import org.napile.jvm.objects.classinfo.MethodInfo;
@@ -280,19 +282,16 @@ public class ClassParser
 				{
 					_dataInputStream.readInt();
 
-					short maxStack = _dataInputStream.readShort();
-					//aLocalMethod.setMaxStack(maxStack);
-
-					short maxLocals = _dataInputStream.readShort();
-					//aLocalMethod.setMaxLocals(maxLocals);
+					methodInfo.setMaxStack(_dataInputStream.readShort());
+					methodInfo.setMaxLocals(_dataInputStream.readShort());
 
 					int codeLen = _dataInputStream.readInt();
 
 					byte[] btArray = new byte[codeLen];
 					_dataInputStream.readFully(btArray);
-					methodInfo.setBytecode(btArray);
 
-					//aLocalMethod.setBytes(btArray);
+					Instruction[] instructions = InstructionFactory.parseByteCode(_name, methodInfo.getName(), btArray);
+					methodInfo.setInstructions(instructions);
 
 					// exception_table_length
 					short excLen = _dataInputStream.readShort();

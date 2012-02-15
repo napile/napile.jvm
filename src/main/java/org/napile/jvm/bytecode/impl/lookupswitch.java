@@ -1,5 +1,8 @@
 package org.napile.jvm.bytecode.impl;
 
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+
 import java.nio.ByteBuffer;
 
 import org.napile.jvm.bytecode.Instruction;
@@ -11,22 +14,22 @@ import org.napile.jvm.vm.VmInterface;
  */
 public class lookupswitch implements Instruction
 {
+	private TIntIntMap _values;
+
+	private int _offset;
+
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-		buffer.getInt();
-		int result = 0;
-		
-		for(int i = 0; i < 4; i++)
-		{
-			int thisByte = buffer.get(buffer.position()) & 0xFF;
-			result += (int) (Math.pow(256, 3 - i)) * thisByte;
-		}
+		int align = ((buffer.position() + 3) & 0x7ffffffc) - buffer.position();
+		buffer.position(buffer.position() + align);
 
-		if(result < 0)
-			result += 256;
+		_offset = buffer.getInt();
+		int count = buffer.getInt();
+		_values = new TIntIntHashMap(count);
 
-		buffer.getInt();
+		for(int i = 0; i < count; i++)
+			_values.put(buffer.getInt(), buffer.getInt());
 	}
 
 	@Override

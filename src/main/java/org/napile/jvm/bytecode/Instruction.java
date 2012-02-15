@@ -10,6 +10,8 @@ import org.napile.jvm.vm.VmInterface;
  */
 public interface Instruction
 {
+	Instruction[] EMPTY_ARRAY = new Instruction[0];
+
 	void parseData(ByteBuffer buffer, boolean wide);
 
 	void call(VmInterface vmInterface);
