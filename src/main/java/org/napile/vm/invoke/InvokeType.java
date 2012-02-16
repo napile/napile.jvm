@@ -1,7 +1,7 @@
 package org.napile.vm.invoke;
 
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -9,5 +9,5 @@ import org.napile.vm.vm.VmInterface;
  */
 public interface InvokeType
 {
-	void call(VmInterface vmInterface, InterpreterContext context);
+	void call(Vm vm, InterpreterContext context);
 }

@@ -1,6 +1,6 @@
 package org.napile.vm.util.cloption;
 
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -8,5 +8,5 @@ import org.napile.vm.vm.VmInterface;
  */
 public interface CLOptionProcessor
 {
-	void process(VmInterface vmInterface, String value);
+	void process(Vm vm, String value);
 }

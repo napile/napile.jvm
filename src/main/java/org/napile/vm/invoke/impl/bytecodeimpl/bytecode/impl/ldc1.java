@@ -9,7 +9,7 @@ import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortValueConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -27,7 +27,7 @@ public class ldc1 implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		ConstantPool constantPool = context.getLastStack().getConstantPool();
 
@@ -35,9 +35,9 @@ public class ldc1 implements Instruction
 
 		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(constant.getValue());
 
-		ClassInfo javaLangString = vmInterface.getClass(VmInterface.JAVA_LANG_STRING);
+		ClassInfo javaLangString = vm.getClass(Vm.JAVA_LANG_STRING);
 
-		ObjectInfo objectInfo = VmUtil.convertToVm(vmInterface, javaLangString, utf8ValueConstant.getValue());
+		ObjectInfo objectInfo = VmUtil.convertToVm(vm, javaLangString, utf8ValueConstant.getValue());
 
 		context.push(objectInfo);
 	}

@@ -27,7 +27,7 @@ import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.StringCharReader;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -40,11 +40,11 @@ public class ClassParser
 
 	private final DataInputStream _dataInputStream;
 	private String _name;
-	private VmInterface _vmInterface;
+	private Vm _vm;
 
-	public ClassParser(VmInterface vmInterface, InputStream stream, String name)
+	public ClassParser(Vm vm, InputStream stream, String name)
 	{
-		_vmInterface = vmInterface;
+		_vm = vm;
 		_dataInputStream = new DataInputStream(stream);
 		_name = name;
 	}
@@ -97,11 +97,11 @@ public class ClassParser
 		final String className = getClassName(constantPool, _dataInputStream.readShort());
 		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
 		ClassInfoImpl classInfo = new ClassInfoImpl(constantPool, className, access);
-		_vmInterface.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
+		_vm.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
 
 		if(superClassName != null)
 		{
-			ClassInfo superClass = ClasspathUtil.getClassInfoOrParse(_vmInterface, superClassName);
+			ClassInfo superClass = ClasspathUtil.getClassInfoOrParse(_vm, superClassName);
 			if(superClass == null)
 			{
 				BundleUtil.exitAbnormal(null, "class.s1.not.found", superClassName);
@@ -115,7 +115,7 @@ public class ClassParser
 		for(int i = 0; i < interfacesSize; i++)
 		{
 			String interfaceName = getClassName(constantPool, _dataInputStream.readShort());
-			ClassInfo interfaceClass = ClasspathUtil.getClassInfoOrParse(_vmInterface, interfaceName);
+			ClassInfo interfaceClass = ClasspathUtil.getClassInfoOrParse(_vm, interfaceName);
 			if(interfaceClass == null)
 			{
 				BundleUtil.exitAbnormal(null, "class.s1.not.found", interfaceName);
@@ -196,7 +196,7 @@ public class ClassParser
 			short nameIndex = _dataInputStream.readShort();
 			short descIndex = _dataInputStream.readShort();
 
-			FieldInfoImpl fieldInfo = new FieldInfoImpl(classInfo, VmUtil.parseType(_vmInterface, getSimpleUtf8Name(constantPool, descIndex)), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
+			FieldInfoImpl fieldInfo = new FieldInfoImpl(classInfo, VmUtil.parseType(_vm, getSimpleUtf8Name(constantPool, descIndex)), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			fields[i] = fieldInfo;
 			short attributeSize = _dataInputStream.readShort();
 			for(int j = 0; j < attributeSize; j++)
@@ -260,9 +260,9 @@ public class ClassParser
 			//()V
 			String desc = getSimpleUtf8Name(constantPool, descIndex);
 
-			ClassInfo returnType = VmUtil.parseType(_vmInterface, desc.substring(desc.indexOf(')') + 1, desc.length()));
+			ClassInfo returnType = VmUtil.parseType(_vm, desc.substring(desc.indexOf(')') + 1, desc.length()));
 
-			ClassInfo[] parameters = parseMethodSignature(_vmInterface, desc.substring(1, desc.indexOf(')')));
+			ClassInfo[] parameters = parseMethodSignature(_vm, desc.substring(1, desc.indexOf(')')));
 
 			MethodInfoImpl methodInfo = new MethodInfoImpl(classInfo, returnType, parameters, getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			methods[i] = methodInfo;
@@ -289,7 +289,7 @@ public class ClassParser
 					short numException = _dataInputStream.readShort();
 					ClassInfo[] throwsClassInfo = new ClassInfo[numException];
 					for(int a = 0; a < numException; a++)
-						throwsClassInfo[a] = ClasspathUtil.getClassInfoOrParse(_vmInterface, getClassName(constantPool, _dataInputStream.readShort()));
+						throwsClassInfo[a] = ClasspathUtil.getClassInfoOrParse(_vm, getClassName(constantPool, _dataInputStream.readShort()));
 					methodInfo.setThrowExceptions(throwsClassInfo);
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_CODE))
@@ -384,7 +384,7 @@ public class ClassParser
 
 					String name = getSimpleUtf8Name(constantPool, nameIndex);
 					String typeName = getSimpleUtf8Name(constantPool, descIndex);
-					ClassInfo typeClassInfo = VmUtil.parseType(_vmInterface, typeName);
+					ClassInfo typeClassInfo = VmUtil.parseType(_vm, typeName);
 					if(typeClassInfo == null)
 					{
 						BundleUtil.exitAbnormal(null, "class.s1.not.found", typeName);
@@ -401,12 +401,12 @@ public class ClassParser
 		}
 	}
 
-	public static ClassInfo[] parseMethodSignature(VmInterface vmInterface, String sig)
+	public static ClassInfo[] parseMethodSignature(Vm vm, String sig)
 	{
 		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
 		StringCharReader reader = new StringCharReader(sig);
 		while(reader.hasNext())
-			parameters.add(VmUtil.parseType(vmInterface, reader));
+			parameters.add(VmUtil.parseType(vm, reader));
 
 		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
 	}

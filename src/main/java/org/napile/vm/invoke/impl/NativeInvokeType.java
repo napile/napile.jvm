@@ -10,7 +10,7 @@ import org.napile.vm.invoke.impl.nativeimpl.NativeMethod;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -21,7 +21,7 @@ public class NativeInvokeType implements InvokeType
 	private static final Logger LOGGER = Logger.getLogger(NativeInvokeType.class);
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry entry = context.getLastStack();
 
@@ -38,7 +38,7 @@ public class NativeInvokeType implements InvokeType
 
 			try
 			{
-				ObjectInfo objectInfo = (ObjectInfo)method.invoke(null, vmInterface, entry.getObjectInfo(), entry.getArguments());
+				ObjectInfo objectInfo = (ObjectInfo)method.invoke(null, vm, entry.getObjectInfo(), entry.getArguments());
 				if(objectInfo != null)
 					context.push(objectInfo);
 			}

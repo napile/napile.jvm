@@ -11,7 +11,7 @@ import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_System;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -21,12 +21,12 @@ public class NativeWrapper
 {
 	private static Map<ClassInfo, List<NativeMethod>> WRAPPERS = new HashMap<ClassInfo, List<NativeMethod>>();
 
-	public static void initAll(VmInterface vmInterface)
+	public static void initAll(Vm vm)
 	{
-		register(vmInterface, java_lang_System.class);
+		register(vm, java_lang_System.class);
 	}
 
-	private static void register(VmInterface vmInterface, Class<?> clazz)
+	private static void register(Vm vm, Class<?> clazz)
 	{
 		for(Method method : clazz.getDeclaredMethods())
 		{
@@ -37,9 +37,9 @@ public class NativeWrapper
 			if(nativeImplement == null)
 				continue;
 
-			AssertUtil.assertTrue(method.getParameterTypes()[0] != VmInterface.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
+			AssertUtil.assertTrue(method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
 
-			ClassInfo classInfo = vmInterface.getClass(nativeImplement.className());
+			ClassInfo classInfo = vm.getClass(nativeImplement.className());
 
 			List<NativeMethod> list = WRAPPERS.get(classInfo);
 			if(list == null)
@@ -47,7 +47,7 @@ public class NativeWrapper
 
 			ClassInfo[] params = new ClassInfo[nativeImplement.parameters().length];
 			for(int i = 0; i < params.length; i++)
-				params[i] = vmInterface.getClass(nativeImplement.parameters()[i]);
+				params[i] = vm.getClass(nativeImplement.parameters()[i]);
 
 			NativeMethod methodInfo = new NativeMethod(nativeImplement.methodName(), nativeImplement.parameters(), method);
 

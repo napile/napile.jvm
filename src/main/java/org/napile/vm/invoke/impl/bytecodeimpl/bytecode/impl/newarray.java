@@ -10,7 +10,7 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -45,7 +45,7 @@ public class newarray implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
@@ -58,10 +58,10 @@ public class newarray implements Instruction
 		switch(_index)
 		{
 			case 4:
-				classInfo = vmInterface.getClass(VmInterface.PRIMITIVE_BOOLEAN);
+				classInfo = vm.getClass(Vm.PRIMITIVE_BOOLEAN);
 				break;
 			case 5:
-				classInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR);
+				classInfo = vm.getClass(Vm.PRIMITIVE_CHAR);
 				break;
 			default:
 				AssertUtil.assertTrue(true);

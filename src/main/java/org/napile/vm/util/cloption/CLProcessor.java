@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Deque;
 
 import org.napile.vm.util.BundleUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -20,7 +20,7 @@ public class CLProcessor
 		_deque = new ArrayDeque<String>(Arrays.asList(arguments));
 	}
 
-	public void process(VmInterface vmInterface)
+	public void process(Vm vm)
 	{
 		CLOption lastOption = null;
 
@@ -42,7 +42,7 @@ public class CLProcessor
 			{
 				CLOptionProcessor processor = (lastOption != null ? lastOption : CLOption.MAIN_CLASS).getOptionProcessor();
 
-				processor.process(vmInterface, value);
+				processor.process(vm, value);
 
 				lastOption = null;
 			}

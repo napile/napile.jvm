@@ -14,7 +14,7 @@ import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
 import org.napile.vm.objects.classinfo.parsing.filemapping.SingleFileMapping;
 import org.napile.vm.objects.classinfo.parsing.filemapping.ZippedFileMapping;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -24,7 +24,7 @@ public class ClasspathUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(ClasspathUtil.class);
 
-	public static void initClassPath(VmInterface vmInterface, String name)
+	public static void initClassPath(Vm vm, String name)
 	{
 		String[] split = name.split(";");
 
@@ -34,11 +34,11 @@ public class ClasspathUtil
 			if(!f.exists())
 				continue;
 
-			checkDir(vmInterface, f);
+			checkDir(vm, f);
 		}
 	}
 
-	private static void checkDir(VmInterface vmInterface, File dir)
+	private static void checkDir(Vm vm, File dir)
 	{
 		if(!dir.exists())
 			return;
@@ -48,24 +48,24 @@ public class ClasspathUtil
 			File[] list = dir.listFiles();
 			if(list != null)
 				for(File f : list)
-					checkDir(vmInterface, f);
+					checkDir(vm, f);
 		}
 		else
-			checkFile(vmInterface, dir);
+			checkFile(vm, dir);
 	}
 
-	private static void checkFile(VmInterface vmInterface, File file)
+	private static void checkFile(Vm vm, File file)
 	{
 		String ext = FileUtil.getFileExtension(file);
 		if(ext.equals("class"))
 		{
 			try
 			{
-				ClassParser parser = new ClassParser(vmInterface, new FileInputStream(file), file.getName());
+				ClassParser parser = new ClassParser(vm, new FileInputStream(file), file.getName());
 
 				String name = parser.parseQuickName();
 
-				vmInterface.getVmContext().addMapping(name, new SingleFileMapping(file));
+				vm.getVmContext().addMapping(name, new SingleFileMapping(file));
 			}
 			catch(IOException e)
 			{
@@ -85,7 +85,7 @@ public class ClasspathUtil
 					{
 						String classZipName = entry.getName().replace("/", ".").replace(".class", "");
 
-						vmInterface.getVmContext().addMapping(classZipName, new ZippedFileMapping(file, entry.getName()));
+						vm.getVmContext().addMapping(classZipName, new ZippedFileMapping(file, entry.getName()));
 					}
 				}
 				zipFile.close();
@@ -97,23 +97,23 @@ public class ClasspathUtil
 		}
 	}
 
-	public static ClassInfo getClassInfoOrParse(VmInterface vmInterface, String name)
+	public static ClassInfo getClassInfoOrParse(Vm vm, String name)
 	{
-		ClassInfo classInfo = vmInterface.getCurrentClassLoader().forName(name);
+		ClassInfo classInfo = vm.getCurrentClassLoader().forName(name);
 		if(classInfo != null)
 			return classInfo;
-		FileMapping fileMapping = vmInterface.getVmContext().getFileMapping(name);
+		FileMapping fileMapping = vm.getVmContext().getFileMapping(name);
 		if(fileMapping == null)
 			return null;
 
-		return ClasspathUtil.parseClass(vmInterface, fileMapping.openSteam(), fileMapping.getName());
+		return ClasspathUtil.parseClass(vm, fileMapping.openSteam(), fileMapping.getName());
 	}
 
-	private static ClassInfo parseClass(VmInterface vmInterface, InputStream stream, String name)
+	private static ClassInfo parseClass(Vm vm, InputStream stream, String name)
 	{
 		try
 		{
-			ClassParser parser = new ClassParser(vmInterface, stream, name);
+			ClassParser parser = new ClassParser(vm, stream, name);
 
 			ClassInfo classInfo = parser.parse();
 

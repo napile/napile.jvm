@@ -30,53 +30,53 @@ public class VmUtil
 
 	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null, null);
 
-	public static void initBootStrap(VmInterface vmInterface)
+	public static void initBootStrap(Vm vm)
 	{
-		makePrimitiveType(VmInterface.PRIMITIVE_VOID, vmInterface, null, null);
-		makePrimitiveType(VmInterface.PRIMITIVE_BOOLEAN, vmInterface, BoolObjectInfo.class, Boolean.FALSE);
-		makePrimitiveType(VmInterface.PRIMITIVE_BYTE, vmInterface, ByteObjectInfo.class, (byte)0);
-		makePrimitiveType(VmInterface.PRIMITIVE_SHORT, vmInterface, ShortObjectInfo.class, (short)0);
-		makePrimitiveType(VmInterface.PRIMITIVE_INT, vmInterface, IntObjectInfo.class, 0);
-		makePrimitiveType(VmInterface.PRIMITIVE_LONG, vmInterface, LongObjectInfo.class, (long)0);
-		makePrimitiveType(VmInterface.PRIMITIVE_FLOAT, vmInterface, FloatObjectInfo.class, (float)0);
-		makePrimitiveType(VmInterface.PRIMITIVE_DOUBLE, vmInterface, DoubleObjectInfo.class, (double)0);
-		makePrimitiveType(VmInterface.PRIMITIVE_CHAR, vmInterface, CharObjectInfo.class, (char)0);
+		makePrimitiveType(Vm.PRIMITIVE_VOID, vm, null, null);
+		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN, vm, BoolObjectInfo.class, Boolean.FALSE);
+		makePrimitiveType(Vm.PRIMITIVE_BYTE, vm, ByteObjectInfo.class, (byte)0);
+		makePrimitiveType(Vm.PRIMITIVE_SHORT, vm, ShortObjectInfo.class, (short)0);
+		makePrimitiveType(Vm.PRIMITIVE_INT, vm, IntObjectInfo.class, 0);
+		makePrimitiveType(Vm.PRIMITIVE_LONG, vm, LongObjectInfo.class, (long)0);
+		makePrimitiveType(Vm.PRIMITIVE_FLOAT, vm, FloatObjectInfo.class, (float)0);
+		makePrimitiveType(Vm.PRIMITIVE_DOUBLE, vm, DoubleObjectInfo.class, (double)0);
+		makePrimitiveType(Vm.PRIMITIVE_CHAR, vm, CharObjectInfo.class, (char)0);
 
-		AssertUtil.assertNull(vmInterface.getClass("java.lang.Object"));
-		AssertUtil.assertNull(vmInterface.getClass("java.io.Serializable"));
+		AssertUtil.assertNull(vm.getClass("java.lang.Object"));
+		AssertUtil.assertNull(vm.getClass("java.io.Serializable"));
 		// for string
-		AssertUtil.assertNull(vmInterface.getClass("java.lang.String"));
+		AssertUtil.assertNull(vm.getClass("java.lang.String"));
 		// exceptions
-		AssertUtil.assertNull(vmInterface.getClass("java.lang.Throwable"));
-		AssertUtil.assertNull(vmInterface.getClass("java.lang.Exception"));
-		AssertUtil.assertNull(vmInterface.getClass("java.lang.ClassNotFoundException"));
+		AssertUtil.assertNull(vm.getClass("java.lang.Throwable"));
+		AssertUtil.assertNull(vm.getClass("java.lang.Exception"));
+		AssertUtil.assertNull(vm.getClass("java.lang.ClassNotFoundException"));
 
-		vmInterface.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
+		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static ObjectInfo convertToVm(VmInterface vmInterface, ClassInfo classInfo, Object object)
+	public static ObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
 	{
-		if(classInfo.getName().equals(VmInterface.PRIMITIVE_BYTE))
+		if(classInfo.getName().equals(Vm.PRIMITIVE_BYTE))
 			return new ByteObjectInfo(null, classInfo, ((Number)object).byteValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_SHORT))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_SHORT))
 			return new ShortObjectInfo(null, classInfo, ((Number)object).shortValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_INT))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_INT))
 			return new IntObjectInfo(null, classInfo, ((Number)object).intValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_LONG))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_LONG))
 			return new LongObjectInfo(null, classInfo, ((Number)object).longValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_FLOAT))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_FLOAT))
 			return new FloatObjectInfo(null, classInfo, ((Number)object).floatValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_DOUBLE))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_DOUBLE))
 			return new DoubleObjectInfo(null, classInfo, ((Number)object).doubleValue());
-		else if(classInfo.getName().equals(VmInterface.PRIMITIVE_CHAR))
+		else if(classInfo.getName().equals(Vm.PRIMITIVE_CHAR))
 		{
 			int val = (Integer)object;
 			return new CharObjectInfo(null, classInfo, (char)val);
 		}
-		else if(classInfo.getName().equals(VmInterface.JAVA_LANG_STRING))
+		else if(classInfo.getName().equals(Vm.JAVA_LANG_STRING))
 		{
-			ClassInfo primitiveCharClassInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR);
-			ClassInfo primitiveCharClassArrayInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR_ARRAY);
+			ClassInfo primitiveCharClassInfo = vm.getClass(Vm.PRIMITIVE_CHAR);
+			ClassInfo primitiveCharClassArrayInfo = vm.getClass(Vm.PRIMITIVE_CHAR_ARRAY);
 
 			char[] data = ((String)object).toCharArray();
 			CharObjectInfo[] cData = new CharObjectInfo[data.length];
@@ -85,7 +85,7 @@ public class VmUtil
 
 			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(null, primitiveCharClassArrayInfo, cData);
 
-			return AssertUtil.assertNull(vmInterface.newObject(classInfo, new String[]{VmInterface.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
+			return AssertUtil.assertNull(vm.newObject(classInfo, new String[]{Vm.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
 		}
 		else
 		{
@@ -96,7 +96,7 @@ public class VmUtil
 		return null;
 	}
 
-	public static <T> void makePrimitiveType(String name, VmInterface vmInterface, Class<? extends ValueObjectInfo<T>> clazz, T value)
+	public static <T> void makePrimitiveType(String name, Vm vm, Class<? extends ValueObjectInfo<T>> clazz, T value)
 	{
 		PrimitiveClassInfoImpl classInfo = new PrimitiveClassInfoImpl(name);
 		if(clazz != null)
@@ -115,7 +115,7 @@ public class VmUtil
 		else
 			classInfo.setNullValue(OBJECT_NULL);
 
-		vmInterface.getBootClassLoader().addClassInfo(classInfo);
+		vm.getBootClassLoader().addClassInfo(classInfo);
 	}
 
 	public static boolean canSetValue(ClassInfo left, ClassInfo right)
@@ -129,12 +129,12 @@ public class VmUtil
 		return false;
 	}
 
-	public static ClassInfo parseType(VmInterface vmInterface, String val)
+	public static ClassInfo parseType(Vm vm, String val)
 	{
-		return parseType(vmInterface, new StringCharReader(val));
+		return parseType(vm, new StringCharReader(val));
 	}
 
-	public static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
+	public static ClassInfo parseType(Vm vm, StringCharReader charReader)
 	{
 		char firstChar = charReader.next();
 		switch(firstChar)
@@ -146,53 +146,53 @@ public class VmUtil
 
 				charReader.back(); //need go back after while
 
-				ClassInfo arrayTypeInfo = parseType(vmInterface, charReader);
+				ClassInfo arrayTypeInfo = parseType(vm, charReader);
 				if(arrayTypeInfo == null)
 				{
 					BundleUtil.exitAbnormal(null, "class.s1.not.found", charReader);
 					return null;
 				}
 
-				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo, vmInterface.getClass(VmInterface.JAVA_LANG_OBJECT));
+				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo, vm.getClass(Vm.JAVA_LANG_OBJECT));
 				if(i > 1)
 					for(int a = 1; a < i; a++)
-						arrayClass = new ArrayClassInfoImpl(arrayClass, vmInterface.getClass(VmInterface.JAVA_LANG_OBJECT));
+						arrayClass = new ArrayClassInfoImpl(arrayClass, vm.getClass(Vm.JAVA_LANG_OBJECT));
 
-				ClassInfo storedClassInfo = vmInterface.getCurrentClassLoader().forName(arrayClass.getName());
+				ClassInfo storedClassInfo = vm.getCurrentClassLoader().forName(arrayClass.getName());
 				if(storedClassInfo == null)
-					vmInterface.getCurrentClassLoader().addClassInfo(arrayClass);
+					vm.getCurrentClassLoader().addClassInfo(arrayClass);
 				else
 					arrayClass = storedClassInfo;
 				return arrayClass;
 			//case 'j': //long
 			case 'J': //long
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_LONG);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_LONG);
 			case 'C':  //char
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_CHAR);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_CHAR);
 			case 'B':  //byte
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BYTE);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BYTE);
 			case 'D':  //double
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_DOUBLE);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_DOUBLE);
 			case 'F':  //float
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_FLOAT);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_FLOAT);
 			case 'I':  //int
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_INT);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_INT);
 			case 'S':  //short
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_SHORT);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_SHORT);
 			case 'Z':  //boolean
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BOOLEAN);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN);
 			case 'V':  //void
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_VOID);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_VOID);
 			case 'T': //generic
 				//TODO [VISTALL] make it
-				return vmInterface.getBootClassLoader().forName("java.lang.Object");
+				return vm.getBootClassLoader().forName("java.lang.Object");
 			case 'L': //class
 				StringBuilder b = new StringBuilder();
 				while(charReader.next() != ';')
 					b.append(charReader.current());
 
 				String text = b.toString().replace("/", ".");
-				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, text);
+				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vm, text);
 				if(classInfo == null)
 				{
 					BundleUtil.exitAbnormal(null, "class.s1.not.found", text);

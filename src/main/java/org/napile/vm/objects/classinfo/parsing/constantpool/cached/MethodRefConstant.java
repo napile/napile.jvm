@@ -7,7 +7,7 @@ import org.napile.vm.objects.classinfo.parsing.constantpool.Constant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortShortConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -28,14 +28,14 @@ public class MethodRefConstant extends Constant
 		_methodRefConstant = shortShortConstant;
 	}
 
-	public MethodInfo getMethodInfo(VmInterface vmInterface)
+	public MethodInfo getMethodInfo(Vm vm)
 	{
 		if(!_init)
 		{
 			String className = ClassParser.getClassName(_constantPool, _methodRefConstant.getFirstShort());
-			ClassInfo classInfo = vmInterface.getClass(ClassParser.getClassName(_constantPool, _methodRefConstant.getFirstShort()));
+			ClassInfo classInfo = vm.getClass(ClassParser.getClassName(_constantPool, _methodRefConstant.getFirstShort()));
 			if(classInfo == null && className.charAt(0) == '[')
-				classInfo = VmUtil.parseType(vmInterface, className);
+				classInfo = VmUtil.parseType(vm, className);
 
 			ShortShortConstant methodInfoConstant = (ShortShortConstant)_constantPool.getConstant(_methodRefConstant.getSecondShort());
 
@@ -43,14 +43,14 @@ public class MethodRefConstant extends Constant
 			String desc = ((Utf8ValueConstant)_constantPool.getConstant(methodInfoConstant.getSecondShort())).getValue();
 
 			//ClassInfo returnType = VmUtil.parseType(vmInterface, desc.substring(desc.indexOf(')') + 1, desc.length()));
-			ClassInfo[] parameters = ClassParser.parseMethodSignature(vmInterface, desc.substring(1, desc.indexOf(')')));
+			ClassInfo[] parameters = ClassParser.parseMethodSignature(vm, desc.substring(1, desc.indexOf(')')));
 			String[] stringParams = new String[parameters.length];
 			for(int j = 0; j < parameters.length; j++)
 				stringParams[j] = parameters[j].getName();
 
-			MethodInfo methodInfo = vmInterface.getMethod(classInfo, name, true, stringParams);
+			MethodInfo methodInfo = vm.getMethod(classInfo, name, true, stringParams);
 			if(methodInfo == null)
-				methodInfo = vmInterface.getStaticMethod(classInfo, name, true, stringParams);
+				methodInfo = vm.getStaticMethod(classInfo, name, true, stringParams);
 
 			_methodInfo = methodInfo;
 			_init = true;

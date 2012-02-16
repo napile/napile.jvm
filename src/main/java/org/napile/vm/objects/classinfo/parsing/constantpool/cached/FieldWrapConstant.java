@@ -7,7 +7,7 @@ import org.napile.vm.objects.classinfo.parsing.constantpool.Constant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortShortConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -27,19 +27,19 @@ public class FieldWrapConstant extends Constant
 		_fieldRefConstant = shortShortConstant;
 	}
 
-	public FieldInfo getFieldInfo(VmInterface vmInterface)
+	public FieldInfo getFieldInfo(Vm vm)
 	{
 		if(!_init)
 		{
-			ClassInfo classInfo = vmInterface.getClass(ClassParser.getClassName(_constantPool, _fieldRefConstant.getFirstShort()));
+			ClassInfo classInfo = vm.getClass(ClassParser.getClassName(_constantPool, _fieldRefConstant.getFirstShort()));
 
 			ShortShortConstant fieldInfoConstant = (ShortShortConstant)_constantPool.getConstant(_fieldRefConstant.getSecondShort());
 
 			String name = ((Utf8ValueConstant)_constantPool.getConstant(fieldInfoConstant.getFirstShort())).getValue();
 
-			FieldInfo fieldInfo = vmInterface.getField(classInfo, name, true);
+			FieldInfo fieldInfo = vm.getField(classInfo, name, true);
 			if(fieldInfo == null)
-				fieldInfo = vmInterface.getStaticField(classInfo, name, true);
+				fieldInfo = vm.getStaticField(classInfo, name, true);
 
 			_init = true;
 

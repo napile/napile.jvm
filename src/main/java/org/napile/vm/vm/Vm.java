@@ -1,4 +1,4 @@
-package org.napile.vm.vm.impl;
+package org.napile.vm.vm;
 
 import org.apache.log4j.Logger;
 import org.napile.vm.classloader.JClassLoader;
@@ -15,29 +15,40 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.vm.VmContext;
-import org.napile.vm.vm.VmInterface;
-import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 17:36/31.01.2012
+ * @date 17:26/31.01.2012
  */
-public class VmInterfaceImpl implements VmInterface
+public class Vm
 {
-	private static final Logger LOGGER = Logger.getLogger(VmInterfaceImpl.class);
+	public static final String PRIMITIVE_VOID = "void";
+	public static final String PRIMITIVE_BOOLEAN = "boolean";
+	public static final String PRIMITIVE_BYTE = "byte";
+	public static final String PRIMITIVE_SHORT = "short";
+	public static final String PRIMITIVE_INT = "int";
+	public static final String PRIMITIVE_LONG = "long";
+	public static final String PRIMITIVE_FLOAT = "float";
+	public static final String PRIMITIVE_DOUBLE = "double";
+	public static final String PRIMITIVE_CHAR = "char";
+	public static final String PRIMITIVE_CHAR_ARRAY = "char[]";
+	//
+	public static final String JAVA_LANG_OBJECT = "java.lang.Object";
+	public static final String JAVA_LANG_STRING = "java.lang.String";
+	public static final String JAVA_LANG_STRING_ARRAY = "java.lang.String[]";
+
+	private static final Logger LOGGER = Logger.getLogger(Vm.class);
 
 	private VmContext _vmContext;
 
 	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
 	private JClassLoader _currentClassLoader = _bootClassLoader;
 
-	public VmInterfaceImpl(VmContext vmContext)
+	public Vm(VmContext vmContext)
 	{
 		_vmContext = vmContext;
 	}
 
-	@Override
 	public ClassInfo getClass(String name)
 	{
 		ClassInfo classInfo = _currentClassLoader.forName(name);
@@ -68,35 +79,30 @@ public class VmInterfaceImpl implements VmInterface
 			return classInfo;
 	}
 
-	@Override
 	public FieldInfo getField(ClassInfo info, String name, boolean deep)
 	{
 		FieldInfo fieldInfo = getField0(info, name, deep);
 		return fieldInfo != null && !Flags.isStatic(fieldInfo) ? fieldInfo : null;
 	}
 
-	@Override
 	public FieldInfo getStaticField(ClassInfo info, String name, boolean deep)
 	{
 		FieldInfo fieldInfo = getField0(info, name, deep);
 		return fieldInfo != null && Flags.isStatic(fieldInfo) ? fieldInfo : null;
 	}
 
-	@Override
 	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
-	@Override
 	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
-	@Override
 	public void invoke(InterpreterContext context, MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
 	{
 		AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
@@ -108,7 +114,6 @@ public class VmInterfaceImpl implements VmInterface
 		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
-	@Override
 	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
 	{
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, false, constructorTypes));
@@ -120,25 +125,21 @@ public class VmInterfaceImpl implements VmInterface
 		return classObjectInfo;
 	}
 
-	@Override
 	public VmContext getVmContext()
 	{
 		return _vmContext;
 	}
 
-	@Override
 	public JClassLoader getBootClassLoader()
 	{
 		return _bootClassLoader;
 	}
 
-	@Override
 	public JClassLoader getCurrentClassLoader()
 	{
 		return _currentClassLoader;
 	}
 
-	@Override
 	public JClassLoader moveFromBootClassLoader()
 	{
 		_currentClassLoader = new SimpleClassLoaderImpl(_currentClassLoader);

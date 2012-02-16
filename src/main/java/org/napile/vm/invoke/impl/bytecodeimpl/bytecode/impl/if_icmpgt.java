@@ -6,7 +6,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -23,7 +23,7 @@ public class if_icmpgt implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry entry = context.getLastStack();
 

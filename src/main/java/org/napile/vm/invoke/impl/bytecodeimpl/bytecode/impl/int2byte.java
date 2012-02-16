@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -19,7 +19,7 @@ public class int2byte implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 
 	}

@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -20,8 +20,8 @@ public class iconst_0 implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
-		context.push(new IntObjectInfo(null, vmInterface.getClass(VmInterface.PRIMITIVE_INT), 0));
+		context.push(new IntObjectInfo(null, vm.getClass(Vm.PRIMITIVE_INT), 0));
 	}
 }

@@ -10,7 +10,7 @@ import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -28,13 +28,13 @@ public class putstatic implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
 		FieldWrapConstant wrapConstant = (FieldWrapConstant) stackEntry.getConstantPool().getConstant(_index);
 
-		FieldInfo fieldInfo = wrapConstant.getFieldInfo(vmInterface);
+		FieldInfo fieldInfo = wrapConstant.getFieldInfo(vm);
 		if(!Flags.isStatic(fieldInfo))
 			return;
 

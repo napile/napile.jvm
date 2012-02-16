@@ -10,7 +10,7 @@ import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapCons
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -28,13 +28,13 @@ public class putfield implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
 		FieldWrapConstant fieldWrapConstant = (FieldWrapConstant) stackEntry.getConstantPool().getConstant(_index);
 
-		FieldInfo fieldInfo = fieldWrapConstant.getFieldInfo(vmInterface);
+		FieldInfo fieldInfo = fieldWrapConstant.getFieldInfo(vm);
 
 		ObjectInfo value = context.last();
 		ClassObjectInfo object = (ClassObjectInfo)context.last();

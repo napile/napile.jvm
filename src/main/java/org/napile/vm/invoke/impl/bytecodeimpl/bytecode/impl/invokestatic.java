@@ -12,7 +12,7 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.MethodRefConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -29,13 +29,13 @@ public class invokestatic implements Instruction
 	}
 
 	@Override
-	public void call(VmInterface vmInterface, InterpreterContext context)
+	public void call(Vm vm, InterpreterContext context)
 	{
 		StackEntry entry = context.getLastStack();
 
 		MethodRefConstant constant = (MethodRefConstant)entry.getConstantPool().getConstant(_index);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(constant.getMethodInfo(vmInterface));
+		MethodInfo methodInfo = AssertUtil.assertNull(constant.getMethodInfo(vm));
 		List<ObjectInfo> arguments = new ArrayList<ObjectInfo>(methodInfo.getParameters().length);
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
 			arguments.add(context.last());
@@ -46,7 +46,7 @@ public class invokestatic implements Instruction
 
 		context.getStack().add(nextEntry);
 
-		vmInterface.invoke(context, methodInfo, null, ObjectInfo.EMPTY_ARRAY);
+		vm.invoke(context, methodInfo, null, ObjectInfo.EMPTY_ARRAY);
 
 		context.getStack().pollLast();
 	}

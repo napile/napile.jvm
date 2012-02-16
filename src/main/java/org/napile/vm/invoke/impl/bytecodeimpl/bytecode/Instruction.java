@@ -3,7 +3,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 import java.nio.ByteBuffer;
 
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -15,5 +15,5 @@ public interface Instruction
 
 	void parseData(ByteBuffer buffer, boolean wide);
 
-	void call(VmInterface vmInterface, InterpreterContext context);
+	void call(Vm vm, InterpreterContext context);
 }
