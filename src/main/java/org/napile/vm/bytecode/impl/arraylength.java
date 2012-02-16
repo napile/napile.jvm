@@ -23,7 +23,7 @@ public class arraylength implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		ArrayObjectInfo objectInfo = (ArrayObjectInfo)context.pop();
+		ArrayObjectInfo objectInfo = (ArrayObjectInfo)context.last();
 
 		context.push(new IntObjectInfo(null, vmInterface.getClass(VmInterface.PRIMITIVE_INT), objectInfo.getValue().length));
 	}

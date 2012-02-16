@@ -127,8 +127,7 @@ public class ClassParser
 
 		parseMethods(classInfo, constantPool);
 
-		if(_vmInterface.getCurrentClassLoader() != _vmInterface.getBootClassLoader())
-			constantPool.makeCached(_vmInterface);
+		constantPool.makeCached();
 		return classInfo;
 	}
 
@@ -395,7 +394,7 @@ public class ClassParser
 		}
 	}
 
-	private static ClassInfo[] parseMethodSignature(VmInterface vmInterface, String sig)
+	public static ClassInfo[] parseMethodSignature(VmInterface vmInterface, String sig)
 	{
 		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
 		StringCharReader reader = new StringCharReader(sig);

@@ -4,11 +4,9 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.interpreter.StackEntry;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.VmInterface;
-import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -25,17 +23,11 @@ public class istore_2 implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		WorkData workData = context.getLastWork();
+		StackEntry stackEntry = context.getLastStack();
 
-		ObjectInfo value = context.pop();
+		ObjectInfo value = context.last();
 
-		if(workData.getLocalVariables().size() == 2) // no local variable at index 2
-			workData.getLocalVariables().add(value);
-		else
-		{
-			AssertUtil.assertFalse(VmUtil.canSetValue(workData.getParentVariables()[2].getType(), value.getClassInfo()));
 
-			workData.getLocalVariables().set(2, value);
-		}
+		stackEntry.set(2, value);
 	}
 }

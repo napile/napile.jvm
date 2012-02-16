@@ -12,10 +12,12 @@ import org.napile.vm.vm.VmUtil;
 public class ArrayClassInfoImpl extends AbstractClassInfo
 {
 	private ClassInfo _type;
+	private ClassInfo _superClass;
 
-	public ArrayClassInfoImpl(ClassInfo type)
+	public ArrayClassInfoImpl(ClassInfo type, ClassInfo superClass)
 	{
 		_type = type;
+		_superClass = superClass;
 
 		setNullValue(VmUtil.OBJECT_NULL);
 	}
@@ -53,7 +55,7 @@ public class ArrayClassInfoImpl extends AbstractClassInfo
 	@Override
 	public ClassInfo getSuperClass()
 	{
-		return null;
+		return _superClass;
 	}
 
 	@Override

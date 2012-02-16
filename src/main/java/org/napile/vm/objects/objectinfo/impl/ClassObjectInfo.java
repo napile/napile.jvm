@@ -44,4 +44,10 @@ public class ClassObjectInfo  extends ObjectInfo
 	{
 		return _fields;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Object of " + _classInfo.toString();
+	}
 }

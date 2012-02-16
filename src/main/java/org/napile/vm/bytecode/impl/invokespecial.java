@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.interpreter.StackEntry;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -22,8 +22,8 @@ public class invokespecial implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		WorkData workData = context.getLastWork();
+		StackEntry stackEntry = context.getLastStack();
 
-		context.pop();
+		context.last();
 	}
 }

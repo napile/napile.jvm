@@ -23,4 +23,6 @@ public interface MethodInfo extends ReflectInfo
 	Instruction[] getInstructions();
 
 	LocalVariable[] getLocalVariables();
+
+	int getMaxLocals();
 }

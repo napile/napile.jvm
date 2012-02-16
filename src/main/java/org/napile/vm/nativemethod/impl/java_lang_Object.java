@@ -1,4 +1,4 @@
-package org.napile.vm.nativeimpl;
+package org.napile.vm.nativemethod.impl;
 
 /**
  * @author VISTALL

@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.interpreter.StackEntry;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -30,16 +30,17 @@ public class putfield implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		WorkData workData = context.getLastWork();
+		StackEntry stackEntry = context.getLastStack();
 
-		FieldWrapConstant fieldWrapConstant = (FieldWrapConstant)workData.getConstantPool().getConstant(_index);
+		FieldWrapConstant fieldWrapConstant = (FieldWrapConstant) stackEntry.getConstantPool().getConstant(_index);
 
-		FieldInfo fieldInfo = fieldWrapConstant.getFieldInfo();
-		ClassObjectInfo object = (ClassObjectInfo)context.pop();
-		ObjectInfo value = context.pop();
+		FieldInfo fieldInfo = fieldWrapConstant.getFieldInfo(vmInterface);
+
+		ObjectInfo value = context.last();
+		ClassObjectInfo object = (ClassObjectInfo)context.last();
 
 		AssertUtil.assertFalse(object.getFields().containsKey(fieldInfo));
-		AssertUtil.assertFalse(VmUtil.canSetValue(fieldWrapConstant.getFieldInfo().getType(), value.getClassInfo()));
+		AssertUtil.assertFalse(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
 
 		object.getFields().put(fieldInfo, value);
 	}

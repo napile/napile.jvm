@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.PrimitiveClassInfoImpl;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -152,10 +153,10 @@ public class VmUtil
 					return null;
 				}
 
-				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo);
+				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo, vmInterface.getClass(VmInterface.JAVA_LANG_OBJECT));
 				if(i > 1)
 					for(int a = 1; a < i; a++)
-						arrayClass = new ArrayClassInfoImpl(arrayClass);
+						arrayClass = new ArrayClassInfoImpl(arrayClass, vmInterface.getClass(VmInterface.JAVA_LANG_OBJECT));
 
 				ClassInfo storedClassInfo = vmInterface.getCurrentClassLoader().forName(arrayClass.getName());
 				if(storedClassInfo == null)
@@ -231,5 +232,20 @@ public class VmUtil
 			}
 		}
 		return (list.isEmpty() ? Collections.<FieldInfo>emptyList() : list).toArray(new FieldInfo[list.size()]);
+	}
+
+	public static MethodInfo[] collectAllMethods(ClassInfo info)
+	{
+		List<MethodInfo> list = new ArrayList<MethodInfo>();
+		ClassInfo clazz = info;
+		while(clazz != null)
+		{
+			MethodInfo[] fieldInfos = clazz.getMethods();
+			Collections.addAll(list, fieldInfos);
+
+			clazz = clazz.getSuperClass();
+		}
+
+		return (list.isEmpty() ? Collections.<MethodInfo>emptyList() : list).toArray(new MethodInfo[list.size()]);
 	}
 }

@@ -1,5 +1,9 @@
 package org.napile.vm.interpreter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.vm.VmInterface;
@@ -32,23 +36,36 @@ public class Interpreter
 			}
 			catch(Exception e)
 			{
-				debug(i, e);
+				debug(context, i, e);
 
 				System.exit(-1);
 			}
 		}
 
-		for(WorkData workData : context.getStack())
-			LOGGER.info(workData.getMethodInfo().toString());
-		debug(-1, null);
-		LOGGER.info("-----------------------------------");
+		//debug(context, -1, null);
 	}
 
-	private void debug(int errorIndex, Exception e)
+	private void debug(InterpreterContext context, int errorIndex, Exception e)
 	{
+		LOGGER.info("-----------------------------------");
+		LOGGER.info("Stack:");
+		List<StackEntry> entries = new ArrayList<StackEntry>(context.getStack());
+		Collections.reverse(entries);
+		for(StackEntry stackEntry : entries)
+			LOGGER.info("> " + stackEntry.getMethodInfo().toString());
+
+		LOGGER.info("-----------------------------------");
+		LOGGER.info("Values:");
+		for(String d : context.getDebug())
+			LOGGER.info(d);
+
+		LOGGER.info("-----------------------------------");
+		LOGGER.info("Instructions:");
 		for(int j = 0; j < _instructions.length; j++)
 		LOGGER.info(j + " [" + _instructions[j].getClass().getSimpleName() + "]" + ((errorIndex == j) ? " ERROR: " + e.getMessage() : ""));
 		if(e != null)
 			e.printStackTrace();
+
+		LOGGER.info("-----------------------------------");
 	}
 }

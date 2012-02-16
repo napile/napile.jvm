@@ -59,7 +59,7 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", VmInterface.JAVA_LANG_STRING_ARRAY);
+		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", false, VmInterface.JAVA_LANG_STRING_ARRAY);
 		if(methodInfo == null)
 		{
 			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", VmInterface.JAVA_LANG_STRING_ARRAY);

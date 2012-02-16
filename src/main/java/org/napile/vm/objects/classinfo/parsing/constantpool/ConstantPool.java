@@ -1,14 +1,8 @@
 package org.napile.vm.objects.classinfo.parsing.constantpool;
 
-import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
-import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortShortConstant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
-import org.napile.vm.util.BundleUtil;
-import org.napile.vm.vm.VmInterface;
-import org.napile.vm.vm.VmUtil;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.MethodRefConstant;
 
 /**
  * @author VISTALL
@@ -46,7 +40,7 @@ public class ConstantPool
 		return _constants[val];
 	}
 
-	public void makeCached(VmInterface vmInterface)
+	public void makeCached()
 	{
 		for(int i = 0; i < _constants.length; i++)
 		{
@@ -56,28 +50,10 @@ public class ConstantPool
 			switch(constant.getType())
 			{
 				case CP_FIELD_DEF:
-					ShortShortConstant shortShortConstant = (ShortShortConstant)constant;
-
-					ClassInfo classInfo =vmInterface.getClass(ClassParser.getClassName(this, shortShortConstant.getFirstShort()));
-					ShortShortConstant fieldInfoConstant = (ShortShortConstant)getConstant(shortShortConstant.getSecondShort());
-
-					String name = ((Utf8ValueConstant)getConstant(fieldInfoConstant.getFirstShort())).getValue();
-
-					FieldInfo fieldInfo = vmInterface.getField(classInfo, name, true);
-					if(fieldInfo == null)
-						fieldInfo = vmInterface.getStaticField(classInfo, name, true);
-
-					ClassInfo typeClassInfo = VmUtil.parseType(vmInterface, ((Utf8ValueConstant) getConstant(fieldInfoConstant.getSecondShort())).getValue().replace("/", "."));
-
-					if(fieldInfo == null || fieldInfo.getType() != typeClassInfo)
-					{
-						BundleUtil.exitAbnormal(new Exception(), "unexpected.error");
-						return;
-					}
-
-					_constants[i] = new FieldWrapConstant(fieldInfo);
+					_constants[i] = new FieldWrapConstant(this, (ShortShortConstant)constant);
 					break;
 				case CP_METHOD_DEF:
+					_constants[i] = new MethodRefConstant(this, (ShortShortConstant)constant);
 					break;
 			}
 		}

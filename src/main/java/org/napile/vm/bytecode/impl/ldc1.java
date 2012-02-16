@@ -29,7 +29,7 @@ public class ldc1 implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		ConstantPool constantPool = context.getLastWork().getConstantPool();
+		ConstantPool constantPool = context.getLastStack().getConstantPool();
 
 		ShortValueConstant constant = (ShortValueConstant)constantPool.getConstant(_index);
 

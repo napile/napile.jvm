@@ -5,7 +5,7 @@ import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.interpreter.Interpreter;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.interpreter.StackEntry;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
@@ -52,9 +52,10 @@ public class VmInterfaceImpl implements VmInterface
 				String data = name.substring(typeName.length(), name.length());
 				int size = data.length() / 2; // [] - is 2, TODO [VISTALl] rework for [final]
 
-				ArrayClassInfoImpl arrayClassInfo = new ArrayClassInfoImpl(typeClass);
+				ArrayClassInfoImpl arrayClassInfo = new ArrayClassInfoImpl(typeClass, getClass(JAVA_LANG_OBJECT));
+
 				for(int i = 1; i < size; i++)
-					arrayClassInfo = new ArrayClassInfoImpl(arrayClassInfo);
+					arrayClassInfo = new ArrayClassInfoImpl(arrayClassInfo, getClass(JAVA_LANG_OBJECT));
 
 				getCurrentClassLoader().addClassInfo(arrayClassInfo);
 
@@ -82,16 +83,16 @@ public class VmInterfaceImpl implements VmInterface
 	}
 
 	@Override
-	public MethodInfo getMethod(ClassInfo info, String name, String... params)
+	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
-		MethodInfo methodInfo = getMethod0(info, name, params);
+		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
 	@Override
-	public MethodInfo getStaticMethod(ClassInfo info, String name, String... params)
+	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
-		MethodInfo methodInfo = getMethod0(info, name, params);
+		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
@@ -108,14 +109,14 @@ public class VmInterfaceImpl implements VmInterface
 		{
 			Interpreter interpreter = new Interpreter(methodInfo.getInstructions(), this);
 
-			interpreter.call(new InterpreterContext(new WorkData(object, methodInfo, argument)));
+			interpreter.call(new InterpreterContext(new StackEntry(object, methodInfo, argument)));
 		}
 	}
 
 	@Override
 	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
 	{
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, constructorTypes));
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, false, constructorTypes));
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
 
@@ -145,10 +146,6 @@ public class VmInterfaceImpl implements VmInterface
 	@Override
 	public JClassLoader moveFromBootClassLoader()
 	{
-		for(ClassInfo classInfo : _bootClassLoader.getLoadedClasses())
-			if(classInfo.getConstantPool() != null)
-				classInfo.getConstantPool().makeCached(this);
-
 		_currentClassLoader = new SimpleClassLoaderImpl(_currentClassLoader);
 		return _currentClassLoader;
 	}
@@ -162,10 +159,9 @@ public class VmInterfaceImpl implements VmInterface
 		return null;
 	}
 
-	public static MethodInfo getMethod0(ClassInfo info, String name, String... params)
+	public static MethodInfo getMethod0(ClassInfo info, String name, boolean deep, String... params)
 	{
-		MethodInfo returnMethod = null;
-		MethodInfo[] methodInfos = info.getMethods();
+		MethodInfo[] methodInfos =  deep ? VmUtil.collectAllMethods(info) : info.getMethods();
 		for(MethodInfo methodInfo : methodInfos)
 		{
 			if(!methodInfo.getName().equals(name))
@@ -177,16 +173,15 @@ public class VmInterfaceImpl implements VmInterface
 
 			loop:
 			{
-				
 				for(int i = 0; i < params.length; i++)
 				{
 					if(!paramTypes[i].getName().equals(params[i]))
 						break loop;
 				}
 
-				returnMethod = methodInfo;
+				return methodInfo;
 			}
 		}
-		return returnMethod;
+		return null;
 	}
 }

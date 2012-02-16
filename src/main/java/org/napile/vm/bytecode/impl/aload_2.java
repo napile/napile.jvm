@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
+import org.napile.vm.interpreter.StackEntry;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -21,6 +23,10 @@ public class aload_2 implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
+		StackEntry stackEntry = context.getLastStack();
 
+		ObjectInfo objectInfo = stackEntry.get(2);
+
+		context.push(objectInfo);
 	}
 }

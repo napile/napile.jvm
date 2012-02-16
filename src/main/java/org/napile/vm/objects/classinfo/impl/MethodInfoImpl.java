@@ -87,7 +87,7 @@ public class MethodInfoImpl implements MethodInfo
 			if(i != (_parameters.length - 1))
 				b.append(", ");
 		}
-		b.append(")") ;
+		b.append(")");
 		return b.toString();
 	}
 
@@ -113,17 +113,18 @@ public class MethodInfoImpl implements MethodInfo
 		return _maxStack;
 	}
 
-    public void setMaxStack(int maxStack)
+	public void setMaxStack(int maxStack)
 	{
 		_maxStack = maxStack;
 	}
 
-    public int getMaxLocals()
+	@Override
+	public int getMaxLocals()
 	{
 		return _maxLocals;
 	}
 
-    public void setMaxLocals(int maxLocals)
+	public void setMaxLocals(int maxLocals)
 	{
 		_maxLocals = maxLocals;
 	}

@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.interpreter.StackEntry;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
@@ -30,15 +30,15 @@ public class putstatic implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-		WorkData workData = context.getLastWork();
+		StackEntry stackEntry = context.getLastStack();
 
-		FieldWrapConstant wrapConstant = (FieldWrapConstant)workData.getConstantPool().getConstant(_index);
+		FieldWrapConstant wrapConstant = (FieldWrapConstant) stackEntry.getConstantPool().getConstant(_index);
 
-		FieldInfo fieldInfo = wrapConstant.getFieldInfo();
+		FieldInfo fieldInfo = wrapConstant.getFieldInfo(vmInterface);
 		if(!Flags.isStatic(fieldInfo))
 			return;
 
-		ObjectInfo value = context.pop();
+		ObjectInfo value = context.last();
 
 		AssertUtil.assertFalse(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
 

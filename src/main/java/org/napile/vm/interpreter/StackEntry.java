@@ -1,8 +1,5 @@
 package org.napile.vm.interpreter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
@@ -12,37 +9,35 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  * @author VISTALL
  * @date 21:09/15.02.2012
  */
-public class WorkData
+public class StackEntry
 {
 	private ObjectInfo _objectInfo;
 	private MethodInfo _methodInfo;
 
 	private ObjectInfo[] _arguments;
 
-	private final List<ObjectInfo> _localVariables;
+	private final ObjectInfo[] _localVariables;
 	private final LocalVariable[] _parentVariables;
 
-	public WorkData(ObjectInfo objectInfo, MethodInfo methodInfo, ObjectInfo[] arguments)
+	public StackEntry(ObjectInfo objectInfo, MethodInfo methodInfo, ObjectInfo[] arguments)
 	{
 		_objectInfo = objectInfo;
 		_methodInfo = methodInfo;
 		_arguments = arguments;
 
 		_parentVariables = methodInfo.getLocalVariables();
-		_localVariables = new ArrayList<ObjectInfo>(methodInfo.getLocalVariables().length);
-		for(int i = 0; i < _parentVariables.length; i++)
-			_localVariables.add(methodInfo.getLocalVariables()[i].getType().nullValue());
+		_localVariables = new ObjectInfo[methodInfo.getMaxLocals()];
 
-		if(!_localVariables.isEmpty())
+		if(_localVariables.length > 0)
 		{
 			int startPos = objectInfo == null ? 0 : 1;
 
 			// if is not static - set 'this' to object
 			if(objectInfo != null)
-				_localVariables.set(0, objectInfo);
+				set(0, objectInfo);
 
 			for(int i = 0; i < arguments.length; i++, startPos ++)
-				_localVariables.set(startPos, arguments[i]);
+				set(startPos, arguments[i]);
 		}
 	}
 
@@ -51,9 +46,14 @@ public class WorkData
 		return _methodInfo.getParent().getConstantPool();
 	}
 
-	public List<ObjectInfo> getLocalVariables()
+	public void set(int index, ObjectInfo objectInfo)
 	{
-		return _localVariables;
+		_localVariables[index] = objectInfo;
+	}
+
+	public ObjectInfo get(int index)
+	{
+		return _localVariables[index];
 	}
 
 	public LocalVariable[] getParentVariables()

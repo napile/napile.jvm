@@ -23,6 +23,7 @@ public interface VmInterface
 	String PRIMITIVE_CHAR = "char";
 	String PRIMITIVE_CHAR_ARRAY = "char[]";
 	//
+	String JAVA_LANG_OBJECT = "java.lang.Object";
 	String JAVA_LANG_STRING = "java.lang.String";
 	String JAVA_LANG_STRING_ARRAY = "java.lang.String[]";
 
@@ -32,9 +33,9 @@ public interface VmInterface
 
 	FieldInfo getStaticField(ClassInfo info, String name, boolean deep);
 
-	MethodInfo getMethod(ClassInfo info, String name, String... params);
+	MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params);
 
-	MethodInfo getStaticMethod(ClassInfo info, String name, String... params);
+	MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params);
 
 	void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
 
