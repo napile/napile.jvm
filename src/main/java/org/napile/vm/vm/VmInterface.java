@@ -1,6 +1,7 @@
 package org.napile.vm.vm;
 
 import org.napile.vm.classloader.JClassLoader;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -37,7 +38,7 @@ public interface VmInterface
 
 	MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params);
 
-	void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
+	void invoke(InterpreterContext context, MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
 
 	ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments);
 

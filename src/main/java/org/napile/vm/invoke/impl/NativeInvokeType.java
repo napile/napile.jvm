@@ -1,0 +1,52 @@
+package org.napile.vm.invoke.impl;
+
+import java.lang.reflect.Method;
+
+import org.apache.log4j.Logger;
+import org.napile.vm.invoke.InvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.nativeimpl.NativeMethod;
+import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
+import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.vm.VmInterface;
+
+/**
+ * @author VISTALL
+ * @date 0:14/17.02.2012
+ */
+public class NativeInvokeType implements InvokeType
+{
+	private static final Logger LOGGER = Logger.getLogger(NativeInvokeType.class);
+
+	@Override
+	public void call(VmInterface vmInterface, InterpreterContext context)
+	{
+		StackEntry entry = context.getLastStack();
+
+		MethodInfo methodInfo = entry.getMethodInfo();
+		NativeMethod nativeMethod = NativeWrapper.getMethod(methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
+		if(nativeMethod == null)
+		{
+			LOGGER.info("native call: " + context.getLastStack().getMethodInfo().toString());
+			System.exit(-1);
+		}
+		else
+		{
+			Method method = nativeMethod.getMethod();
+
+			try
+			{
+				ObjectInfo objectInfo = (ObjectInfo)method.invoke(null, vmInterface, entry.getObjectInfo(), entry.getArguments());
+				if(objectInfo != null)
+					context.push(objectInfo);
+			}
+			catch(Exception e)
+			{
+				LOGGER.error(e, e);
+				System.exit(-1);
+			}
+		}
+	}
+}

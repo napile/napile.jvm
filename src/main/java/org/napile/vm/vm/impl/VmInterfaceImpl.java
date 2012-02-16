@@ -3,9 +3,9 @@ package org.napile.vm.vm.impl;
 import org.apache.log4j.Logger;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
-import org.napile.vm.interpreter.Interpreter;
-import org.napile.vm.interpreter.InterpreterContext;
-import org.napile.vm.interpreter.StackEntry;
+import org.napile.vm.invoke.InvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
@@ -97,20 +97,15 @@ public class VmInterfaceImpl implements VmInterface
 	}
 
 	@Override
-	public void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
+	public void invoke(InterpreterContext context, MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
 	{
 		AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
 
-		if(Flags.isNative(methodInfo))
-		{
-			LOGGER.info("Native methods is not supported: " + methodInfo.toString());
-		}
-		else
-		{
-			Interpreter interpreter = new Interpreter(methodInfo.getInstructions(), this);
+		InvokeType invokeType = methodInfo.getInvokeType();
 
-			interpreter.call(new InterpreterContext(new StackEntry(object, methodInfo, argument)));
-		}
+		AssertUtil.assertNull(invokeType);
+
+		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
 	@Override
@@ -120,7 +115,7 @@ public class VmInterfaceImpl implements VmInterface
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
 
-		invoke(methodInfo, classObjectInfo, arguments);
+		invoke(null, methodInfo, classObjectInfo, arguments);
 
 		return classObjectInfo;
 	}

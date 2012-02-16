@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.napile.vm.Main;
-import org.napile.vm.bytecode.Instruction;
-import org.napile.vm.bytecode.InstructionFactory;
+import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.InstructionFactory;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -22,6 +23,7 @@ import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.*;
 import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
+import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.StringCharReader;
@@ -292,10 +294,15 @@ public class ClassParser
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_CODE))
 				{
+					AssertUtil.assertNotNull(methodInfo.getInvokeType());
+
+					BytecodeInvokeType invokeType = new BytecodeInvokeType();
+					methodInfo.setInvokeType(invokeType);
+
 					_dataInputStream.readInt();
 
-					methodInfo.setMaxStack(_dataInputStream.readShort());
-					methodInfo.setMaxLocals(_dataInputStream.readShort());
+					invokeType.setMaxStack(_dataInputStream.readShort());
+					invokeType.setMaxLocals(_dataInputStream.readShort());
 
 					int codeLen = _dataInputStream.readInt();
 
@@ -303,7 +310,7 @@ public class ClassParser
 					_dataInputStream.readFully(btArray);
 
 					Instruction[] instructions = InstructionFactory.parseByteCode(_name, methodInfo.getName(), btArray);
-					methodInfo.setInstructions(instructions);
+					invokeType.setInstructions(instructions);
 
 					// exception_table_length
 					short excLen = _dataInputStream.readShort();
@@ -324,7 +331,7 @@ public class ClassParser
 						//aLocalMethod.addExceptionBlock(startPc, endPc, handlerPc, aCpInfo.getClassName(catchType));
 					}
 
-					parseMethodCodeAttribute(classInfo, methodInfo, constantPool);
+					parseMethodCodeAttribute(invokeType, classInfo, methodInfo, constantPool);
 				}
 				else if(attributeName.equals(ReflectInfo.ATT_RUNTIME_VISIBLE_ANNOTATIONS))
 				{
@@ -344,7 +351,7 @@ public class ClassParser
 		classInfo.setMethods(methods);
 	}
 
-	private void parseMethodCodeAttribute(ClassInfoImpl classInfo, MethodInfoImpl methodInfo, ConstantPool constantPool) throws IOException
+	private void parseMethodCodeAttribute(BytecodeInvokeType bytecodeInvokeType, ClassInfoImpl classInfo, MethodInfoImpl methodInfo, ConstantPool constantPool) throws IOException
 	{
 		short attrCount = _dataInputStream.readShort();
 
@@ -387,7 +394,7 @@ public class ClassParser
 					LocalVariable variable = new LocalVariable(startPc, length, name, typeClassInfo, frameIndex);
 					localVariables[i] = variable;
 				}
-				methodInfo.setLocalVariables(localVariables);
+				bytecodeInvokeType.setLocalVariables(localVariables);
 			}
 			else
 				BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", codeAttributeName, classInfo.getName());

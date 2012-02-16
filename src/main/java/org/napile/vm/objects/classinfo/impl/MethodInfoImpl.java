@@ -1,9 +1,10 @@
 package org.napile.vm.objects.classinfo.impl;
 
-import org.napile.vm.bytecode.Instruction;
+import org.napile.vm.invoke.InvokeType;
+import org.napile.vm.invoke.impl.NativeInvokeType;
+import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
 
 /**
  * @author VISTALL
@@ -18,11 +19,8 @@ public class MethodInfoImpl implements MethodInfo
 	private String _name;
 
 	private ClassInfo[] _throwExceptions;
-	private Instruction[] _instructions;
-	private LocalVariable[] _localVariables = LocalVariable.EMPTY_ARRAY;
 
-	private int _maxStack;
-	private int _maxLocals;
+	private InvokeType _invokeType;
 
 	public MethodInfoImpl(ClassInfo parentType, ClassInfo returnType, ClassInfo[] parameters, String name, short flags)
 	{
@@ -31,6 +29,9 @@ public class MethodInfoImpl implements MethodInfo
 		_parameters = parameters;
 		_name = name;
 		_flags = flags;
+
+		if(Flags.isNative(this))
+			_invokeType = new NativeInvokeType();
 	}
 
 	@Override
@@ -92,45 +93,13 @@ public class MethodInfoImpl implements MethodInfo
 	}
 
 	@Override
-	public Instruction[] getInstructions()
+	public InvokeType getInvokeType()
 	{
-		return _instructions;
+		return _invokeType;
 	}
 
-	@Override
-	public LocalVariable[] getLocalVariables()
+	public void setInvokeType(InvokeType invokeType)
 	{
-		return _localVariables;
-	}
-
-	public void setInstructions(Instruction[] instructions)
-	{
-		_instructions = instructions;
-	}
-
-	public int getMaxStack()
-	{
-		return _maxStack;
-	}
-
-	public void setMaxStack(int maxStack)
-	{
-		_maxStack = maxStack;
-	}
-
-	@Override
-	public int getMaxLocals()
-	{
-		return _maxLocals;
-	}
-
-	public void setMaxLocals(int maxLocals)
-	{
-		_maxLocals = maxLocals;
-	}
-
-	public void setLocalVariables(LocalVariable[] localVariables)
-	{
-		_localVariables = localVariables;
+		_invokeType = invokeType;
 	}
 }

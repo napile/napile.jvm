@@ -2,6 +2,7 @@ package org.napile.vm;
 
 import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
+import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -33,7 +34,7 @@ public class Main
 		}));
 
 		Log4JHelper.load();
-		final long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		LOGGER.info("------------ VM Start ------------");
 		BundleUtil.getInstance();
 
@@ -51,6 +52,9 @@ public class Main
 
 		VmUtil.initBootStrap(vmInterface);
 		LOGGER.info("VmUtil.initBootStrap(): " + (System.currentTimeMillis() - startTime) + " ms.");
+		startTime = System.currentTimeMillis();
+		NativeWrapper.initAll(vmInterface);
+		LOGGER.info("NativeWrapper.initAll(): " + (System.currentTimeMillis() - startTime) + " ms.");
 
 		ClassInfo mainClass = vmInterface.getClass(vmContext.getMainClass());
 		if(mainClass == null)

@@ -8,6 +8,8 @@ import org.napile.vm.objects.classinfo.ClassInfo;
  */
 public abstract class ObjectInfo
 {
+	public static final ObjectInfo[] EMPTY_ARRAY = new ObjectInfo[0];
+
 	protected ObjectInfo _classObjectInfo; // object for 'java.lang.Class'
 
 	public ObjectInfo(ObjectInfo classObjectInfo)
