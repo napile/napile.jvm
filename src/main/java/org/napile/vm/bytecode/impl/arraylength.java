@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
+import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -21,6 +23,8 @@ public class arraylength implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
+		ArrayObjectInfo objectInfo = (ArrayObjectInfo)context.pop();
 
+		context.push(new IntObjectInfo(null, vmInterface.getClass(VmInterface.PRIMITIVE_INT), objectInfo.getValue().length));
 	}
 }

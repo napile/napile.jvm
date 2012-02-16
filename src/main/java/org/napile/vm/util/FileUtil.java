@@ -6,7 +6,7 @@ import java.io.File;
  * @author VISTALL
  * @date 2:57/02.02.2012
  */
-public class FileUtils
+public class FileUtil
 {
 	public static String getFileExtension(File file)
 	{

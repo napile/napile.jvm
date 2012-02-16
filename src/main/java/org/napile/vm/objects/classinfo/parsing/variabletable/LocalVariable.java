@@ -8,6 +8,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
  */
 public class LocalVariable
 {
+	public static final LocalVariable[] EMPTY_ARRAY = new LocalVariable[0];
 	private final int _startPc;
 	private final int _length;
 	private final String _name;

@@ -3,11 +3,11 @@ package org.napile.vm.objects.objectinfo.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.napile.commons.pair.Pair;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -15,7 +15,7 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class ClassObjectInfo  extends ObjectInfo
 {
-	private Map<String, Pair<FieldInfo, ObjectInfo>> _fields = new HashMap<String, Pair<FieldInfo, ObjectInfo>>();
+	private Map<FieldInfo, ObjectInfo> _fields = new HashMap<FieldInfo, ObjectInfo>();
 	private ClassInfo _classInfo;
 
 	public ClassObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo)
@@ -23,20 +23,25 @@ public class ClassObjectInfo  extends ObjectInfo
 		super(classObjectInfo);
 		_classInfo = classInfo;
 
-		ClassInfo current = classInfo;
-		while(current != null)
+		FieldInfo[] fieldInfos = VmUtil.collectAllFields(classInfo);
+
+		for(FieldInfo f : fieldInfos)
 		{
-			for(FieldInfo f : current.getFields())
-			{
-				if(Flags.isStatic(f))
-					continue;
+			if(Flags.isStatic(f))
+				continue;
 
-				Pair<FieldInfo, ObjectInfo> pair = new Pair<FieldInfo, ObjectInfo>(f, f.getType().nullValue());
-
-				_fields.put(current.getName() + "." + f.getName(), pair);
-			}
-
-			current = current.getSuperClass();
+			_fields.put(f, f.getType().nullValue());
 		}
+	}
+
+	@Override
+	public ClassInfo getClassInfo()
+	{
+		return _classInfo;
+	}
+
+	public Map<FieldInfo, ObjectInfo> getFields()
+	{
+		return _fields;
 	}
 }

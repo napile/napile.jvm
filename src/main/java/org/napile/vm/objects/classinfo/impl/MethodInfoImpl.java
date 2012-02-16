@@ -19,7 +19,7 @@ public class MethodInfoImpl implements MethodInfo
 
 	private ClassInfo[] _throwExceptions;
 	private Instruction[] _instructions;
-	private LocalVariable[] _localVariables;
+	private LocalVariable[] _localVariables = LocalVariable.EMPTY_ARRAY;
 
 	private int _maxStack;
 	private int _maxLocals;
@@ -78,6 +78,7 @@ public class MethodInfoImpl implements MethodInfo
 	public String toString()
 	{
 		StringBuilder b = new StringBuilder();
+		b.append(getParent().getName()).append(":");
 		b.append(_returnType.getName()).append(" ");
 		b.append(getName()).append("(");
 		for(int i = 0; i < _parameters.length; i++)

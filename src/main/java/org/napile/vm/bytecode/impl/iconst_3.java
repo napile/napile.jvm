@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
+import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
 import org.napile.vm.vm.VmInterface;
 
 /**
@@ -21,6 +22,6 @@ public class iconst_3 implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-
+		context.push(new IntObjectInfo(null, vmInterface.getClass(VmInterface.PRIMITIVE_INT), 3));
 	}
 }

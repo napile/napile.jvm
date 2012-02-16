@@ -1,14 +1,23 @@
 package org.napile.vm.vm;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.PrimitiveClassInfoImpl;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.*;
+import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.primitive.*;
 import org.napile.vm.util.AssertUtil;
+import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
+import org.napile.vm.util.StringCharReader;
 
 /**
  * @author VISTALL
@@ -16,6 +25,8 @@ import org.napile.vm.util.ClasspathUtil;
  */
 public class VmUtil
 {
+	private static final Logger LOGGER = Logger.getLogger(VmUtil.class);
+
 	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null, null);
 
 	public static void initBootStrap(VmInterface vmInterface)
@@ -39,7 +50,7 @@ public class VmUtil
 		AssertUtil.assertNull(vmInterface.getClass("java.lang.Exception"));
 		AssertUtil.assertNull(vmInterface.getClass("java.lang.ClassNotFoundException"));
 
-		vmInterface.newClassLoader(); // change bootstrap class loader - to new instance
+		vmInterface.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
 	public static ObjectInfo convertToVm(VmInterface vmInterface, ClassInfo classInfo, Object object)
@@ -64,7 +75,7 @@ public class VmUtil
 		else if(classInfo.getName().equals(VmInterface.JAVA_LANG_STRING))
 		{
 			ClassInfo primitiveCharClassInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR);
-			ClassInfo primitiveCharClassArrayInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, VmInterface.PRIMITIVE_CHAR_ARRAY);
+			ClassInfo primitiveCharClassArrayInfo = vmInterface.getClass(VmInterface.PRIMITIVE_CHAR_ARRAY);
 
 			char[] data = ((String)object).toCharArray();
 			CharObjectInfo[] cData = new CharObjectInfo[data.length];
@@ -73,7 +84,7 @@ public class VmUtil
 
 			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(null, primitiveCharClassArrayInfo, cData);
 
-			return AssertUtil.assertNull(vmInterface.newObject(classInfo, new String[] {VmInterface.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
+			return AssertUtil.assertNull(vmInterface.newObject(classInfo, new String[]{VmInterface.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
 		}
 		else
 		{
@@ -106,8 +117,119 @@ public class VmUtil
 		vmInterface.getBootClassLoader().addClassInfo(classInfo);
 	}
 
-	public static boolean isSupported(int major, int minor)
+	public static boolean canSetValue(ClassInfo left, ClassInfo right)
 	{
-		return major >= 43 && minor >= 0;
+		if(left == right)                  //object = object
+			return true;
+
+		if(left != null && right == null)  //object = null
+			return true;
+
+		return false;
+	}
+
+	public static ClassInfo parseType(VmInterface vmInterface, String val)
+	{
+		return parseType(vmInterface, new StringCharReader(val));
+	}
+
+	public static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
+	{
+		char firstChar = charReader.next();
+		switch(firstChar)
+		{
+			case '[':  //array
+				int i = 1;//array size
+				while(charReader.next() == firstChar)
+					i++;
+
+				charReader.back(); //need go back after while
+
+				ClassInfo arrayTypeInfo = parseType(vmInterface, charReader);
+				if(arrayTypeInfo == null)
+				{
+					BundleUtil.exitAbnormal(null, "class.s1.not.found", charReader);
+					return null;
+				}
+
+				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo);
+				if(i > 1)
+					for(int a = 1; a < i; a++)
+						arrayClass = new ArrayClassInfoImpl(arrayClass);
+
+				ClassInfo storedClassInfo = vmInterface.getCurrentClassLoader().forName(arrayClass.getName());
+				if(storedClassInfo == null)
+					vmInterface.getCurrentClassLoader().addClassInfo(arrayClass);
+				else
+					arrayClass = storedClassInfo;
+				return arrayClass;
+			//case 'j': //long
+			case 'J': //long
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_LONG);
+			case 'C':  //char
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_CHAR);
+			case 'B':  //byte
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BYTE);
+			case 'D':  //double
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_DOUBLE);
+			case 'F':  //float
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_FLOAT);
+			case 'I':  //int
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_INT);
+			case 'S':  //short
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_SHORT);
+			case 'Z':  //boolean
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BOOLEAN);
+			case 'V':  //void
+				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_VOID);
+			case 'T': //generic
+				//TODO [VISTALL] make it
+				return vmInterface.getBootClassLoader().forName("java.lang.Object");
+			case 'L': //class
+				StringBuilder b = new StringBuilder();
+				while(charReader.next() != ';')
+					b.append(charReader.current());
+
+				String text = b.toString().replace("/", ".");
+				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, text);
+				if(classInfo == null)
+				{
+					BundleUtil.exitAbnormal(null, "class.s1.not.found", text);
+					return null;
+				}
+				else
+					return classInfo;
+			default:
+			{
+				LOGGER.error("unknown type: " + firstChar);
+				Thread.dumpStack();
+			}
+		}
+		return null;
+	}
+
+	public static FieldInfo[] collectAllFields(ClassInfo info)
+	{
+		List<FieldInfo> list = new ArrayList<FieldInfo>();
+		ClassInfo clazz = info;
+		while(clazz != null)
+		{
+			FieldInfo[] fieldInfos = clazz.getFields();
+			Collections.addAll(list, fieldInfos);
+
+			clazz = clazz.getSuperClass();
+		}
+
+		for(ClassInfo interfaceClass : info.getInterfaces())
+		{
+			clazz = interfaceClass;
+			while(clazz != null)
+			{
+				FieldInfo[] fieldInfos = clazz.getFields();
+				Collections.addAll(list, fieldInfos);
+				clazz = clazz.getSuperClass();
+			}
+		}
+		return (list.isEmpty() ? Collections.<FieldInfo>emptyList() : list).toArray(new FieldInfo[list.size()]);
 	}
 }

@@ -1,5 +1,7 @@
 package org.napile.vm.objects.objectinfo;
 
+import org.napile.vm.objects.classinfo.ClassInfo;
+
 /**
  * @author VISTALL
  * @date 18:41/31.01.2012
@@ -11,6 +13,11 @@ public abstract class ObjectInfo
 	public ObjectInfo(ObjectInfo classObjectInfo)
 	{
 		_classObjectInfo = classObjectInfo;
+	}
+
+	public ClassInfo getClassInfo()
+	{
+		return null;
 	}
 
 	public ObjectInfo getClassObjectInfo()   //TODO [VISTALL] it

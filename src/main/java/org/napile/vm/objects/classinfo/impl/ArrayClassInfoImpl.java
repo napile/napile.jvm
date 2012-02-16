@@ -21,6 +21,12 @@ public class ArrayClassInfoImpl extends AbstractClassInfo
 	}
 
 	@Override
+	public ClassInfo getParent()
+	{
+		return null;
+	}
+
+	@Override
 	public String getName()
 	{
 		return _type.getName() + "[]";

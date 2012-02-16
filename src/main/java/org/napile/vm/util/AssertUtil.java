@@ -6,6 +6,18 @@ package org.napile.vm.util;
  */
 public class AssertUtil
 {
+	public static void assertTrue(boolean val)
+	{
+		if(val)
+			throw new IllegalArgumentException("Cant be true");
+	}
+
+	public static void assertFalse(boolean val)
+	{
+		if(!val)
+			throw new IllegalArgumentException("Cant be false");
+	}
+
 	public static <T> T assertNull(T val)
 	{
 		if(val == null)

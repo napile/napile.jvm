@@ -5,9 +5,13 @@ import java.nio.ByteBuffer;
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
 import org.napile.vm.interpreter.WorkData;
+import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.FieldInfo;
-import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldConstant;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -28,10 +32,16 @@ public class putstatic implements Instruction
 	{
 		WorkData workData = context.getLastWork();
 
-		FieldConstant constant = (FieldConstant)workData.getConstantPool().getConstant(_index);
+		FieldWrapConstant wrapConstant = (FieldWrapConstant)workData.getConstantPool().getConstant(_index);
 
-		FieldInfo fieldInfo = vmInterface.getStaticField(constant.getClassInfo(), constant.getName());
+		FieldInfo fieldInfo = wrapConstant.getFieldInfo();
+		if(!Flags.isStatic(fieldInfo))
+			return;
 
-		fieldInfo.setValue(context.pop());
+		ObjectInfo value = context.pop();
+
+		AssertUtil.assertFalse(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
+
+		fieldInfo.setValue(value);
 	}
 }

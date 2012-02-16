@@ -28,4 +28,10 @@ public abstract class AbstractClassInfo implements ClassInfo
 	{
 		return null;
 	}
+
+	@Override
+	public String toString()
+	{
+		return getName();
+	}
 }

@@ -56,7 +56,7 @@ public class ClasspathUtil
 
 	private static void checkFile(VmInterface vmInterface, File file)
 	{
-		String ext = FileUtils.getFileExtension(file);
+		String ext = FileUtil.getFileExtension(file);
 		if(ext.equals("class"))
 		{
 			try
@@ -81,7 +81,7 @@ public class ClasspathUtil
 				while(entryEnumeration.hasMoreElements())
 				{
 					ZipEntry entry = entryEnumeration.nextElement();
-					if(FileUtils.getFileExtension(entry.getName()).equals("class"))
+					if(FileUtil.getFileExtension(entry.getName()).equals("class"))
 					{
 						String classZipName = entry.getName().replace("/", ".").replace(".class", "");
 

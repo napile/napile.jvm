@@ -1,13 +1,14 @@
 package org.napile.vm.objects.classinfo.parsing.constantpool;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortShortConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldConstant;
-import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.util.StringCharReader;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
+import org.napile.vm.util.BundleUtil;
 import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -57,14 +58,26 @@ public class ConstantPool
 				case CP_FIELD_DEF:
 					ShortShortConstant shortShortConstant = (ShortShortConstant)constant;
 
-					ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, ClassParser.getClassName(this, shortShortConstant.getFirstShort()));
+					ClassInfo classInfo =vmInterface.getClass(ClassParser.getClassName(this, shortShortConstant.getFirstShort()));
 					ShortShortConstant fieldInfoConstant = (ShortShortConstant)getConstant(shortShortConstant.getSecondShort());
 
 					String name = ((Utf8ValueConstant)getConstant(fieldInfoConstant.getFirstShort())).getValue();
 
-					ClassInfo typeClassInfo = ClassParser.parseType(vmInterface, new StringCharReader(((Utf8ValueConstant) getConstant(fieldInfoConstant.getSecondShort())).getValue().replace("/", ".")));
+					FieldInfo fieldInfo = vmInterface.getField(classInfo, name, true);
+					if(fieldInfo == null)
+						fieldInfo = vmInterface.getStaticField(classInfo, name, true);
 
-					_constants[i] = new FieldConstant(classInfo, typeClassInfo, name);
+					ClassInfo typeClassInfo = VmUtil.parseType(vmInterface, ((Utf8ValueConstant) getConstant(fieldInfoConstant.getSecondShort())).getValue().replace("/", "."));
+
+					if(fieldInfo == null || fieldInfo.getType() != typeClassInfo)
+					{
+						BundleUtil.exitAbnormal(new Exception(), "unexpected.error");
+						return;
+					}
+
+					_constants[i] = new FieldWrapConstant(fieldInfo);
+					break;
+				case CP_METHOD_DEF:
 					break;
 			}
 		}

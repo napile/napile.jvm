@@ -91,4 +91,10 @@ public class ClassInfoImpl extends AbstractClassInfo
 	{
 		_methods = methods;
 	}
+
+	@Override
+	public ClassInfo getParent()
+	{
+		return null;
+	}
 }

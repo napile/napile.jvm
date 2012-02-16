@@ -1,8 +1,8 @@
 package org.napile.vm.classloader.impl;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.objects.classinfo.ClassInfo;
@@ -13,7 +13,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
  */
 public class SimpleClassLoaderImpl implements JClassLoader
 {
-	private Map<String, ClassInfo> _classes = new HashMap<String, ClassInfo>();
+	private Map<String, ClassInfo> _classes = new ConcurrentHashMap<String, org.napile.vm.objects.classinfo.ClassInfo>();
 
 	private JClassLoader _parent;
 

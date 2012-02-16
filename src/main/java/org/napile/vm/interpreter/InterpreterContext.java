@@ -35,4 +35,9 @@ public class InterpreterContext
 	{
 		return _values.pop();
 	}
+
+	public Deque<WorkData> getStack()
+	{
+		return _stack;
+	}
 }

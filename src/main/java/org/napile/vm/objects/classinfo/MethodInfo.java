@@ -14,8 +14,6 @@ public interface MethodInfo extends ReflectInfo
 
 	public static final MethodInfo[] EMPTY_ARRAY = new MethodInfo[0];
 
-	ClassInfo getParent();
-
 	ClassInfo getReturnType();
 
 	ClassInfo[] getParameters();

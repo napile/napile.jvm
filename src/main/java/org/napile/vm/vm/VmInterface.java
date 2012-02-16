@@ -24,20 +24,19 @@ public interface VmInterface
 	String PRIMITIVE_CHAR_ARRAY = "char[]";
 	//
 	String JAVA_LANG_STRING = "java.lang.String";
+	String JAVA_LANG_STRING_ARRAY = "java.lang.String[]";
 
 	ClassInfo getClass(String name);
 
-	FieldInfo getField(ClassInfo info, String name);
+	FieldInfo getField(ClassInfo info, String name, boolean deep);
 
-	FieldInfo getStaticField(ClassInfo info, String name);
+	FieldInfo getStaticField(ClassInfo info, String name, boolean deep);
 
 	MethodInfo getMethod(ClassInfo info, String name, String... params);
 
 	MethodInfo getStaticMethod(ClassInfo info, String name, String... params);
 
 	void invoke(MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument);
-
-	void invokeStatic(MethodInfo methodInfo, ObjectInfo... argument);
 
 	ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments);
 
@@ -47,5 +46,5 @@ public interface VmInterface
 
 	JClassLoader getCurrentClassLoader();
 
-	JClassLoader newClassLoader();
+	JClassLoader moveFromBootClassLoader();
 }

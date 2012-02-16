@@ -4,7 +4,9 @@ import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.BundleUtil;
+import org.napile.vm.util.DumpUtil;
 import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.VmContext;
 import org.napile.vm.vm.VmInterface;
@@ -57,16 +59,30 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", "java.lang.String[]");
+		MethodInfo methodInfo = vmInterface.getStaticMethod(mainClass, "main", VmInterface.JAVA_LANG_STRING_ARRAY);
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "java.lang.String[]");
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", VmInterface.JAVA_LANG_STRING_ARRAY);
 			return;
 		}
 
-		vmInterface.invokeStatic(methodInfo); //TODO [VISTALL] arguments
+		ClassInfo javaClassString = vmInterface.getClass(VmInterface.JAVA_LANG_STRING);
+		ClassInfo javaClassStringArray = vmInterface.getClass(VmInterface.JAVA_LANG_STRING_ARRAY);
+
+		ObjectInfo[] data = new ObjectInfo[args.length];
+		for(int i = 0; i < args.length; i++)
+			data[i] = VmUtil.convertToVm(vmInterface, javaClassString, args[i]);
+
+
+		LOGGER.info(DumpUtil.dump(data[0]));
+		//vmInterface.invoke(methodInfo, null, new ArrayObjectInfo(null, javaClassStringArray, data));
 
 		System.out.println("BootLoader: " + vmInterface.getBootClassLoader().getLoadedClasses().size());
 		System.out.println("CurrentLoader: " + vmInterface.getCurrentClassLoader().getLoadedClasses().size());
+	}
+
+	public static boolean isSupported(int major, int minor)
+	{
+		return major >= 43 && minor >= 0;
 	}
 }

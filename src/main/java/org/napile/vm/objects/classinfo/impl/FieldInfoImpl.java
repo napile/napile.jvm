@@ -10,6 +10,7 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class FieldInfoImpl implements FieldInfo
 {
+	private ClassInfo _parent;
 	private ClassInfo _type;
 	private short _flags;
 	private String _name;
@@ -18,11 +19,18 @@ public class FieldInfoImpl implements FieldInfo
 
 	private Object _tempValue;
 
-	public FieldInfoImpl(ClassInfo type, String name, short flags)
+	public FieldInfoImpl(ClassInfo parent, ClassInfo type, String name, short flags)
 	{
+		_parent = parent;
 		_type = type;
 		_name = name;
 		_flags = flags;
+	}
+
+	@Override
+	public ClassInfo getParent()
+	{
+		return _parent;
 	}
 
 	@Override

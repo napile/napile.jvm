@@ -18,10 +18,8 @@ public class ArrayObjectInfo extends ValueObjectInfo<Object[]>
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("[]{");
 		for(Object o : getValue())
 			builder.append(o.toString());
-		builder.append("}");
 
 		return builder.toString();
 	}

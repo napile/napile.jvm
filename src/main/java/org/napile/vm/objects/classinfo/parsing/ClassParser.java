@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.napile.vm.Main;
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.bytecode.InstructionFactory;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
-import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
@@ -58,7 +58,7 @@ public class ClassParser
 
 		int minorVersion = _dataInputStream.readUnsignedShort();
 		int majorVersion = _dataInputStream.readUnsignedShort();
-		if(!VmUtil.isSupported(majorVersion, minorVersion))
+		if(!Main.isSupported(majorVersion, minorVersion))
 		{
 			BundleUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
 			return null;
@@ -83,7 +83,7 @@ public class ClassParser
 
 		int minorVersion = _dataInputStream.readUnsignedShort();
 		int majorVersion = _dataInputStream.readUnsignedShort();
-		if(!VmUtil.isSupported(majorVersion, minorVersion))
+		if(!Main.isSupported(majorVersion, minorVersion))
 		{
 			BundleUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
 			return null;
@@ -91,13 +91,11 @@ public class ClassParser
 
 		ConstantPool constantPool = parseConstantPool();
 
-
 		final short access = _dataInputStream.readShort();
 		final String className = getClassName(constantPool, _dataInputStream.readShort());
 		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
 		ClassInfoImpl classInfo = new ClassInfoImpl(constantPool, className, access);
 		_vmInterface.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
-		constantPool.makeCached(_vmInterface); //after adding class to ClassLoader - make cached pool
 
 		if(superClassName != null)
 		{
@@ -129,6 +127,8 @@ public class ClassParser
 
 		parseMethods(classInfo, constantPool);
 
+		if(_vmInterface.getCurrentClassLoader() != _vmInterface.getBootClassLoader())
+			constantPool.makeCached(_vmInterface);
 		return classInfo;
 	}
 
@@ -195,7 +195,7 @@ public class ClassParser
 			short nameIndex = _dataInputStream.readShort();
 			short descIndex = _dataInputStream.readShort();
 
-			FieldInfoImpl fieldInfo = new FieldInfoImpl(parseType(_vmInterface, new StringCharReader(getSimpleUtf8Name(constantPool, descIndex))), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
+			FieldInfoImpl fieldInfo = new FieldInfoImpl(classInfo, VmUtil.parseType(_vmInterface, getSimpleUtf8Name(constantPool, descIndex)), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
 			fields[i] = fieldInfo;
 			short attributeSize = _dataInputStream.readShort();
 			for(int j = 0; j < attributeSize; j++)
@@ -259,7 +259,7 @@ public class ClassParser
 			//()V
 			String desc = getSimpleUtf8Name(constantPool, descIndex);
 
-			ClassInfo returnType = parseType(_vmInterface, new StringCharReader(desc.substring(desc.indexOf(')') + 1, desc.length())));
+			ClassInfo returnType = VmUtil.parseType(_vmInterface, desc.substring(desc.indexOf(')') + 1, desc.length()));
 
 			ClassInfo[] parameters = parseMethodSignature(_vmInterface, desc.substring(1, desc.indexOf(')')));
 
@@ -378,7 +378,7 @@ public class ClassParser
 
 					String name = getSimpleUtf8Name(constantPool, nameIndex);
 					String typeName = getSimpleUtf8Name(constantPool, descIndex);
-					ClassInfo typeClassInfo = parseType(_vmInterface, new StringCharReader(typeName));
+					ClassInfo typeClassInfo = VmUtil.parseType(_vmInterface, typeName);
 					if(typeClassInfo == null)
 					{
 						BundleUtil.exitAbnormal(null, "class.s1.not.found", typeName);
@@ -400,80 +400,9 @@ public class ClassParser
 		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
 		StringCharReader reader = new StringCharReader(sig);
 		while(reader.hasNext())
-			parameters.add(parseType(vmInterface, reader));
+			parameters.add(VmUtil.parseType(vmInterface, reader));
 
 		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
-	}
-
-	public static ClassInfo parseType(VmInterface vmInterface, StringCharReader charReader)
-	{
-		char firstChar = charReader.next();
-		switch(firstChar)
-		{
-			case '[':  //array
-				int i = 1;//array size
-				while(charReader.next() == firstChar)
-					i++;
-
-				charReader.back(); //need go back after while
-
-				ClassInfo arrayTypeInfo = parseType(vmInterface, charReader);
-				if(arrayTypeInfo == null)
-				{
-					BundleUtil.exitAbnormal(null, "class.s1.not.found", charReader);
-					return null;
-				}
-
-				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo);
-				if(i > 1)
-					for(int a = 1; a < i; a++)
-						arrayClass = new ArrayClassInfoImpl(arrayClass);
-
-				ClassInfo storedClassInfo = vmInterface.getCurrentClassLoader().forName(arrayClass.getName());
-				if(storedClassInfo == null)
-					vmInterface.getCurrentClassLoader().addClassInfo(arrayClass);
-				else
-					arrayClass = storedClassInfo;
-				return arrayClass;
-			case 'J': //long
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_LONG);
-			case 'C':  //char
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_CHAR);
-			case 'B':  //byte
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BYTE);
-			case 'D':  //double
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_DOUBLE);
-			case 'F':  //float
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_FLOAT);
-			case 'I':  //int
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_INT);
-			case 'S':  //short
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_SHORT);
-			case 'Z':  //boolean
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_BOOLEAN);
-			case 'V':  //void
-				return vmInterface.getBootClassLoader().forName(VmInterface.PRIMITIVE_VOID);
-			case 'T': //generic
-				//TODO [VISTALL] make it
-				return vmInterface.getBootClassLoader().forName("java.lang.Object");
-			case 'L': //class
-				StringBuilder b = new StringBuilder();
-				while(charReader.next() != ';')
-					b.append(charReader.current());
-
-				String text = b.toString().replace("/", ".");
-				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vmInterface, text);
-				if(classInfo == null)
-				{
-					BundleUtil.exitAbnormal(null, "class.s1.not.found", text);
-					return null;
-				}
-				else
-					return classInfo;
-			default:
-				LOGGER.error("unknown type: " + firstChar);
-		}
-		return null;
 	}
 
 	public static String getClassName(ConstantPool constantPool, int index)

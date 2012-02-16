@@ -16,6 +16,8 @@ public interface ReflectInfo
 	public static final String ATT_DEPRECATED = "Deprecated";
 	public static final String ATT_RUNTIME_VISIBLE_ANNOTATIONS = "RuntimeVisibleAnnotations";
 
+	ClassInfo getParent();
+
 	String getName();
 
 	int getFlags();

@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import org.napile.vm.bytecode.Instruction;
 import org.napile.vm.interpreter.InterpreterContext;
 import org.napile.vm.vm.VmInterface;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -21,6 +22,6 @@ public class aconst_null implements Instruction
 	@Override
 	public void call(VmInterface vmInterface, InterpreterContext context)
 	{
-
+		context.push(VmUtil.OBJECT_NULL);
 	}
 }

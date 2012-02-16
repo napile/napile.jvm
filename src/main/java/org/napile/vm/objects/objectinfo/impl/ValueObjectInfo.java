@@ -20,6 +20,7 @@ public class ValueObjectInfo<T> extends ObjectInfo
 		_value = value;
 	}
 
+	@Override
 	public ClassInfo getClassInfo()
 	{
 		return _classInfo;

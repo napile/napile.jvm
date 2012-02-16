@@ -1,11 +1,31 @@
 package org.napile.vm.util;
 
+import java.util.Map;
+
+import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+
 /**
  * @author VISTALL
  * @date 23:20/06.02.2012
  */
 public class DumpUtil
 {
+	public static String dump(ObjectInfo objectInfo)
+	{
+		AssertUtil.assertFalse(objectInfo instanceof ClassObjectInfo);
+		ClassInfo classInfo = objectInfo.getClassInfo();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Object: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append("\n");
+		builder.append("Fields:\n");
+		for(Map.Entry<FieldInfo, ObjectInfo> entry : ((ClassObjectInfo)objectInfo).getFields().entrySet())
+			builder.append('\t').append(entry.getKey().getName()).append(": ").append(entry.getValue().toString()).append('\n');
+
+		return builder.toString();
+	}
+
 	public static String toString(byte[] data, int len)
 	{
 		StringBuilder result = new StringBuilder();
