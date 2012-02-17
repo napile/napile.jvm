@@ -21,6 +21,6 @@ public class iconst_m1 implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

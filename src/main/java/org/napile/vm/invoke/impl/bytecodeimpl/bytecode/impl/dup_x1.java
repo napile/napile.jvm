@@ -21,6 +21,6 @@ public class dup_x1 implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

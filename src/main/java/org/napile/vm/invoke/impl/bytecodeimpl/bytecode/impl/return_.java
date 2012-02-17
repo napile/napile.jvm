@@ -21,6 +21,6 @@ public class return_ implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		// ignored?
 	}
 }

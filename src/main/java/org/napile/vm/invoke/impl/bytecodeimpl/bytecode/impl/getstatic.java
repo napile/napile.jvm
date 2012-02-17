@@ -21,6 +21,6 @@ public class getstatic implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

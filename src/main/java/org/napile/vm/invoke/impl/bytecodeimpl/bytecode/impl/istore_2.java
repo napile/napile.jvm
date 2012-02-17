@@ -27,7 +27,6 @@ public class istore_2 implements Instruction
 
 		ObjectInfo value = context.last();
 
-
 		stackEntry.set(2, value);
 	}
 }

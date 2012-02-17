@@ -2,8 +2,9 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -21,6 +22,10 @@ public class ireturn implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
+		//StackEntry stackEntry = context.getLastStack();
 
+		IntObjectInfo intObjectInfo = (IntObjectInfo)context.last();
+
+		context.push(intObjectInfo);
 	}
 }

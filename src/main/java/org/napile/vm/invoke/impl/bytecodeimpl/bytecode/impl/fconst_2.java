@@ -21,6 +21,6 @@ public class fconst_2 implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

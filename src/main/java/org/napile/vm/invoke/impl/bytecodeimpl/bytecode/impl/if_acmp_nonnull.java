@@ -21,6 +21,6 @@ public class if_acmp_nonnull implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

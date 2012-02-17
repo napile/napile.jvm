@@ -1,10 +1,17 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.objects.classinfo.parsing.constantpool.cached.MethodRefConstant;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -13,17 +20,36 @@ import org.napile.vm.vm.Vm;
  */
 public class invokespecial implements Instruction
 {
+	private int _index;
+
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-		int val = buffer.getShort();
+		_index = buffer.getShort();
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		StackEntry stackEntry = context.getLastStack();
+		StackEntry entry = context.getLastStack();
 
-		context.last();
+		ObjectInfo objectInfo = context.last();
+
+		MethodRefConstant constant = (MethodRefConstant)entry.getConstantPool().getConstant(_index);
+
+		MethodInfo methodInfo = AssertUtil.assertNull(constant.getMethodInfo(vm));
+		List<ObjectInfo> arguments = new ArrayList<ObjectInfo>(methodInfo.getParameters().length);
+		for(int i = 0; i < methodInfo.getParameters().length; i++)
+			arguments.add(context.last());
+
+		Collections.reverse(arguments);
+
+		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments.toArray(new ObjectInfo[arguments.size()]));
+
+		context.getStack().add(nextEntry);
+
+		vm.invoke(context, methodInfo, objectInfo, ObjectInfo.EMPTY_ARRAY);
+
+		context.getStack().pollLast();
 	}
 }

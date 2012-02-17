@@ -12,15 +12,17 @@ import org.napile.vm.vm.Vm;
  */
 public class goto_ implements Instruction
 {
+	private int _index;
+
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-		buffer.getShort();
-		}
+		_index = buffer.getShort();
+	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-
+		throw new IllegalArgumentException();
 	}
 }

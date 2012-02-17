@@ -2,8 +2,10 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -21,6 +23,10 @@ public class iload_0 implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
+		StackEntry stackEntry = context.getLastStack();
 
+		ObjectInfo value = stackEntry.get(0);
+
+		context.push(value);
 	}
 }
