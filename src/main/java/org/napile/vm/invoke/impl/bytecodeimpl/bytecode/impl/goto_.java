@@ -23,6 +23,7 @@ public class goto_ implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		throw new IllegalArgumentException();
+		System.out.println(getClass().getSimpleName() + " " + _index);
+		 throw new IllegalArgumentException();
 	}
 }

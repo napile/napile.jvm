@@ -30,6 +30,7 @@ public class if_icmpgt implements Instruction
 		IntObjectInfo objectInfo1 = (IntObjectInfo)context.last();
 		IntObjectInfo objectInfo2 = (IntObjectInfo)context.last();
 
-		throw new IllegalArgumentException();
+		System.out.println(getClass().getSimpleName() + " " + _index);
+		//throw new IllegalArgumentException();
 	}
 }

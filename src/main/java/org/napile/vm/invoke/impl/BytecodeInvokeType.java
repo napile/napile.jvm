@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.napile.vm.invoke.InvokeType;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.ExceptionBlock;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.LineNumberEntry;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.LocalVariable;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -21,6 +23,8 @@ public class BytecodeInvokeType implements InvokeType
 	private static final Logger LOGGER = Logger.getLogger(BytecodeInvokeType.class);
 
 	private LocalVariable[] _localVariables = LocalVariable.EMPTY_ARRAY;
+	private LineNumberEntry[] _lineNumberEntries = LineNumberEntry.EMPTY_ARRAY;
+	private ExceptionBlock[] _exceptionBlocks = ExceptionBlock.EMPTY_ARRAY;
 	private Instruction[] _instructions;
 
 	private int _maxStack;
@@ -62,9 +66,11 @@ public class BytecodeInvokeType implements InvokeType
 		for(StackEntry stackEntry : entries)
 			LOGGER.info("> " + stackEntry.getMethodInfo().toString());
 
+		StackEntry entry = context.getLastStack();
+
 		LOGGER.info("-----------------------------------");
 		LOGGER.info("Values:");
-		for(String d : context.getDebug())
+		for(String d : entry.getDebug())
 			LOGGER.info(d);
 
 		LOGGER.info("-----------------------------------");
@@ -115,5 +121,25 @@ public class BytecodeInvokeType implements InvokeType
 	public void setLocalVariables(LocalVariable[] localVariables)
 	{
 		_localVariables = localVariables;
+	}
+
+	public LineNumberEntry[] getLineNumberEntries()
+	{
+		return _lineNumberEntries;
+	}
+
+	public void setLineNumberEntries(LineNumberEntry[] lineNumberEntries)
+	{
+		_lineNumberEntries = lineNumberEntries;
+	}
+
+	public ExceptionBlock[] getExceptionBlocks()
+	{
+		return _exceptionBlocks;
+	}
+
+	public void setExceptionBlocks(ExceptionBlock[] exceptionBlocks)
+	{
+		_exceptionBlocks = exceptionBlocks;
 	}
 }

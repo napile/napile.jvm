@@ -1,9 +1,12 @@
 package org.napile.vm.invoke.impl.bytecodeimpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
-import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.LocalVariable;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -19,6 +22,9 @@ public class StackEntry
 
 	private final ObjectInfo[] _localVariables;
 	private final LocalVariable[] _parentVariables;
+
+	// debug
+	private List<String> _debug = new ArrayList<String>();
 
 	public StackEntry(ObjectInfo objectInfo, MethodInfo methodInfo, ObjectInfo[] arguments)
 	{
@@ -84,5 +90,16 @@ public class StackEntry
 	public MethodInfo getMethodInfo()
 	{
 		return _methodInfo;
+	}
+
+	public List<String> getDebug()
+	{
+		return _debug;
+	}
+
+	@Override
+	public String toString()
+	{
+		return _methodInfo.toString();
 	}
 }

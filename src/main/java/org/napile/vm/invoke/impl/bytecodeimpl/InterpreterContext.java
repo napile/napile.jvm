@@ -1,9 +1,7 @@
 package org.napile.vm.invoke.impl.bytecodeimpl;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import sun.reflect.Reflection;
@@ -18,9 +16,6 @@ public class InterpreterContext
 
 	private Deque<ObjectInfo> _values = new ArrayDeque<ObjectInfo>(2);
 
-	// debug
-	private List<String> _debug = new ArrayList<String>();
-
 	public InterpreterContext(StackEntry... methodInfo)
 	{
 		for(StackEntry d : methodInfo)
@@ -34,24 +29,21 @@ public class InterpreterContext
 
 	public void push(ObjectInfo val)
 	{
-		_debug.add("push: " + val + ": " + Reflection.getCallerClass(2).getSimpleName());
+		StackEntry entry = getLastStack();
+		entry.getDebug().add("push: " + val + ": " + Reflection.getCallerClass(2).getSimpleName());
 		_values.add(val);
 	}
 
 	public ObjectInfo last()
 	{
 		ObjectInfo v = _values.pollLast();
-		_debug.add("last: " + v + ": " + Reflection.getCallerClass(2).getSimpleName());
+		StackEntry entry = getLastStack();
+		entry.getDebug().add("last: " + v + ": " + Reflection.getCallerClass(2).getSimpleName());
 		return v;
 	}
 
 	public Deque<StackEntry> getStack()
 	{
 		return _stack;
-	}
-
-	public List<String> getDebug()
-	{
-		return _debug;
 	}
 }

@@ -1,4 +1,4 @@
-package org.napile.vm.objects.classinfo.parsing.variabletable;
+package org.napile.vm.objects.classinfo.parsing.codeattributes;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
 

@@ -18,11 +18,13 @@ import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
 import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.ExceptionBlock;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.LineNumberEntry;
+import org.napile.vm.objects.classinfo.parsing.codeattributes.LocalVariable;
 import org.napile.vm.objects.classinfo.parsing.constantpool.Constant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.*;
-import org.napile.vm.objects.classinfo.parsing.variabletable.LocalVariable;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
@@ -320,6 +322,8 @@ public class ClassParser
 					 * try/catch range. handlerPc - Offset of start of exception handler code.
 					 * catchType - Type of exception handled.
 					 */
+					ExceptionBlock[] blocks = new ExceptionBlock[excLen];
+					invokeType.setExceptionBlocks(blocks);
 					for(int a = 0; a < excLen; a++)
 					{
 						short startPc = _dataInputStream.readShort();
@@ -328,7 +332,7 @@ public class ClassParser
 						short catchType = _dataInputStream.readShort();
 
 						// If type of class caught is any, then CatchType is 0.
-						//aLocalMethod.addExceptionBlock(startPc, endPc, handlerPc, aCpInfo.getClassName(catchType));
+						blocks[a] = new ExceptionBlock(startPc, endPc, handlerPc, catchType);
 					}
 
 					parseMethodCodeAttribute(invokeType, classInfo, methodInfo, constantPool);
@@ -360,8 +364,13 @@ public class ClassParser
 			String codeAttributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
 			if(codeAttributeName.equals(ReflectInfo.ATT_LINE_NUMBER_TABLE))
 			{
-				//TODO [VISTALL] 
-				_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
+				_dataInputStream.readInt(); //len
+				short lineCount = _dataInputStream.readShort();
+				LineNumberEntry[] entries = new LineNumberEntry[lineCount];
+				for(int i = 0; i < entries.length; i++)
+					entries[i] = new LineNumberEntry(_dataInputStream.readShort(), _dataInputStream.readShort());
+
+				bytecodeInvokeType.setLineNumberEntries(entries);
 			}
 			else if(codeAttributeName.equals(ReflectInfo.ATT_STACK_MAP_TABLE))
 			{
