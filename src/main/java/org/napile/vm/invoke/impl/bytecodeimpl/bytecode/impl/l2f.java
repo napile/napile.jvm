@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class l2f implements Instruction
+public class l2f extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

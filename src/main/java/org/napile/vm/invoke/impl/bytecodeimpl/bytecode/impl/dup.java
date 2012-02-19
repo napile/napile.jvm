@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class dup implements Instruction
+public class dup extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

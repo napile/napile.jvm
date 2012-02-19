@@ -18,7 +18,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class invokespecial implements Instruction
+public class invokespecial extends Instruction
 {
 	private int _index;
 

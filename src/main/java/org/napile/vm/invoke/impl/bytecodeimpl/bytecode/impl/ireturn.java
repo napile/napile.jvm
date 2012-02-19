@@ -11,7 +11,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class ireturn implements Instruction
+public class ireturn extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

@@ -11,7 +11,7 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class aconst_null implements Instruction
+public class aconst_null extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

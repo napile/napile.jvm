@@ -18,7 +18,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class invokestatic implements Instruction
+public class invokestatic extends Instruction
 {
 	private int _index;
 

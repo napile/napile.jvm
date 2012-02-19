@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class instanceof_ implements Instruction
+public class instanceof_ extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

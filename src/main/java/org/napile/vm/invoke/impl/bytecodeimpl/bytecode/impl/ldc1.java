@@ -16,7 +16,7 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class ldc1 implements Instruction
+public class ldc1 extends Instruction
 {
 	private int _index;
 

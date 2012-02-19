@@ -9,11 +9,16 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 10:16/05.02.2012
  */
-public interface Instruction
+public abstract class Instruction
 {
-	Instruction[] EMPTY_ARRAY = new Instruction[0];
+	public static final Instruction[] EMPTY_ARRAY = new Instruction[0];
 
-	void parseData(ByteBuffer buffer, boolean wide);
+	public abstract void parseData(ByteBuffer buffer, boolean wide);
 
-	void call(Vm vm, InterpreterContext context);
+	public abstract void call(Vm vm, InterpreterContext context);
+
+	public int getNextIndex(int index)
+	{
+		return index + 1;
+	}
 }

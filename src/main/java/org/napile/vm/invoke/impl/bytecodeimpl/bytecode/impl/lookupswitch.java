@@ -13,7 +13,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class lookupswitch implements Instruction
+public class lookupswitch extends Instruction
 {
 	private TIntIntMap _values;
 

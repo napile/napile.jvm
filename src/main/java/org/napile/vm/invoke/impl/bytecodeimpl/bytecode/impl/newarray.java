@@ -16,7 +16,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class newarray implements Instruction
+public class newarray extends Instruction
 {
 	/**
 	 boolean

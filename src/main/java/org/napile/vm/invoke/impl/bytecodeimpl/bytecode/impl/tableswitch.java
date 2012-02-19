@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class tableswitch implements Instruction
+public class tableswitch extends Instruction
 {
 	private int[][] _data;
 	private int _offset;

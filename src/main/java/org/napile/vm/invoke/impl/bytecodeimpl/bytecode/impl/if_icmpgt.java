@@ -12,7 +12,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class if_icmpgt implements Instruction
+public class if_icmpgt extends Instruction
 {
 	private int _index;
 
@@ -30,7 +30,7 @@ public class if_icmpgt implements Instruction
 		IntObjectInfo objectInfo1 = (IntObjectInfo)context.last();
 		IntObjectInfo objectInfo2 = (IntObjectInfo)context.last();
 
-		System.out.println(getClass().getSimpleName() + " " + _index);
+		System.out.println(getClass().getSimpleName() + " " + (_index - 1));
 		//throw new IllegalArgumentException();
 	}
 }

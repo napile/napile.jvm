@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class int2char implements Instruction
+public class int2char extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

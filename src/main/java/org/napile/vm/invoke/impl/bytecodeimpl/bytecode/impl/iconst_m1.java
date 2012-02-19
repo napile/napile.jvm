@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class iconst_m1 implements Instruction
+public class iconst_m1 extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

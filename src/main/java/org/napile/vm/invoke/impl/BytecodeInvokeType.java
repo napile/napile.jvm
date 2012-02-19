@@ -38,13 +38,15 @@ public class BytecodeInvokeType implements InvokeType
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		for(int i = 0; i < _instructions.length; i++)
+		for(int i = 0; i < _instructions.length;)
 		{
 			Instruction instruction = _instructions[i];
 
 			try
 			{
 				instruction.call(vm, context);
+
+				i = instruction.getNextIndex(i);
 			}
 			catch(Exception e)
 			{
@@ -64,8 +66,7 @@ public class BytecodeInvokeType implements InvokeType
 		List<StackEntry> entries = new ArrayList<StackEntry>(context.getStack());
 		Collections.reverse(entries);
 		for(StackEntry stackEntry : entries)
-			LOGGER.info("> " + stackEntry.getMethodInfo().toString());
-
+			LOGGER.info("\tat " + stackEntry.getMethodInfo().getParent().getName() + "." + stackEntry.getMethodInfo().getName());
 		StackEntry entry = context.getLastStack();
 
 		LOGGER.info("-----------------------------------");

@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class goto_ implements Instruction
+public class goto_ extends Instruction
 {
 	private int _index;
 
@@ -23,7 +23,7 @@ public class goto_ implements Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		System.out.println(getClass().getSimpleName() + " " + _index);
+		System.out.println(getClass().getSimpleName() + " " + (_index - 1));
 		 throw new IllegalArgumentException();
 	}
 }

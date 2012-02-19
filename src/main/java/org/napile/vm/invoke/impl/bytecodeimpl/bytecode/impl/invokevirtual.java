@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class invokevirtual implements Instruction
+public class invokevirtual extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)

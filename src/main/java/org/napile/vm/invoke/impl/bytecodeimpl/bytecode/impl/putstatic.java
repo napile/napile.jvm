@@ -17,7 +17,7 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class putstatic implements Instruction
+public class putstatic extends Instruction
 {
 	private int _index;
 

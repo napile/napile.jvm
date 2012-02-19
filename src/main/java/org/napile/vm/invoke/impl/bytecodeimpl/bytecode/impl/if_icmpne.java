@@ -10,7 +10,7 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 4:52/06.02.2012
  */
-public class if_icmpne implements Instruction
+public class if_icmpne extends Instruction
 {
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
