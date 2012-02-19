@@ -126,6 +126,14 @@ public class VmUtil
 		if(right == null)  //object = null
 			return null;
 
+		ClassInfo subclass = right.getSuperClass();
+		if(canSetValue(left, subclass) == null)
+			return null;
+
+		for(ClassInfo interfaces : right.getInterfaces())
+			if(canSetValue(left, interfaces) == null)
+				return null;
+
 		return "Could cast " + right.getName() + " to " + left.getName();
 	}
 
@@ -231,7 +239,7 @@ public class VmUtil
 				clazz = clazz.getSuperClass();
 			}
 		}
-		return (list.isEmpty() ? Collections.<FieldInfo>emptyList() : list).toArray(new FieldInfo[list.size()]);
+		return list.isEmpty() ? FieldInfo.EMPTY_ARRAY : list.toArray(new FieldInfo[list.size()]);
 	}
 
 	public static MethodInfo[] collectAllMethods(ClassInfo info)
@@ -240,12 +248,12 @@ public class VmUtil
 		ClassInfo clazz = info;
 		while(clazz != null)
 		{
-			MethodInfo[] fieldInfos = clazz.getMethods();
-			Collections.addAll(list, fieldInfos);
+			MethodInfo[] methodInfos = clazz.getMethods();
+			Collections.addAll(list, methodInfos);
 
 			clazz = clazz.getSuperClass();
 		}
 
-		return (list.isEmpty() ? Collections.<MethodInfo>emptyList() : list).toArray(new MethodInfo[list.size()]);
+		return list.isEmpty() ? MethodInfo.EMPTY_ARRAY : list.toArray(new MethodInfo[list.size()]);
 	}
 }

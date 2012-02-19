@@ -1,5 +1,9 @@
 package org.napile.vm.vm;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
@@ -117,6 +121,60 @@ public class Vm
 
 	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
 	{
+		if(!classInfo.isStaticConstructorCalled())
+		{
+			List<ClassInfo> subclasses = new ArrayList<ClassInfo>();
+			subclasses.add(classInfo);
+			ClassInfo subclass = classInfo.getSuperClass();
+			while(subclass != null)
+			{
+				subclasses.add(subclass);
+
+				subclass = subclass.getSuperClass();
+			}
+			Collections.reverse(subclasses);
+
+			for(ClassInfo $classInfo : subclasses)
+			{
+				synchronized($classInfo)
+				{
+					if($classInfo.isStaticConstructorCalled())
+						continue;
+
+					for(FieldInfo fieldInfo : $classInfo.getFields())
+					{
+						if(Flags.isStatic(fieldInfo))
+						{
+							Object o = fieldInfo.getTempValue();
+							if(o != null)
+							{
+								ClassInfo type = null;
+								if(o instanceof Byte)
+									type = getClass(PRIMITIVE_BYTE);
+								else if(o instanceof Short)
+									type = getClass(PRIMITIVE_SHORT);
+								else if(o instanceof Integer)
+									type = getClass(PRIMITIVE_INT);
+								else if(o instanceof Long)
+									type = getClass(PRIMITIVE_LONG);
+								else
+									AssertUtil.assertString(o.getClass().getName());
+
+								fieldInfo.setValue(VmUtil.convertToVm(this, type, fieldInfo.getTempValue()));
+
+								fieldInfo.setTempValue(null);
+							}
+						}
+					}
+
+					MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
+					if(methodInfo != null)
+						invoke(methodInfo, null, null, ObjectInfo.EMPTY_ARRAY);
+
+					$classInfo.setStaticConstructorCalled(true);
+				}
+			}
+		}
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, false, constructorTypes));
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);

@@ -15,4 +15,8 @@ public interface FieldInfo extends ReflectInfo
 	ObjectInfo getValue();
 
 	ClassInfo getType();
+
+	Object getTempValue();
+
+	void setTempValue(Object tempValue);
 }

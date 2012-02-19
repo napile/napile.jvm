@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class CollectionUtil
 {
+	public static final String[] EMPTY_STRING_ARRAY = new String[0];
+
 	public static <T> T safeGet(T[] list, int val)
 	{
 		return list.length > val ? list[val] : null;

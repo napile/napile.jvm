@@ -21,6 +21,8 @@ public class ClassInfoImpl extends AbstractClassInfo
 	private final String _name;
 	private final int _flags;
 
+	private boolean _staticConstructorCalled;
+
 	public ClassInfoImpl(ConstantPool constantPool, String name, int flags)
 	{
 		_constantPool = constantPool;
@@ -96,5 +98,17 @@ public class ClassInfoImpl extends AbstractClassInfo
 	public ClassInfo getParent()
 	{
 		return null;
+	}
+
+	@Override
+	public boolean isStaticConstructorCalled()
+	{
+		return _staticConstructorCalled;
+	}
+
+	@Override
+	public void setStaticConstructorCalled(boolean staticConstructorCalled)
+	{
+		_staticConstructorCalled = staticConstructorCalled;
 	}
 }

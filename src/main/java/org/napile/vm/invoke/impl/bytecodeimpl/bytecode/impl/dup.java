@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -21,6 +22,9 @@ public class dup extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		throw new IllegalArgumentException();
+		ClassObjectInfo classObjectInfo = (ClassObjectInfo)context.last();
+
+		context.push(classObjectInfo);
+		context.push(classObjectInfo);
 	}
 }

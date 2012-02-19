@@ -63,11 +63,13 @@ public class FieldInfoImpl implements FieldInfo
 		return _type;
 	}
 
+	@Override
 	public Object getTempValue()
 	{
 		return _tempValue;
 	}
 
+	@Override
 	public void setTempValue(Object tempValue)
 	{
 		_tempValue = tempValue;

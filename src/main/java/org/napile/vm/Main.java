@@ -8,6 +8,7 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.util.BundleUtil;
+import org.napile.vm.util.DumpUtil;
 import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmContext;
@@ -76,6 +77,7 @@ public class Main
 		for(int i = 0; i < args.length; i++)
 			data[i] = VmUtil.convertToVm(vm, javaClassString, args[i]);
 
+		System.out.println(DumpUtil.dump(data[0]));
 		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(null, javaClassStringArray, data));
 	}
 

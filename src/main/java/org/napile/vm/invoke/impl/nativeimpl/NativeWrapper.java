@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_Object;
 import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_System;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -23,6 +24,7 @@ public class NativeWrapper
 
 	public static void initAll(Vm vm)
 	{
+		register(vm, java_lang_Object.class);
 		register(vm, java_lang_System.class);
 	}
 
@@ -37,7 +39,7 @@ public class NativeWrapper
 			if(nativeImplement == null)
 				continue;
 
-			AssertUtil.assertTrue(method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
+			AssertUtil.assertTrue(method.getParameterTypes().length != 3 || method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
 
 			ClassInfo classInfo = vm.getClass(nativeImplement.className());
 

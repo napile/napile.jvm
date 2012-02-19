@@ -26,4 +26,8 @@ public interface ClassInfo extends ReflectInfo
 	public ObjectInfo nullValue();
 
 	public ConstantPool getConstantPool();
+
+	boolean isStaticConstructorCalled();
+
+	void setStaticConstructorCalled(boolean staticInit);
 }

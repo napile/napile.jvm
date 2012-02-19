@@ -2,6 +2,7 @@ package org.napile.vm.util;
 
 import java.util.Map;
 
+import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -18,10 +19,16 @@ public class DumpUtil
 		AssertUtil.assertFalse(objectInfo instanceof ClassObjectInfo);
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
-		builder.append("Object: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append("\n");
-		builder.append("Fields:\n");
+		builder.append("Object: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
+
+		builder.append("\tStatic Fields:\n");
+		for(FieldInfo f : classInfo.getFields())
+			if(Flags.isStatic(f))
+				builder.append("\t\t").append(f.getName()).append(": ").append(f.getValue()).append("\n");
+
+		builder.append("\tFields:\n");
 		for(Map.Entry<FieldInfo, ObjectInfo> entry : ((ClassObjectInfo)objectInfo).getFields().entrySet())
-			builder.append('\t').append(entry.getKey().getName()).append(": ").append(entry.getValue().toString()).append('\n');
+			builder.append("\t\t").append(entry.getKey().getName()).append(": ").append(entry.getValue().toString()).append('\n');
 
 		return builder.toString();
 	}

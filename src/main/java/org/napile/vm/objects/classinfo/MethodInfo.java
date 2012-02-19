@@ -9,7 +9,7 @@ import org.napile.vm.invoke.InvokeType;
 public interface MethodInfo extends ReflectInfo
 {
 	public static final String CONSTRUCTOR_NAME = "<init>";
-	public static final String STATIC_CONSTRUCTOR_NAME = "<cinit>";
+	public static final String STATIC_CONSTRUCTOR_NAME = "<clinit>";
 
 	public static final MethodInfo[] EMPTY_ARRAY = new MethodInfo[0];
 

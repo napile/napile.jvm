@@ -63,4 +63,16 @@ public class ArrayClassInfoImpl extends AbstractClassInfo
 	{
 		return ClassInfo.EMPTY_ARRAY;
 	}
+
+	@Override
+	public boolean isStaticConstructorCalled()
+	{
+		return true;
+	}
+
+	@Override
+	public void setStaticConstructorCalled(boolean staticInit)
+	{
+
+	}
 }

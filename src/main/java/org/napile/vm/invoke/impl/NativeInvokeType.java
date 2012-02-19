@@ -29,7 +29,7 @@ public class NativeInvokeType implements InvokeType
 		NativeMethod nativeMethod = NativeWrapper.getMethod(methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
 		if(nativeMethod == null)
 		{
-			LOGGER.info("native call: " + context.getLastStack().getMethodInfo().toString());
+			LOGGER.info("NativeMethod not implemented: " + context.getLastStack().getMethodInfo().toString());
 			System.exit(-1);
 		}
 		else
