@@ -9,11 +9,27 @@ import org.napile.vm.vm.Vm;
  */
 public enum CLOption
 {
+	ARGS("-args", new CLOptionProcessor()
+	{
+		@Override
+		public void process(Vm vm, String value)
+		{
+			vm.getVmContext().getArguments().add(value);
+		}
+	}),
+
 	MAIN_CLASS("-main-class", new CLOptionProcessor()
 	{
 		@Override
 		public void process(Vm vm, String value)
 		{
+			if(vm.getVmContext().getMainClass() != null)
+			{
+				ARGS.getOptionProcessor().process(vm, value);
+
+				return;
+			}
+
 			vm.getVmContext().setMainClass(value);
 		}
 	}),

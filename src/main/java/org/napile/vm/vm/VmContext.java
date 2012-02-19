@@ -1,6 +1,8 @@
 package org.napile.vm.vm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
@@ -14,6 +16,7 @@ public class VmContext
 	private String _mainClass;
 
 	private Map<String, FileMapping> _fileMapping = new HashMap<String, FileMapping> ();
+	private List<String> _arguments = new ArrayList<String>();
 
 	public VmContext()
 	{
@@ -38,5 +41,10 @@ public class VmContext
 	public FileMapping getFileMapping(String name)
 	{
 		return _fileMapping.get(name);
+	}
+
+	public List<String> getArguments()
+	{
+		return _arguments;
 	}
 }

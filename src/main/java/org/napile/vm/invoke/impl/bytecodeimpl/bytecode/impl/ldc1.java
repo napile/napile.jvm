@@ -2,12 +2,11 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
+import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
 import org.napile.vm.objects.classinfo.parsing.constantpool.binary.ShortValueConstant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.binary.Utf8ValueConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
@@ -31,13 +30,11 @@ public class ldc1 extends Instruction
 	{
 		ConstantPool constantPool = context.getLastStack().getConstantPool();
 
-		ShortValueConstant constant = (ShortValueConstant)constantPool.getConstant(_index);
+		ValueConstant<?> valueConstant =  (ValueConstant) constantPool.getConstant(_index);
+		if(valueConstant.getType() == ConstantPool.CP_STRING)
+			valueConstant = (ValueConstant)constantPool.getConstant(((ShortValueConstant)valueConstant).getValue());
 
-		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant)constantPool.getConstant(constant.getValue());
-
-		ClassInfo javaLangString = vm.getClass(Vm.JAVA_LANG_STRING);
-
-		ObjectInfo objectInfo = VmUtil.convertToVm(vm, javaLangString, utf8ValueConstant.getValue());
+		ObjectInfo objectInfo = VmUtil.convertToVm(vm, valueConstant.getValue());
 
 		context.push(objectInfo);
 	}

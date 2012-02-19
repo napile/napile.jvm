@@ -110,6 +110,8 @@ public class Vm
 
 	public void invoke(MethodInfo methodInfo, ObjectInfo object, InterpreterContext context, ObjectInfo... argument)
 	{
+		initStatic(methodInfo.getParent(), context);
+
 		AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
@@ -121,60 +123,8 @@ public class Vm
 
 	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
 	{
-		if(!classInfo.isStaticConstructorCalled())
-		{
-			List<ClassInfo> subclasses = new ArrayList<ClassInfo>();
-			subclasses.add(classInfo);
-			ClassInfo subclass = classInfo.getSuperClass();
-			while(subclass != null)
-			{
-				subclasses.add(subclass);
+		initStatic(classInfo, null);
 
-				subclass = subclass.getSuperClass();
-			}
-			Collections.reverse(subclasses);
-
-			for(ClassInfo $classInfo : subclasses)
-			{
-				synchronized($classInfo)
-				{
-					if($classInfo.isStaticConstructorCalled())
-						continue;
-
-					for(FieldInfo fieldInfo : $classInfo.getFields())
-					{
-						if(Flags.isStatic(fieldInfo))
-						{
-							Object o = fieldInfo.getTempValue();
-							if(o != null)
-							{
-								ClassInfo type = null;
-								if(o instanceof Byte)
-									type = getClass(PRIMITIVE_BYTE);
-								else if(o instanceof Short)
-									type = getClass(PRIMITIVE_SHORT);
-								else if(o instanceof Integer)
-									type = getClass(PRIMITIVE_INT);
-								else if(o instanceof Long)
-									type = getClass(PRIMITIVE_LONG);
-								else
-									AssertUtil.assertString(o.getClass().getName());
-
-								fieldInfo.setValue(VmUtil.convertToVm(this, type, fieldInfo.getTempValue()));
-
-								fieldInfo.setTempValue(null);
-							}
-						}
-					}
-
-					MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
-					if(methodInfo != null)
-						invoke(methodInfo, null, null, ObjectInfo.EMPTY_ARRAY);
-
-					$classInfo.setStaticConstructorCalled(true);
-				}
-			}
-		}
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, false, constructorTypes));
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
@@ -238,5 +188,63 @@ public class Vm
 			}
 		}
 		return null;
+	}
+
+	private void initStatic(ClassInfo classInfo, InterpreterContext context)
+	{
+		if(!classInfo.isStaticConstructorCalled())
+		{
+			List<ClassInfo> subclasses = new ArrayList<ClassInfo>();
+			subclasses.add(classInfo);
+			ClassInfo subclass = classInfo.getSuperClass();
+			while(subclass != null)
+			{
+				if(!subclasses.contains(subclass))
+					subclasses.add(subclass);
+
+				subclass = subclass.getSuperClass();
+			}
+			Collections.reverse(subclasses);
+
+			for(ClassInfo $classInfo : subclasses)
+			{
+				synchronized($classInfo)
+				{
+					if($classInfo.isStaticConstructorCalled())
+						continue;
+
+					for(FieldInfo fieldInfo : $classInfo.getFields())
+					{
+						if(Flags.isStatic(fieldInfo))
+						{
+							Object o = fieldInfo.getTempValue();
+							if(o != null)
+							{
+								fieldInfo.setValue(VmUtil.convertToVm(this, fieldInfo.getTempValue()));
+
+								fieldInfo.setTempValue(null);
+							}
+							else
+								fieldInfo.setValue(fieldInfo.getType().nullValue());
+						}
+					}
+
+					$classInfo.setStaticConstructorCalled(true);
+					MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
+
+					if(methodInfo != null)
+					{
+						StackEntry stackEntry = new StackEntry(null, methodInfo, ObjectInfo.EMPTY_ARRAY);
+						InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
+						//if(context == null)
+						//	contextMain.getStack().add(stackEntry);
+
+						invoke(methodInfo, null, contextMain, ObjectInfo.EMPTY_ARRAY);
+
+						//contextMain.getStack().pollLast();
+					}
+				}
+			}
+		}
 	}
 }

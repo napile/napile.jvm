@@ -50,4 +50,10 @@ public class invokestatic extends Instruction
 
 		context.getStack().pollLast();
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString() + ": " + _index;
+	}
 }

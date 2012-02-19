@@ -1,5 +1,7 @@
 package org.napile.vm;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
@@ -73,9 +75,10 @@ public class Main
 		ClassInfo javaClassString = vm.getClass(Vm.JAVA_LANG_STRING);
 		ClassInfo javaClassStringArray = vm.getClass(Vm.JAVA_LANG_STRING_ARRAY);
 
-		ObjectInfo[] data = new ObjectInfo[args.length];
-		for(int i = 0; i < args.length; i++)
-			data[i] = VmUtil.convertToVm(vm, javaClassString, args[i]);
+		List<String> arguments = vmContext.getArguments();
+		ObjectInfo[] data = new ObjectInfo[arguments.size()];
+		for(int i = 0; i < data.length; i++)
+			data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
 
 		System.out.println(DumpUtil.dump(data[0]));
 		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(null, javaClassStringArray, data));

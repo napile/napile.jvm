@@ -66,7 +66,7 @@ public class BytecodeInvokeType implements InvokeType
 		List<StackEntry> entries = new ArrayList<StackEntry>(context.getStack());
 		Collections.reverse(entries);
 		for(StackEntry stackEntry : entries)
-			LOGGER.info("\tat " + stackEntry.getMethodInfo().getParent().getName() + "." + stackEntry.getMethodInfo().getName());
+			LOGGER.info("\tat " + stackEntry);
 		StackEntry entry = context.getLastStack();
 
 		LOGGER.info("-----------------------------------");

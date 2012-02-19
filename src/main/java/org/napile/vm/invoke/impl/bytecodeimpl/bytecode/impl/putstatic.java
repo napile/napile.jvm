@@ -44,4 +44,10 @@ public class putstatic extends Instruction
 
 		fieldInfo.setValue(value);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString() + ": " + _index;
+	}
 }

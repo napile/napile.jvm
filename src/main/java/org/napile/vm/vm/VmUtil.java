@@ -54,6 +54,27 @@ public class VmUtil
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
+	public static ObjectInfo convertToVm(Vm vm, Object o)
+	{
+		ClassInfo type = null;
+		if(o instanceof Byte)
+			type = vm.getClass(Vm.PRIMITIVE_BYTE);
+		else if(o instanceof Short)
+			type = vm.getClass(Vm.PRIMITIVE_SHORT);
+		else if(o instanceof Integer)
+			type = vm.getClass(Vm.PRIMITIVE_INT);
+		else if(o instanceof Long)
+			type = vm.getClass(Vm.PRIMITIVE_LONG);
+		else if(o instanceof Float)
+			type = vm.getClass(Vm.PRIMITIVE_FLOAT);
+		else if(o instanceof Double)
+			type = vm.getClass(Vm.PRIMITIVE_DOUBLE);
+		else
+			AssertUtil.assertString(o.getClass().getName());
+
+		return convertToVm(vm, type, o);
+	}
+
 	public static ObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
 	{
 		if(classInfo.getName().equals(Vm.PRIMITIVE_BYTE))
