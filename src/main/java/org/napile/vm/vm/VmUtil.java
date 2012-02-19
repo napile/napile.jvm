@@ -33,7 +33,7 @@ public class VmUtil
 	public static void initBootStrap(Vm vm)
 	{
 		makePrimitiveType(Vm.PRIMITIVE_VOID, vm, null, null);
-		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN, vm, BoolObjectInfo.class, Boolean.FALSE);
+		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN_ARRAY, vm, BoolObjectInfo.class, Boolean.FALSE);
 		makePrimitiveType(Vm.PRIMITIVE_BYTE, vm, ByteObjectInfo.class, (byte)0);
 		makePrimitiveType(Vm.PRIMITIVE_SHORT, vm, ShortObjectInfo.class, (short)0);
 		makePrimitiveType(Vm.PRIMITIVE_INT, vm, IntObjectInfo.class, 0);
@@ -118,15 +118,15 @@ public class VmUtil
 		vm.getBootClassLoader().addClassInfo(classInfo);
 	}
 
-	public static boolean canSetValue(ClassInfo left, ClassInfo right)
+	public static String canSetValue(ClassInfo left, ClassInfo right)
 	{
 		if(left == right)                  //object = object
-			return true;
+			return null;
 
-		if(left != null && right == null)  //object = null
-			return true;
+		if(right == null)  //object = null
+			return null;
 
-		return false;
+		return "Could cast " + right.getName() + " to " + left.getName();
 	}
 
 	public static ClassInfo parseType(Vm vm, String val)
@@ -180,7 +180,7 @@ public class VmUtil
 			case 'S':  //short
 				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_SHORT);
 			case 'Z':  //boolean
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN_ARRAY);
 			case 'V':  //void
 				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_VOID);
 			case 'T': //generic

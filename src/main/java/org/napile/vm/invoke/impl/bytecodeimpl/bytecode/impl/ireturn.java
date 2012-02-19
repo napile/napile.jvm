@@ -22,8 +22,6 @@ public class ireturn extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		//StackEntry stackEntry = context.getLastStack();
-
 		IntObjectInfo intObjectInfo = (IntObjectInfo)context.last();
 
 		context.push(intObjectInfo);

@@ -11,6 +11,7 @@ import org.napile.vm.Main;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.InstructionFactory;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VerifyBytecode;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -311,7 +312,9 @@ public class ClassParser
 					byte[] btArray = new byte[codeLen];
 					_dataInputStream.readFully(btArray);
 
-					Instruction[] instructions = InstructionFactory.parseByteCode(_name, methodInfo.getName(), btArray);
+					VerifyBytecode.verify(_name, methodInfo.getName(), btArray);
+
+					Instruction[] instructions = InstructionFactory.parseByteCode(btArray);
 					invokeType.setInstructions(instructions);
 
 					// exception_table_length

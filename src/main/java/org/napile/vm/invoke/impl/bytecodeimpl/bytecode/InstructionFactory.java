@@ -1,13 +1,13 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jreversepro.jvm.JVMInstructionSet;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl.wide;
-import org.napile.vm.util.BundleUtil;
-import org.napile.vm.util.DumpUtil;
 import com.sun.tools.javac.jvm.Mneumonics;
 
 /**
@@ -16,19 +16,19 @@ import com.sun.tools.javac.jvm.Mneumonics;
  */
 public class InstructionFactory
 {
-	public static Instruction[] parseByteCode(String name, String methodName, byte[] data)
+	public static Instruction[] parseByteCode(byte[] data)
 	{
 		List<Instruction> instructions = new ArrayList<Instruction>(data.length / 2);
 
 		ByteBuffer byteBuffer = ByteBuffer.wrap(data);
 
-		List<String> parsed = new ArrayList<String>(instructions.size());
+		TIntIntMap map = new TIntIntHashMap();
 
 		Instruction currentInstruction = null;
 
 		while(byteBuffer.hasRemaining())
 		{
-			int oldPos = byteBuffer.position();
+			int indexInArray = byteBuffer.position();
 			int opcode = byteBuffer.get() & 0xFF;
 
 			try
@@ -41,42 +41,24 @@ public class InstructionFactory
 
 				boolean iswide = currentInstruction instanceof wide;
 
+				instruction.setArrayIndex(indexInArray);
+				instruction.setInstructionIndex(instructions.size());
+
 				instruction.parseData(byteBuffer, iswide);
 
-				int diff = byteBuffer.position() - oldPos;
-				parsed.add(byteBuffer.position() + " <" + Integer.toHexString(opcode).toUpperCase() + "> " + instClass.getName() + ": " + (diff - 1));
-
-				int size = JVMInstructionSet.getOpcodeLength(opcode, iswide);
-				if(size >= 0 && diff != size)
-				{
-					System.out.println("incorrect lenght for: " + instClass.getName() + " need " + (size - 1)+ " get " + (diff - 1) + " wide: " + iswide);
-					System.exit(-1);
-				}
-
 				currentInstruction = instruction;
+
+				map.put(instruction.getArrayIndex(), instruction.getInstructionIndex());
 				instructions.add(instruction);
 			}
 			catch(Exception e)
 			{
-				int prevCode = byteBuffer.position() == 0 ? opcode : byteBuffer.get(byteBuffer.position() - 1) & 0xFF;
-				String code = null;
-				try
-				{
-					code = Mneumonics.mnem[prevCode];
-				}
-				catch(Exception e1)
-				{
-					code = e1.getClass().getName();
-				}
-
-				for(String in : parsed)
-					System.out.println(in);
-
-				System.out.println(DumpUtil.toString(data, data.length));
-				BundleUtil.exitAbnormal(e, "error.in.code.pre.code.s1.file.s2.position.s3.method.s4", code, name, byteBuffer.position(), methodName);
-				break;
+				//
 			}
 		}
+
+		for(Instruction instruction : instructions)
+			instruction.findIndexes(map);
 
 		return instructions.isEmpty() ? Instruction.EMPTY_ARRAY : instructions.toArray(new Instruction[instructions.size()]);
 	}

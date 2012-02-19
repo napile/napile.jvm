@@ -72,4 +72,14 @@ public class FieldInfoImpl implements FieldInfo
 	{
 		_tempValue = tempValue;
 	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder b = new StringBuilder();
+		b.append(getParent().getName()).append(":");
+		b.append(_type.getName()).append(" ");
+		b.append(getName());
+		return b.toString();
+	}
 }

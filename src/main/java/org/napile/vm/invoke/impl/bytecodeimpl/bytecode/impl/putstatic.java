@@ -40,7 +40,7 @@ public class putstatic extends Instruction
 
 		ObjectInfo value = context.last();
 
-		AssertUtil.assertFalse(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
+		AssertUtil.assertString(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
 
 		fieldInfo.setValue(value);
 	}

@@ -48,7 +48,7 @@ public class invokespecial extends Instruction
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(context, methodInfo, objectInfo, ObjectInfo.EMPTY_ARRAY);
+		vm.invoke(methodInfo, objectInfo, context, ObjectInfo.EMPTY_ARRAY);
 
 		context.getStack().pollLast();
 	}

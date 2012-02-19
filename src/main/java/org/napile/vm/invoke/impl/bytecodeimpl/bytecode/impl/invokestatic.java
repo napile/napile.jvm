@@ -46,7 +46,7 @@ public class invokestatic extends Instruction
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(context, methodInfo, null, ObjectInfo.EMPTY_ARRAY);
+		vm.invoke(methodInfo, null, context, ObjectInfo.EMPTY_ARRAY);
 
 		context.getStack().pollLast();
 	}

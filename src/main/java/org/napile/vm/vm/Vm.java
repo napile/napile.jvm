@@ -24,6 +24,7 @@ public class Vm
 {
 	public static final String PRIMITIVE_VOID = "void";
 	public static final String PRIMITIVE_BOOLEAN = "boolean";
+	public static final String PRIMITIVE_BOOLEAN_ARRAY = "boolean[]";
 	public static final String PRIMITIVE_BYTE = "byte";
 	public static final String PRIMITIVE_SHORT = "short";
 	public static final String PRIMITIVE_INT = "int";
@@ -103,7 +104,7 @@ public class Vm
 		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
-	public void invoke(InterpreterContext context, MethodInfo methodInfo, ObjectInfo object, ObjectInfo... argument)
+	public void invoke(MethodInfo methodInfo, ObjectInfo object, InterpreterContext context, ObjectInfo... argument)
 	{
 		AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
 
@@ -120,7 +121,7 @@ public class Vm
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
 
-		invoke(null, methodInfo, classObjectInfo, arguments);
+		invoke(methodInfo, classObjectInfo, null, arguments);
 
 		return classObjectInfo;
 	}

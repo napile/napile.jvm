@@ -56,7 +56,7 @@ public class BytecodeInvokeType implements InvokeType
 			}
 		}
 
-		debug(context, -1, null);
+		//debug(context, -1, null);
 	}
 
 	private void debug(InterpreterContext context, int errorIndex, Exception e)
@@ -77,7 +77,7 @@ public class BytecodeInvokeType implements InvokeType
 		LOGGER.info("-----------------------------------");
 		LOGGER.info("Instructions:");
 		for(int j = 0; j < _instructions.length; j++)
-		LOGGER.info(j + " [" + _instructions[j].getClass().getSimpleName() + "]" + ((errorIndex == j) ? " ERROR: " + e.getMessage() : ""));
+		LOGGER.info("" + _instructions[j]  + ((errorIndex == j) ? " ERROR: " + e.getMessage() : ""));
 		if(e != null)
 			e.printStackTrace();
 

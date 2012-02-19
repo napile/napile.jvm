@@ -40,7 +40,7 @@ public class putfield extends Instruction
 		ClassObjectInfo object = (ClassObjectInfo)context.last();
 
 		AssertUtil.assertFalse(object.getFields().containsKey(fieldInfo));
-		AssertUtil.assertFalse(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
+		AssertUtil.assertString(VmUtil.canSetValue(fieldInfo.getType(), value.getClassInfo()));
 
 		object.getFields().put(fieldInfo, value);
 	}

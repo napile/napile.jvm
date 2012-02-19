@@ -41,4 +41,10 @@ public class ldc1 extends Instruction
 
 		context.push(objectInfo);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString() + ": " + _index;
+	}
 }

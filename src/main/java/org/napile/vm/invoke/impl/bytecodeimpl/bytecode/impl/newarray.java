@@ -58,10 +58,10 @@ public class newarray extends Instruction
 		switch(_index)
 		{
 			case 4:
-				classInfo = vm.getClass(Vm.PRIMITIVE_BOOLEAN);
+				classInfo = vm.getClass(Vm.PRIMITIVE_BOOLEAN_ARRAY);
 				break;
 			case 5:
-				classInfo = vm.getClass(Vm.PRIMITIVE_CHAR);
+				classInfo = vm.getClass(Vm.PRIMITIVE_CHAR_ARRAY);
 				break;
 			default:
 				AssertUtil.assertTrue(true);

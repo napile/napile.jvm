@@ -31,4 +31,10 @@ public class AssertUtil
 			throw new IllegalArgumentException("Cant be not null");
 		return val;
 	}
+
+	public static void assertString(String str)
+	{
+		if(str != null)
+			throw new IllegalArgumentException(str);
+	}
 }

@@ -6,8 +6,8 @@ import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.util.BundleUtil;
-import org.napile.vm.util.DumpUtil;
 import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmContext;
@@ -76,12 +76,7 @@ public class Main
 		for(int i = 0; i < args.length; i++)
 			data[i] = VmUtil.convertToVm(vm, javaClassString, args[i]);
 
-
-		LOGGER.info(DumpUtil.dump(data[0]));
-		//vmInterface.invoke(methodInfo, null, new ArrayObjectInfo(null, javaClassStringArray, data));
-
-		System.out.println("BootLoader: " + vm.getBootClassLoader().getLoadedClasses().size());
-		System.out.println("CurrentLoader: " + vm.getCurrentClassLoader().getLoadedClasses().size());
+		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(null, javaClassStringArray, data));
 	}
 
 	public static boolean isSupported(int major, int minor)

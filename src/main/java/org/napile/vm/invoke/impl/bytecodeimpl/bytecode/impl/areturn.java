@@ -2,8 +2,9 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -21,6 +22,8 @@ public class areturn extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		throw new IllegalArgumentException();
+		ArrayObjectInfo intObjectInfo = (ArrayObjectInfo)context.last();
+
+		context.push(intObjectInfo);
 	}
 }
