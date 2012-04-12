@@ -28,12 +28,12 @@ public class VmUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(VmUtil.class);
 
-	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null, null);
+	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null);
 
 	public static void initBootStrap(Vm vm)
 	{
 		makePrimitiveType(Vm.PRIMITIVE_VOID, vm, null, null);
-		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN_ARRAY, vm, BoolObjectInfo.class, Boolean.FALSE);
+		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN, vm, BoolObjectInfo.class, Boolean.FALSE);
 		makePrimitiveType(Vm.PRIMITIVE_BYTE, vm, ByteObjectInfo.class, (byte)0);
 		makePrimitiveType(Vm.PRIMITIVE_SHORT, vm, ShortObjectInfo.class, (short)0);
 		makePrimitiveType(Vm.PRIMITIVE_INT, vm, IntObjectInfo.class, 0);
@@ -78,21 +78,21 @@ public class VmUtil
 	public static ObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
 	{
 		if(classInfo.getName().equals(Vm.PRIMITIVE_BYTE))
-			return new ByteObjectInfo(null, classInfo, ((Number)object).byteValue());
+			return new ByteObjectInfo(classInfo, ((Number)object).byteValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_SHORT))
-			return new ShortObjectInfo(null, classInfo, ((Number)object).shortValue());
+			return new ShortObjectInfo(classInfo, ((Number)object).shortValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_INT))
-			return new IntObjectInfo(null, classInfo, ((Number)object).intValue());
+			return new IntObjectInfo(classInfo, ((Number)object).intValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_LONG))
-			return new LongObjectInfo(null, classInfo, ((Number)object).longValue());
+			return new LongObjectInfo(classInfo, ((Number)object).longValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_FLOAT))
-			return new FloatObjectInfo(null, classInfo, ((Number)object).floatValue());
+			return new FloatObjectInfo(classInfo, ((Number)object).floatValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_DOUBLE))
-			return new DoubleObjectInfo(null, classInfo, ((Number)object).doubleValue());
+			return new DoubleObjectInfo(classInfo, ((Number)object).doubleValue());
 		else if(classInfo.getName().equals(Vm.PRIMITIVE_CHAR))
 		{
 			int val = (Integer)object;
-			return new CharObjectInfo(null, classInfo, (char)val);
+			return new CharObjectInfo(classInfo, (char)val);
 		}
 		else if(classInfo.getName().equals(Vm.JAVA_LANG_STRING))
 		{
@@ -102,9 +102,9 @@ public class VmUtil
 			char[] data = ((String)object).toCharArray();
 			CharObjectInfo[] cData = new CharObjectInfo[data.length];
 			for(int i = 0; i < data.length; i++)
-				cData[i] = new CharObjectInfo(null, primitiveCharClassInfo, data[i]);
+				cData[i] = new CharObjectInfo(primitiveCharClassInfo, data[i]);
 
-			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(null, primitiveCharClassArrayInfo, cData);
+			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(primitiveCharClassArrayInfo, cData);
 
 			return AssertUtil.assertNull(vm.newObject(classInfo, new String[]{Vm.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
 		}
@@ -124,8 +124,8 @@ public class VmUtil
 		{
 			try
 			{
-				Constructor<?> constructor = clazz.getConstructor(ObjectInfo.class, ClassInfo.class, value.getClass());
-				ObjectInfo objectInfo = (ObjectInfo)constructor.newInstance(null, classInfo, value);
+				Constructor<?> constructor = clazz.getConstructor(ClassInfo.class, value.getClass());
+				ObjectInfo objectInfo = (ObjectInfo)constructor.newInstance(classInfo, value);
 				classInfo.setNullValue(objectInfo);
 			}
 			catch(Exception e)
@@ -209,7 +209,7 @@ public class VmUtil
 			case 'S':  //short
 				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_SHORT);
 			case 'Z':  //boolean
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN_ARRAY);
+				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN);
 			case 'V':  //void
 				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_VOID);
 			case 'T': //generic

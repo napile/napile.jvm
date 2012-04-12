@@ -1,6 +1,8 @@
 package org.napile.vm.objects.objectinfo;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
@@ -10,20 +12,15 @@ public abstract class ObjectInfo
 {
 	public static final ObjectInfo[] EMPTY_ARRAY = new ObjectInfo[0];
 
-	protected ObjectInfo _classObjectInfo; // object for 'java.lang.Class'
+	protected ClassObjectInfo _classObjectInfo; // object for 'java.lang.Class'
 
-	public ObjectInfo(ObjectInfo classObjectInfo)
-	{
-		_classObjectInfo = classObjectInfo;
-	}
+	public abstract ClassInfo getClassInfo();
 
-	public ClassInfo getClassInfo()
+	public ClassObjectInfo getClassObjectInfo(Vm vm)
 	{
-		return null;
-	}
+		if(_classObjectInfo == null)
+			_classObjectInfo = vm.getClassObjectInfo(getClassInfo());
 
-	public ObjectInfo getClassObjectInfo()   //TODO [VISTALL] it
-	{
 		return _classObjectInfo;
 	}
 }

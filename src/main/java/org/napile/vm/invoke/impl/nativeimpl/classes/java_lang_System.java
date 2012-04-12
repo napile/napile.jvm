@@ -12,7 +12,12 @@ import org.napile.vm.vm.Vm;
  */
 public class java_lang_System
 {
-	// public static native void arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)
+	@NativeImplement(className = "java.lang.System", methodName = "registerNatives", parameters = {})
+	public static void registerNatives(Vm vm, ObjectInfo objectInfo, ObjectInfo[] arguments)
+	{
+
+	}
+
 	@NativeImplement(className = "java.lang.System", methodName = "arraycopy", parameters = {"java.lang.Object", "int", "java.lang.Object", "int", "int"})
 	public static void arraycopy(Vm vm, ObjectInfo objectInfo, ObjectInfo[] arguments)
 	{

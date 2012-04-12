@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/org/jreversepro/jvm/Opcodes.java" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c365661b-bac9-4559-9ab6-16d25c2c80b3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/Bundle_en.properties" />
-      <change type="DELETED" beforePath="G:\napile-jvm\src\main\java\org\napile\jvm\util\ExitUtil.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/classpath/test/Main.java" afterPath="$PROJECT_DIR$/dist/classpath/test/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/napile-jvm.iml" afterPath="$PROJECT_DIR$/napile-jvm.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/bytecode/InstructionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/objectinfo/ObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/objectinfo/ObjectInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/cloption/CLProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_Class.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_ClassLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/Main.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/InterpreterContext.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/InterpreterContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/anewarray.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/anewarray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/areturn.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/areturn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/arraylength.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/arraylength.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/bipush.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/bipush.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/getstatic.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/getstatic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_0.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_0.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_1.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_3.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/iconst_3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_nonnull.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_nonnull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_null.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_null.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokespecial.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokespecial.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokevirtual.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokevirtual.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/newarray.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/newarray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/NativeWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/NativeWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_System.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_System.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/classinfo/impl/MethodInfoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/classinfo/impl/MethodInfoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/ObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/ObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ArrayObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ArrayObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ClassObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ClassObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ValueObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ValueObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/BoolObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/BoolObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/ByteObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/ByteObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/CharObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/CharObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/DoubleObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/DoubleObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/FloatObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/FloatObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/IntObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/IntObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/LongObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/LongObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/ShortObjectInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/ShortObjectInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/util/AssertUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/util/AssertUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/vm/Vm.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/vm/Vm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/napile/vm/vm/VmUtil.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/vm/vm/VmUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resource/org/napile/commons/logging/log4j.xml" afterPath="$PROJECT_DIR$/src/main/resource/org/napile/commons/logging/log4j.xml" />
-      <change type="MOVED" beforePath="G:\napile-jvm\src\main\java\org\napile\jvm\localize\LocalizeMaker.java" afterPath="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/BundleUtil.java" />
     </list>
     <ignored path="napile-jvm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,6 +51,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/napile-jvm$Main.ic" NAME="Main Coverage Results" MODIFIED="1329400147608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>org.napile.vm.*</FILTER>
+    </SUITE>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -46,8 +76,8 @@
         <option name="CONDITION_ENABLED" value="false" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -61,12 +91,29 @@
         <option name="CONDITION_ENABLED" value="false" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
     <breakpoint_rules />
-    <ui_properties />
+    <ui_properties>
+      <property name="line_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_flattenPackages" value="true" />
+      <property name="method_breakpoints_flattenPackages" value="true" />
+      <property name="field_breakpoints_flattenPackages" value="true" />
+      <property name="exception_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_groupByClasses" value="true" />
+      <property name="method_breakpoints_viewId" value="TABLE" />
+      <property name="field_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_flattenPackages" value="true" />
+      <property name="field_breakpoints_groupByClasses" value="true" />
+      <property name="method_breakpoints_groupByClasses" value="true" />
+      <property name="exception_breakpoints_viewId" value="TABLE" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="method_breakpoints_groupByMethods" value="false" />
+    </ui_properties>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="napile-jvm" />
@@ -76,28 +123,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
+      <file leaf-file-name="DumpUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/DumpUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="34" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
+            <state line="14" column="13" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dist/classpath/test/Main.java">
+      <file leaf-file-name="Instruction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/Instruction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="37" selection-start="271" selection-end="271" vertical-scroll-proportion="0.34151787">
+            <state line="13" column="22" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dist/classpath/test/Main.class">
+      <file leaf-file-name="InstructionFactory.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/InstructionFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="16" column="13" selection-start="390" selection-end="390" vertical-scroll-proportion="0.018930959">
               <folding />
             </state>
           </provider>
@@ -120,22 +167,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/classinfo/parsing/ClassParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/classloader/impl/SimpleClassLoaderImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/Localize.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/LocalizeMaker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/BundleUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/localize/BundleUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/util/BundleUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_Class.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokevirtual.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/areturn.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_System.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/getstatic.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_nonnull.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/if_acmp_null.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/NativeWrapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/nativeimpl/classes/java_lang_ClassLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/bipush.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/putfield.java" />
         <option value="$PROJECT_DIR$/src/main/resource/org/napile/commons/logging/log4j.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/objectinfo/ObjectInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java" />
-        <option value="$PROJECT_DIR$/dist/log.txt" />
-        <option value="$PROJECT_DIR$/dist/classpath/test/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/InterpreterContext.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/util/AssertUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/vm/Vm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokespecial.java" />
       </list>
     </option>
   </component>
@@ -180,6 +227,10 @@
               <option name="myItemId" value="napile-jvm" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -222,6 +273,14 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -293,7 +352,423 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="jvm" />
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cloption" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invoke" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invoke" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invoke" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nativeimpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invoke" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bytecodeimpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="invoke" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bytecodeimpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bytecode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile-jvm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="napile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classloader" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -434,16 +909,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="290" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="308" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="304" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="304" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="309" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="979" />
@@ -465,15 +940,18 @@
     <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig" persistUploadOnCheckin="false" />
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.napile.jvm.objects.objectinfo.impl" />
       <recent name="org.napile.jvm.bytecode.impl" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="org.napile.vm.Main" />
+      <recent name="org.napile.vm.vm.VmUtil" />
       <recent name="org.napile.jvm.util.BundleUtil" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -481,31 +959,20 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.napile.jvm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="org.napile.jvm.Main" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-cp ./classpath/ test.Main" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/dist" />
+    <configuration default="false" name="SystemTest" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="SystemTest" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="napile-jvm" />
       <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -518,24 +985,6 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" class_name="" method_name="" output_log_level="" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -603,8 +1052,39 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+    <configuration default="false" name="Main" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.napile.vm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="org.napile.vm.Main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-cp ./classpath/ test.Main outValue" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/dist" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="napile-jvm" />
+      <envs />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Cover" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.SystemTest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -652,37 +1132,60 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="c365661b-bac9-4559-9ab6-16d25c2c80b3" name="Default" comment="" />
       <created>1327512194213</created>
-      <updated>1327512194213</updated>
+      <updated>1329511030593</updated>
     </task>
+    <task id="LOCAL-00012" summary="* working on bool bytecodes">
+      <created>1329659149141</created>
+      <updated>1329659149141</updated>
+    </task>
+    <task id="LOCAL-00013" summary="* continued work on '&lt;=' bytecode">
+      <created>1329673650910</created>
+      <updated>1329673650910</updated>
+    </task>
+    <task id="LOCAL-00014" summary="+ implementation for 'anewarray', 'dup', 'new_'">
+      <created>1329677293379</created>
+      <updated>1329677293379</updated>
+    </task>
+    <task id="LOCAL-00015" summary="* working on static constructors&#10;* change and add implement for ldc* opcodes">
+      <created>1329689964593</created>
+      <updated>1329689964593</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <option name="createChangelist" value="false" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="32" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2171875" sideWeight="0.6710098" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44299674" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40173724" sideWeight="0.4984375" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21666667" sideWeight="0.6710098" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45819762" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40086675" sideWeight="0.4984375" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2671875" sideWeight="0.55700326" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3296875" sideWeight="0.59913325" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40173724" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.6807818" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5982628" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Thermit" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -719,8 +1222,10 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix stack over flow" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="* working on static constructors&#10;* change and add implement for ldc* opcodes" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -741,6 +1246,20 @@
     <MESSAGE value="some support for wide bytecodes &#10;some data parsing in instructions" />
     <MESSAGE value="some preparations" />
     <MESSAGE value="fix stack over flow" />
+    <MESSAGE value="* added parsing for 'switch' bytecodes&#10;* some rework" />
+    <MESSAGE value="* some cosmetics&#10;+ starting work on Interpreter" />
+    <MESSAGE value="* constant poll now has caching after binary parsing&#10;+ added implementation &quot;iconst_0&quot;/&quot;putstatic&quot;&#10;+ added parsing for local variable table" />
+    <MESSAGE value="* working on object creation" />
+    <MESSAGE value="* aload/istore/putfield implementation" />
+    <MESSAGE value="* better implementation for local variables &#10;+ lazy field caching" />
+    <MESSAGE value="+ added implement for native methods" />
+    <MESSAGE value="* cosmetics" />
+    <MESSAGE value="+ added implementation for 'invokespecial'&#10;* all not implemented bytecodes throw IllegalArgumentException" />
+    <MESSAGE value="+ added parsing for linenumber table and exception blocks" />
+    <MESSAGE value="* working on bool bytecodes" />
+    <MESSAGE value="* continued work on '&lt;=' bytecode" />
+    <MESSAGE value="+ implementation for 'anewarray', 'dup', 'new_'" />
+    <MESSAGE value="* working on static constructors&#10;* change and add implement for ldc* opcodes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -759,92 +1278,84 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/ClasspathUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/AssertUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="36" selection-start="2723" selection-end="2723" vertical-scroll-proportion="0.41183037" />
+        <state line="39" column="0" selection-start="735" selection-end="735" vertical-scroll-proportion="0.67745537" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/invokespecial.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="85" selection-start="1579" selection-end="1579" vertical-scroll-proportion="0.64508927" />
+        <state line="39" column="23" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.39285713" />
       </provider>
     </entry>
-    <entry file="jar://G:/programs/JDK/src.zip!/java/util/ResourceBundle.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/putfield.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1876" column="24" selection-start="74338" selection-end="74338" vertical-scroll-proportion="0.0" />
+        <state line="18" column="108" selection-start="684" selection-end="684" vertical-scroll-proportion="0.1328125" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/Bundle_en.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/impl/lookupswitch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="30" selection-start="312" selection-end="312" vertical-scroll-proportion="0.094866075" />
+        <state line="21" column="34" selection-start="494" selection-end="494" vertical-scroll-proportion="0.265625" />
       </provider>
     </entry>
-    <entry file="jar://G:/programs/JDK/src.zip!/java/util/Locale.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/cloption/CLProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="256" column="39" selection-start="9744" selection-end="9744" vertical-scroll-proportion="0.25669643" />
+        <state line="13" column="13" selection-start="250" selection-end="250" vertical-scroll-proportion="0.108258925" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/util/BundleUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/ArrayObjectInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="25" selection-start="497" selection-end="497" vertical-scroll-proportion="0.5066964" />
+        <state line="8" column="13" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resource/org/napile/commons/logging/log4j.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/ByteObjectInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="62" selection-start="308" selection-end="308" vertical-scroll-proportion="0.1328125" />
+        <state line="9" column="13" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/commons/logging/Log4JHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/objects/objectinfo/impl/primitive/DoubleObjectInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="13" selection-start="865" selection-end="865" vertical-scroll-proportion="0.18973215" />
+        <state line="9" column="13" selection-start="237" selection-end="237" vertical-scroll-proportion="0.15144767" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/objectinfo/ObjectInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/cloption/CLOptionProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="17" selection-start="114" selection-end="114" vertical-scroll-proportion="0.11383928" />
+        <state line="8" column="17" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/impl/VmInterfaceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/cloption/CLOption.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="5" selection-start="1816" selection-end="1816" vertical-scroll-proportion="0.22209822" />
+        <state line="9" column="12" selection-start="173" selection-end="173" vertical-scroll-proportion="0.018930959" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/vm/VmInterface.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/BundleUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="75" selection-start="282" selection-end="282" vertical-scroll-proportion="0.03794643" />
+        <state line="11" column="13" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/objects/Flags.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/ClasspathUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="188" selection-end="188" vertical-scroll-proportion="0.15178572" />
+        <state line="22" column="13" selection-start="695" selection-end="695" vertical-scroll-proportion="0.15144767" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/log.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/FileUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.05691964">
-          <folding />
-        </state>
+        <state line="8" column="13" selection-start="116" selection-end="116" vertical-scroll-proportion="0.15144767" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/jvm/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/util/DumpUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="34" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="14" column="13" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/classpath/test/Main.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/Instruction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="13" column="22" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/classpath/test/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/napile/vm/invoke/impl/bytecodeimpl/bytecode/InstructionFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="37" selection-start="271" selection-end="271" vertical-scroll-proportion="0.34151787">
-          <folding />
-        </state>
+        <state line="16" column="13" selection-start="390" selection-end="390" vertical-scroll-proportion="0.018930959" />
       </provider>
     </entry>
   </component>
@@ -887,7 +1398,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.6 u27</last-edited>
+          <last-edited>1.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

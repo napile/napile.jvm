@@ -2,8 +2,9 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.objects.objectinfo.impl.primitive.ByteObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -12,15 +13,17 @@ import org.napile.vm.vm.Vm;
  */
 public class bipush extends Instruction
 {
+	private byte  _index;
+
 	@Override
 	public void parseData(ByteBuffer buffer, boolean wide)
 	{
-		buffer.get();
+		_index = buffer.get();
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		throw new IllegalArgumentException();
+		context.push(new ByteObjectInfo(vm.getClass(Vm.PRIMITIVE_BYTE), _index));
 	}
 }

@@ -25,6 +25,6 @@ public class arraylength extends Instruction
 	{
 		ArrayObjectInfo objectInfo = (ArrayObjectInfo)context.last();
 
-		context.push(new IntObjectInfo(null, vm.getClass(Vm.PRIMITIVE_INT), objectInfo.getValue().length));
+		context.push(new IntObjectInfo(vm.getClass(Vm.PRIMITIVE_INT), objectInfo.getValue().length));
 	}
 }

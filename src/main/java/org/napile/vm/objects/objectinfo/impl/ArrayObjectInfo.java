@@ -1,7 +1,6 @@
 package org.napile.vm.objects.objectinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
  * @author VISTALL
@@ -9,9 +8,9 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class ArrayObjectInfo extends ValueObjectInfo<Object[]>
 {
-	public ArrayObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo, Object[] value)
+	public ArrayObjectInfo(ClassInfo classInfo, Object[] value)
 	{
-		super(classObjectInfo, classInfo, value);
+		super(classInfo, value);
 	}
 
 	@Override

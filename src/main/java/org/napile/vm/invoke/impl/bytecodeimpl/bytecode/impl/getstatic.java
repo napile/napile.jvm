@@ -2,13 +2,12 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl;
 
 import java.nio.ByteBuffer;
 
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.FieldWrapConstant;
-import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -36,7 +35,6 @@ public class getstatic extends Instruction
 		if(!Flags.isStatic(fieldInfo))
 			return;
 
-		if(fieldInfo.getValue() == fieldInfo.getType().nullValue())
-			AssertUtil.assertString(fieldInfo.getName() + " is null.");
+		context.push(fieldInfo.getValue());
 	}
 }

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_Class;
+import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_ClassLoader;
 import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_Object;
 import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_System;
 import org.napile.vm.objects.classinfo.ClassInfo;
@@ -25,6 +27,8 @@ public class NativeWrapper
 	public static void initAll(Vm vm)
 	{
 		register(vm, java_lang_Object.class);
+		register(vm, java_lang_Class.class);
+		register(vm, java_lang_ClassLoader.class);
 		register(vm, java_lang_System.class);
 	}
 

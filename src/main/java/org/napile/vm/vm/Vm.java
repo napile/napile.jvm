@@ -1,8 +1,6 @@
 package org.napile.vm.vm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.napile.vm.classloader.JClassLoader;
@@ -19,6 +17,7 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
+import org.napile.vm.util.CollectionUtil;
 
 /**
  * @author VISTALL
@@ -39,6 +38,7 @@ public class Vm
 	public static final String PRIMITIVE_CHAR_ARRAY = "char[]";
 	//
 	public static final String JAVA_LANG_OBJECT = "java.lang.Object";
+	public static final String JAVA_LANG_CLASS = "java.lang.Class";
 	public static final String JAVA_LANG_STRING = "java.lang.String";
 	public static final String JAVA_LANG_STRING_ARRAY = "java.lang.String[]";
 
@@ -48,6 +48,8 @@ public class Vm
 
 	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
 	private JClassLoader _currentClassLoader = _bootClassLoader;
+
+	private Map<ClassInfo, ClassObjectInfo> _initClasses = new HashMap<ClassInfo, ClassObjectInfo>();
 
 	public Vm(VmContext vmContext)
 	{
@@ -84,6 +86,19 @@ public class Vm
 			return classInfo;
 	}
 
+	public ClassObjectInfo getClassObjectInfo(ClassInfo classInfo)
+	{
+		ClassObjectInfo classObjectInfo = _initClasses.get(classInfo);
+		if(classObjectInfo == null)
+		{
+			classObjectInfo = newObject(getClass(JAVA_LANG_CLASS), CollectionUtil.EMPTY_STRING_ARRAY, ObjectInfo.EMPTY_ARRAY);
+
+			_initClasses.put(classInfo, classObjectInfo);
+		}
+
+		return classObjectInfo;
+	}
+
 	public FieldInfo getField(ClassInfo info, String name, boolean deep)
 	{
 		FieldInfo fieldInfo = getField0(info, name, deep);
@@ -112,7 +127,8 @@ public class Vm
 	{
 		initStatic(methodInfo.getParent(), context);
 
-		AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
+		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
+			AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
 
@@ -121,7 +137,7 @@ public class Vm
 		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
-	public ObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
+	public ClassObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
 	{
 		initStatic(classInfo, null);
 
@@ -208,41 +224,38 @@ public class Vm
 
 			for(ClassInfo $classInfo : subclasses)
 			{
-				synchronized($classInfo)
+				if($classInfo.isStaticConstructorCalled())
+					continue;
+
+				for(FieldInfo fieldInfo : $classInfo.getFields())
 				{
-					if($classInfo.isStaticConstructorCalled())
-						continue;
-
-					for(FieldInfo fieldInfo : $classInfo.getFields())
+					if(Flags.isStatic(fieldInfo))
 					{
-						if(Flags.isStatic(fieldInfo))
+						Object o = fieldInfo.getTempValue();
+						if(o != null)
 						{
-							Object o = fieldInfo.getTempValue();
-							if(o != null)
-							{
-								fieldInfo.setValue(VmUtil.convertToVm(this, fieldInfo.getTempValue()));
+							fieldInfo.setValue(VmUtil.convertToVm(this, fieldInfo.getTempValue()));
 
-								fieldInfo.setTempValue(null);
-							}
-							else
-								fieldInfo.setValue(fieldInfo.getType().nullValue());
+							fieldInfo.setTempValue(null);
 						}
+						else
+							fieldInfo.setValue(fieldInfo.getType().nullValue());
 					}
+				}
 
-					$classInfo.setStaticConstructorCalled(true);
-					MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
+				$classInfo.setStaticConstructorCalled(true);
+				MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
 
-					if(methodInfo != null)
-					{
-						StackEntry stackEntry = new StackEntry(null, methodInfo, ObjectInfo.EMPTY_ARRAY);
-						InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
-						//if(context == null)
-						//	contextMain.getStack().add(stackEntry);
+				if(methodInfo != null)
+				{
+					StackEntry stackEntry = new StackEntry(null, methodInfo, ObjectInfo.EMPTY_ARRAY);
+					InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
+					//if(context == null)
+					//	contextMain.getStack().add(stackEntry);
 
-						invoke(methodInfo, null, contextMain, ObjectInfo.EMPTY_ARRAY);
+					invoke(methodInfo, null, contextMain, ObjectInfo.EMPTY_ARRAY);
 
-						//contextMain.getStack().pollLast();
-					}
+					//contextMain.getStack().pollLast();
 				}
 			}
 		}

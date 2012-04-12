@@ -67,7 +67,7 @@ public class newarray extends Instruction
 				AssertUtil.assertTrue(true);
 		}
 
-		ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(null, classInfo, array);
+		ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(classInfo, array);
 
 		context.push(arrayObjectInfo);
 	}

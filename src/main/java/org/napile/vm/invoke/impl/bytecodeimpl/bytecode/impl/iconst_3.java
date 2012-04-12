@@ -22,6 +22,6 @@ public class iconst_3 extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		context.push(new IntObjectInfo(null, vm.getClass(Vm.PRIMITIVE_INT), 3));
+		context.push(new IntObjectInfo(vm.getClass(Vm.PRIMITIVE_INT), 3));
 	}
 }

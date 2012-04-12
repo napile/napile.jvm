@@ -81,7 +81,7 @@ public class Main
 			data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
 
 		System.out.println(DumpUtil.dump(data[0]));
-		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(null, javaClassStringArray, data));
+		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(javaClassStringArray, data));
 	}
 
 	public static boolean isSupported(int major, int minor)

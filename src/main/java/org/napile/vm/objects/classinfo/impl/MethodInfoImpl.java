@@ -80,6 +80,8 @@ public class MethodInfoImpl implements MethodInfo
 	{
 		StringBuilder b = new StringBuilder();
 		b.append(getParent().getName()).append(":");
+		if(Flags.isStatic(this))
+			b.append("static").append(" ");
 		b.append(_returnType.getName()).append(" ");
 		b.append(getName()).append("(");
 		for(int i = 0; i < _parameters.length; i++)

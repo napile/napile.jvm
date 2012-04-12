@@ -20,7 +20,7 @@ public class ClassObjectInfo  extends ObjectInfo
 
 	public ClassObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo)
 	{
-		super(classObjectInfo);
+		super();
 		_classInfo = classInfo;
 
 		FieldInfo[] fieldInfos = VmUtil.collectAllFields(classInfo);

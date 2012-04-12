@@ -1,7 +1,6 @@
 package org.napile.vm.objects.objectinfo.impl.primitive;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 
 /**
@@ -10,8 +9,8 @@ import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
  */
 public class DoubleObjectInfo extends ValueObjectInfo<Double>
 {
-	public DoubleObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo, Double value)
+	public DoubleObjectInfo(ClassInfo classInfo, Double value)
 	{
-		super(classObjectInfo, classInfo, value);
+		super(classInfo, value);
 	}
 }

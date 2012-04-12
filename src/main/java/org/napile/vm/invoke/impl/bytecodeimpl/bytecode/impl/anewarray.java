@@ -34,7 +34,7 @@ public class anewarray extends Instruction
 
 		ClassInfo classInfo = vm.getClass(ClassParser.getClassName(stackEntry.getConstantPool(), _index) + "[]");
 
-		ArrayObjectInfo objectInfo = new ArrayObjectInfo(null,classInfo, new Object[size.getValue()]);
+		ArrayObjectInfo objectInfo = new ArrayObjectInfo(classInfo, new Object[size.getValue()]);
 
 		context.push(objectInfo);
 	}

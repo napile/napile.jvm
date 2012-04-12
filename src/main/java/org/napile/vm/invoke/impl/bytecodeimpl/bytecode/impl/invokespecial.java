@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.apache.log4j.Logger;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.parsing.constantpool.cached.MethodRefConstant;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -20,6 +22,8 @@ import org.napile.vm.vm.Vm;
  */
 public class invokespecial extends Instruction
 {
+	private static final Logger LOGGER = Logger.getLogger(invokespecial.class);
+
 	private int _index;
 
 	@Override
@@ -34,6 +38,9 @@ public class invokespecial extends Instruction
 		StackEntry entry = context.getLastStack();
 
 		ObjectInfo objectInfo = context.last();
+
+		if(objectInfo == VmUtil.OBJECT_NULL)
+			objectInfo = null;
 
 		MethodRefConstant constant = (MethodRefConstant)entry.getConstantPool().getConstant(_index);
 
@@ -51,5 +58,8 @@ public class invokespecial extends Instruction
 		vm.invoke(methodInfo, objectInfo, context, ObjectInfo.EMPTY_ARRAY);
 
 		context.getStack().pollLast();
+
+		//if(LOGGER.isDebugEnabled())
+		//	LOGGER.info("invokespecial: " + methodInfo.toString());
 	}
 }

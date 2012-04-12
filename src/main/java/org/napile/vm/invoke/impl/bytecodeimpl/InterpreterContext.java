@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import sun.reflect.Reflection;
 
 /**
  * @author VISTALL
@@ -30,15 +29,22 @@ public class InterpreterContext
 	public void push(ObjectInfo val)
 	{
 		StackEntry entry = getLastStack();
-		entry.getDebug().add("push: " + val + ": " + Reflection.getCallerClass(2).getSimpleName());
+		//StringWriter stringWriter = new StringWriter();
+		//new Exception().printStackTrace(new PrintWriter(stringWriter));
+
+		entry.getDebug().add("push: " + val + ": " + entry.getMethodInfo());
 		_values.add(val);
 	}
 
 	public ObjectInfo last()
 	{
 		ObjectInfo v = _values.pollLast();
+
+		//StringWriter stringWriter = new StringWriter();
+		//new Exception().printStackTrace(new PrintWriter(stringWriter));
+
 		StackEntry entry = getLastStack();
-		entry.getDebug().add("last: " + v + ": " + Reflection.getCallerClass(2).getSimpleName());
+		entry.getDebug().add("last: " + v + ": " + entry.getMethodInfo());
 		return v;
 	}
 

@@ -13,9 +13,9 @@ public class ValueObjectInfo<T> extends ObjectInfo
 
 	private T _value;
 
-	public ValueObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo, T value)
+	public ValueObjectInfo(ClassInfo classInfo, T value)
 	{
-		super(classObjectInfo);
+		super();
 		_classInfo = classInfo;
 		_value = value;
 	}
