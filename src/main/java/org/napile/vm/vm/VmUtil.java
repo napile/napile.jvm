@@ -1,24 +1,26 @@
 package org.napile.vm.vm;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.rt.NapileLangPackage;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
-import org.napile.vm.objects.classinfo.impl.PrimitiveClassInfoImpl;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.*;
+import org.napile.vm.objects.objectinfo.impl.primitive.ByteObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.CharObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.DoubleObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.FloatObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.LongObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.primitive.ShortObjectInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.util.BundleUtil;
-import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.util.StringCharReader;
 
 /**
  * @author VISTALL
@@ -32,72 +34,35 @@ public class VmUtil
 
 	public static void initBootStrap(Vm vm)
 	{
-		makePrimitiveType(Vm.PRIMITIVE_VOID, vm, null, null);
-		makePrimitiveType(Vm.PRIMITIVE_BOOLEAN, vm, BoolObjectInfo.class, Boolean.FALSE);
-		makePrimitiveType(Vm.PRIMITIVE_BYTE, vm, ByteObjectInfo.class, (byte)0);
-		makePrimitiveType(Vm.PRIMITIVE_SHORT, vm, ShortObjectInfo.class, (short)0);
-		makePrimitiveType(Vm.PRIMITIVE_INT, vm, IntObjectInfo.class, 0);
-		makePrimitiveType(Vm.PRIMITIVE_LONG, vm, LongObjectInfo.class, (long)0);
-		makePrimitiveType(Vm.PRIMITIVE_FLOAT, vm, FloatObjectInfo.class, (float)0);
-		makePrimitiveType(Vm.PRIMITIVE_DOUBLE, vm, DoubleObjectInfo.class, (double)0);
-		makePrimitiveType(Vm.PRIMITIVE_CHAR, vm, CharObjectInfo.class, (char)0);
-
-		AssertUtil.assertNull(vm.getClass("java.lang.Object"));
-		AssertUtil.assertNull(vm.getClass("java.io.Serializable"));
-		// for string
-		AssertUtil.assertNull(vm.getClass("java.lang.String"));
-		// exceptions
-		AssertUtil.assertNull(vm.getClass("java.lang.Throwable"));
-		AssertUtil.assertNull(vm.getClass("java.lang.Exception"));
-		AssertUtil.assertNull(vm.getClass("java.lang.ClassNotFoundException"));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ANY));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.INT));
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static ObjectInfo convertToVm(Vm vm, Object o)
-	{
-		ClassInfo type = null;
-		if(o instanceof Byte)
-			type = vm.getClass(Vm.PRIMITIVE_BYTE);
-		else if(o instanceof Short)
-			type = vm.getClass(Vm.PRIMITIVE_SHORT);
-		else if(o instanceof Integer)
-			type = vm.getClass(Vm.PRIMITIVE_INT);
-		else if(o instanceof Long)
-			type = vm.getClass(Vm.PRIMITIVE_LONG);
-		else if(o instanceof Float)
-			type = vm.getClass(Vm.PRIMITIVE_FLOAT);
-		else if(o instanceof Double)
-			type = vm.getClass(Vm.PRIMITIVE_DOUBLE);
-		else
-			AssertUtil.assertString(o.getClass().getName());
-
-		return convertToVm(vm, type, o);
-	}
-
 	public static ObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
 	{
-		if(classInfo.getName().equals(Vm.PRIMITIVE_BYTE))
+		if(classInfo.getName().equals(NapileLangPackage.BYTE))
 			return new ByteObjectInfo(classInfo, ((Number)object).byteValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_SHORT))
+		else if(classInfo.getName().equals(NapileLangPackage.SHORT))
 			return new ShortObjectInfo(classInfo, ((Number)object).shortValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_INT))
+		else if(classInfo.getName().equals(NapileLangPackage.INT))
 			return new IntObjectInfo(classInfo, ((Number)object).intValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_LONG))
+		else if(classInfo.getName().equals(NapileLangPackage.LONG))
 			return new LongObjectInfo(classInfo, ((Number)object).longValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_FLOAT))
+		else if(classInfo.getName().equals(NapileLangPackage.FLOAT))
 			return new FloatObjectInfo(classInfo, ((Number)object).floatValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_DOUBLE))
+		else if(classInfo.getName().equals(NapileLangPackage.DOUBLE))
 			return new DoubleObjectInfo(classInfo, ((Number)object).doubleValue());
-		else if(classInfo.getName().equals(Vm.PRIMITIVE_CHAR))
+		else if(classInfo.getName().equals(NapileLangPackage.CHAR))
 		{
 			int val = (Integer)object;
 			return new CharObjectInfo(classInfo, (char)val);
 		}
-		else if(classInfo.getName().equals(Vm.JAVA_LANG_STRING))
+		/**else if(classInfo.getName().equals(NapileLangPackage.STRING))
 		{
-			ClassInfo primitiveCharClassInfo = vm.getClass(Vm.PRIMITIVE_CHAR);
-			ClassInfo primitiveCharClassArrayInfo = vm.getClass(Vm.PRIMITIVE_CHAR_ARRAY);
+			ClassInfo primitiveCharClassInfo = vm.getClass(NapileLangPackage.CHAR);
+			ClassInfo primitiveCharClassArrayInfo = vm.getClass(NapileLangPackage.);
 
 			char[] data = ((String)object).toCharArray();
 			CharObjectInfo[] cData = new CharObjectInfo[data.length];
@@ -107,7 +72,7 @@ public class VmUtil
 			ArrayObjectInfo arrayObjectInfo = new ArrayObjectInfo(primitiveCharClassArrayInfo, cData);
 
 			return AssertUtil.assertNull(vm.newObject(classInfo, new String[]{Vm.PRIMITIVE_CHAR_ARRAY}, arrayObjectInfo));
-		}
+		} */
 		else
 		{
 			System.out.println(classInfo.getName() + " is not convertable. Value: " + object);
@@ -117,164 +82,40 @@ public class VmUtil
 		return null;
 	}
 
-	public static <T> void makePrimitiveType(String name, Vm vm, Class<? extends ValueObjectInfo<T>> clazz, T value)
-	{
-		PrimitiveClassInfoImpl classInfo = new PrimitiveClassInfoImpl(name);
-		if(clazz != null)
-		{
-			try
-			{
-				Constructor<?> constructor = clazz.getConstructor(ClassInfo.class, value.getClass());
-				ObjectInfo objectInfo = (ObjectInfo)constructor.newInstance(classInfo, value);
-				classInfo.setNullValue(objectInfo);
-			}
-			catch(Exception e)
-			{}
-
-			AssertUtil.assertNull(classInfo.nullValue());
-		}
-		else
-			classInfo.setNullValue(OBJECT_NULL);
-
-		vm.getBootClassLoader().addClassInfo(classInfo);
-	}
-
-	public static String canSetValue(ClassInfo left, ClassInfo right)
-	{
-		if(left == right)                  //object = object
-			return null;
-
-		if(right == null)  //object = null
-			return null;
-
-		ClassInfo subclass = right.getSuperClass();
-		if(canSetValue(left, subclass) == null)
-			return null;
-
-		for(ClassInfo interfaces : right.getInterfaces())
-			if(canSetValue(left, interfaces) == null)
-				return null;
-
-		return "Could cast " + right.getName() + " to " + left.getName();
-	}
-
-	public static ClassInfo parseType(Vm vm, String val)
-	{
-		return parseType(vm, new StringCharReader(val));
-	}
-
-	public static ClassInfo parseType(Vm vm, StringCharReader charReader)
-	{
-		char firstChar = charReader.next();
-		switch(firstChar)
-		{
-			case '[':  //array
-				int i = 1;//array size
-				while(charReader.next() == firstChar)
-					i++;
-
-				charReader.back(); //need go back after while
-
-				ClassInfo arrayTypeInfo = parseType(vm, charReader);
-				if(arrayTypeInfo == null)
-				{
-					BundleUtil.exitAbnormal(null, "class.s1.not.found", charReader);
-					return null;
-				}
-
-				ClassInfo arrayClass = new ArrayClassInfoImpl(arrayTypeInfo, vm.getClass(Vm.JAVA_LANG_OBJECT));
-				if(i > 1)
-					for(int a = 1; a < i; a++)
-						arrayClass = new ArrayClassInfoImpl(arrayClass, vm.getClass(Vm.JAVA_LANG_OBJECT));
-
-				ClassInfo storedClassInfo = vm.getCurrentClassLoader().forName(arrayClass.getName());
-				if(storedClassInfo == null)
-					vm.getCurrentClassLoader().addClassInfo(arrayClass);
-				else
-					arrayClass = storedClassInfo;
-				return arrayClass;
-			//case 'j': //long
-			case 'J': //long
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_LONG);
-			case 'C':  //char
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_CHAR);
-			case 'B':  //byte
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BYTE);
-			case 'D':  //double
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_DOUBLE);
-			case 'F':  //float
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_FLOAT);
-			case 'I':  //int
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_INT);
-			case 'S':  //short
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_SHORT);
-			case 'Z':  //boolean
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_BOOLEAN);
-			case 'V':  //void
-				return vm.getBootClassLoader().forName(Vm.PRIMITIVE_VOID);
-			case 'T': //generic
-				//TODO [VISTALL] make it
-				return vm.getBootClassLoader().forName("java.lang.Object");
-			case 'L': //class
-				StringBuilder b = new StringBuilder();
-				while(charReader.next() != ';')
-					b.append(charReader.current());
-
-				String text = b.toString().replace("/", ".");
-				ClassInfo classInfo = ClasspathUtil.getClassInfoOrParse(vm, text);
-				if(classInfo == null)
-				{
-					BundleUtil.exitAbnormal(null, "class.s1.not.found", text);
-					return null;
-				}
-				else
-					return classInfo;
-			default:
-			{
-				LOGGER.error("unknown type: " + firstChar);
-				Thread.dumpStack();
-			}
-		}
-		return null;
-	}
-
-	public static FieldInfo[] collectAllFields(ClassInfo info)
+	public static List<FieldInfo> collectAllFields(ClassInfo info)
 	{
 		List<FieldInfo> list = new ArrayList<FieldInfo>();
-		ClassInfo clazz = info;
-		while(clazz != null)
-		{
-			FieldInfo[] fieldInfos = clazz.getFields();
-			Collections.addAll(list, fieldInfos);
+		for(ClassInfo classInfo : collectAllClasses(info))
+			list.addAll(classInfo.getFields());
 
-			clazz = clazz.getSuperClass();
-		}
-
-		for(ClassInfo interfaceClass : info.getInterfaces())
-		{
-			clazz = interfaceClass;
-			while(clazz != null)
-			{
-				FieldInfo[] fieldInfos = clazz.getFields();
-				Collections.addAll(list, fieldInfos);
-				clazz = clazz.getSuperClass();
-			}
-		}
-		return list.isEmpty() ? FieldInfo.EMPTY_ARRAY : list.toArray(new FieldInfo[list.size()]);
+		return list;
 	}
 
-	public static MethodInfo[] collectAllMethods(ClassInfo info)
+	public static List<MethodInfo> collectAllMethods(ClassInfo info)
 	{
 		List<MethodInfo> list = new ArrayList<MethodInfo>();
-		ClassInfo clazz = info;
-		while(clazz != null)
+		for(ClassInfo classInfo : collectAllClasses(info))
+			list.addAll(classInfo.getMethods());
+
+		return list;
+	}
+
+	@NotNull
+	public static Set<ClassInfo> collectAllClasses(@NotNull ClassInfo classInfo)
+	{
+		Set<ClassInfo> result = new LinkedHashSet<ClassInfo>();
+		result.add(classInfo);
+		collectClasses(classInfo, result);
+		return result;
+	}
+
+	private static void collectClasses(ClassInfo classInfo, Set<ClassInfo> set)
+	{
+		for(ClassInfo ci : classInfo.getExtends())
 		{
-			MethodInfo[] methodInfos = clazz.getMethods();
-			Collections.addAll(list, methodInfos);
+			set.add(ci);
 
-			clazz = clazz.getSuperClass();
+			collectClasses(ci, set);
 		}
-
-		return list.isEmpty() ? MethodInfo.EMPTY_ARRAY : list.toArray(new MethodInfo[list.size()]);
 	}
 }

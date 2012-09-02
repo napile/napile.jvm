@@ -1,6 +1,7 @@
 package org.napile.vm.objects.objectinfo.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.napile.vm.objects.Flags;
@@ -23,14 +24,14 @@ public class ClassObjectInfo  extends ObjectInfo
 		super();
 		_classInfo = classInfo;
 
-		FieldInfo[] fieldInfos = VmUtil.collectAllFields(classInfo);
+		List<FieldInfo> fieldInfos = VmUtil.collectAllFields(classInfo);
 
 		for(FieldInfo f : fieldInfos)
 		{
 			if(Flags.isStatic(f))
 				continue;
 
-			_fields.put(f, f.getType().nullValue());
+			_fields.put(f, VmUtil.OBJECT_NULL);
 		}
 	}
 

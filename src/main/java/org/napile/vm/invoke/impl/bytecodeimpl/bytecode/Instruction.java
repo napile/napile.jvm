@@ -2,8 +2,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 
 import gnu.trove.map.TIntIntMap;
 
-import java.nio.ByteBuffer;
-
+import org.dom4j.Element;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.vm.Vm;
 
@@ -18,7 +17,7 @@ public abstract class Instruction
 	private int _instructionIndex;
 	private int _arrayIndex;
 
-	public abstract void parseData(ByteBuffer buffer, boolean wide);
+	public abstract void parseData(Element element);
 
 	public abstract void call(Vm vm, InterpreterContext context);
 

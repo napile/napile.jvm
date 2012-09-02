@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="Console">
+	<extends>
+		<class_type name="napile.lang.Any"/>
+	</extends>
+	<method name="write">
+		<modifiers>
+			<static/>
+			<native/>
+		</modifiers>
+		<parameters>
+			<parameter name="arg">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+</class>

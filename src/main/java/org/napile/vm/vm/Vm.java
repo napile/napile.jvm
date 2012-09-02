@@ -1,8 +1,18 @@
 package org.napile.vm.vm;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asmNew.parsing.type.TypeNodeUtil;
+import org.napile.asmNew.util.Comparing2;
+import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.compiler.lang.resolve.name.Name;
+import org.napile.compiler.lang.rt.NapileReflectPackage;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
@@ -12,7 +22,6 @@ import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.impl.ArrayClassInfoImpl;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.util.AssertUtil;
@@ -25,23 +34,6 @@ import org.napile.vm.util.CollectionUtil;
  */
 public class Vm
 {
-	public static final String PRIMITIVE_VOID = "void";
-	public static final String PRIMITIVE_BOOLEAN = "boolean";
-	public static final String PRIMITIVE_BOOLEAN_ARRAY = "boolean[]";
-	public static final String PRIMITIVE_BYTE = "byte";
-	public static final String PRIMITIVE_SHORT = "short";
-	public static final String PRIMITIVE_INT = "int";
-	public static final String PRIMITIVE_LONG = "long";
-	public static final String PRIMITIVE_FLOAT = "float";
-	public static final String PRIMITIVE_DOUBLE = "double";
-	public static final String PRIMITIVE_CHAR = "char";
-	public static final String PRIMITIVE_CHAR_ARRAY = "char[]";
-	//
-	public static final String JAVA_LANG_OBJECT = "java.lang.Object";
-	public static final String JAVA_LANG_CLASS = "java.lang.Class";
-	public static final String JAVA_LANG_STRING = "java.lang.String";
-	public static final String JAVA_LANG_STRING_ARRAY = "java.lang.String[]";
-
 	private static final Logger LOGGER = Logger.getLogger(Vm.class);
 
 	private VmContext _vmContext;
@@ -56,34 +48,9 @@ public class Vm
 		_vmContext = vmContext;
 	}
 
-	public ClassInfo getClass(String name)
+	public ClassInfo getClass(FqName name)
 	{
-		ClassInfo classInfo = _currentClassLoader.forName(name);
-		if(classInfo == null)
-		{
-			int index = name.indexOf('[');
-			if(index > 0)
-			{
-				String typeName = name.substring(0, index);
-
-				ClassInfo typeClass = ClasspathUtil.getClassInfoOrParse(this, typeName);
-				String data = name.substring(typeName.length(), name.length());
-				int size = data.length() / 2; // [] - is 2, TODO [VISTALl] rework for [final]
-
-				ArrayClassInfoImpl arrayClassInfo = new ArrayClassInfoImpl(typeClass, getClass(JAVA_LANG_OBJECT));
-
-				for(int i = 1; i < size; i++)
-					arrayClassInfo = new ArrayClassInfoImpl(arrayClassInfo, getClass(JAVA_LANG_OBJECT));
-
-				getCurrentClassLoader().addClassInfo(arrayClassInfo);
-
-				return arrayClassInfo;
-			}
-			else
-				return ClasspathUtil.getClassInfoOrParse(this, name);
-		}
-		else
-			return classInfo;
+		return ClasspathUtil.getClassInfoOrParse(this, name);
 	}
 
 	public ClassObjectInfo getClassObjectInfo(ClassInfo classInfo)
@@ -91,7 +58,7 @@ public class Vm
 		ClassObjectInfo classObjectInfo = _initClasses.get(classInfo);
 		if(classObjectInfo == null)
 		{
-			classObjectInfo = newObject(getClass(JAVA_LANG_CLASS), CollectionUtil.EMPTY_STRING_ARRAY, ObjectInfo.EMPTY_ARRAY);
+			classObjectInfo = newObject(getClass(NapileReflectPackage.CLASS), CollectionUtil.EMPTY_STRING_ARRAY, ObjectInfo.EMPTY_ARRAY);
 
 			_initClasses.put(classInfo, classObjectInfo);
 		}
@@ -115,6 +82,18 @@ public class Vm
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
+	}
+
+	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
+	{
+		MethodInfo methodInfo = getMethod0(info, name, deep, params);
+		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
+	}
+
+	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
+	{
+		MethodInfo methodInfo = getMethod0(info, name, deep, params);
+		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
 	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params)
@@ -141,7 +120,7 @@ public class Vm
 	{
 		initStatic(classInfo, null);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME, false, constructorTypes));
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getFqName(), false, constructorTypes));
 
 		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
 
@@ -173,78 +152,58 @@ public class Vm
 
 	public static FieldInfo getField0(final ClassInfo info, String name, boolean deep)
 	{
-		FieldInfo[] fieldInfos = deep ? VmUtil.collectAllFields(info) : info.getFields();
+		FqName fieldName = info.getName().child(Name.identifier(name));
+
+		List<FieldInfo> fieldInfos = deep ? VmUtil.collectAllFields(info) : info.getFields();
 		for(FieldInfo fieldInfo : fieldInfos)
-			if(fieldInfo.getName().equals(name))
+			if(fieldInfo.getName().equals(fieldName))
 				return fieldInfo;
 		return null;
 	}
 
 	public static MethodInfo getMethod0(ClassInfo info, String name, boolean deep, String... params)
 	{
-		MethodInfo[] methodInfos =  deep ? VmUtil.collectAllMethods(info) : info.getMethods();
+		List<TypeNode> typeParams = new ArrayList<TypeNode>(params.length);
+		for(String param : params)
+			typeParams.add(TypeNodeUtil.fromString(param));
+
+		return getMethod0(info, name, deep, typeParams);
+	}
+
+	public static MethodInfo getMethod0(ClassInfo info, String name, boolean deep, List<TypeNode> params)
+	{
+		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMethods(info) : info.getMethods();
+		FqName methodName = info.getName().child(Name.identifier(name));
 		for(MethodInfo methodInfo : methodInfos)
 		{
-			if(!methodInfo.getName().equals(name))
+			if(!methodInfo.getName().equals(methodName))
 				continue;
 
-			ClassInfo[] paramTypes = methodInfo.getParameters();
-			if(paramTypes.length != params.length)
+			if(!Comparing2.equal(params, methodInfo.getParameters()))
 				continue;
 
-			loop:
-			{
-				for(int i = 0; i < params.length; i++)
-				{
-					if(!paramTypes[i].getName().equals(params[i]))
-						break loop;
-				}
-
-				return methodInfo;
-			}
+			return methodInfo;
 		}
 		return null;
 	}
 
-	private void initStatic(ClassInfo classInfo, InterpreterContext context)
+	private void initStatic(@NotNull ClassInfo classInfo, InterpreterContext context)
 	{
 		if(!classInfo.isStaticConstructorCalled())
 		{
-			List<ClassInfo> subclasses = new ArrayList<ClassInfo>();
-			subclasses.add(classInfo);
-			ClassInfo subclass = classInfo.getSuperClass();
-			while(subclass != null)
+			for(ClassInfo classInfo1 : VmUtil.collectAllClasses(classInfo))
 			{
-				if(!subclasses.contains(subclass))
-					subclasses.add(subclass);
-
-				subclass = subclass.getSuperClass();
-			}
-			Collections.reverse(subclasses);
-
-			for(ClassInfo $classInfo : subclasses)
-			{
-				if($classInfo.isStaticConstructorCalled())
+				if(classInfo1.isStaticConstructorCalled())
 					continue;
 
-				for(FieldInfo fieldInfo : $classInfo.getFields())
+				for(FieldInfo fieldInfo : classInfo1.getFields())
 				{
 					if(Flags.isStatic(fieldInfo))
-					{
-						Object o = fieldInfo.getTempValue();
-						if(o != null)
-						{
-							fieldInfo.setValue(VmUtil.convertToVm(this, fieldInfo.getTempValue()));
-
-							fieldInfo.setTempValue(null);
-						}
-						else
-							fieldInfo.setValue(fieldInfo.getType().nullValue());
-					}
+						fieldInfo.setValue(VmUtil.OBJECT_NULL);
 				}
 
-				$classInfo.setStaticConstructorCalled(true);
-				MethodInfo methodInfo = getStaticMethod($classInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME, false);
+				classInfo1.setStaticConstructorCalled(true);
+				MethodInfo methodInfo = getStaticMethod(classInfo1, MethodInfo.STATIC_CONSTRUCTOR_NAME.getFqName(), false);
 
 				if(methodInfo != null)
 				{

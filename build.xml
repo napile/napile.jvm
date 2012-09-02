@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="Napile JVM" default="main" basedir=".">
+<project name="napile.jvm" default="main" basedir=".">
 	<property name="src" location="src/main/java"/>
 	<property name="resource" location="src/main/resource"/>
 	<property name="lib" location="dist/lib"/>
@@ -37,14 +37,14 @@
 		<tstamp>
 			<format property="build.tstamp" pattern="HH:mm dd.MM.yyyy " />
 		</tstamp>
-		<jar destfile="${build}/napile-jvm.jar">
+		<jar destfile="${build}/napile.jvm.jar">
 			<fileset dir="${build.classes}"/>
 			<manifest>
 				<attribute name="Build-By" value="${user.name}" />
 				<attribute name="Build-Date" value="${build.tstamp}" />
 			</manifest>
 		</jar>
-		<jar destfile="${build}/napile-jvm-resources.jar">
+		<jar destfile="${build}/napile.jvm-resources.jar">
 			<fileset dir="${build.resources}"/>
 			<manifest>
 				<attribute name="Build-By" value="${user.name}" />

@@ -1,5 +1,6 @@
 package org.napile.vm.util.cloption;
 
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.vm.Vm;
 
@@ -30,7 +31,7 @@ public enum CLOption
 				return;
 			}
 
-			vm.getVmContext().setMainClass(value);
+			vm.getVmContext().setMainClass(new FqName(value));
 		}
 	}),
 

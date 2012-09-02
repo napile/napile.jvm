@@ -1,5 +1,9 @@
 package org.napile.vm.objects.classinfo;
 
+import java.util.List;
+
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.invoke.InvokeType;
 
 /**
@@ -8,16 +12,14 @@ import org.napile.vm.invoke.InvokeType;
  */
 public interface MethodInfo extends ReflectInfo
 {
-	public static final String CONSTRUCTOR_NAME = "<init>";
-	public static final String STATIC_CONSTRUCTOR_NAME = "<clinit>";
+	public static final FqName CONSTRUCTOR_NAME = new FqName("this%CONSTRUCTOR");
+	public static final FqName STATIC_CONSTRUCTOR_NAME = new FqName("this%STATIC");
 
 	public static final MethodInfo[] EMPTY_ARRAY = new MethodInfo[0];
 
-	ClassInfo getReturnType();
+	TypeNode getReturnType();
 
-	ClassInfo[] getParameters();
-
-	ClassInfo[] getThrowExceptions();
+	List<TypeNode> getParameters();
 
 	InvokeType getInvokeType();
 }

@@ -1,7 +1,6 @@
 package org.napile.vm.objects.classinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -24,14 +23,8 @@ public abstract class AbstractClassInfo implements ClassInfo
 	}
 
 	@Override
-	public ConstantPool getConstantPool()
-	{
-		return null;
-	}
-
-	@Override
 	public String toString()
 	{
-		return getName();
+		return getName().toString();
 	}
 }

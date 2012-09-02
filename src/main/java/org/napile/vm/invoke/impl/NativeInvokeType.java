@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.nativeimpl.NativeMethod;
+import org.napile.vm.invoke.impl.nativeimpl.NativeMethodRef;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -26,15 +26,15 @@ public class NativeInvokeType implements InvokeType
 		StackEntry entry = context.getLastStack();
 
 		MethodInfo methodInfo = entry.getMethodInfo();
-		NativeMethod nativeMethod = NativeWrapper.getMethod(methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
-		if(nativeMethod == null)
+		NativeMethodRef nativeMethodRef = NativeWrapper.getMethod(methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
+		if(nativeMethodRef == null)
 		{
 			LOGGER.info("NativeMethod not implemented: " + context.getLastStack().getMethodInfo().toString());
 			System.exit(-1);
 		}
 		else
 		{
-			Method method = nativeMethod.getMethod();
+			Method method = nativeMethodRef.getMethod();
 
 			try
 			{

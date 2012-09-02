@@ -1,10 +1,18 @@
 package org.napile.vm.objects.classinfo.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asmNew.Modifier;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.invoke.InvokeType;
-import org.napile.vm.invoke.impl.NativeInvokeType;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.util.Function;
 
 /**
  * @author VISTALL
@@ -12,49 +20,32 @@ import org.napile.vm.objects.classinfo.MethodInfo;
  */
 public class MethodInfoImpl implements MethodInfo
 {
+	private List<Modifier> flags = new ArrayList<Modifier>(0);
 	private final ClassInfo _parentType;
-	private final ClassInfo _returnType;
-	private final ClassInfo[] _parameters;
-	private short _flags;
-	private String _name;
+	private TypeNode returnType;
+	private final List<TypeNode> _parameters = new ArrayList<TypeNode>(0);
+	private FqName _name;
 
-	private ClassInfo[] _throwExceptions;
+	private InvokeType invokeType;
 
-	private InvokeType _invokeType;
-
-	public MethodInfoImpl(ClassInfo parentType, ClassInfo returnType, ClassInfo[] parameters, String name, short flags)
+	public MethodInfoImpl(ClassInfo parentType, FqName name)
 	{
 		_parentType = parentType;
-		_returnType = returnType;
-		_parameters = parameters;
 		_name = name;
-		_flags = flags;
-
-		if(Flags.isNative(this))
-			_invokeType = new NativeInvokeType();
 	}
 
+	@NotNull
 	@Override
-	public String getName()
+	public FqName getName()
 	{
 		return _name;
 	}
 
+	@NotNull
 	@Override
-	public int getFlags()
+	public List<Modifier> getFlags()
 	{
-		return _flags;
-	}
-
-	public void setThrowExceptions(ClassInfo[] throwsClassInfo)
-	{
-		_throwExceptions = throwsClassInfo;
-	}
-
-	@Override
-	public ClassInfo[] getThrowExceptions()
-	{
-		return _throwExceptions;
+		return flags;
 	}
 
 	@Override
@@ -64,13 +55,13 @@ public class MethodInfoImpl implements MethodInfo
 	}
 
 	@Override
-	public ClassInfo getReturnType()
+	public TypeNode getReturnType()
 	{
-		return _returnType;
+		return returnType;
 	}
 
 	@Override
-	public ClassInfo[] getParameters()
+	public List<TypeNode> getParameters()
 	{
 		return _parameters;
 	}
@@ -82,26 +73,33 @@ public class MethodInfoImpl implements MethodInfo
 		b.append(getParent().getName()).append(":");
 		if(Flags.isStatic(this))
 			b.append("static").append(" ");
-		b.append(_returnType.getName()).append(" ");
 		b.append(getName()).append("(");
-		for(int i = 0; i < _parameters.length; i++)
+		b.append(StringUtil.join(_parameters, new Function<TypeNode, String>()
 		{
-			b.append(_parameters[i].getName());
-			if(i != (_parameters.length - 1))
-				b.append(", ");
-		}
+			@Override
+			public String fun(TypeNode typeNode)
+			{
+				return typeNode.toString();
+			}
+		}, ", "));
 		b.append(")");
+		b.append(" : ").append(getReturnType()).append(" ");
 		return b.toString();
 	}
 
 	@Override
 	public InvokeType getInvokeType()
 	{
-		return _invokeType;
+		return invokeType;
+	}
+
+	public void setReturnType(TypeNode returnType)
+	{
+		this.returnType = returnType;
 	}
 
 	public void setInvokeType(InvokeType invokeType)
 	{
-		_invokeType = invokeType;
+		this.invokeType = invokeType;
 	}
 }

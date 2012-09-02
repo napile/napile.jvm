@@ -1,6 +1,9 @@
 package org.napile.vm.objects.classinfo;
 
-import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -13,19 +16,19 @@ public interface ClassInfo extends ReflectInfo
 
 	public static final ClassInfo[] EMPTY_ARRAY = new ClassInfo[0];
 
-	public String getName();
+	@NotNull
+	public FqName getName();
 
-	public FieldInfo[] getFields();
+	@NotNull
+	public List<FieldInfo> getFields();
 
-	public MethodInfo[] getMethods();
+	@NotNull
+	public List<MethodInfo> getMethods();
 
-	public ClassInfo getSuperClass();
-
-	public ClassInfo[] getInterfaces();
+	@NotNull
+	public List<ClassInfo> getExtends();
 
 	public ObjectInfo nullValue();
-
-	public ConstantPool getConstantPool();
 
 	boolean isStaticConstructorCalled();
 

@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_Class;
-import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_ClassLoader;
-import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_Object;
-import org.napile.vm.invoke.impl.nativeimpl.classes.java_lang_System;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asmNew.parsing.type.TypeNodeUtil;
+import org.napile.asmNew.util.Comparing2;
+import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.compiler.lang.resolve.name.Name;
+import org.napile.vm.invoke.impl.nativeimpl.classes.Console;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
@@ -22,14 +24,11 @@ import org.napile.vm.vm.Vm;
  */
 public class NativeWrapper
 {
-	private static Map<ClassInfo, List<NativeMethod>> WRAPPERS = new HashMap<ClassInfo, List<NativeMethod>>();
+	private static Map<ClassInfo, List<NativeMethodRef>> WRAPPERS = new HashMap<ClassInfo, List<NativeMethodRef>>();
 
 	public static void initAll(Vm vm)
 	{
-		register(vm, java_lang_Object.class);
-		register(vm, java_lang_Class.class);
-		register(vm, java_lang_ClassLoader.class);
-		register(vm, java_lang_System.class);
+		register(vm, Console.class);
 	}
 
 	private static void register(Vm vm, Class<?> clazz)
@@ -45,47 +44,39 @@ public class NativeWrapper
 
 			AssertUtil.assertTrue(method.getParameterTypes().length != 3 || method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
 
-			ClassInfo classInfo = vm.getClass(nativeImplement.className());
+			final FqName className = new FqName(nativeImplement.className());
 
-			List<NativeMethod> list = WRAPPERS.get(classInfo);
+			final ClassInfo classInfo = vm.getClass(className);
+
+			List<NativeMethodRef> list = WRAPPERS.get(classInfo);
 			if(list == null)
-				WRAPPERS.put(classInfo, list = new ArrayList<NativeMethod>());
+				WRAPPERS.put(classInfo, list = new ArrayList<NativeMethodRef>());
 
-			ClassInfo[] params = new ClassInfo[nativeImplement.parameters().length];
-			for(int i = 0; i < params.length; i++)
-				params[i] = vm.getClass(nativeImplement.parameters()[i]);
+			List<TypeNode> params = new ArrayList<TypeNode>(nativeImplement.parameters().length);
+			for(String param : nativeImplement.parameters())
+				params.add(TypeNodeUtil.fromString(param));
 
-			NativeMethod methodInfo = new NativeMethod(nativeImplement.methodName(), nativeImplement.parameters(), method);
+			NativeMethodRef methodInfo = new NativeMethodRef(className.child(Name.identifier(nativeImplement.methodName())), params, method);
 
 			list.add(methodInfo);
 		}
 	}
 
-	public static NativeMethod getMethod(ClassInfo classInfo, String name, ClassInfo[] params)
+	public static NativeMethodRef getMethod(ClassInfo classInfo, FqName name, List<TypeNode> params)
 	{
-		List<NativeMethod> nativeMethods = WRAPPERS.get(classInfo);
-		if(nativeMethods == null)
+		List<NativeMethodRef> nativeMethodRefs = WRAPPERS.get(classInfo);
+		if(nativeMethodRefs == null)
 			return null;
 
-		for(NativeMethod methodInfo : nativeMethods)
+		for(NativeMethodRef methodInfo : nativeMethodRefs)
 		{
 			if(!methodInfo.getName().equals(name))
 				continue;
 
-			String[] paramTypes = methodInfo.getParameters();
-			if(paramTypes.length != params.length)
+			if(!Comparing2.equal(methodInfo.getParameters(), params))
 				continue;
 
-			loop:
-			{
-				for(int i = 0; i < params.length; i++)
-				{
-					if(!paramTypes[i].equals(params[i].getName()))
-						break loop;
-				}
-
-				return methodInfo;
-			}
+			return methodInfo;
 		}
 
 		return null;

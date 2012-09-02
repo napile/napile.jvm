@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import org.apache.log4j.Logger;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
 import org.napile.vm.objects.classinfo.parsing.filemapping.SingleFileMapping;
-import org.napile.vm.objects.classinfo.parsing.filemapping.ZippedFileMapping;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -57,13 +54,13 @@ public class ClasspathUtil
 	private static void checkFile(Vm vm, File file)
 	{
 		String ext = FileUtil.getFileExtension(file);
-		if(ext.equals("class"))
+		if(ext.equals("xml"))
 		{
 			try
 			{
 				ClassParser parser = new ClassParser(vm, new FileInputStream(file), file.getName());
 
-				String name = parser.parseQuickName();
+				FqName name = parser.parseQuickName();
 
 				vm.getVmContext().addMapping(name, new SingleFileMapping(file));
 			}
@@ -72,7 +69,7 @@ public class ClasspathUtil
 				LOGGER.error(e, e);
 			}
 		}
-		else if(ext.equals("jar"))
+		/*else if(ext.equals("jar"))
 		{
 			try
 			{
@@ -94,10 +91,10 @@ public class ClasspathUtil
 			{
 				LOGGER.error(e, e);
 			}
-		}
+		}   */
 	}
 
-	public static ClassInfo getClassInfoOrParse(Vm vm, String name)
+	public static ClassInfo getClassInfoOrParse(Vm vm, FqName name)
 	{
 		ClassInfo classInfo = vm.getCurrentClassLoader().forName(name);
 		if(classInfo != null)

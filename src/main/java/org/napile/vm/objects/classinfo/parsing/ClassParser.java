@@ -1,37 +1,34 @@
 package org.napile.vm.objects.classinfo.parsing;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.napile.vm.Main;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.types.ClassTypeNode;
+import org.napile.asm.tree.members.types.ThisTypeNode;
+import org.napile.asm.tree.members.types.TypeConstructorNode;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asmNew.Modifier;
+import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.NativeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.InstructionFactory;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VerifyBytecode;
+import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
-import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
-import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
-import org.napile.vm.objects.classinfo.parsing.codeattributes.ExceptionBlock;
-import org.napile.vm.objects.classinfo.parsing.codeattributes.LineNumberEntry;
-import org.napile.vm.objects.classinfo.parsing.codeattributes.LocalVariable;
-import org.napile.vm.objects.classinfo.parsing.constantpool.Constant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
-import org.napile.vm.objects.classinfo.parsing.constantpool.ValueConstant;
-import org.napile.vm.objects.classinfo.parsing.constantpool.binary.*;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.util.BundleUtil;
 import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.util.StringCharReader;
 import org.napile.vm.vm.Vm;
-import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -40,404 +37,141 @@ import org.napile.vm.vm.VmUtil;
 public class ClassParser
 {
 	private static final Logger LOGGER = Logger.getLogger(ClassParser.class);
+	private static final SAXReader SAX_PARSER = new SAXReader(false);
 
-	private final DataInputStream _dataInputStream;
+	private final InputStream inputStream;
 	private String _name;
 	private Vm _vm;
 
 	public ClassParser(Vm vm, InputStream stream, String name)
 	{
 		_vm = vm;
-		_dataInputStream = new DataInputStream(stream);
+		inputStream = stream;
 		_name = name;
 	}
 
-	public String parseQuickName() throws IOException
+	public FqName parseQuickName() throws IOException
 	{
-		int magic = _dataInputStream.readInt();
-		if(magic != ClassInfo.MAGIC_HEADER)
+		try
 		{
-			BundleUtil.exitAbnormal(null, "Invalid header of file. File: " + _name);
-			return null;
-		}
+			Document cDocument = SAX_PARSER.read(inputStream);
 
-		int minorVersion = _dataInputStream.readUnsignedShort();
-		int majorVersion = _dataInputStream.readUnsignedShort();
-		if(!Main.isSupported(majorVersion, minorVersion))
+			String name = cDocument.getRootElement().attributeValue("name");
+
+			AssertUtil.assertNull(name);
+
+			return new FqName(name);
+		}
+		catch(DocumentException e)
 		{
-			BundleUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
-			return null;
+			throw new IOException(e);
 		}
-
-		ConstantPool constantPool = parseConstantPool();
-
-		_dataInputStream.readShort();
-		final String className = getClassName(constantPool, _dataInputStream.readShort());
-
-		return className.replace("/", ".");
 	}
 
 	public ClassInfo parse() throws IOException
 	{
-		int magic = _dataInputStream.readInt();
-		if(magic != ClassInfo.MAGIC_HEADER)
+		try
 		{
-			BundleUtil.exitAbnormal(null, "Invalid header of file. File: " + _name);
-			return null;
-		}
+			Document cDocument = SAX_PARSER.read(inputStream);
 
-		int minorVersion = _dataInputStream.readUnsignedShort();
-		int majorVersion = _dataInputStream.readUnsignedShort();
-		if(!Main.isSupported(majorVersion, minorVersion))
-		{
-			BundleUtil.exitAbnormal(null, "Not supported file: " + majorVersion + "." + minorVersion + ". File: " + _name);
-			return null;
-		}
+			Element rootElement = cDocument.getRootElement();
 
-		ConstantPool constantPool = parseConstantPool();
+			FqName className = new FqName(rootElement.attributeValue("name"));
+			ClassInfoImpl classInfo = new ClassInfoImpl(className);
+			_vm.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
 
-		final short access = _dataInputStream.readShort();
-		final String className = getClassName(constantPool, _dataInputStream.readShort());
-		final String superClassName = getClassName(constantPool, _dataInputStream.readShort());
-		ClassInfoImpl classInfo = new ClassInfoImpl(constantPool, className, access);
-		_vm.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
+			Element temp = rootElement.element("extends");
 
-		if(superClassName != null)
-		{
-			ClassInfo superClass = ClasspathUtil.getClassInfoOrParse(_vm, superClassName);
-			if(superClass == null)
+			if(temp != null)
+				for(Element e : temp.elements())
+					classInfo.getExtends().add(ClasspathUtil.getClassInfoOrParse(_vm, new FqName(e.attributeValue("name"))));
+
+			readModifiers(rootElement, classInfo);
+
+			for(Element e : rootElement.elements("method"))
 			{
-				BundleUtil.exitAbnormal(null, "class.s1.not.found", superClassName);
-				return null;
-			}
-			classInfo.setSuperClass(superClass);
-		}
+				FqName methodName = className.child(Name.identifier(e.attributeValue("name")));
 
-		final short interfacesSize = _dataInputStream.readShort();
-		ClassInfo[] interfaces = new ClassInfo[interfacesSize];
-		for(int i = 0; i < interfacesSize; i++)
-		{
-			String interfaceName = getClassName(constantPool, _dataInputStream.readShort());
-			ClassInfo interfaceClass = ClasspathUtil.getClassInfoOrParse(_vm, interfaceName);
-			if(interfaceClass == null)
-			{
-				BundleUtil.exitAbnormal(null, "class.s1.not.found", interfaceName);
-				return null;
-			}
-			interfaces[i] = interfaceClass;
-		}
-		classInfo.setInterfaces(interfaces);
+				MethodInfoImpl methodInfo = new MethodInfoImpl(classInfo, methodName);
 
-		parseFields(classInfo, constantPool);
+				readModifiers(e, methodInfo);
 
-		parseMethods(classInfo, constantPool);
+				if(Flags.isNative(methodInfo))
+					methodInfo.setInvokeType(new NativeInvokeType());
 
-		constantPool.makeCached();
-		return classInfo;
-	}
+				classInfo.getMethods().add(methodInfo);
 
-	private ConstantPool parseConstantPool() throws IOException
-	{
-		int constantPoolSize = _dataInputStream.readUnsignedShort();
-		ConstantPool constantPool = new ConstantPool(constantPoolSize);
-
-		constantPool.addConstantPool(0, NothingConstant.STATIC);
-
-		for(int i = 1; i < constantPoolSize; i++)
-		{
-			final int indexToPut = i;
-			byte type = _dataInputStream.readByte();
-			Constant constant = null;
-			switch(type)
-			{
-				case ConstantPool.CP_UTF8:
-					constant = new Utf8ValueConstant(_dataInputStream.readUTF());
-					break;
-				case ConstantPool.CP_INTEGER:
-					constant = new IntegerValueConstant(_dataInputStream.readInt());
-					break;
-				case ConstantPool.CP_FLOAT:
-					constant = new FloatValueConstant(_dataInputStream.readFloat());
-					break;
-				case ConstantPool.CP_LONG:
-					constant = new LongValueConstant(_dataInputStream.readLong());
-					i++;
-					break;
-				case ConstantPool.CP_DOUBLE:
-					constant = new DoubleValueConstant(_dataInputStream.readDouble());
-					i++;
-					break;
-				case ConstantPool.CP_STRING:
-				case ConstantPool.CP_CLASS:
-					constant = new ShortValueConstant(_dataInputStream.readShort());
-					break;
-				case ConstantPool.CP_FIELD_DEF:
-				case ConstantPool.CP_METHOD_DEF:
-				case ConstantPool.CP_INTERFACE_DEF:
-				case ConstantPool.CP_NAME:
-					constant = new ShortShortConstant(_dataInputStream.readShort(), _dataInputStream.readShort());
-					break;
-				default:
-					BundleUtil.exitAbnormal(null, "Unknown constant pool type: " + type + ". File: " + _name);
-					break;
-			}
-
-			constant.setType(type);
-			constantPool.addConstantPool(indexToPut, constant);
-		}
-
-		return constantPool;
-	}
-
-	private void parseFields(ClassInfoImpl classInfo, ConstantPool constantPool) throws IOException
-	{
-		final short fieldsSize = _dataInputStream.readShort();
-		FieldInfo[] fields = new FieldInfo[fieldsSize];
-		for(int i = 0; i < fields.length; i++)
-		{
-			short accessFlags = _dataInputStream.readShort();
-			short nameIndex = _dataInputStream.readShort();
-			short descIndex = _dataInputStream.readShort();
-
-			FieldInfoImpl fieldInfo = new FieldInfoImpl(classInfo, VmUtil.parseType(_vm, getSimpleUtf8Name(constantPool, descIndex)), getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
-			fields[i] = fieldInfo;
-			short attributeSize = _dataInputStream.readShort();
-			for(int j = 0; j < attributeSize; j++)
-			{
-				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
-				if(attributeName.equals(ReflectInfo.ATT_CONSTANT_VALUE))
+				Element codeElement = e.element("code");
+				if(codeElement != null)
 				{
-					_dataInputStream.readInt(); // lenght ?mm
-					short index = _dataInputStream.readShort();
-					Constant constant = constantPool.getConstant(index);
-					if(!(constant instanceof ValueConstant))
-						BundleUtil.exitAbnormal(null, "invalid.constant.value.class.s1", classInfo.getName());
-					else
+					BytecodeInvokeType bytecodeInvokeType = new BytecodeInvokeType();
+					methodInfo.setInvokeType(bytecodeInvokeType);
+					bytecodeInvokeType.setMaxLocals(Integer.parseInt(codeElement.attributeValue("max_locals")));
+
+					List<Instruction> list = new ArrayList<Instruction>();
+					for(Element instrElement : codeElement.elements())
 					{
-						ValueConstant<?> valueConstant =  (ValueConstant) constant;
-						if(valueConstant.getType() == ConstantPool.CP_STRING)
-							valueConstant = (ValueConstant)constantPool.getConstant(((ShortValueConstant)valueConstant).getValue());
+						try
+						{
+							Class<Instruction> instructionClass = (Class<Instruction>)Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2." + instrElement.getName());
 
-						fieldInfo.setTempValue(valueConstant.getValue());
+							Instruction instruction = instructionClass.newInstance();
+							list.add(instruction);
+
+							instruction.parseData(instrElement);
+						}
+						catch(Exception e1)
+						{
+							throw new Error(e1);
+						}
 					}
+					bytecodeInvokeType.setInstructions(list.toArray(new Instruction[list.size()]));
 				}
-				else if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
-				{
-					_dataInputStream.readInt(); // lenght ?mm
-					short index = _dataInputStream.readShort();
-					Constant constant = constantPool.getConstant(index);
 
-					if(!(constant instanceof ValueConstant))
-						BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
-					else
+				Element parametersElement = e.element("parameters");
+				if(parametersElement != null)
+					for(Element parameterElement : parametersElement.elements())
 					{
-						//TODO [VISTALL] make it
+						Element typeElement = parameterElement.element("type");
+
+						methodInfo.getParameters().add(parseType(typeElement));
 					}
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_DEPRECATED))
-				{
-					_dataInputStream.readInt(); // must be zero?
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_RUNTIME_VISIBLE_ANNOTATIONS))
-				{
-					//TODO [VISTALL]
-					_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
-				}
-				else
-					BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
 			}
+
+			for(Element e : rootElement.elements("field"))
+			{}
+
+			return classInfo;
 		}
-
-		classInfo.setFields(fields);
-	}
-
-	private void parseMethods(ClassInfoImpl classInfo, ConstantPool constantPool) throws IOException
-	{
-		final short methodSize = _dataInputStream.readShort();
-		MethodInfo[] methods = new MethodInfo[methodSize];
-		for(int i = 0; i < methods.length; i++)
+		catch(DocumentException e)
 		{
-			short accessFlags = _dataInputStream.readShort();
-			short nameIndex = _dataInputStream.readShort();
-			short descIndex = _dataInputStream.readShort();
-			//()V
-			String desc = getSimpleUtf8Name(constantPool, descIndex);
-
-			ClassInfo returnType = VmUtil.parseType(_vm, desc.substring(desc.indexOf(')') + 1, desc.length()));
-
-			ClassInfo[] parameters = parseMethodSignature(_vm, desc.substring(1, desc.indexOf(')')));
-
-			MethodInfoImpl methodInfo = new MethodInfoImpl(classInfo, returnType, parameters, getSimpleUtf8Name(constantPool, nameIndex), accessFlags);
-			methods[i] = methodInfo;
-			short attributeSize = _dataInputStream.readShort();
-			for(int j = 0; j < attributeSize; j++)
-			{
-				String attributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
-				if(attributeName.equals(ReflectInfo.ATT_SIGNATURE))
-				{
-					_dataInputStream.readInt(); // lenght ?mm
-					short index = _dataInputStream.readShort();
-					Constant constant = constantPool.getConstant(index);
-
-					if(!(constant instanceof ValueConstant))
-						BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
-					else
-					{
-						//TODO [VISTALL] make it
-					}
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_EXCEPTIONS))
-				{
-					_dataInputStream.readInt();
-					short numException = _dataInputStream.readShort();
-					ClassInfo[] throwsClassInfo = new ClassInfo[numException];
-					for(int a = 0; a < numException; a++)
-						throwsClassInfo[a] = ClasspathUtil.getClassInfoOrParse(_vm, getClassName(constantPool, _dataInputStream.readShort()));
-					methodInfo.setThrowExceptions(throwsClassInfo);
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_CODE))
-				{
-					AssertUtil.assertNotNull(methodInfo.getInvokeType());
-
-					BytecodeInvokeType invokeType = new BytecodeInvokeType();
-					methodInfo.setInvokeType(invokeType);
-
-					_dataInputStream.readInt();
-
-					invokeType.setMaxStack(_dataInputStream.readShort());
-					invokeType.setMaxLocals(_dataInputStream.readShort());
-
-					int codeLen = _dataInputStream.readInt();
-
-					byte[] btArray = new byte[codeLen];
-					_dataInputStream.readFully(btArray);
-
-					VerifyBytecode.verify(_name, methodInfo.getName(), btArray);
-
-					Instruction[] instructions = InstructionFactory.parseByteCode(btArray);
-					invokeType.setInstructions(instructions);
-
-					// exception_table_length
-					short excLen = _dataInputStream.readShort();
-
-					/**
-					 * startPc - Offset of start of try/catch range. endPc - Offset of end of
-					 * try/catch range. handlerPc - Offset of start of exception handler code.
-					 * catchType - Type of exception handled.
-					 */
-					ExceptionBlock[] blocks = new ExceptionBlock[excLen];
-					invokeType.setExceptionBlocks(blocks);
-					for(int a = 0; a < excLen; a++)
-					{
-						short startPc = _dataInputStream.readShort();
-						short endPc = _dataInputStream.readShort();
-						short handlerPc = _dataInputStream.readShort();
-						short catchType = _dataInputStream.readShort();
-
-						// If type of class caught is any, then CatchType is 0.
-						blocks[a] = new ExceptionBlock(startPc, endPc, handlerPc, catchType);
-					}
-
-					parseMethodCodeAttribute(invokeType, classInfo, methodInfo, constantPool);
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_RUNTIME_VISIBLE_ANNOTATIONS))
-				{
-					//TODO [VISTALL]
-					_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
-				}
-				else if(attributeName.equals(ReflectInfo.ATT_DEPRECATED))
-				{
-					_dataInputStream.readInt(); // must be zero?
-				}
-				else
-					BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", attributeName, classInfo.getName());
-			}
-			//break;
+			throw new IOException(e);
 		}
-
-		classInfo.setMethods(methods);
 	}
 
-	private void parseMethodCodeAttribute(BytecodeInvokeType bytecodeInvokeType, ClassInfoImpl classInfo, MethodInfoImpl methodInfo, ConstantPool constantPool) throws IOException
+	@NotNull
+	public static TypeNode parseType(Element e)
 	{
-		short attrCount = _dataInputStream.readShort();
-
-		for(int a = 0; a < attrCount; a++)
+		boolean nullable = Boolean.parseBoolean(e.attributeValue("nullable"));
+		TypeConstructorNode typeConstructorNode = null;
+		for(Element e2 : e.elements())
 		{
-			String codeAttributeName = getSimpleUtf8Name(constantPool, _dataInputStream.readShort());
-			if(codeAttributeName.equals(ReflectInfo.ATT_LINE_NUMBER_TABLE))
-			{
-				_dataInputStream.readInt(); //len
-				short lineCount = _dataInputStream.readShort();
-				LineNumberEntry[] entries = new LineNumberEntry[lineCount];
-				for(int i = 0; i < entries.length; i++)
-					entries[i] = new LineNumberEntry(_dataInputStream.readShort(), _dataInputStream.readShort());
-
-				bytecodeInvokeType.setLineNumberEntries(entries);
-			}
-			else if(codeAttributeName.equals(ReflectInfo.ATT_STACK_MAP_TABLE))
-			{
-				//TODO [VISTALL]
-				_dataInputStream.readFully(new byte[_dataInputStream.readInt()]);
-			}
-			else if(codeAttributeName.equals(ReflectInfo.ATT_LOCAL_VARIABLE_TABLE))
-			{
-				_dataInputStream.readInt(); //len
-
-				short variableCount = _dataInputStream.readShort();
-				LocalVariable[] localVariables = new LocalVariable[variableCount];
-				for(int i = 0; i < variableCount; i++)
-				{
-					short startPc = _dataInputStream.readShort();
-					short length = _dataInputStream.readShort();
-					short nameIndex = _dataInputStream.readShort();
-					short descIndex = _dataInputStream.readShort();
-					short frameIndex = _dataInputStream.readShort();
-
-					String name = getSimpleUtf8Name(constantPool, nameIndex);
-					String typeName = getSimpleUtf8Name(constantPool, descIndex);
-					ClassInfo typeClassInfo = VmUtil.parseType(_vm, typeName);
-					if(typeClassInfo == null)
-					{
-						BundleUtil.exitAbnormal(null, "class.s1.not.found", typeName);
-						return;
-					}
-
-					LocalVariable variable = new LocalVariable(startPc, length, name, typeClassInfo, frameIndex);
-					localVariables[i] = variable;
-				}
-				bytecodeInvokeType.setLocalVariables(localVariables);
-			}
-			else
-				BundleUtil.exitAbnormal(null, "invalid.attribute.class.s1", codeAttributeName, classInfo.getName());
+			if("this".equals(e2.getName()))
+				typeConstructorNode = new ThisTypeNode();
+			else if("class_type".equals(e2.getName()))
+				typeConstructorNode = new ClassTypeNode(new FqName(e2.attributeValue("name")));
 		}
+
+		AssertUtil.assertNull(typeConstructorNode);
+
+		return new TypeNode(nullable, typeConstructorNode);
 	}
 
-	public static ClassInfo[] parseMethodSignature(Vm vm, String sig)
+	private void readModifiers(Element parent, ReflectInfo reflectInfo)
 	{
-		List<ClassInfo> parameters = new ArrayList<ClassInfo>(2);
-		StringCharReader reader = new StringCharReader(sig);
-		while(reader.hasNext())
-			parameters.add(VmUtil.parseType(vm, reader));
-
-		return parameters.isEmpty() ? ClassInfo.EMPTY_ARRAY : parameters.toArray(new ClassInfo[parameters.size()]);
-	}
-
-	public static String getClassName(ConstantPool constantPool, int index)
-	{
-		if(index == 0)
-			return null;
-		ShortValueConstant shortValueConstant = (ShortValueConstant) constantPool.getConstant(index);
-
-		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant) constantPool.getConstant(shortValueConstant.getValue());
-
-		return utf8ValueConstant.getValue().replace("/", ".");
-	}
-
-	public static String getSimpleUtf8Name(ConstantPool constantPool, short index)
-	{
-		Utf8ValueConstant utf8ValueConstant = (Utf8ValueConstant) constantPool.getConstant(index);
-
-		return utf8ValueConstant.getValue();
+		Element modifierList = parent.element("modifiers");
+		if(modifierList != null)
+			for(Element mod : modifierList.elements())
+				reflectInfo.getFlags().add(Modifier.valueOf(mod.getName().toUpperCase()));
 	}
 }

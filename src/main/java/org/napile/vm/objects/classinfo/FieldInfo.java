@@ -1,5 +1,6 @@
 package org.napile.vm.objects.classinfo;
 
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -14,9 +15,5 @@ public interface FieldInfo extends ReflectInfo
 
 	ObjectInfo getValue();
 
-	ClassInfo getType();
-
-	Object getTempValue();
-
-	void setTempValue(Object tempValue);
+	TypeNode getType();
 }

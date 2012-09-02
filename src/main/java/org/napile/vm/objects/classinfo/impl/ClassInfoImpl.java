@@ -1,9 +1,14 @@
 package org.napile.vm.objects.classinfo.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.napile.asmNew.Modifier;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -12,86 +17,55 @@ import org.napile.vm.vm.VmUtil;
  */
 public class ClassInfoImpl extends AbstractClassInfo
 {
-	private ClassInfo[] _interfaces = ClassInfo.EMPTY_ARRAY;
-	private FieldInfo[] _fields = FieldInfo.EMPTY_ARRAY;
-	private MethodInfo[] _methods = MethodInfo.EMPTY_ARRAY;
+	private final List<FieldInfo> fieldInfos = new ArrayList<FieldInfo>(0);
+	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
 
-	private ConstantPool _constantPool;
-	private ClassInfo _superClass;
-	private final String _name;
-	private final int _flags;
+	private final List<ClassInfo> _extends = new ArrayList<ClassInfo>(0);
+	private final FqName _name;
+	private final ArrayList<Modifier> flags = new ArrayList<Modifier>(0);
 
 	private boolean _staticConstructorCalled;
 
-	public ClassInfoImpl(ConstantPool constantPool, String name, int flags)
+	public ClassInfoImpl(FqName name)
 	{
-		_constantPool = constantPool;
 		_name = name;
-		_flags = flags;
 
 		setNullValue(VmUtil.OBJECT_NULL);
 	}
 
+	@NotNull
 	@Override
-	public String getName()
+	public FqName getName()
 	{
 		return _name;
 	}
 
+	@NotNull
 	@Override
-	public int getFlags()
+	public List<Modifier> getFlags()
 	{
-		return _flags;
+		return flags;
 	}
 
+	@NotNull
 	@Override
-	public FieldInfo[] getFields()
+	public List<FieldInfo> getFields()
 	{
-		return _fields;
+		return fieldInfos;
 	}
 
+	@NotNull
 	@Override
-	public ClassInfo getSuperClass()
+	public List<ClassInfo> getExtends()
 	{
-		return _superClass;
+		return _extends;
 	}
 
+	@NotNull
 	@Override
-	public ClassInfo[] getInterfaces()
+	public List<MethodInfo> getMethods()
 	{
-		return _interfaces;
-	}
-
-	@Override
-	public MethodInfo[] getMethods()
-	{
-		return _methods;
-	}
-
-	@Override
-	public ConstantPool getConstantPool()
-	{
-		return _constantPool;
-	}
-
-	public void setSuperClass(ClassInfo superClass)
-	{
-		_superClass = superClass;
-	}
-
-	public void setInterfaces(ClassInfo[] interfaces)
-	{
-		_interfaces = interfaces;
-	}
-
-	public void setFields(FieldInfo[] fs)
-	{
-		_fields = fs;
-	}
-
-	public void setMethods(MethodInfo[] methods)
-	{
-		_methods = methods;
+		return methodInfos;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
 
 /**
@@ -13,9 +14,9 @@ import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
  */
 public class VmContext
 {
-	private String _mainClass;
+	private FqName _mainClass;
 
-	private Map<String, FileMapping> _fileMapping = new HashMap<String, FileMapping> ();
+	private Map<FqName, FileMapping> _fileMapping = new HashMap<FqName, FileMapping> ();
 	private List<String> _arguments = new ArrayList<String>();
 
 	public VmContext()
@@ -23,22 +24,22 @@ public class VmContext
 		//
 	}
 
-	public void addMapping(String name, FileMapping fileMapping)
+	public void addMapping(FqName name, FileMapping fileMapping)
 	{
 		_fileMapping.put(name, fileMapping);
 	}
 
-	public void setMainClass(String mainClass)
+	public void setMainClass(FqName mainClass)
 	{
 		_mainClass = mainClass;
 	}
 
-	public String getMainClass()
+	public FqName getMainClass()
 	{
 		return _mainClass;
 	}
 
-	public FileMapping getFileMapping(String name)
+	public FileMapping getFileMapping(FqName name)
 	{
 		return _fileMapping.get(name);
 	}

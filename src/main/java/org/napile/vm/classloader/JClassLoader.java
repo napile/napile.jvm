@@ -2,6 +2,7 @@ package org.napile.vm.classloader;
 
 import java.util.Collection;
 
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 
 /**
@@ -12,7 +13,7 @@ public interface JClassLoader
 {
 	void addClassInfo(ClassInfo classInfo);
 
-	ClassInfo forName(String name);
+	ClassInfo forName(FqName name);
 
 	JClassLoader getParent();
 

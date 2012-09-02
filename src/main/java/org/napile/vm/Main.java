@@ -1,16 +1,11 @@
 package org.napile.vm;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.ArrayObjectInfo;
 import org.napile.vm.util.BundleUtil;
-import org.napile.vm.util.DumpUtil;
 import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmContext;
@@ -65,23 +60,24 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, Vm.JAVA_LANG_STRING_ARRAY);
+		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false/*, Vm.JAVA_LANG_STRING_ARRAY*/);
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", Vm.JAVA_LANG_STRING_ARRAY);
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main"/*, Vm.JAVA_LANG_STRING_ARRAY*/);
 			return;
 		}
 
-		ClassInfo javaClassString = vm.getClass(Vm.JAVA_LANG_STRING);
-		ClassInfo javaClassStringArray = vm.getClass(Vm.JAVA_LANG_STRING_ARRAY);
+		//TODO [VISTALL] invalid for now
+		//ClassInfo javaClassString = vm.getClass(Vm.JAVA_LANG_STRING);
+		//ClassInfo javaClassStringArray = vm.getClass(Vm.JAVA_LANG_STRING_ARRAY);
 
-		List<String> arguments = vmContext.getArguments();
-		ObjectInfo[] data = new ObjectInfo[arguments.size()];
-		for(int i = 0; i < data.length; i++)
-			data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
+		//List<String> arguments = vmContext.getArguments();
+		//ObjectInfo[] data = new ObjectInfo[arguments.size()];
+		//for(int i = 0; i < data.length; i++)
+		//	data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
 
-		System.out.println(DumpUtil.dump(data[0]));
-		vm.invoke(methodInfo, null, null, new ArrayObjectInfo(javaClassStringArray, data));
+		//System.out.println(DumpUtil.dump(data[0]));
+		vm.invoke(methodInfo, null, null, VmUtil.OBJECT_NULL);
 	}
 
 	public static boolean isSupported(int major, int minor)

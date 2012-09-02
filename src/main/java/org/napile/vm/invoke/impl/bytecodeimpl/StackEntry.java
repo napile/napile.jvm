@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.parsing.constantpool.ConstantPool;
-import org.napile.vm.objects.classinfo.parsing.codeattributes.LocalVariable;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
@@ -21,7 +19,6 @@ public class StackEntry
 	private ObjectInfo[] _arguments;
 
 	private final ObjectInfo[] _localVariables;
-	private final LocalVariable[] _parentVariables;
 
 	// debug
 	private List<String> _debug = new ArrayList<String>();
@@ -35,7 +32,7 @@ public class StackEntry
 		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
 		{
 			BytecodeInvokeType bytecodeInvokeType = (BytecodeInvokeType)methodInfo.getInvokeType();
-			_parentVariables = bytecodeInvokeType.getLocalVariables();
+
 			_localVariables = new ObjectInfo[bytecodeInvokeType.getMaxLocals()];
 
 			if(_localVariables.length > 0)
@@ -53,14 +50,9 @@ public class StackEntry
 		else
 		{
 			_localVariables = ObjectInfo.EMPTY_ARRAY;
-			_parentVariables = LocalVariable.EMPTY_ARRAY;
 		}
 	}
 
-	public ConstantPool getConstantPool()
-	{
-		return _methodInfo.getParent().getConstantPool();
-	}
 
 	public void set(int index, ObjectInfo objectInfo)
 	{
@@ -70,11 +62,6 @@ public class StackEntry
 	public ObjectInfo get(int index)
 	{
 		return _localVariables[index];
-	}
-
-	public LocalVariable[] getParentVariables()
-	{
-		return _parentVariables;
 	}
 
 	public ObjectInfo getObjectInfo()

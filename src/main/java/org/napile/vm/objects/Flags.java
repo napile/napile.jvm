@@ -1,7 +1,6 @@
 package org.napile.vm.objects;
 
-import java.lang.reflect.Modifier;
-
+import org.napile.asmNew.Modifier;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 
 /**
@@ -12,11 +11,11 @@ public class Flags
 {
 	public static boolean isNative(ReflectInfo reflectInfo)
 	{
-		return Modifier.isNative(reflectInfo.getFlags());
+		return reflectInfo.getFlags().contains(Modifier.NATIVE);
 	}
 
 	public static boolean isStatic(ReflectInfo reflectInfo)
 	{
-		return Modifier.isStatic(reflectInfo.getFlags());
+		return reflectInfo.getFlags().contains(Modifier.STATIC);
 	}
 }

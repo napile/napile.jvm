@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.objects.classinfo.ClassInfo;
 
@@ -13,7 +14,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
  */
 public class SimpleClassLoaderImpl implements JClassLoader
 {
-	private Map<String, ClassInfo> _classes = new ConcurrentHashMap<String, org.napile.vm.objects.classinfo.ClassInfo>();
+	private Map<FqName, ClassInfo> _classes = new ConcurrentHashMap<FqName, org.napile.vm.objects.classinfo.ClassInfo>();
 
 	private JClassLoader _parent;
 
@@ -29,7 +30,7 @@ public class SimpleClassLoaderImpl implements JClassLoader
 	}
 
 	@Override
-	public ClassInfo forName(String name)
+	public ClassInfo forName(FqName name)
 	{
 		ClassInfo classInfo = _classes.get(name);
 		if(classInfo != null)

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="napile.lang.Int">
+	<extends>
+		<class_type name="napile.lang.Any"/>
+	</extends>
+</class>

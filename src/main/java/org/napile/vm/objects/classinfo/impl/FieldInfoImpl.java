@@ -1,5 +1,12 @@
 package org.napile.vm.objects.classinfo.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asmNew.Modifier;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
@@ -10,21 +17,18 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class FieldInfoImpl implements FieldInfo
 {
+	private List<Modifier> flags = new ArrayList<Modifier>(0);
 	private ClassInfo _parent;
-	private ClassInfo _type;
-	private short _flags;
-	private String _name;
+	private TypeNode _type;
+	private FqName _name;
 
 	private ObjectInfo _value;
 
-	private Object _tempValue;
-
-	public FieldInfoImpl(ClassInfo parent, ClassInfo type, String name, short flags)
+	public FieldInfoImpl(ClassInfo parent, TypeNode type, FqName name)
 	{
 		_parent = parent;
 		_type = type;
 		_name = name;
-		_flags = flags;
 	}
 
 	@Override
@@ -33,16 +37,18 @@ public class FieldInfoImpl implements FieldInfo
 		return _parent;
 	}
 
+	@NotNull
 	@Override
-	public String getName()
+	public FqName getName()
 	{
 		return _name;
 	}
 
+	@NotNull
 	@Override
-	public int getFlags()
+	public List<Modifier> getFlags()
 	{
-		return _flags;
+		return flags;
 	}
 
 	@Override
@@ -58,21 +64,9 @@ public class FieldInfoImpl implements FieldInfo
 	}
 
 	@Override
-	public ClassInfo getType()
+	public TypeNode getType()
 	{
 		return _type;
-	}
-
-	@Override
-	public Object getTempValue()
-	{
-		return _tempValue;
-	}
-
-	@Override
-	public void setTempValue(Object tempValue)
-	{
-		_tempValue = tempValue;
 	}
 
 	@Override
@@ -80,7 +74,7 @@ public class FieldInfoImpl implements FieldInfo
 	{
 		StringBuilder b = new StringBuilder();
 		b.append(getParent().getName()).append(":");
-		b.append(_type.getName()).append(" ");
+		b.append(_type.toString()).append(" ");
 		b.append(getName());
 		return b.toString();
 	}
