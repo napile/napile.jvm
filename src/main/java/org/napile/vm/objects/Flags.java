@@ -16,7 +16,7 @@
 
 package org.napile.vm.objects;
 
-import org.napile.asmNew.Modifier;
+import org.napile.asm.Modifier;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 
 /**

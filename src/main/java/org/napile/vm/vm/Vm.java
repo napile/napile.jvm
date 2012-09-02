@@ -23,9 +23,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.parsing.type.TypeNodeUtil;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asmNew.parsing.type.TypeNodeUtil;
-import org.napile.asmNew.util.Comparing2;
+import org.napile.asm.util.Comparing2;
 import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.compiler.lang.rt.NapileReflectPackage;

@@ -23,9 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.napile.asm.parsing.type.TypeNodeUtil;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asmNew.parsing.type.TypeNodeUtil;
-import org.napile.asmNew.util.Comparing2;
+import org.napile.asm.util.Comparing2;
 import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.impl.nativeimpl.classes.Console;
