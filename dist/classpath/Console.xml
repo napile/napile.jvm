@@ -32,6 +32,24 @@
 				<method name="napile.lang.Any.this%CONSTRUCTOR"/>
 			</invoke_special>
 			<load val="0"/>
+			<invoke_virtual>
+				<method name="Console.before"/>
+			</invoke_virtual>
+			<load val="0"/>
+			<invoke_virtual>
+				<method name="Console.put"/>
+			</invoke_virtual>
+			<return/>
+		</code>
+	</method>
+	<method name="before">
+		<modifiers>
+			<native />
+		</modifiers>
+	</method>
+	<method name="put">
+		<code max_locals="1">
+			<load val="0"/>
 			<new_int val="27"/>
 			<put_to_variable>
 				<variable name="Console.var1">

@@ -27,6 +27,12 @@ import org.napile.vm.vm.Vm;
  */
 public class Console
 {
+	@NativeImplement(className = "Console", methodName = "before", parameters = {})
+	public static void before(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		//System.out.println(DumpUtil.dump(objectInfo));
+	}
+
 	@NativeImplement(className = "Console", methodName = "write", parameters = {})
 	public static void write(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
