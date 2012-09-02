@@ -37,7 +37,7 @@ public class BaseObjectInfo
 	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
 
 	private BaseObjectInfo _classObjectInfo; // object for 'java.lang.Class'
-	private Map<VariableInfo, BaseObjectInfo> _fields = new HashMap<VariableInfo, BaseObjectInfo>();
+	private Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
 	private ClassInfo _classInfo;
 
 	public BaseObjectInfo(ClassInfo classInfo)
@@ -52,7 +52,7 @@ public class BaseObjectInfo
 			if(Flags.isStatic(f))
 				continue;
 
-			_fields.put(f, VmUtil.OBJECT_NULL);
+			variables.put(f, VmUtil.OBJECT_NULL);
 		}
 	}
 
@@ -69,17 +69,19 @@ public class BaseObjectInfo
 		return _classObjectInfo;
 	}
 
-	public BaseObjectInfo getVarValue(@NotNull Vm vm, @NotNull String name)
+	public BaseObjectInfo getVarValue(@NotNull VariableInfo variableInfo)
 	{
-		VariableInfo variableInfo = vm.getAnyField(_classInfo, name, true);
-		if(variableInfo == null)
-			return null;
-		return _fields.get(variableInfo);
+		return variables.get(variableInfo);
 	}
 
-	public Map<VariableInfo, BaseObjectInfo> getFields()
+	public boolean hasVar(VariableInfo variableInfo)
 	{
-		return _fields;
+		return variables.containsKey(variableInfo);
+	}
+
+	public void setVarValue(@NotNull VariableInfo varValue, @NotNull BaseObjectInfo value)
+	{
+		variables.put(varValue, value);
 	}
 
 	@Override

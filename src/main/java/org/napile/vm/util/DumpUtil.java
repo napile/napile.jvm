@@ -16,12 +16,11 @@
 
 package org.napile.vm.util;
 
-import java.util.Map;
-
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -33,17 +32,14 @@ public class DumpUtil
 	{
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
-		builder.append("Object: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
+		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
 
-		builder.append("\tStatic Fields:\n");
-		for(VariableInfo f : classInfo.getVariables())
+		builder.append("\tVariables:\n");
+		for(VariableInfo f : VmUtil.collectAllFields(classInfo))
 			if(Flags.isStatic(f))
-				builder.append("\t\t").append(f.getName()).append(": ").append(f.getValue()).append("\n");
-
-		builder.append("\tFields:\n");
-		for(Map.Entry<VariableInfo, BaseObjectInfo> entry : objectInfo.getFields().entrySet())
-			builder.append("\t\t").append(entry.getKey().getName()).append(": ").append(entry.getValue().toString()).append('\n');
-
+				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(f.getValue()).append("\n");
+			else
+				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');
 		return builder.toString();
 	}
 

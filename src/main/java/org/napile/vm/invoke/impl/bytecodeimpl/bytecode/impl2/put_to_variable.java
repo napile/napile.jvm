@@ -65,8 +65,8 @@ public class put_to_variable extends Instruction
 		BaseObjectInfo value = context.last();
 		BaseObjectInfo object = context.last();  //wtf
 
-		AssertUtil.assertFalse(object.getFields().containsKey(variableInfo));
+		AssertUtil.assertFalse(object.hasVar(variableInfo));
 
-		object.getFields().put(variableInfo, value);
+		object.setVarValue(variableInfo, value);
 	}
 }
