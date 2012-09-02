@@ -39,10 +39,9 @@ import org.napile.vm.invoke.impl.NativeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
-import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
-import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
-import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.vm.Vm;
@@ -94,7 +93,7 @@ public class ClassParser
 			Element rootElement = cDocument.getRootElement();
 
 			FqName className = new FqName(rootElement.attributeValue("name"));
-			ClassInfoImpl classInfo = new ClassInfoImpl(className);
+			ClassInfo classInfo = new ClassInfo(className);
 			_vm.getCurrentClassLoader().addClassInfo(classInfo); ///need add fist - for circle depends
 
 			Element temp = rootElement.element("extends");
@@ -109,7 +108,7 @@ public class ClassParser
 			{
 				FqName methodName = className.child(Name.identifier(e.attributeValue("name")));
 
-				MethodInfoImpl methodInfo = new MethodInfoImpl(classInfo, methodName);
+				MethodInfo methodInfo = new MethodInfo(classInfo, methodName);
 
 				readModifiers(e, methodInfo);
 
@@ -168,11 +167,11 @@ public class ClassParser
 
 				TypeNode typeNode = parseType(returnTypeElement.element("type"));
 
-				FieldInfoImpl methodInfo = new FieldInfoImpl(classInfo, typeNode, fieldName);
+				VariableInfo methodInfo = new VariableInfo(classInfo, typeNode, fieldName);
 
 				readModifiers(e, methodInfo);
 
-				classInfo.getFields().add(methodInfo);
+				classInfo.getVariables().add(methodInfo);
 			}
 
 			return classInfo;

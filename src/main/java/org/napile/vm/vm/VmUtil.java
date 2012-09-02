@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.rt.NapileLangPackage;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ByteObjectInfo;
@@ -99,11 +99,11 @@ public class VmUtil
 		return null;
 	}
 
-	public static List<FieldInfo> collectAllFields(@NotNull ClassInfo info)
+	public static List<VariableInfo> collectAllFields(@NotNull ClassInfo info)
 	{
-		List<FieldInfo> list = new ArrayList<FieldInfo>();
+		List<VariableInfo> list = new ArrayList<VariableInfo>();
 		for(ClassInfo classInfo : collectAllClasses(info))
-			list.addAll(classInfo.getFields());
+			list.addAll(classInfo.getVariables());
 
 		return list;
 	}

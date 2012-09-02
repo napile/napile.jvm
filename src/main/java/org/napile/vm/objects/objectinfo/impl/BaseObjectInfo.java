@@ -24,7 +24,7 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
@@ -37,7 +37,7 @@ public class BaseObjectInfo
 	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
 
 	private BaseObjectInfo _classObjectInfo; // object for 'java.lang.Class'
-	private Map<FieldInfo, BaseObjectInfo> _fields = new HashMap<FieldInfo, BaseObjectInfo>();
+	private Map<VariableInfo, BaseObjectInfo> _fields = new HashMap<VariableInfo, BaseObjectInfo>();
 	private ClassInfo _classInfo;
 
 	public BaseObjectInfo(ClassInfo classInfo)
@@ -45,9 +45,9 @@ public class BaseObjectInfo
 		_classInfo = classInfo;
 
 		// hack - removed after remove Vm.NULL_VALUE
-		List<FieldInfo> fieldInfos = classInfo == null ? Collections.<FieldInfo>emptyList() : VmUtil.collectAllFields(classInfo);
+		List<VariableInfo> variableInfos = classInfo == null ? Collections.<VariableInfo>emptyList() : VmUtil.collectAllFields(classInfo);
 
-		for(FieldInfo f : fieldInfos)
+		for(VariableInfo f : variableInfos)
 		{
 			if(Flags.isStatic(f))
 				continue;
@@ -71,13 +71,13 @@ public class BaseObjectInfo
 
 	public BaseObjectInfo getVarValue(@NotNull Vm vm, @NotNull String name)
 	{
-		FieldInfo fieldInfo = vm.getAnyField(_classInfo, name, true);
-		if(fieldInfo == null)
+		VariableInfo variableInfo = vm.getAnyField(_classInfo, name, true);
+		if(variableInfo == null)
 			return null;
-		return _fields.get(fieldInfo);
+		return _fields.get(variableInfo);
 	}
 
-	public Map<FieldInfo, BaseObjectInfo> getFields()
+	public Map<VariableInfo, BaseObjectInfo> getFields()
 	{
 		return _fields;
 	}

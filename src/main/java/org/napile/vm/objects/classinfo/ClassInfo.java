@@ -16,37 +16,84 @@
 
 package org.napile.vm.objects.classinfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.Modifier;
 import org.napile.compiler.lang.resolve.name.FqName;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
  * @date 16:01/31.01.2012
  */
-public interface ClassInfo extends ReflectInfo
+public class ClassInfo implements ReflectInfo
 {
-	public static final int MAGIC_HEADER = 0xCAFEBABE;
+	private final List<VariableInfo> variableInfos = new ArrayList<VariableInfo>(0);
+	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
 
-	public static final ClassInfo[] EMPTY_ARRAY = new ClassInfo[0];
+	private final List<ClassInfo> _extends = new ArrayList<ClassInfo>(0);
+	private final FqName _name;
+	private final ArrayList<Modifier> flags = new ArrayList<Modifier>(0);
+
+	private boolean _staticConstructorCalled;
+
+	public ClassInfo(FqName name)
+	{
+		_name = name;
+	}
 
 	@NotNull
-	public FqName getName();
+	@Override
+	public FqName getName()
+	{
+		return _name;
+	}
 
 	@NotNull
-	public List<FieldInfo> getFields();
+	@Override
+	public List<Modifier> getFlags()
+	{
+		return flags;
+	}
 
 	@NotNull
-	public List<MethodInfo> getMethods();
+	public List<VariableInfo> getVariables()
+	{
+		return variableInfos;
+	}
 
 	@NotNull
-	public List<ClassInfo> getExtends();
+	public List<ClassInfo> getExtends()
+	{
+		return _extends;
+	}
 
-	public BaseObjectInfo nullValue();
+	@NotNull
+	public List<MethodInfo> getMethods()
+	{
+		return methodInfos;
+	}
 
-	boolean isStaticConstructorCalled();
+	@Override
+	public ClassInfo getParent()
+	{
+		return null;
+	}
 
-	void setStaticConstructorCalled(boolean staticInit);
+	public boolean isStaticConstructorCalled()
+	{
+		return _staticConstructorCalled;
+	}
+
+	public void setStaticConstructorCalled(boolean staticConstructorCalled)
+	{
+		_staticConstructorCalled = staticConstructorCalled;
+	}
+
+	@Override
+	public String toString()
+	{
+		return getName().toString();
+	}
 }

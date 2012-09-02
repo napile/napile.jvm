@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.napile.vm.objects.classinfo.impl;
+package org.napile.vm.objects.classinfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +23,13 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
-import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
- * @date 3:03/02.02.2012
+ * @date 16:03/31.01.2012
  */
-public class FieldInfoImpl implements FieldInfo
+public class VariableInfo implements ReflectInfo
 {
 	private List<Modifier> flags = new ArrayList<Modifier>(0);
 	private ClassInfo _parent;
@@ -40,7 +38,7 @@ public class FieldInfoImpl implements FieldInfo
 
 	private BaseObjectInfo _value;
 
-	public FieldInfoImpl(ClassInfo parent, TypeNode type, FqName name)
+	public VariableInfo(ClassInfo parent, TypeNode type, FqName name)
 	{
 		_parent = parent;
 		_type = type;
@@ -67,19 +65,16 @@ public class FieldInfoImpl implements FieldInfo
 		return flags;
 	}
 
-	@Override
 	public void setValue(BaseObjectInfo value)
 	{
 		_value = value;
 	}
 
-	@Override
 	public BaseObjectInfo getValue()
 	{
 		return _value;
 	}
 
-	@Override
 	public TypeNode getType()
 	{
 		return _type;

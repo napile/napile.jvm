@@ -36,7 +36,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
@@ -81,19 +81,19 @@ public class Vm
 		return classObjectInfo;
 	}
 
-	public FieldInfo getField(ClassInfo info, String name, boolean deep)
+	public VariableInfo getField(ClassInfo info, String name, boolean deep)
 	{
-		FieldInfo fieldInfo = getField0(info, name, deep);
-		return fieldInfo != null && !Flags.isStatic(fieldInfo) ? fieldInfo : null;
+		VariableInfo variableInfo = getField0(info, name, deep);
+		return variableInfo != null && !Flags.isStatic(variableInfo) ? variableInfo : null;
 	}
 
-	public FieldInfo getStaticField(ClassInfo info, String name, boolean deep)
+	public VariableInfo getStaticField(ClassInfo info, String name, boolean deep)
 	{
-		FieldInfo fieldInfo = getField0(info, name, deep);
-		return fieldInfo != null && Flags.isStatic(fieldInfo) ? fieldInfo : null;
+		VariableInfo variableInfo = getField0(info, name, deep);
+		return variableInfo != null && Flags.isStatic(variableInfo) ? variableInfo : null;
 	}
 
-	public FieldInfo getAnyField(ClassInfo info, String name, boolean deep)
+	public VariableInfo getAnyField(ClassInfo info, String name, boolean deep)
 	{
 		return getField0(info, name, deep);
 	}
@@ -180,14 +180,14 @@ public class Vm
 		return _currentClassLoader;
 	}
 
-	public static FieldInfo getField0(final ClassInfo info, String name, boolean deep)
+	public static VariableInfo getField0(final ClassInfo info, String name, boolean deep)
 	{
 		FqName fieldName = info.getName().child(Name.identifier(name));
 
-		List<FieldInfo> fieldInfos = deep ? VmUtil.collectAllFields(info) : info.getFields();
-		for(FieldInfo fieldInfo : fieldInfos)
-			if(fieldInfo.getName().equals(fieldName))
-				return fieldInfo;
+		List<VariableInfo> variableInfos = deep ? VmUtil.collectAllFields(info) : info.getVariables();
+		for(VariableInfo variableInfo : variableInfos)
+			if(variableInfo.getName().equals(fieldName))
+				return variableInfo;
 		return null;
 	}
 
@@ -226,10 +226,10 @@ public class Vm
 				if(classInfo1.isStaticConstructorCalled())
 					continue;
 
-				for(FieldInfo fieldInfo : classInfo1.getFields())
+				for(VariableInfo variableInfo : classInfo1.getVariables())
 				{
-					if(Flags.isStatic(fieldInfo))
-						fieldInfo.setValue(VmUtil.OBJECT_NULL);
+					if(Flags.isStatic(variableInfo))
+						variableInfo.setValue(VmUtil.OBJECT_NULL);
 				}
 
 				classInfo1.setStaticConstructorCalled(true);

@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.FieldInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
@@ -36,12 +36,12 @@ public class DumpUtil
 		builder.append("Object: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
 
 		builder.append("\tStatic Fields:\n");
-		for(FieldInfo f : classInfo.getFields())
+		for(VariableInfo f : classInfo.getVariables())
 			if(Flags.isStatic(f))
 				builder.append("\t\t").append(f.getName()).append(": ").append(f.getValue()).append("\n");
 
 		builder.append("\tFields:\n");
-		for(Map.Entry<FieldInfo, BaseObjectInfo> entry : objectInfo.getFields().entrySet())
+		for(Map.Entry<VariableInfo, BaseObjectInfo> entry : objectInfo.getFields().entrySet())
 			builder.append("\t\t").append(entry.getKey().getName()).append(": ").append(entry.getValue().toString()).append('\n');
 
 		return builder.toString();
