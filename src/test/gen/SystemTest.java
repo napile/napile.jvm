@@ -6,8 +6,8 @@ public class SystemTest
 {
 	public static void main(String... arg) throws Exception
 	{
-		int a = 1234;
+		Console console = new Console();
 
-		Console.write(a);
+		console.write();
 	}
 }

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Any">
+	<method name="this%CONSTRUCTOR">
+		<code max_locals="1">
+			<return />
+		</code>
+	</method>
 </class>

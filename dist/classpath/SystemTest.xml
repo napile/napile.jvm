@@ -4,38 +4,35 @@
 	<extends>
 		<class_type name="napile.lang.Any"/>
 	</extends>
+	<method name="this%CONSTRUCTOR">
+		<code max_locals="1">
+			<load val="0"/>
+			<invoke_special>
+				<method name="napile.lang.Any.this%CONSTRUCTOR"/>
+			</invoke_special>
+			<return/>
+		</code>
+	</method>
 	<method name="main">
 		<modifiers>
 			<static/>
 		</modifiers>
-		<!--<parameters>
-			<parameter name="arg">
-				<modifiers>
-					<final/>
-				</modifiers>
-				<type nullable="false">
-					<class_type name="napile.lang.Array"/>
-					<type_arguments>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</type_arguments>
-				</type>
-			</parameter>
-		</parameters>  -->
 		<code max_locals="2">
-			<new_int val="1234"/>
+			<new_object>
+				<type nullable="false">
+					<class_type name="Console"/>
+				</type>
+			</new_object>
+			<dup/>
+			<invoke_special>
+				<method name="Console.this%CONSTRUCTOR"/>
+			</invoke_special>
 			<store val="1"/>
 			<load val="1"/>
-			<invoke_static>
-				<method name="Console.write">
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-			</invoke_static>
+			<invoke_virtual>
+				<method name="Console.write"/>
+			</invoke_virtual>
+			<return/>
 		</code>
 	</method>
 </class>

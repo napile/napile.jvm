@@ -94,6 +94,11 @@ public class Vm
 		return fieldInfo != null && Flags.isStatic(fieldInfo) ? fieldInfo : null;
 	}
 
+	public FieldInfo getAnyField(ClassInfo info, String name, boolean deep)
+	{
+		return getField0(info, name, deep);
+	}
+
 	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);

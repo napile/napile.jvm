@@ -20,10 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -55,6 +57,14 @@ public class ClassObjectInfo  extends ObjectInfo
 	public ClassInfo getClassInfo()
 	{
 		return _classInfo;
+	}
+
+	public ObjectInfo getValueOfVariable(@NotNull Vm vm, @NotNull String name)
+	{
+		FieldInfo fieldInfo = vm.getAnyField(_classInfo, name, true);
+		if(fieldInfo == null)
+			return null;
+		return _fields.get(fieldInfo);
 	}
 
 	public Map<FieldInfo, ObjectInfo> getFields()

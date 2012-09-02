@@ -41,6 +41,7 @@ import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.objects.classinfo.impl.ClassInfoImpl;
+import org.napile.vm.objects.classinfo.impl.FieldInfoImpl;
 import org.napile.vm.objects.classinfo.impl.MethodInfoImpl;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
@@ -129,7 +130,12 @@ public class ClassParser
 					{
 						try
 						{
-							Class<Instruction> instructionClass = (Class<Instruction>)Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2." + instrElement.getName());
+							String opcode = instrElement.getName();
+							if(opcode.equals("return"))
+								opcode = opcode + "_";
+
+							@SuppressWarnings("unchecked")
+							Class<Instruction> instructionClass = (Class<Instruction>)Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2." + opcode);
 
 							Instruction instruction = instructionClass.newInstance();
 							list.add(instruction);
@@ -154,8 +160,20 @@ public class ClassParser
 					}
 			}
 
-			for(Element e : rootElement.elements("field"))
-			{}
+			for(Element e : rootElement.elements("variable"))
+			{
+				FqName fieldName = className.child(Name.identifier(e.attributeValue("name")));
+
+				Element returnTypeElement = e.element("return_type");
+
+				TypeNode typeNode = parseType(returnTypeElement.element("type"));
+
+				FieldInfoImpl methodInfo = new FieldInfoImpl(classInfo, typeNode, fieldName);
+
+				readModifiers(e, methodInfo);
+
+				classInfo.getFields().add(methodInfo);
+			}
 
 			return classInfo;
 		}

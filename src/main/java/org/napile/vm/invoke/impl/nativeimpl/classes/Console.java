@@ -18,6 +18,7 @@ package org.napile.vm.invoke.impl.nativeimpl.classes;
 
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -26,9 +27,13 @@ import org.napile.vm.vm.Vm;
  */
 public class Console
 {
-	@NativeImplement(className = "Console", methodName = "write", parameters = "napile.lang.Int")
+	@NativeImplement(className = "Console", methodName = "write", parameters = {})
 	public static void write(Vm vm, ObjectInfo objectInfo, ObjectInfo[] arg)
 	{
-		System.out.println("Console.write: " + arg[0]);
+		ClassObjectInfo classObjectInfo = (ClassObjectInfo) objectInfo;
+
+		System.out.println("Console var1: " + classObjectInfo.getValueOfVariable(vm, "var1"));
+		System.out.println("Console var2: " + classObjectInfo.getValueOfVariable(vm, "var2"));
+		System.out.println("Console var3: " + classObjectInfo.getValueOfVariable(vm, "var3"));
 	}
 }

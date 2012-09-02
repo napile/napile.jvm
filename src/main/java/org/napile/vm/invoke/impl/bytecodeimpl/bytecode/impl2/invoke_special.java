@@ -32,12 +32,13 @@ import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 22:24/01.09.12
+ * @date 16:13/02.09.12
  */
-public class invoke_static extends Instruction
+public class invoke_special extends Instruction
 {
 	private FqName className;
 	private String methodName;
@@ -66,6 +67,13 @@ public class invoke_static extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
+		StackEntry entry = context.getLastStack();
+
+		ObjectInfo objectInfo = context.last();
+
+		if(objectInfo == VmUtil.OBJECT_NULL)
+			objectInfo = null;
+
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
 		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
@@ -78,11 +86,11 @@ public class invoke_static extends Instruction
 
 		Collections.reverse(arguments);
 
-		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments.toArray(new ObjectInfo[arguments.size()]));
+		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments.toArray(new ObjectInfo[arguments.size()]));
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(methodInfo, null, context, ObjectInfo.EMPTY_ARRAY);
+		vm.invoke(methodInfo, objectInfo, context, ObjectInfo.EMPTY_ARRAY);
 
 		context.getStack().pollLast();
 	}
