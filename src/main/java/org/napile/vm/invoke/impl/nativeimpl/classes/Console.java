@@ -13,6 +13,6 @@ public class Console
 	@NativeImplement(className = "Console", methodName = "write", parameters = "napile.lang.Int")
 	public static void write(Vm vm, ObjectInfo objectInfo, ObjectInfo[] arg)
 	{
-
+		System.out.println("Console.write: " + arg[0]);
 	}
 }

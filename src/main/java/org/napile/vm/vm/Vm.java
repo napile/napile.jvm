@@ -102,6 +102,16 @@ public class Vm
 		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
 	}
 
+	public MethodInfo getAnyMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
+	{
+		return getMethod0(info, name, deep, params);
+	}
+
+	public MethodInfo getAnyMethod(ClassInfo info, String name, boolean deep, String... params)
+	{
+		return getMethod0(info, name, deep, params);
+	}
+
 	public void invoke(MethodInfo methodInfo, ObjectInfo object, InterpreterContext context, ObjectInfo... argument)
 	{
 		initStatic(methodInfo.getParent(), context);

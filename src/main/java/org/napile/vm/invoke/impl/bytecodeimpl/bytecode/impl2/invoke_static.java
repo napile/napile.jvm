@@ -48,13 +48,9 @@ public class invoke_static extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		StackEntry entry = context.getLastStack();
-
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
-		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, true, parameters);
-		if(methodInfo == null)
-			methodInfo = vm.getStaticMethod(classInfo, methodName, true, parameters);
+		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
 
 		AssertUtil.assertNull(methodInfo);
 

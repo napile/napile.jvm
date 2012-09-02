@@ -6,7 +6,7 @@ public class SystemTest
 {
 	public static void main(String... arg) throws Exception
 	{
-		int a = 1;
+		int a = 1234;
 
 		Console.write(a);
 	}
