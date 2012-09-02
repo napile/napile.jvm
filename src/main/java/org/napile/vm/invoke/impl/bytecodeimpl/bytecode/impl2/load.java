@@ -20,7 +20,7 @@ import org.dom4j.Element;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -42,7 +42,7 @@ public class load extends Instruction
 	{
 		StackEntry stackEntry = context.getLastStack();
 
-		ObjectInfo entry = stackEntry.get(value);
+		BaseObjectInfo entry = stackEntry.get(value);
 
 		context.push(entry);
 	}

@@ -19,7 +19,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -29,7 +29,7 @@ public class InterpreterContext
 {
 	private Deque<StackEntry> _stack = new ArrayDeque<StackEntry>();
 
-	private Deque<ObjectInfo> _values = new ArrayDeque<ObjectInfo>(2);
+	private Deque<BaseObjectInfo> _values = new ArrayDeque<BaseObjectInfo>(2);
 
 	public InterpreterContext(StackEntry... methodInfo)
 	{
@@ -42,7 +42,7 @@ public class InterpreterContext
 		return _stack.peekLast();
 	}
 
-	public void push(ObjectInfo val)
+	public void push(BaseObjectInfo val)
 	{
 		StackEntry entry = getLastStack();
 		//StringWriter stringWriter = new StringWriter();
@@ -52,9 +52,9 @@ public class InterpreterContext
 		_values.add(val);
 	}
 
-	public ObjectInfo last()
+	public BaseObjectInfo last()
 	{
-		ObjectInfo v = _values.pollLast();
+		BaseObjectInfo v = _values.pollLast();
 
 		//StringWriter stringWriter = new StringWriter();
 		//new Exception().printStackTrace(new PrintWriter(stringWriter));

@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package org.napile.vm.objects.objectinfo.impl.primitive;
+package org.napile.vm.objects.objectinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 
 /**
  * @author VISTALL
  * @date 18:50/15.02.2012
  */
-public class FloatObjectInfo extends ValueObjectInfo<Float>
+public class LongObjectInfo extends ValueObjectInfo<Long>
 {
-	public FloatObjectInfo(ClassInfo classInfo, Float value)
+	public LongObjectInfo(ClassInfo classInfo, Long value)
 	{
 		super(classInfo, value);
 	}

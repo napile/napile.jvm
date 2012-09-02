@@ -16,7 +16,7 @@
 
 package org.napile.vm.util;
 
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -56,7 +56,7 @@ public class AssertUtil
 			throw new IllegalArgumentException(str);
 	}
 
-	public static <T extends ObjectInfo> T assertNull(T objectInfo)
+	public static <T extends BaseObjectInfo> T assertNull(T objectInfo)
 	{
 		if(objectInfo.getClassInfo() == null)
 			throw new NullPointerException();

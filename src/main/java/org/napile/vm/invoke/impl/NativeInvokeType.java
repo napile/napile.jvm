@@ -25,7 +25,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.NativeMethodRef;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -54,7 +54,7 @@ public class NativeInvokeType implements InvokeType
 
 			try
 			{
-				ObjectInfo objectInfo = (ObjectInfo)method.invoke(null, vm, entry.getObjectInfo(), entry.getArguments());
+				BaseObjectInfo objectInfo = (BaseObjectInfo)method.invoke(null, vm, entry.getObjectInfo(), entry.getArguments());
 				if(objectInfo != null)
 					context.push(objectInfo);
 			}

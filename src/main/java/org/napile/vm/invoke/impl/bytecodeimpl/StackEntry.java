@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -29,17 +29,17 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public class StackEntry
 {
-	private ObjectInfo _objectInfo;
+	private BaseObjectInfo _objectInfo;
 	private MethodInfo _methodInfo;
 
-	private ObjectInfo[] _arguments;
+	private BaseObjectInfo[] _arguments;
 
-	private final ObjectInfo[] _localVariables;
+	private final BaseObjectInfo[] _localVariables;
 
 	// debug
 	private List<String> _debug = new ArrayList<String>();
 
-	public StackEntry(ObjectInfo objectInfo, MethodInfo methodInfo, ObjectInfo[] arguments)
+	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments)
 	{
 		_objectInfo = objectInfo;
 		_methodInfo = methodInfo;
@@ -49,7 +49,7 @@ public class StackEntry
 		{
 			BytecodeInvokeType bytecodeInvokeType = (BytecodeInvokeType)methodInfo.getInvokeType();
 
-			_localVariables = new ObjectInfo[bytecodeInvokeType.getMaxLocals()];
+			_localVariables = new BaseObjectInfo[bytecodeInvokeType.getMaxLocals()];
 
 			if(_localVariables.length > 0)
 			{
@@ -65,27 +65,27 @@ public class StackEntry
 		}
 		else
 		{
-			_localVariables = ObjectInfo.EMPTY_ARRAY;
+			_localVariables = BaseObjectInfo.EMPTY_ARRAY;
 		}
 	}
 
 
-	public void set(int index, ObjectInfo objectInfo)
+	public void set(int index, BaseObjectInfo objectInfo)
 	{
 		_localVariables[index] = objectInfo;
 	}
 
-	public ObjectInfo get(int index)
+	public BaseObjectInfo get(int index)
 	{
 		return _localVariables[index];
 	}
 
-	public ObjectInfo getObjectInfo()
+	public BaseObjectInfo getObjectInfo()
 	{
 		return _objectInfo;
 	}
 
-	public ObjectInfo[] getArguments()
+	public BaseObjectInfo[] getArguments()
 	{
 		return _arguments;
 	}

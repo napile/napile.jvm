@@ -16,6 +16,7 @@
 
 package org.napile.vm.objects.objectinfo.impl;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
@@ -32,17 +32,20 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 23:25/15.02.2012
  */
-public class ClassObjectInfo  extends ObjectInfo
+public class BaseObjectInfo
 {
-	private Map<FieldInfo, ObjectInfo> _fields = new HashMap<FieldInfo, ObjectInfo>();
+	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
+
+	private BaseObjectInfo _classObjectInfo; // object for 'java.lang.Class'
+	private Map<FieldInfo, BaseObjectInfo> _fields = new HashMap<FieldInfo, BaseObjectInfo>();
 	private ClassInfo _classInfo;
 
-	public ClassObjectInfo(ObjectInfo classObjectInfo, ClassInfo classInfo)
+	public BaseObjectInfo(ClassInfo classInfo)
 	{
-		super();
 		_classInfo = classInfo;
 
-		List<FieldInfo> fieldInfos = VmUtil.collectAllFields(classInfo);
+		// hack - removed after remove Vm.NULL_VALUE
+		List<FieldInfo> fieldInfos = classInfo == null ? Collections.<FieldInfo>emptyList() : VmUtil.collectAllFields(classInfo);
 
 		for(FieldInfo f : fieldInfos)
 		{
@@ -53,13 +56,20 @@ public class ClassObjectInfo  extends ObjectInfo
 		}
 	}
 
-	@Override
 	public ClassInfo getClassInfo()
 	{
 		return _classInfo;
 	}
 
-	public ObjectInfo getValueOfVariable(@NotNull Vm vm, @NotNull String name)
+	public BaseObjectInfo getClassObjectInfo(Vm vm)
+	{
+		if(_classObjectInfo == null)
+			_classObjectInfo = vm.getClassObjectInfo(getClassInfo());
+
+		return _classObjectInfo;
+	}
+
+	public BaseObjectInfo getVarValue(@NotNull Vm vm, @NotNull String name)
 	{
 		FieldInfo fieldInfo = vm.getAnyField(_classInfo, name, true);
 		if(fieldInfo == null)
@@ -67,7 +77,7 @@ public class ClassObjectInfo  extends ObjectInfo
 		return _fields.get(fieldInfo);
 	}
 
-	public Map<FieldInfo, ObjectInfo> getFields()
+	public Map<FieldInfo, BaseObjectInfo> getFields()
 	{
 		return _fields;
 	}

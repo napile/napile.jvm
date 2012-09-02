@@ -25,8 +25,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
@@ -63,8 +62,8 @@ public class put_to_variable extends Instruction
 
 		AssertUtil.assertNull(fieldInfo);
 
-		ObjectInfo value = context.last();
-		ClassObjectInfo object = (ClassObjectInfo)context.last();
+		BaseObjectInfo value = context.last();
+		BaseObjectInfo object = context.last();  //wtf
 
 		AssertUtil.assertFalse(object.getFields().containsKey(fieldInfo));
 

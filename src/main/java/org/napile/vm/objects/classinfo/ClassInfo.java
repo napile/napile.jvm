@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.resolve.name.FqName;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -44,7 +44,7 @@ public interface ClassInfo extends ReflectInfo
 	@NotNull
 	public List<ClassInfo> getExtends();
 
-	public ObjectInfo nullValue();
+	public BaseObjectInfo nullValue();
 
 	boolean isStaticConstructorCalled();
 

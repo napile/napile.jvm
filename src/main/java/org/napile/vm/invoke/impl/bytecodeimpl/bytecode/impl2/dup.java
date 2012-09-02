@@ -19,7 +19,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
 import org.dom4j.Element;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -36,7 +36,7 @@ public class dup extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		ClassObjectInfo classObjectInfo = (ClassObjectInfo)context.last();
+		BaseObjectInfo classObjectInfo = (BaseObjectInfo)context.last();
 
 		context.push(classObjectInfo);
 		context.push(classObjectInfo);

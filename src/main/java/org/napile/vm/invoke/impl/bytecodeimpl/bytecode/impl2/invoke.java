@@ -16,39 +16,42 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dom4j.Element;
-import org.napile.asm.tree.members.types.ClassTypeNode;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
-import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:16/02.09.12
+ * @date 17:15/02.09.12
  */
-public class new_object extends Instruction
+public abstract class invoke extends Instruction
 {
-	private TypeNode typeNode;
+	protected FqName className;
+	protected String methodName;
+	protected List<TypeNode> parameters;
 
 	@Override
-	public void parseData(Element element)
+	public void parseData(Element b)
 	{
-		typeNode = ClassParser.parseType(element.element("type"));
-	}
+		Element methodElement = b.element("method");
 
-	@Override
-	public void call(Vm vm, InterpreterContext context)
-	{
-		ClassTypeNode classTypeNode = (ClassTypeNode) typeNode.typeConstructorNode;
+		FqName fqName = new FqName(methodElement.attributeValue("name"));
+		className = fqName.parent();
+		methodName = fqName.shortName().getName();
 
-		ClassInfo classInfo = vm.getClass(classTypeNode.getClassName());
+		parameters = new ArrayList<TypeNode>(5);
 
-		BaseObjectInfo classObjectInfo = new BaseObjectInfo(classInfo);
+		Element parametersElement = methodElement.element("parameters");
+		// parameters / type
+		if(parametersElement != null)
+			for(Element e : parametersElement.elements())
+				parameters.add(ClassParser.parseType(e));
 
-		context.push(classObjectInfo);
+		// TODO [VISTALL] parsing return type
 	}
 }

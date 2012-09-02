@@ -38,8 +38,7 @@ import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.ClassObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.CollectionUtil;
@@ -57,7 +56,7 @@ public class Vm
 	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
 	private JClassLoader _currentClassLoader = _bootClassLoader;
 
-	private Map<ClassInfo, ClassObjectInfo> _initClasses = new HashMap<ClassInfo, ClassObjectInfo>();
+	private Map<ClassInfo, BaseObjectInfo> _initClasses = new HashMap<ClassInfo, BaseObjectInfo>();
 
 	public Vm(VmContext vmContext)
 	{
@@ -69,12 +68,12 @@ public class Vm
 		return ClasspathUtil.getClassInfoOrParse(this, name);
 	}
 
-	public ClassObjectInfo getClassObjectInfo(ClassInfo classInfo)
+	public BaseObjectInfo getClassObjectInfo(ClassInfo classInfo)
 	{
-		ClassObjectInfo classObjectInfo = _initClasses.get(classInfo);
+		BaseObjectInfo classObjectInfo = _initClasses.get(classInfo);
 		if(classObjectInfo == null)
 		{
-			classObjectInfo = newObject(getClass(NapileReflectPackage.CLASS), CollectionUtil.EMPTY_STRING_ARRAY, ObjectInfo.EMPTY_ARRAY);
+			classObjectInfo = newObject(getClass(NapileReflectPackage.CLASS), CollectionUtil.EMPTY_STRING_ARRAY, BaseObjectInfo.EMPTY_ARRAY);
 
 			_initClasses.put(classInfo, classObjectInfo);
 		}
@@ -133,7 +132,7 @@ public class Vm
 		return getMethod0(info, name, deep, params);
 	}
 
-	public void invoke(MethodInfo methodInfo, ObjectInfo object, InterpreterContext context, ObjectInfo... argument)
+	public void invoke(MethodInfo methodInfo, BaseObjectInfo object, InterpreterContext context, BaseObjectInfo... argument)
 	{
 		initStatic(methodInfo.getParent(), context);
 
@@ -147,13 +146,13 @@ public class Vm
 		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
-	public ClassObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, ObjectInfo... arguments)
+	public BaseObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, BaseObjectInfo... arguments)
 	{
 		initStatic(classInfo, null);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getFqName(), false, constructorTypes));
 
-		ClassObjectInfo classObjectInfo = new ClassObjectInfo(null, classInfo);
+		BaseObjectInfo classObjectInfo = new BaseObjectInfo(classInfo);
 
 		invoke(methodInfo, classObjectInfo, null, arguments);
 
@@ -238,12 +237,12 @@ public class Vm
 
 				if(methodInfo != null)
 				{
-					StackEntry stackEntry = new StackEntry(null, methodInfo, ObjectInfo.EMPTY_ARRAY);
+					StackEntry stackEntry = new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY);
 					InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
 					//if(context == null)
 					//	contextMain.getStack().add(stackEntry);
 
-					invoke(methodInfo, null, contextMain, ObjectInfo.EMPTY_ARRAY);
+					invoke(methodInfo, null, contextMain, BaseObjectInfo.EMPTY_ARRAY);
 
 					//contextMain.getStack().pollLast();
 				}

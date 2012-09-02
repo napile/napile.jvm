@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package org.napile.vm.objects.objectinfo.impl.primitive;
+package org.napile.vm.objects.objectinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 
 /**
  * @author VISTALL

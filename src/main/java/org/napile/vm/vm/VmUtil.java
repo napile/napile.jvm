@@ -27,15 +27,15 @@ import org.napile.compiler.lang.rt.NapileLangPackage;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ByteObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.CharObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.DoubleObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.FloatObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.IntObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.LongObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.ShortObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.ByteObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.CharObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.DoubleObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.FloatObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.LongObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.primitive.ShortObjectInfo;
 import org.napile.vm.util.AssertUtil;
 
 /**
@@ -46,7 +46,8 @@ public class VmUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(VmUtil.class);
 
-	public static final ObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null);
+	@Deprecated
+	public static final BaseObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null);
 
 	public static void initBootStrap(Vm vm)
 	{
@@ -56,7 +57,7 @@ public class VmUtil
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static ObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
+	public static BaseObjectInfo convertToVm(Vm vm, ClassInfo classInfo, Object object)
 	{
 		if(classInfo.getName().equals(NapileLangPackage.BYTE))
 			return new ByteObjectInfo(classInfo, ((Number)object).byteValue());
@@ -98,7 +99,7 @@ public class VmUtil
 		return null;
 	}
 
-	public static List<FieldInfo> collectAllFields(ClassInfo info)
+	public static List<FieldInfo> collectAllFields(@NotNull ClassInfo info)
 	{
 		List<FieldInfo> list = new ArrayList<FieldInfo>();
 		for(ClassInfo classInfo : collectAllClasses(info))

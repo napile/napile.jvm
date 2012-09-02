@@ -17,7 +17,7 @@
 package org.napile.vm.objects.classinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -25,15 +25,15 @@ import org.napile.vm.objects.objectinfo.ObjectInfo;
  */
 public abstract class AbstractClassInfo implements ClassInfo
 {
-	private ObjectInfo _nullValue;
+	private BaseObjectInfo _nullValue;
 
-	public void setNullValue(ObjectInfo nullValue)
+	public void setNullValue(BaseObjectInfo nullValue)
 	{
 		_nullValue = nullValue;
 	}
 
 	@Override
-	public final ObjectInfo nullValue()
+	public final BaseObjectInfo nullValue()
 	{
 		return _nullValue;
 	}

@@ -17,39 +17,25 @@
 package org.napile.vm.objects.objectinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
 
 /**
  * @author VISTALL
  * @date 23:26/15.02.2012
  */
-public class ValueObjectInfo<T> extends ObjectInfo
+public class ValueObjectInfo<T> extends BaseObjectInfo
 {
-	private final ClassInfo _classInfo;
-
-	private T _value;
+	private final T _value;
 
 	public ValueObjectInfo(ClassInfo classInfo, T value)
 	{
-		super();
-		_classInfo = classInfo;
-		_value = value;
-	}
+		super(classInfo);
 
-	@Override
-	public ClassInfo getClassInfo()
-	{
-		return _classInfo;
+		_value = value;
 	}
 
 	public T getValue()
 	{
 		return _value;
-	}
-
-	public void setValue(T value)
-	{
-		_value = value;
 	}
 
 	@Override

@@ -17,7 +17,7 @@
 package org.napile.vm.objects.classinfo;
 
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -27,9 +27,9 @@ public interface FieldInfo extends ReflectInfo
 {
 	public static final FieldInfo[] EMPTY_ARRAY = new FieldInfo[0];
 
-	void setValue(ObjectInfo value);
+	void setValue(BaseObjectInfo value);
 
-	ObjectInfo getValue();
+	BaseObjectInfo getValue();
 
 	TypeNode getType();
 }

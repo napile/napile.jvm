@@ -20,7 +20,7 @@ import org.dom4j.Element;
 import org.napile.compiler.lang.rt.NapileLangPackage;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.objectinfo.impl.primitive.IntObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.IntObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**

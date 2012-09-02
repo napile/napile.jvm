@@ -25,7 +25,7 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.FieldInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL
@@ -38,7 +38,7 @@ public class FieldInfoImpl implements FieldInfo
 	private TypeNode _type;
 	private FqName _name;
 
-	private ObjectInfo _value;
+	private BaseObjectInfo _value;
 
 	public FieldInfoImpl(ClassInfo parent, TypeNode type, FqName name)
 	{
@@ -68,13 +68,13 @@ public class FieldInfoImpl implements FieldInfo
 	}
 
 	@Override
-	public void setValue(ObjectInfo value)
+	public void setValue(BaseObjectInfo value)
 	{
 		_value = value;
 	}
 
 	@Override
-	public ObjectInfo getValue()
+	public BaseObjectInfo getValue()
 	{
 		return _value;
 	}

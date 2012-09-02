@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package org.napile.vm.objects.objectinfo.impl.primitive;
+package org.napile.vm.objects.objectinfo.impl;
 
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 
 /**
  * @author VISTALL
  * @date 18:50/15.02.2012
  */
-public class BoolObjectInfo extends ValueObjectInfo<Boolean>
+public class DoubleObjectInfo extends ValueObjectInfo<Double>
 {
-	public BoolObjectInfo(ClassInfo classInfo, Boolean value)
+	public DoubleObjectInfo(ClassInfo classInfo, Double value)
 	{
 		super(classInfo, value);
 	}

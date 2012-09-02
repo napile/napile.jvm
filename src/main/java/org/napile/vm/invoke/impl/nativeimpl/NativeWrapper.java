@@ -30,7 +30,7 @@ import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.impl.nativeimpl.classes.Console;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.objectinfo.ObjectInfo;
+import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
@@ -58,7 +58,7 @@ public class NativeWrapper
 			if(nativeImplement == null)
 				continue;
 
-			AssertUtil.assertTrue(method.getParameterTypes().length != 3 || method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != ObjectInfo.class || method.getParameterTypes()[2] != ObjectInfo[].class);
+			AssertUtil.assertTrue(method.getParameterTypes().length != 3 || method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != BaseObjectInfo.class || method.getParameterTypes()[2] != BaseObjectInfo[].class);
 
 			final FqName className = new FqName(nativeImplement.className());
 
