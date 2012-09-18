@@ -35,7 +35,7 @@ public class BytecodeInvokeType implements InvokeType
 {
 	private static final Logger LOGGER = Logger.getLogger(BytecodeInvokeType.class);
 
-	private Instruction[] _instructions;
+	private Instruction[] _instructions = Instruction.EMPTY_ARRAY;
 
 	private int _maxLocals;
 

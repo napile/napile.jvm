@@ -34,7 +34,7 @@ import com.intellij.util.Function;
  */
 public class MethodInfo implements ReflectInfo
 {
-	public static final FqName CONSTRUCTOR_NAME = new FqName("this%CONSTRUCTOR");
+	public static final FqName CONSTRUCTOR_NAME = new FqName("this");
 	public static final FqName STATIC_CONSTRUCTOR_NAME = new FqName("this%STATIC");
 
 	private List<Modifier> flags = new ArrayList<Modifier>(0);
