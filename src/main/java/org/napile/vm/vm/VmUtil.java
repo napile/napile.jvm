@@ -25,8 +25,8 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.rt.NapileLangPackage;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ByteObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.CharObjectInfo;
@@ -35,7 +35,6 @@ import org.napile.vm.objects.objectinfo.impl.FloatObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.IntObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.LongObjectInfo;
 import org.napile.vm.objects.objectinfo.impl.ShortObjectInfo;
-import org.napile.vm.objects.objectinfo.impl.ValueObjectInfo;
 import org.napile.vm.util.AssertUtil;
 
 /**
@@ -46,13 +45,11 @@ public class VmUtil
 {
 	private static final Logger LOGGER = Logger.getLogger(VmUtil.class);
 
-	@Deprecated
-	public static final BaseObjectInfo OBJECT_NULL = new ValueObjectInfo<Object>(null, null);
-
 	public static void initBootStrap(Vm vm)
 	{
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ANY));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.INT));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}

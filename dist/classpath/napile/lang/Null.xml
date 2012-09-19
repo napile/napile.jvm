@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="napile.lang.Null">
+	<variable name="INSTANCE">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
+	</variable>
+	<method name="INSTANCE$set">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.Null"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="1">
+			<load val="0"/>
+			<put_to_static_variable>
+				<variable name="napile.lang.Null.INSTANCE">
+					<type nullable="false">
+						<class_type name="napile.lang.Null"/>
+					</type>
+				</variable>
+			</put_to_static_variable>
+		</code>
+	</method>
+	<method name="INSTANCE$get">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<code max_locals="0">
+			<get_static_variable>
+				<variable name="napile.lang.Null.INSTANCE">
+					<type nullable="false">
+						<class_type name="napile.lang.Null"/>
+					</type>
+				</variable>
+			</get_static_variable>
+			<return/>
+		</code>
+	</method>
+	<constructor>
+		<modifiers>
+			<local/>
+			<final/>
+		</modifiers>
+	</constructor>
+	<static_constructor>
+		<code max_locals="0">
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.lang.Null"/>
+				</type>
+			</new_object>
+			<dup/>
+			<invoke_special>
+				<method name="napile.lang.Null.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_special>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</parameters>
+				</method>
+			</invoke_static>
+		</code>
+	</static_constructor>
+</class>

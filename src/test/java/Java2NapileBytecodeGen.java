@@ -275,9 +275,9 @@ public class Java2NapileBytecodeGen
 	private static String normalizeMethod(String str)
 	{
 		if(str.equals("<init>"))
-			str = MethodInfo.CONSTRUCTOR_NAME.getFqName();
+			str = MethodInfo.CONSTRUCTOR_NAME.getName();
 		else if(str.equals("<clinit>"))
-			str = MethodInfo.STATIC_CONSTRUCTOR_NAME.getFqName();
+			str = MethodInfo.STATIC_CONSTRUCTOR_NAME.getName();
 		return str;
 	}
 }

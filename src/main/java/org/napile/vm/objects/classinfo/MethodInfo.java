@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.objects.Flags;
 import com.intellij.openapi.util.text.StringUtil;
@@ -34,8 +35,8 @@ import com.intellij.util.Function;
  */
 public class MethodInfo implements ReflectInfo
 {
-	public static final FqName CONSTRUCTOR_NAME = new FqName("this");
-	public static final FqName STATIC_CONSTRUCTOR_NAME = new FqName("this%STATIC");
+	public static final Name CONSTRUCTOR_NAME = Name.identifier("this");
+	public static final Name STATIC_CONSTRUCTOR_NAME = Name.identifier("static");
 
 	private List<Modifier> flags = new ArrayList<Modifier>(0);
 	private final ClassInfo _parentType;

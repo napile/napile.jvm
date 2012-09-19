@@ -24,15 +24,14 @@ import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:16/02.09.12
+ * @date 14:35/19.09.12
  */
-public class put_to_variable extends Instruction
+public class put_to_static_variable extends Instruction
 {
 	private TypeNode typeNode;
 	private FqName className;
@@ -57,15 +56,11 @@ public class put_to_variable extends Instruction
 
 		AssertUtil.assertNull(classInfo);
 
-		VariableInfo variableInfo = vm.getField(classInfo, name, true);
+		VariableInfo variableInfo = vm.getStaticField(classInfo, name, true);
 
 		AssertUtil.assertNull(variableInfo);
 
-		BaseObjectInfo value = context.last();
-		BaseObjectInfo object = context.last();
-
-		AssertUtil.assertFalse(value.hasVar(variableInfo));
-
-		value.setVarValue(variableInfo, object);
+		variableInfo.setStaticValue(context.last());
 	}
 }
+

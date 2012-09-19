@@ -39,7 +39,9 @@ public class get_variable extends Instruction
 	{
 		ClassInfo classInfo = vm.getClass(className);
 
-		VariableInfo variableInfo = vm.getAnyField(classInfo, name, true);
+		AssertUtil.assertNull(classInfo);
+
+		VariableInfo variableInfo = vm.getField(classInfo, name, true);
 
 		AssertUtil.assertNull(variableInfo);
 

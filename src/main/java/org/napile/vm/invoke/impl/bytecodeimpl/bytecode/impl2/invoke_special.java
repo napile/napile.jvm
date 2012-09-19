@@ -27,7 +27,6 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
-import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -41,9 +40,6 @@ public class invoke_special extends invoke
 		StackEntry entry = context.getLastStack();
 
 		BaseObjectInfo objectInfo = context.last();
-
-		if(objectInfo == VmUtil.OBJECT_NULL)
-			objectInfo = null;
 
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 

@@ -150,7 +150,7 @@ public class Vm
 	{
 		initStatic(classInfo, null);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getFqName(), false, constructorTypes));
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
 		BaseObjectInfo classObjectInfo = new BaseObjectInfo(classInfo);
 
@@ -217,26 +217,21 @@ public class Vm
 		return null;
 	}
 
-	private void initStatic(@NotNull ClassInfo classInfo, InterpreterContext context)
+	private synchronized void initStatic(@NotNull ClassInfo parent, InterpreterContext context)
 	{
-		if(!classInfo.isStaticConstructorCalled())
+		if(!parent.isStaticConstructorCalled())
 		{
-			for(ClassInfo classInfo1 : VmUtil.collectAllClasses(classInfo))
+			for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(parent))
 			{
-				if(classInfo1.isStaticConstructorCalled())
+				if(ownerClassInfo.isStaticConstructorCalled())
 					continue;
 
-				for(VariableInfo variableInfo : classInfo1.getVariables())
-				{
-					if(Flags.isStatic(variableInfo))
-						variableInfo.setValue(VmUtil.OBJECT_NULL);
-				}
-
-				classInfo1.setStaticConstructorCalled(true);
-				MethodInfo methodInfo = getStaticMethod(classInfo1, MethodInfo.STATIC_CONSTRUCTOR_NAME.getFqName(), false);
+				ownerClassInfo.setStaticConstructorCalled(true);
+				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME.getName(), false);
 
 				if(methodInfo != null)
 				{
+					LOGGER.debug("Static constructor call: " + ownerClassInfo);
 					StackEntry stackEntry = new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY);
 					InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
 					//if(context == null)

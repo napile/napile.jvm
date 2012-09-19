@@ -36,7 +36,7 @@ public class VariableInfo implements ReflectInfo
 	private TypeNode _type;
 	private FqName _name;
 
-	private BaseObjectInfo _value;
+	private BaseObjectInfo staticValue;
 
 	public VariableInfo(ClassInfo parent, TypeNode type, FqName name)
 	{
@@ -65,14 +65,14 @@ public class VariableInfo implements ReflectInfo
 		return flags;
 	}
 
-	public void setValue(BaseObjectInfo value)
+	public void setStaticValue(BaseObjectInfo value)
 	{
-		_value = value;
+		staticValue = value;
 	}
 
-	public BaseObjectInfo getValue()
+	public BaseObjectInfo getStaticValue()
 	{
-		return _value;
+		return staticValue;
 	}
 
 	public TypeNode getType()

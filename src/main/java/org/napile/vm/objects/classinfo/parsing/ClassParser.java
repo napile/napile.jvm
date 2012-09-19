@@ -106,7 +106,7 @@ public class ClassParser
 
 			for(Element e : rootElement.elements("constructor"))
 			{
-				FqName methodName = className.child(Name.identifier("this"));
+				FqName methodName = className.child(MethodInfo.CONSTRUCTOR_NAME);
 
 				MethodInfo methodInfo = new MethodInfo(classInfo, methodName);
 
@@ -155,6 +155,49 @@ public class ClassParser
 
 						methodInfo.getParameters().add(parseType(typeElement));
 					}
+			}
+
+			for(Element e : rootElement.elements("static_constructor"))
+			{
+				FqName methodName = className.child(MethodInfo.STATIC_CONSTRUCTOR_NAME);
+
+				MethodInfo methodInfo = new MethodInfo(classInfo, methodName);
+				methodInfo.getFlags().add(Modifier.STATIC);
+
+				classInfo.getMethods().add(methodInfo);
+
+				BytecodeInvokeType bytecodeInvokeType = new BytecodeInvokeType();
+				methodInfo.setInvokeType(bytecodeInvokeType);
+
+				Element codeElement = e.element("code");
+				if(codeElement != null)
+				{
+					bytecodeInvokeType.setMaxLocals(Integer.parseInt(codeElement.attributeValue("max_locals")));
+
+					List<Instruction> list = new ArrayList<Instruction>();
+					for(Element instrElement : codeElement.elements())
+					{
+						try
+						{
+							String opcode = instrElement.getName();
+							if(opcode.equals("return"))
+								opcode = opcode + "_";
+
+							@SuppressWarnings("unchecked")
+							Class<Instruction> instructionClass = (Class<Instruction>)Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2." + opcode);
+
+							Instruction instruction = instructionClass.newInstance();
+							list.add(instruction);
+
+							instruction.parseData(instrElement);
+						}
+						catch(Exception e1)
+						{
+							throw new Error(e1);
+						}
+					}
+					bytecodeInvokeType.setInstructions(list.toArray(new Instruction[list.size()]));
+				}
 			}
 
 			for(Element e : rootElement.elements("method"))

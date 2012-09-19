@@ -42,13 +42,13 @@ public class Main
 			@Override
 			public void run()
 			{
-				LOGGER.info("------------ VM Stop  ------------");
+				LOGGER.debug("------------ VM Stop  ------------");
 			}
 		}));
 
 		Log4JHelper.load();
 		long startTime = System.currentTimeMillis();
-		LOGGER.info("------------ VM Start ------------");
+		LOGGER.debug("------------ VM Start ------------");
 		BundleUtil.getInstance();
 
 		CLProcessor p = new CLProcessor(args);
@@ -64,10 +64,10 @@ public class Main
 		}
 
 		VmUtil.initBootStrap(vm);
-		LOGGER.info("VmUtil.initBootStrap(): " + (System.currentTimeMillis() - startTime) + " ms.");
+		LOGGER.debug("VmUtil.initBootStrap(): " + (System.currentTimeMillis() - startTime) + " ms.");
 		startTime = System.currentTimeMillis();
 		NativeWrapper.initAll(vm);
-		LOGGER.info("NativeWrapper.initAll(): " + (System.currentTimeMillis() - startTime) + " ms.");
+		LOGGER.debug("NativeWrapper.initAll(): " + (System.currentTimeMillis() - startTime) + " ms.");
 
 		ClassInfo mainClass = vm.getClass(vmContext.getMainClass());
 		if(mainClass == null)
@@ -93,7 +93,7 @@ public class Main
 		//	data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
 
 		//System.out.println(DumpUtil.dump(data[0]));
-		vm.invoke(methodInfo, null, null, VmUtil.OBJECT_NULL);
+		vm.invoke(methodInfo, null, null);
 	}
 
 	public static boolean isSupported(int major, int minor)

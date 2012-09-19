@@ -16,7 +16,6 @@
 
 package org.napile.vm.objects.objectinfo.impl;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,15 +43,14 @@ public class BaseObjectInfo
 	{
 		_classInfo = classInfo;
 
-		// hack - removed after remove Vm.NULL_VALUE
-		List<VariableInfo> variableInfos = classInfo == null ? Collections.<VariableInfo>emptyList() : VmUtil.collectAllFields(classInfo);
+		List<VariableInfo> variableInfos = VmUtil.collectAllFields(classInfo);
 
 		for(VariableInfo f : variableInfos)
 		{
 			if(Flags.isStatic(f))
 				continue;
 
-			variables.put(f, VmUtil.OBJECT_NULL);
+			variables.put(f, null);
 		}
 	}
 
