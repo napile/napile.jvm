@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.BaseObjectInfo;
 
 /**

@@ -1,6 +1,6 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
-import org.napile.compiler.lang.rt.NapileLangPackage;
+import org.napile.asm.lib.NapileLangPackage;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;

@@ -17,7 +17,7 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
 
 import org.dom4j.Element;
-import org.napile.compiler.lang.rt.NapileLangPackage;
+import org.napile.asm.lib.NapileLangPackage;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.BaseObjectInfo;

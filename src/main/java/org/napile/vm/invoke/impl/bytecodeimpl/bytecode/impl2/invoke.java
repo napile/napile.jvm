@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dom4j.Element;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
 

@@ -18,7 +18,7 @@ package org.napile.vm.classloader;
 
 import java.util.Collection;
 
-import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 
 /**

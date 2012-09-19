@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
-import org.napile.compiler.lang.resolve.name.FqName;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;

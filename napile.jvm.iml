@@ -31,7 +31,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="dom4j" level="project" />
-    <orderEntry type="library" name="napile.compiler-core" level="project" />
     <orderEntry type="library" name="napile.asm" level="project" />
     <orderEntry type="library" name="idea-sdk" level="project" />
     <orderEntry type="module-library">
