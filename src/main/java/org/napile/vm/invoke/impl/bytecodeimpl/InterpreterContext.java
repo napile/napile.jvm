@@ -19,7 +19,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL

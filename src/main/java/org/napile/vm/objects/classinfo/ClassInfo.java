@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
 
 /**
@@ -32,7 +33,7 @@ public class ClassInfo implements ReflectInfo
 	private final List<VariableInfo> variableInfos = new ArrayList<VariableInfo>(0);
 	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
 
-	private final List<ClassInfo> _extends = new ArrayList<ClassInfo>(0);
+	private final List<TypeNode> _extends = new ArrayList<TypeNode>(0);
 	private final FqName _name;
 	private final ArrayList<Modifier> flags = new ArrayList<Modifier>(0);
 
@@ -64,7 +65,7 @@ public class ClassInfo implements ReflectInfo
 	}
 
 	@NotNull
-	public List<ClassInfo> getExtends()
+	public List<TypeNode> getExtends()
 	{
 		return _extends;
 	}

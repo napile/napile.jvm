@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Null">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
 	<variable name="INSTANCE">
 		<modifiers>
 			<static/>
@@ -53,6 +58,20 @@
 			<local/>
 			<final/>
 		</modifiers>
+		<code max_locals="1">
+			<load val="0"/>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_special>
+			<load val="0"/>
+			<return/>
+		</code>
 	</constructor>
 	<static_constructor>
 		<code max_locals="0">

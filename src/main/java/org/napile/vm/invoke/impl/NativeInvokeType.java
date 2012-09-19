@@ -24,8 +24,8 @@ import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.NativeMethodRef;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**

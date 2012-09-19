@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.Modifier;
 import org.napile.asm.parsing.type.TypeNodeUtil;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.util.Comparing2;
@@ -34,11 +35,10 @@ import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.objects.Flags;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.CollectionUtil;
@@ -84,13 +84,13 @@ public class Vm
 	public VariableInfo getField(ClassInfo info, String name, boolean deep)
 	{
 		VariableInfo variableInfo = getField0(info, name, deep);
-		return variableInfo != null && !Flags.isStatic(variableInfo) ? variableInfo : null;
+		return variableInfo != null && !variableInfo.getFlags().contains(Modifier.STATIC) ? variableInfo : null;
 	}
 
 	public VariableInfo getStaticField(ClassInfo info, String name, boolean deep)
 	{
 		VariableInfo variableInfo = getField0(info, name, deep);
-		return variableInfo != null && Flags.isStatic(variableInfo) ? variableInfo : null;
+		return variableInfo != null && variableInfo.getFlags().contains(Modifier.STATIC) ? variableInfo : null;
 	}
 
 	public VariableInfo getAnyField(ClassInfo info, String name, boolean deep)
@@ -101,25 +101,25 @@ public class Vm
 	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
-		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
+		return methodInfo != null && !methodInfo.getFlags().contains(Modifier.STATIC) ? methodInfo : null;
 	}
 
 	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
-		return methodInfo != null && !Flags.isStatic(methodInfo) ? methodInfo : null;
+		return methodInfo != null && !methodInfo.getFlags().contains(Modifier.STATIC) ? methodInfo : null;
 	}
 
 	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
-		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
+		return methodInfo != null && methodInfo.getFlags().contains(Modifier.STATIC) ? methodInfo : null;
 	}
 
 	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
-		return methodInfo != null && Flags.isStatic(methodInfo) ? methodInfo : null;
+		return methodInfo != null && methodInfo.getFlags().contains(Modifier.STATIC) ? methodInfo : null;
 	}
 
 	public MethodInfo getAnyMethod(ClassInfo info, String name, boolean deep, List<TypeNode> params)
@@ -137,7 +137,7 @@ public class Vm
 		initStatic(methodInfo.getParent(), context);
 
 		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
-			AssertUtil.assertTrue(Flags.isStatic(methodInfo) && object != null || !Flags.isStatic(methodInfo) && object == null);
+			AssertUtil.assertTrue(methodInfo.getFlags().contains(Modifier.STATIC) && object != null || !methodInfo.getFlags().contains(Modifier.STATIC) && object == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
 
@@ -152,7 +152,7 @@ public class Vm
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
-		BaseObjectInfo classObjectInfo = new BaseObjectInfo(classInfo);
+		BaseObjectInfo classObjectInfo = new BaseObjectInfo(this, classInfo);
 
 		invoke(methodInfo, classObjectInfo, null, arguments);
 
@@ -180,18 +180,18 @@ public class Vm
 		return _currentClassLoader;
 	}
 
-	public static VariableInfo getField0(final ClassInfo info, String name, boolean deep)
+	public VariableInfo getField0(final ClassInfo info, String name, boolean deep)
 	{
 		FqName fieldName = info.getName().child(Name.identifier(name));
 
-		List<VariableInfo> variableInfos = deep ? VmUtil.collectAllFields(info) : info.getVariables();
+		List<VariableInfo> variableInfos = deep ? VmUtil.collectAllFields(this, info) : info.getVariables();
 		for(VariableInfo variableInfo : variableInfos)
 			if(variableInfo.getName().equals(fieldName))
 				return variableInfo;
 		return null;
 	}
 
-	public static MethodInfo getMethod0(ClassInfo info, String name, boolean deep, String... params)
+	public MethodInfo getMethod0(ClassInfo info, String name, boolean deep, String... params)
 	{
 		List<TypeNode> typeParams = new ArrayList<TypeNode>(params.length);
 		for(String param : params)
@@ -200,9 +200,9 @@ public class Vm
 		return getMethod0(info, name, deep, typeParams);
 	}
 
-	public static MethodInfo getMethod0(ClassInfo info, String name, boolean deep, List<TypeNode> params)
+	public MethodInfo getMethod0(ClassInfo info, String name, boolean deep, List<TypeNode> params)
 	{
-		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMethods(info) : info.getMethods();
+		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMethods(this, info) : info.getMethods();
 		FqName methodName = info.getName().child(Name.identifier(name));
 		for(MethodInfo methodInfo : methodInfos)
 		{
@@ -221,7 +221,7 @@ public class Vm
 	{
 		if(!parent.isStaticConstructorCalled())
 		{
-			for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(parent))
+			for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(this, parent))
 			{
 				if(ownerClassInfo.isStaticConstructorCalled())
 					continue;

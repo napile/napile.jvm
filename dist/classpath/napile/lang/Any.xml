@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Any">
-	<method name="this">
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
 		<code max_locals="1">
-
+			<load val="0"/>
+			<invoke_virtual>
+				<method name="napile.lang.Any.callFromConstructor">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_virtual>
+			<load val="0"/>
+			<return/>
+		</code>
+	</constructor>
+	<method name="callFromConstructor">
+		<modifiers>
+			<native/>
+		</modifiers>
+	</method>
+	<method name="getClass">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.reflect.Class"/>
+			</type>
+		</return_type>
+	</method>
+	<method name="equals">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Bool"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="o">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="true">
+					<class_type name="napile.lang.Any"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+	<method name="toString">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.String"/>
+			</type>
+		</return_type>
+		<code max_locals="1">
+			<new_string val="toString"/>
+			<return/>
+		</code>
+	</method>
+	<method name="hashCode">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+		<code max_locals="1">
+			<new_int val="0"/>
+			<return/>
 		</code>
 	</method>
 </class>

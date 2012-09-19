@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package org.napile.vm.objects.objectinfo.impl;
+package org.napile.vm.objects;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
-import org.napile.vm.objects.Flags;
+import org.napile.asm.Modifier;
+import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;
@@ -31,23 +32,30 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 23:25/15.02.2012
  */
-public class BaseObjectInfo
+public final class BaseObjectInfo
 {
 	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
 
-	private BaseObjectInfo _classObjectInfo; // object for 'java.lang.Class'
+	private BaseObjectInfo classObjectInfo; // object for 'java.lang.Class'
 	private Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
-	private ClassInfo _classInfo;
+	private ClassInfo classInfo;
 
-	public BaseObjectInfo(ClassInfo classInfo)
+	private Object attach;
+
+	public BaseObjectInfo(@NotNull Vm vm, @NotNull FqName fqName)
 	{
-		_classInfo = classInfo;
+		this(vm, vm.getClass(fqName));
+	}
 
-		List<VariableInfo> variableInfos = VmUtil.collectAllFields(classInfo);
+	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo)
+	{
+		this.classInfo = classInfo;
+
+		List<VariableInfo> variableInfos = VmUtil.collectAllFields(vm, classInfo);
 
 		for(VariableInfo f : variableInfos)
 		{
-			if(Flags.isStatic(f))
+			if(f.getFlags().contains(Modifier.STATIC))
 				continue;
 
 			variables.put(f, null);
@@ -56,15 +64,15 @@ public class BaseObjectInfo
 
 	public ClassInfo getClassInfo()
 	{
-		return _classInfo;
+		return classInfo;
 	}
 
 	public BaseObjectInfo getClassObjectInfo(Vm vm)
 	{
-		if(_classObjectInfo == null)
-			_classObjectInfo = vm.getClassObjectInfo(getClassInfo());
+		if(classObjectInfo == null)
+			classObjectInfo = vm.getClassObjectInfo(getClassInfo());
 
-		return _classObjectInfo;
+		return classObjectInfo;
 	}
 
 	public BaseObjectInfo getVarValue(@NotNull VariableInfo variableInfo)
@@ -85,6 +93,17 @@ public class BaseObjectInfo
 	@Override
 	public String toString()
 	{
-		return "Object of " + _classInfo.toString();
+		return "Object of " + classInfo.toString() + " attach: " + attach;
+	}
+
+	public Object getAttach()
+	{
+		return attach;
+	}
+
+	public BaseObjectInfo setAttach(Object attach)
+	{
+		this.attach = attach;
+		return this;
 	}
 }

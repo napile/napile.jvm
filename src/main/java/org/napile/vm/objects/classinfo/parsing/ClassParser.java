@@ -37,13 +37,11 @@ import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.NativeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.Flags;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
-import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -100,7 +98,7 @@ public class ClassParser
 
 			if(temp != null)
 				for(Element e : temp.elements())
-					classInfo.getExtends().add(ClasspathUtil.getClassInfoOrParse(_vm, new FqName(e.attributeValue("name"))));
+					classInfo.getExtends().add(parseType(e));
 
 			readModifiers(rootElement, classInfo);
 
@@ -109,6 +107,7 @@ public class ClassParser
 				FqName methodName = className.child(MethodInfo.CONSTRUCTOR_NAME);
 
 				MethodInfo methodInfo = new MethodInfo(classInfo, methodName);
+				methodInfo.setReturnType(new TypeNode(false, new ClassTypeNode(className)));
 
 				readModifiers(e, methodInfo);
 
@@ -208,7 +207,7 @@ public class ClassParser
 
 				readModifiers(e, methodInfo);
 
-				if(Flags.isNative(methodInfo))
+				if(methodInfo.getFlags().contains(Modifier.NATIVE))
 					methodInfo.setInvokeType(new NativeInvokeType());
 
 				classInfo.getMethods().add(methodInfo);

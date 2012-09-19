@@ -16,7 +16,7 @@
 
 package org.napile.vm.util;
 
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL

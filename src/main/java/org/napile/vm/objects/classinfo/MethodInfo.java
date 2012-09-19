@@ -25,7 +25,6 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.compiler.lang.resolve.name.Name;
 import org.napile.vm.invoke.InvokeType;
-import org.napile.vm.objects.Flags;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.Function;
 
@@ -87,7 +86,7 @@ public class MethodInfo implements ReflectInfo
 	{
 		StringBuilder b = new StringBuilder();
 		b.append(getParent().getName()).append(":");
-		if(Flags.isStatic(this))
+		if(getFlags().contains(Modifier.STATIC))
 			b.append("static").append(" ");
 		b.append(getName()).append("(");
 		b.append(StringUtil.join(_parameters, new Function<TypeNode, String>()

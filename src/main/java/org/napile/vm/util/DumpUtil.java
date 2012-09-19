@@ -16,10 +16,12 @@
 
 package org.napile.vm.util;
 
-import org.napile.vm.objects.Flags;
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.Modifier;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.BaseObjectInfo;
+import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
 /**
@@ -28,15 +30,15 @@ import org.napile.vm.vm.VmUtil;
  */
 public class DumpUtil
 {
-	public static String dump(BaseObjectInfo objectInfo)
+	public static String dump(@NotNull Vm vm, @NotNull BaseObjectInfo objectInfo)
 	{
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
 		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
 
 		builder.append("\tVariables:\n");
-		for(VariableInfo f : VmUtil.collectAllFields(classInfo))
-			if(Flags.isStatic(f))
+		for(VariableInfo f : VmUtil.collectAllFields(vm, classInfo))
+			if(f.getFlags().contains(Modifier.STATIC))
 				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(f.getStaticValue()).append("\n");
 			else
 				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');

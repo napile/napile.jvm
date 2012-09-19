@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 
 /**
  * @author VISTALL

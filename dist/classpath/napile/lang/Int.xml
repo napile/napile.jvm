@@ -2,21 +2,68 @@
 
 <class version="0" name="napile.lang.Int">
 	<extends>
-		<class_type name="napile.lang.Any"/>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
 	</extends>
-	<method name="inc">
+	<constructor>
 		<modifiers>
-			<native />
+			<local/>
+			<final/>
 		</modifiers>
+		<code max_locals="1">
+			<load val="0"/>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_special>
+			<load val="0"/>
+			<return/>
+		</code>
+	</constructor>
+	<method name="rangeTo">
 		<return_type>
 			<type nullable="false">
-				<class_type name="napile.lang.Int"/>
+				<class_type name="napile.lang.Array"/>
 			</type>
 		</return_type>
+		<parameters>
+			<parameter name="a">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="1">
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+				</type>
+			</new_object>
+			<dup/>
+			<invoke_special>
+				<method name="napile.lang.Array.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_special>
+			<return/>
+		</code>
 	</method>
 	<method name="inc">
 		<modifiers>
-			<native />
+			<native/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -35,6 +82,9 @@
 		</return_type>
 		<parameters>
 			<parameter name="a">
+				<modifiers>
+					<final/>
+				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>

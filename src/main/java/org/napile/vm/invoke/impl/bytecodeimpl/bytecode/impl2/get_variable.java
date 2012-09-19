@@ -5,10 +5,10 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 

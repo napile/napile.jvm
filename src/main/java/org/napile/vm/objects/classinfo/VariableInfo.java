@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.compiler.lang.resolve.name.FqName;
-import org.napile.vm.objects.objectinfo.impl.BaseObjectInfo;
+import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL
