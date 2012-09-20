@@ -36,7 +36,7 @@ public class dup extends Instruction
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		BaseObjectInfo classObjectInfo = (BaseObjectInfo)context.last();
+		BaseObjectInfo classObjectInfo = context.last();
 
 		context.push(classObjectInfo);
 		context.push(classObjectInfo);

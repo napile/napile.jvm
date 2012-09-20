@@ -93,7 +93,13 @@ public final class BaseObjectInfo
 	@Override
 	public String toString()
 	{
-		return "Object of " + classInfo.toString() + " attach: " + attach;
+		return "Object of " + classInfo.toString() + ". Value: " + attach;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T value(Class<? extends T> clazz)
+	{
+		return (T) attach;
 	}
 
 	public Object getAttach()

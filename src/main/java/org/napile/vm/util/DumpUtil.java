@@ -16,11 +16,13 @@
 
 package org.napile.vm.util;
 
+import java.lang.reflect.Array;
+
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
-import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
@@ -34,7 +36,7 @@ public class DumpUtil
 	{
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
-		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append('\n');
+		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append(" Value: ").append(valueToString(objectInfo.getAttach())).append('\n');
 
 		builder.append("\tVariables:\n");
 		for(VariableInfo f : VmUtil.collectAllFields(vm, classInfo))
@@ -43,6 +45,31 @@ public class DumpUtil
 			else
 				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');
 		return builder.toString();
+	}
+
+	private static String valueToString(Object o)
+	{
+		if(o == null)
+			return "null";
+		if(o.getClass().isArray())
+		{
+			StringBuilder builder = new StringBuilder();
+			builder.append("[{");
+
+			int size = Array.getLength(o);
+			for(int i = 0; i < size; i++)
+			{
+				Object val = Array.get(o, i);
+
+				builder.append(valueToString(val));
+				if(i != (size - 1))
+					builder.append(", ");
+			}
+			builder.append("} : ").append(o.getClass().getName()).append("]");
+			return builder.toString();
+		}
+		else
+			return String.valueOf("[" + o + " : " + o.getClass().getName() + "]");
 	}
 
 	public static String toString(byte[] data, int len)

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="codegenTest.ArrayTest">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<method name="main">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<parameters>
+			<parameter name="args">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+				</type>
+			</new_object>
+			<dup/>
+			<new_int val="5"/>
+			<invoke_special>
+				<method name="napile.lang.Array.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+			</invoke_special>
+			<store val="1"/>
+			<load val="1"/>
+			<new_int val="0"/>
+			<new_int val="1234567"/>
+			<invoke_virtual>
+				<method name="napile.lang.Array.set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+						<type nullable="false">
+							<class_type name="E"/>
+						</type>
+					</parameters>
+				</method>
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+			</invoke_static>
+			<return/>
+		</code>
+	</method>
+</class>

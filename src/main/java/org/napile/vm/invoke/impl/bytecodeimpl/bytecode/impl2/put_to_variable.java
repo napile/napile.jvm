@@ -61,10 +61,10 @@ public class put_to_variable extends Instruction
 
 		AssertUtil.assertNull(variableInfo);
 
-		BaseObjectInfo value = context.last();
 		BaseObjectInfo object = context.last();
+		BaseObjectInfo value = context.last();
 
-		AssertUtil.assertFalse(value.hasVar(variableInfo));
+		AssertUtil.assertFalse(value.hasVar(variableInfo), value + " not have var: " + name);
 
 		value.setVarValue(variableInfo, object);
 	}

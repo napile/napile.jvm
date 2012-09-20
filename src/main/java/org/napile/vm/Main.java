@@ -17,8 +17,10 @@
 package org.napile.vm;
 
 import org.apache.log4j.Logger;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.BundleUtil;
@@ -76,12 +78,15 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false/*, Vm.JAVA_LANG_STRING_ARRAY*/);
+		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, "napile.lang.Array<String>");
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main"/*, Vm.JAVA_LANG_STRING_ARRAY*/);
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "napile.lang.Array<String>");
 			return;
 		}
+
+		BaseObjectInfo b = new BaseObjectInfo(vm, new FqName("napile.lang.Array"));
+		b.setAttach(new BaseObjectInfo[0]);
 
 		//TODO [VISTALL] invalid for now
 		//ClassInfo javaClassString = vm.getClass(Vm.JAVA_LANG_STRING);
@@ -93,7 +98,7 @@ public class Main
 		//	data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
 
 		//System.out.println(DumpUtil.dump(data[0]));
-		vm.invoke(methodInfo, null, null);
+		vm.invoke(methodInfo, null, null, b);
 	}
 
 	public static boolean isSupported(int major, int minor)

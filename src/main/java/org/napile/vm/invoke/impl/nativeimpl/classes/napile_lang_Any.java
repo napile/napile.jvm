@@ -13,6 +13,6 @@ public class napile_lang_Any
 	@NativeImplement(className = "napile.lang.Any", methodName = "callFromConstructor", parameters = {})
 	public static void callFromConstructor(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
-
+	//	System.out.println(NapileLangPackage.ANY + ".callFromConstructor()");
 	}
 }

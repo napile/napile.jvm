@@ -37,8 +37,6 @@ public class invoke_special extends invoke
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		BaseObjectInfo objectInfo = context.last();
-
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
 		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, false, parameters);
@@ -48,6 +46,8 @@ public class invoke_special extends invoke
 		List<BaseObjectInfo> arguments = new ArrayList<BaseObjectInfo>(methodInfo.getParameters().size());
 		for(int i = 0; i < methodInfo.getParameters().size(); i++)
 			arguments.add(context.last());
+
+		BaseObjectInfo objectInfo = context.last();
 
 		Collections.reverse(arguments);
 

@@ -16,6 +16,7 @@
 
 package org.napile.vm.util;
 
+import org.jetbrains.annotations.NotNull;
 import org.napile.vm.objects.BaseObjectInfo;
 
 /**
@@ -32,8 +33,13 @@ public class AssertUtil
 
 	public static void assertFalse(boolean val)
 	{
+		assertFalse(val, "Cant be false");
+	}
+
+	public static void assertFalse(boolean val, @NotNull String msg)
+	{
 		if(!val)
-			throw new IllegalArgumentException("Cant be false");
+			throw new IllegalArgumentException(msg);
 	}
 
 	public static <T> T assertNull(T val)

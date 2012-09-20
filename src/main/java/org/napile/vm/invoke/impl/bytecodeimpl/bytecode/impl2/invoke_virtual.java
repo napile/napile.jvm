@@ -37,13 +37,9 @@ public class invoke_virtual extends invoke
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		StackEntry entry = context.getLastStack();
-
-		BaseObjectInfo objectInfo = context.last();
-
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
-		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
+		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, true, parameters);
 
 		AssertUtil.assertNull(methodInfo);
 
@@ -52,6 +48,8 @@ public class invoke_virtual extends invoke
 			arguments.add(context.last());
 
 		Collections.reverse(arguments);
+
+		BaseObjectInfo objectInfo = context.last();
 
 		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments.toArray(new BaseObjectInfo[arguments.size()]));
 

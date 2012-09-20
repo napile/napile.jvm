@@ -85,9 +85,9 @@ public class MethodInfo implements ReflectInfo
 	public String toString()
 	{
 		StringBuilder b = new StringBuilder();
-		b.append(getParent().getName()).append(":");
 		if(getFlags().contains(Modifier.STATIC))
-			b.append("static").append(" ");
+			b.append("static ");
+		b.append("meth ");
 		b.append(getName()).append("(");
 		b.append(StringUtil.join(_parameters, new Function<TypeNode, String>()
 		{

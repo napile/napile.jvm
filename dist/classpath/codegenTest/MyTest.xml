@@ -93,22 +93,6 @@
 				</method>
 			</invoke_virtual>
 			<load val="0"/>
-			<new_int val="1"/>
-			<invoke_virtual>
-				<method name="codegenTest.MyTest.c$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-			</invoke_virtual>
-			<load val="0"/>
 			<return/>
 		</code>
 	</constructor>
@@ -205,7 +189,17 @@
 		<modifiers>
 			<static/>
 		</modifiers>
-		<code max_locals="1">
+		<parameters>
+			<parameter name="args">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
 			<new_object>
 				<type nullable="false">
 					<class_type name="codegenTest.MyTest"/>
@@ -221,8 +215,8 @@
 					</return_type>
 				</method>
 			</invoke_special>
-			<store val="0"/>
-			<load val="0"/>
+			<store val="1"/>
+			<load val="1"/>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.myExpressionCodegen">
 					<return_type>

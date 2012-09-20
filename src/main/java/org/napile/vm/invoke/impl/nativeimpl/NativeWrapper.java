@@ -30,6 +30,7 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.util.Comparing2;
 import org.napile.vm.invoke.impl.nativeimpl.classes.codegenTest_MyTest;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Any;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Array;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Int;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
@@ -48,6 +49,7 @@ public class NativeWrapper
 	{
 		register(vm, napile_lang_Int.class);
 		register(vm, napile_lang_Any.class);
+		register(vm, napile_lang_Array.class);
 		register(vm, codegenTest_MyTest.class);
 	}
 
