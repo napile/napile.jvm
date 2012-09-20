@@ -17,7 +17,7 @@
 package org.napile.vm;
 
 import org.apache.log4j.Logger;
-import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.lib.NapileLangPackage;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -78,14 +78,14 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, "napile.lang.Array<String>");
+		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, "napile.lang.Array<napile.lang.String>");
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "napile.lang.Array<String>");
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "napile.lang.Array<napile.lang.String>");
 			return;
 		}
 
-		BaseObjectInfo b = new BaseObjectInfo(vm, new FqName("napile.lang.Array"));
+		BaseObjectInfo b = new BaseObjectInfo(vm, NapileLangPackage.ARRAY);
 		b.setAttach(new BaseObjectInfo[0]);
 
 		//TODO [VISTALL] invalid for now
