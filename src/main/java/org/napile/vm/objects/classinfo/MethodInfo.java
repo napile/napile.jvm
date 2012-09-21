@@ -16,16 +16,21 @@
 
 package org.napile.vm.objects.classinfo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Constructor;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.LikeMethodNode;
+import org.napile.asm.tree.members.bytecode.Instruction;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.InvokeType;
+import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.NativeInvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.util.ArrayUtil;
 import com.intellij.util.Function;
 
 /**
@@ -37,38 +42,70 @@ public class MethodInfo implements ReflectInfo
 	public static final Name CONSTRUCTOR_NAME = Name.identifier("this");
 	public static final Name STATIC_CONSTRUCTOR_NAME = Name.identifier("static");
 
-	private List<Modifier> flags = new ArrayList<Modifier>(0);
-	private final ClassInfo _parentType;
-	private TypeNode returnType;
-	private final List<TypeNode> _parameters = new ArrayList<TypeNode>(0);
-	private FqName _name;
+	private final ClassInfo parent;
+	private final Name name;
+	private final LikeMethodNode<?> methodNode;
+	private final TypeNode returnType;
+
+	private final TypeNode[] parameters;
 
 	private InvokeType invokeType;
 
-	public MethodInfo(ClassInfo parentType, FqName name)
+	public MethodInfo(ClassInfo parentType, Name name, LikeMethodNode<?> likeMethodNode, TypeNode typeNode, TypeNode[] parameters)
 	{
-		_parentType = parentType;
-		_name = name;
+		this.parent = parentType;
+		this.name = name;
+		this.methodNode = likeMethodNode;
+		this.returnType = typeNode;
+		this.parameters = parameters;
+
+		if(hasModifier(Modifier.NATIVE))
+			setInvokeType(NativeInvokeType.INSTANCE);
+		else
+		{
+			BytecodeInvokeType bytecodeInvokeType = new BytecodeInvokeType();
+			bytecodeInvokeType.setMaxLocals(likeMethodNode.maxLocals);
+			setInvokeType(bytecodeInvokeType);
+
+			VmInstruction[] instructions = new VmInstruction[likeMethodNode.instructions.size()];
+			bytecodeInvokeType.setInstructions(instructions);
+
+			int i = 0;
+			for(Instruction instruction : likeMethodNode.instructions)
+			{
+				try
+				{
+					Class<?> clazz = Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.Vm" + instruction.getClass().getSimpleName());
+
+					Constructor constructor = clazz.getConstructors()[0];
+
+					instructions[i ++ ] = (VmInstruction)constructor.newInstance(instruction);
+				}
+				catch(Exception e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
 
 	@NotNull
 	@Override
 	public FqName getName()
 	{
-		return _name;
+		return parent.getName().child(name);
 	}
 
-	@NotNull
 	@Override
-	public List<Modifier> getFlags()
+	public boolean hasModifier(@NotNull Modifier modifier)
 	{
-		return flags;
+		return ArrayUtil.contains(modifier, methodNode.modifiers);
 	}
 
 	@Override
 	public ClassInfo getParent()
 	{
-		return _parentType;
+		return parent;
 	}
 
 	public TypeNode getReturnType()
@@ -76,20 +113,20 @@ public class MethodInfo implements ReflectInfo
 		return returnType;
 	}
 
-	public List<TypeNode> getParameters()
+	public TypeNode[] getParameters()
 	{
-		return _parameters;
+		return parameters;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder b = new StringBuilder();
-		if(getFlags().contains(Modifier.STATIC))
+		if(hasModifier(Modifier.STATIC))
 			b.append("static ");
 		b.append("meth ");
 		b.append(getName()).append("(");
-		b.append(StringUtil.join(_parameters, new Function<TypeNode, String>()
+		b.append(StringUtil.join(parameters, new Function<TypeNode, String>()
 		{
 			@Override
 			public String fun(TypeNode typeNode)
@@ -105,11 +142,6 @@ public class MethodInfo implements ReflectInfo
 	public InvokeType getInvokeType()
 	{
 		return invokeType;
-	}
-
-	public void setReturnType(TypeNode returnType)
-	{
-		this.returnType = returnType;
 	}
 
 	public void setInvokeType(InvokeType invokeType)

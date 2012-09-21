@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -35,7 +35,7 @@ public class BytecodeInvokeType implements InvokeType
 {
 	private static final Logger LOGGER = Logger.getLogger(BytecodeInvokeType.class);
 
-	private Instruction[] _instructions = Instruction.EMPTY_ARRAY;
+	private VmInstruction[] _instructions = VmInstruction.EMPTY_ARRAY;
 
 	private int _maxLocals;
 
@@ -49,7 +49,7 @@ public class BytecodeInvokeType implements InvokeType
 	{
 		for(int i = 0; i < _instructions.length;)
 		{
-			Instruction instruction = _instructions[i];
+			VmInstruction instruction = _instructions[i];
 
 			try
 			{
@@ -93,12 +93,12 @@ public class BytecodeInvokeType implements InvokeType
 		LOGGER.info("-----------------------------------");
 	}
 
-	public Instruction[] getInstructions()
+	public VmInstruction[] getInstructions()
 	{
 		return _instructions;
 	}
 
-	public void setInstructions(Instruction[] instructions)
+	public void setInstructions(VmInstruction[] instructions)
 	{
 		_instructions = instructions;
 	}

@@ -14,40 +14,33 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
 import org.napile.asm.resolve.name.FqName;
-import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.bytecode.impl.PutToVariableInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
-import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:16/02.09.12
+ * @date 19:57/21.09.12
  */
-public class put_to_variable extends Instruction
+public class VmPutToVariableInstruction extends VmInstruction<PutToVariableInstruction>
 {
-	private TypeNode typeNode;
 	private FqName className;
 	private String name;
 
-	@Override
-	public void parseData(Element element)
+	public VmPutToVariableInstruction(PutToVariableInstruction instruction)
 	{
-		Element varElement = element.element("variable");
+		super(instruction);
 
-		FqName fqName = new FqName(varElement.attributeValue("name"));
-		className = fqName.parent();
-		name = fqName.shortName().getName();
-
-		typeNode = ClassParser.parseType(varElement.element("type"));
+		className = instruction.variableRef.variable.parent();
+		name = instruction.variableRef.variable.shortName().getName();
 	}
 
 	@Override

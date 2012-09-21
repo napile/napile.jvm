@@ -17,7 +17,6 @@
 package org.napile.vm.invoke.impl.nativeimpl;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.types.TypeNode;
@@ -29,10 +28,10 @@ import org.napile.asm.tree.members.types.TypeNode;
 public class NativeMethodRef
 {
 	private FqName _name;
-	private List<TypeNode> _parameters;
+	private TypeNode[] _parameters;
 	private Method _method;
 
-	public NativeMethodRef(FqName name, List<TypeNode> params, Method method)
+	public NativeMethodRef(FqName name, TypeNode[] params, Method method)
 	{
 		_name = name;
 		_parameters = params;
@@ -44,7 +43,7 @@ public class NativeMethodRef
 		return _name;
 	}
 
-	public List<TypeNode> getParameters()
+	public TypeNode[] getParameters()
 	{
 		return _parameters;
 	}

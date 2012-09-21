@@ -16,8 +16,6 @@
 
 package org.napile.vm.objects.classinfo;
 
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
@@ -33,6 +31,5 @@ public interface ReflectInfo
 	@NotNull
 	FqName getName();
 
-	@NotNull
-	List<Modifier> getFlags();
+	boolean hasModifier(@NotNull Modifier modifier);
 }

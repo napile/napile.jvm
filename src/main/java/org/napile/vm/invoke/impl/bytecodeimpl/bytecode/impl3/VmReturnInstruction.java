@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
-import org.napile.asm.lib.NapileLangPackage;
+import org.napile.asm.tree.members.bytecode.impl.ReturnInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
-import org.napile.vm.objects.BaseObjectInfo;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 22:22/01.09.12
+ * @date 19:47/21.09.12
  */
-public class new_int extends Instruction
+public class VmReturnInstruction extends VmInstruction<ReturnInstruction>
 {
-	private int value;
-
-	@Override
-	public void parseData(Element element)
+	public VmReturnInstruction(ReturnInstruction instruction)
 	{
-		value = Integer.parseInt(element.attributeValue("val"));
+		super(instruction);
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		context.push(new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(value));
 	}
 }

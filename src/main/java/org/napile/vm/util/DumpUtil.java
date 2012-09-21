@@ -40,7 +40,7 @@ public class DumpUtil
 
 		builder.append("\tVariables:\n");
 		for(VariableInfo f : VmUtil.collectAllFields(vm, classInfo))
-			if(f.getFlags().contains(Modifier.STATIC))
+			if(f.hasModifier(Modifier.STATIC))
 				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(f.getStaticValue()).append("\n");
 			else
 				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');

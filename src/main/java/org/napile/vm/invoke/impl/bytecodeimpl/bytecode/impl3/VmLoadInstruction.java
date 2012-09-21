@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
+import org.napile.asm.tree.members.bytecode.impl.LoadInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 22:19/01.09.12
+ * @date 19:54/21.09.12
  */
-public class store extends Instruction
+public class VmLoadInstruction extends VmInstruction<LoadInstruction>
 {
-	private int value;
-
-	@Override
-	public void parseData(Element element)
+	public VmLoadInstruction(LoadInstruction instruction)
 	{
-		value = Integer.parseInt(element.attributeValue("val"));
+		super(instruction);
 	}
 
 	@Override
@@ -42,8 +39,8 @@ public class store extends Instruction
 	{
 		StackEntry stackEntry = context.getLastStack();
 
-		BaseObjectInfo last = context.last();
+		BaseObjectInfo entry = stackEntry.get(instruction.varIndex);
 
-		stackEntry.set(value, last);
+		context.push(entry);
 	}
 }

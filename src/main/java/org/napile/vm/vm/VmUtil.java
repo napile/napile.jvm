@@ -24,8 +24,8 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.lib.NapileLangPackage;
-import org.napile.asm.tree.members.types.ClassTypeNode;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
@@ -42,6 +42,9 @@ public class VmUtil
 	public static void initBootStrap(Vm vm)
 	{
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ANY));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ARRAY));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.CHAR));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.STRING));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.INT));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
 
@@ -83,7 +86,7 @@ public class VmUtil
 		{
 			ClassTypeNode classTypeNode = (ClassTypeNode) ci.typeConstructorNode;
 
-			ClassInfo superType = vm.getClass(classTypeNode.getClassName());
+			ClassInfo superType = vm.getClass(classTypeNode.className);
 
 			AssertUtil.assertNull(superType);
 

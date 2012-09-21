@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
+import org.napile.asm.tree.members.bytecode.impl.NewObjectInstruction;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
+import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 22:21/01.09.12
+ * @date 19:58/21.09.12
  */
-public class load extends Instruction
+public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 {
-	private int value;
-
-	@Override
-	public void parseData(Element element)
+	public VmNewObjectInstruction(NewObjectInstruction instruction)
 	{
-		value = Integer.parseInt(element.attributeValue("val"));
+		super(instruction);
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		StackEntry stackEntry = context.getLastStack();
+		ClassTypeNode classTypeNode = (ClassTypeNode) instruction.value.typeConstructorNode;
 
-		BaseObjectInfo entry = stackEntry.get(value);
+		ClassInfo classInfo = vm.getClass(classTypeNode.className);
 
-		context.push(entry);
+		BaseObjectInfo classObjectInfo = new BaseObjectInfo(vm, classInfo);
+
+		context.push(classObjectInfo);
 	}
 }

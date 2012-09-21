@@ -16,14 +16,14 @@
 
 package org.napile.vm.objects.classinfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -31,38 +31,34 @@ import org.napile.vm.objects.BaseObjectInfo;
  */
 public class VariableInfo implements ReflectInfo
 {
-	private List<Modifier> flags = new ArrayList<Modifier>(0);
-	private ClassInfo _parent;
-	private TypeNode _type;
-	private FqName _name;
+	private final ClassInfo parent;
+	private final VariableNode variableNode;
 
 	private BaseObjectInfo staticValue;
 
-	public VariableInfo(ClassInfo parent, TypeNode type, FqName name)
+	public VariableInfo(ClassInfo parent, VariableNode variableNode)
 	{
-		_parent = parent;
-		_type = type;
-		_name = name;
+		this.parent = parent;
+		this.variableNode = variableNode;
 	}
 
 	@Override
 	public ClassInfo getParent()
 	{
-		return _parent;
+		return parent;
 	}
 
 	@NotNull
 	@Override
 	public FqName getName()
 	{
-		return _name;
+		return parent.getName().child(Name.identifier(variableNode.name));
 	}
 
-	@NotNull
 	@Override
-	public List<Modifier> getFlags()
+	public boolean hasModifier(@NotNull Modifier modifier)
 	{
-		return flags;
+		return ArrayUtil.contains(modifier, variableNode.modifiers);
 	}
 
 	public void setStaticValue(BaseObjectInfo value)
@@ -77,7 +73,7 @@ public class VariableInfo implements ReflectInfo
 
 	public TypeNode getType()
 	{
-		return _type;
+		return variableNode.returnType;
 	}
 
 	@Override
@@ -85,7 +81,7 @@ public class VariableInfo implements ReflectInfo
 	{
 		StringBuilder b = new StringBuilder();
 		b.append(getParent().getName()).append(":");
-		b.append(_type.toString()).append(" ");
+		b.append(getType().toString()).append(" ");
 		b.append(getName());
 		return b.toString();
 	}

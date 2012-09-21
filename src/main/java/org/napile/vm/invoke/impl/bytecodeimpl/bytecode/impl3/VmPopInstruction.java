@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
+import org.napile.asm.tree.members.bytecode.impl.PopInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:13/02.09.12
+ * @date 19:58/21.09.12
  */
-public class return_ extends Instruction
+public class VmPopInstruction extends VmInstruction<PopInstruction>
 {
-	@Override
-	public void parseData(Element element)
+	public VmPopInstruction(PopInstruction instruction)
 	{
+		super(instruction);
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
+		context.last();
 	}
 }

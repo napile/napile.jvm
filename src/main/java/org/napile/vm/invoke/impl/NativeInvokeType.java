@@ -36,6 +36,8 @@ public class NativeInvokeType implements InvokeType
 {
 	private static final Logger LOGGER = Logger.getLogger(NativeInvokeType.class);
 
+	public static final InvokeType INSTANCE = new NativeInvokeType();
+
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{

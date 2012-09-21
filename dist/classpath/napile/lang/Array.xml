@@ -25,6 +25,9 @@
 	<method name="length$set">
 		<parameters>
 			<parameter name="value">
+				<modifiers>
+					<final/>
+				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>
@@ -85,6 +88,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
+			<pop/>
 			<load val="0"/>
 			<new_int val="0"/>
 			<invoke_virtual>
@@ -142,19 +146,13 @@
 		</modifiers>
 		<parameters>
 			<parameter name="index">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>
 			</parameter>
 			<parameter name="value">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="false">
-					<class_type name="E"/>
+					<type_parameter_value_type name="E"/>
 				</type>
 			</parameter>
 		</parameters>
@@ -165,9 +163,6 @@
 		</modifiers>
 		<parameters>
 			<parameter name="index">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>

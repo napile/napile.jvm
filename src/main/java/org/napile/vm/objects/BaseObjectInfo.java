@@ -55,7 +55,7 @@ public final class BaseObjectInfo
 
 		for(VariableInfo f : variableInfos)
 		{
-			if(f.getFlags().contains(Modifier.STATIC))
+			if(f.hasModifier(Modifier.STATIC))
 				continue;
 
 			variables.put(f, null);

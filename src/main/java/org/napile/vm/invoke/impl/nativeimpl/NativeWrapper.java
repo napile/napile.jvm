@@ -23,12 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.napile.asm.parsing.type.TypeNodeUtil;
+import org.napile.asm.io.text.in.type.TypeNodeUtil;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asm.util.Comparing2;
 import org.napile.vm.invoke.impl.nativeimpl.classes.codegenTest_MyTest;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_Console;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Any;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Array;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Int;
@@ -36,6 +36,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import com.intellij.openapi.util.Comparing;
 
 /**
  * @author VISTALL
@@ -50,6 +51,7 @@ public class NativeWrapper
 		register(vm, napile_lang_Int.class);
 		register(vm, napile_lang_Any.class);
 		register(vm, napile_lang_Array.class);
+		register(vm, napile_io_Console.class);
 		register(vm, codegenTest_MyTest.class);
 	}
 
@@ -74,9 +76,10 @@ public class NativeWrapper
 			if(list == null)
 				WRAPPERS.put(classInfo, list = new ArrayList<NativeMethodRef>());
 
-			List<TypeNode> params = new ArrayList<TypeNode>(nativeImplement.parameters().length);
+			int i = 0;
+			TypeNode[] params = new TypeNode[nativeImplement.parameters().length];
 			for(String param : nativeImplement.parameters())
-				params.add(TypeNodeUtil.fromString(param));
+				params[i] = TypeNodeUtil.fromString(param);
 
 			NativeMethodRef methodInfo = new NativeMethodRef(className.child(Name.identifier(nativeImplement.methodName())), params, method);
 
@@ -84,7 +87,7 @@ public class NativeWrapper
 		}
 	}
 
-	public static NativeMethodRef getMethod(ClassInfo classInfo, FqName name, List<TypeNode> params)
+	public static NativeMethodRef getMethod(ClassInfo classInfo, FqName name, TypeNode[] params)
 	{
 		List<NativeMethodRef> nativeMethodRefs = WRAPPERS.get(classInfo);
 		if(nativeMethodRefs == null)
@@ -95,7 +98,7 @@ public class NativeWrapper
 			if(!methodInfo.getName().equals(name))
 				continue;
 
-			if(!Comparing2.equal(methodInfo.getParameters(), params))
+			if(!Comparing.equal(methodInfo.getParameters(), params))
 				continue;
 
 			return methodInfo;

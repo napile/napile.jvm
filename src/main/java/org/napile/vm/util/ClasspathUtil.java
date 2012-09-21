@@ -74,7 +74,7 @@ public class ClasspathUtil
 		{
 			try
 			{
-				ClassParser parser = new ClassParser(vm, new FileInputStream(file), file.getName());
+				ClassParser parser = new ClassParser(vm, new FileInputStream(file));
 
 				FqName name = parser.parseQuickName();
 
@@ -126,7 +126,7 @@ public class ClasspathUtil
 	{
 		try
 		{
-			ClassParser parser = new ClassParser(vm, stream, name);
+			ClassParser parser = new ClassParser(vm, stream);
 
 			ClassInfo classInfo = parser.parse();
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="napile.io.Console">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<method name="writeLine">
+		<modifiers>
+			<static/>
+			<native/>
+		</modifiers>
+		<parameters>
+			<parameter name="value">
+				<type nullable="true">
+					<class_type name="napile.lang.Any"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+</class>

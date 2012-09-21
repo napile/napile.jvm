@@ -16,9 +16,6 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 
-import gnu.trove.map.TIntIntMap;
-
-import org.dom4j.Element;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.vm.Vm;
 
@@ -26,21 +23,21 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 10:16/05.02.2012
  */
-public abstract class Instruction
+public abstract class VmInstruction<E extends org.napile.asm.tree.members.bytecode.Instruction>
 {
-	public static final Instruction[] EMPTY_ARRAY = new Instruction[0];
+	public static final VmInstruction[] EMPTY_ARRAY = new VmInstruction[0];
 
 	private int _instructionIndex;
 	private int _arrayIndex;
 
-	public abstract void parseData(Element element);
+	protected final E instruction;
+
+	public VmInstruction(E instruction)
+	{
+		this.instruction = instruction;
+	}
 
 	public abstract void call(Vm vm, InterpreterContext context);
-
-	public void findIndexes(TIntIntMap map)
-	{
-		//
-	}
 
 	public int getNextIndex(int index)
 	{

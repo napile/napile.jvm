@@ -14,41 +14,31 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.dom4j.Element;
-import org.napile.asm.tree.members.types.ClassTypeNode;
-import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.bytecode.impl.DupInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.Instruction;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
-import org.napile.vm.objects.classinfo.ClassInfo;
-import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:16/02.09.12
+ * @date 19:58/21.09.12
  */
-public class new_object extends Instruction
+public class VmDupInstruction extends VmInstruction<DupInstruction>
 {
-	private TypeNode typeNode;
-
-	@Override
-	public void parseData(Element element)
+	public VmDupInstruction(DupInstruction instruction)
 	{
-		typeNode = ClassParser.parseType(element.element("type"));
+		super(instruction);
 	}
 
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		ClassTypeNode classTypeNode = (ClassTypeNode) typeNode.typeConstructorNode;
+		BaseObjectInfo classObjectInfo = context.last();
 
-		ClassInfo classInfo = vm.getClass(classTypeNode.getClassName());
-
-		BaseObjectInfo classObjectInfo = new BaseObjectInfo(vm, classInfo);
-
+		context.push(classObjectInfo);
 		context.push(classObjectInfo);
 	}
 }

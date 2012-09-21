@@ -22,6 +22,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
+			<pop/>
 			<load val="0"/>
 			<return/>
 		</code>
@@ -30,34 +31,53 @@
 		<return_type>
 			<type nullable="false">
 				<class_type name="napile.lang.Array"/>
+				<type_arguments>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</type_arguments>
 			</type>
 		</return_type>
 		<parameters>
-			<parameter name="a">
-				<modifiers>
-					<final/>
-				</modifiers>
+			<parameter name="value">
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>
 			</parameter>
 		</parameters>
-		<code max_locals="1">
+		<code max_locals="2">
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</type_arguments>
 				</type>
 			</new_object>
 			<dup/>
+			<new_int val="1"/>
 			<invoke_special>
 				<method name="napile.lang.Array.this">
 					<return_type>
 						<type nullable="false">
 							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
 						</type>
 					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
 				</method>
 			</invoke_special>
+			<pop/>
 			<return/>
 		</code>
 	</method>
@@ -81,10 +101,24 @@
 			</type>
 		</return_type>
 		<parameters>
-			<parameter name="a">
-				<modifiers>
-					<final/>
-				</modifiers>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+	<method name="minus">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="value">
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>

@@ -53,20 +53,18 @@ public class StackEntry
 
 			if(_localVariables.length > 0)
 			{
-				int startPos = objectInfo == null ? 0 : 1;
+				int i = 0;
 
 				// if is not static - set 'this' to object
 				if(objectInfo != null)
-					set(0, objectInfo);
+					_localVariables[i++] = objectInfo;
 
-				for(int i = 0; i < arguments.length; i++, startPos ++)
-					set(startPos, arguments[i]);
+				for(BaseObjectInfo arg : arguments)
+					_localVariables[i++] = arg;
 			}
 		}
 		else
-		{
 			_localVariables = BaseObjectInfo.EMPTY_ARRAY;
-		}
 	}
 
 

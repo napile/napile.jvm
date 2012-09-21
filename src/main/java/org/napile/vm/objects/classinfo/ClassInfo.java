@@ -21,8 +21,18 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
+import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.AbstractMemberNode;
+import org.napile.asm.tree.members.ClassNode;
+import org.napile.asm.tree.members.ConstructorNode;
+import org.napile.asm.tree.members.MethodNode;
+import org.napile.asm.tree.members.StaticConstructorNode;
+import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -33,29 +43,57 @@ public class ClassInfo implements ReflectInfo
 	private final List<VariableInfo> variableInfos = new ArrayList<VariableInfo>(0);
 	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
 
-	private final List<TypeNode> _extends = new ArrayList<TypeNode>(0);
-	private final FqName _name;
-	private final ArrayList<Modifier> flags = new ArrayList<Modifier>(0);
+	private ClassNode classNode;
 
 	private boolean _staticConstructorCalled;
 
-	public ClassInfo(FqName name)
+	public ClassInfo(ClassNode classNode)
 	{
-		_name = name;
+		this.classNode = classNode;
+
+		for(AbstractMemberNode<?> memberNode : classNode.members)
+		{
+			if(memberNode instanceof VariableNode)
+				variableInfos.add(new VariableInfo(this, (VariableNode) memberNode));
+			else if(memberNode instanceof MethodNode)
+			{
+				MethodNode methodNode = (MethodNode) memberNode;
+				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
+				for(int i = 0; i < parameters.length; i++)
+					parameters[i] = methodNode.parameters.get(i).typeNode;
+
+				methodInfos.add(new MethodInfo(this, Name.identifier(methodNode.name), methodNode, methodNode.returnType, parameters));
+			}
+			else if(memberNode instanceof ConstructorNode)
+			{
+				ConstructorNode methodNode = (ConstructorNode) memberNode;
+				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
+				for(int i = 0; i < parameters.length; i++)
+					parameters[i] = methodNode.parameters.get(i).typeNode;
+
+
+				methodInfos.add(new MethodInfo(this, MethodInfo.CONSTRUCTOR_NAME, methodNode, new TypeNode(false, new ClassTypeNode(classNode.name)), parameters));
+			}
+			else if(memberNode instanceof StaticConstructorNode)
+			{
+				StaticConstructorNode methodNode = (StaticConstructorNode) memberNode;
+
+				methodInfos.add(new MethodInfo(this, MethodInfo.STATIC_CONSTRUCTOR_NAME, methodNode, new TypeNode(false, new ClassTypeNode(NapileLangPackage.NULL)), new TypeNode[0]));
+			}
+		}
 	}
 
 	@NotNull
 	@Override
 	public FqName getName()
 	{
-		return _name;
+		return classNode.name;
 	}
 
-	@NotNull
 	@Override
-	public List<Modifier> getFlags()
+	public boolean hasModifier(@NotNull Modifier modifier)
 	{
-		return flags;
+		return ArrayUtil.contains(modifier, classNode.modifiers);
 	}
 
 	@NotNull
@@ -67,7 +105,7 @@ public class ClassInfo implements ReflectInfo
 	@NotNull
 	public List<TypeNode> getExtends()
 	{
-		return _extends;
+		return classNode.supers;
 	}
 
 	@NotNull

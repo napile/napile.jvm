@@ -14,26 +14,40 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl2;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.tree.members.bytecode.impl.InvokeStaticInstruction;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 22:24/01.09.12
+ * @date 20:00/21.09.12
  */
-public class invoke_static extends invoke
+public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruction>
 {
+	private FqName className;
+	private String methodName;
+	private TypeNode[] parameters;
+
+	public VmInvokeStaticInstruction(InvokeStaticInstruction instruction)
+	{
+		super(instruction);
+
+		className = instruction.methodRef.method.parent();
+		methodName = instruction.methodRef.method.shortName().getName();
+		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+	}
+
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
@@ -43,13 +57,13 @@ public class invoke_static extends invoke
 
 		AssertUtil.assertNull(methodInfo);
 
-		List<BaseObjectInfo> arguments = new ArrayList<BaseObjectInfo>(methodInfo.getParameters().size());
-		for(int i = 0; i < methodInfo.getParameters().size(); i++)
-			arguments.add(context.last());
+		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
+		for(int i = 0; i < methodInfo.getParameters().length; i++)
+			arguments[i] = context.last();
 
-		Collections.reverse(arguments);
+		ArrayUtil.reverseArray(arguments);
 
-		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments.toArray(new BaseObjectInfo[arguments.size()]));
+		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments);
 
 		context.getStack().add(nextEntry);
 
