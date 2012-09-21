@@ -35,6 +35,6 @@ public class VmPopInstruction extends VmInstruction<PopInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		context.last();
+		context.pop();
 	}
 }

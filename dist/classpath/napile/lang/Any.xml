@@ -32,6 +32,11 @@
 		<return_type>
 			<type nullable="false">
 				<class_type name="napile.reflect.Class"/>
+				<type_arguments>
+					<type nullable="false">
+						<class_type name="napile.lang.Any"/>
+					</type>
+				</type_arguments>
 			</type>
 		</return_type>
 	</method>
@@ -46,9 +51,6 @@
 		</return_type>
 		<parameters>
 			<parameter name="o">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="true">
 					<class_type name="napile.lang.Any"/>
 				</type>

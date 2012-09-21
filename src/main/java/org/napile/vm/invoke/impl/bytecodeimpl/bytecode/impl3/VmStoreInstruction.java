@@ -39,7 +39,7 @@ public class VmStoreInstruction extends VmInstruction<StoreInstruction>
 	{
 		StackEntry stackEntry = context.getLastStack();
 
-		BaseObjectInfo last = context.last();
+		BaseObjectInfo last = context.pop();
 
 		stackEntry.set(instruction.varIndex, last);
 	}

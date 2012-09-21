@@ -36,7 +36,7 @@ public class VmDupInstruction extends VmInstruction<DupInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		BaseObjectInfo classObjectInfo = context.last();
+		BaseObjectInfo classObjectInfo = context.pop();
 
 		context.push(classObjectInfo);
 		context.push(classObjectInfo);

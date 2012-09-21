@@ -16,7 +16,9 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
@@ -38,6 +40,11 @@ public class StackEntry
 
 	// debug
 	private List<String> _debug = new ArrayList<String>();
+
+	// stack
+	private Deque<BaseObjectInfo> stack = new ArrayDeque<BaseObjectInfo>(2);
+
+	private BaseObjectInfo returnValue;
 
 	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments)
 	{
@@ -67,6 +74,22 @@ public class StackEntry
 			_localVariables = BaseObjectInfo.EMPTY_ARRAY;
 	}
 
+
+	public void push(BaseObjectInfo val)
+	{
+		_debug.add("push: " + val + ": " + getMethodInfo());
+
+		stack.add(val);
+	}
+
+	public BaseObjectInfo pop()
+	{
+		BaseObjectInfo v = stack.pollLast();
+
+		_debug.add("last: " + v + ": " + getMethodInfo());
+
+		return v;
+	}
 
 	public void set(int index, BaseObjectInfo objectInfo)
 	{
@@ -102,5 +125,15 @@ public class StackEntry
 	public String toString()
 	{
 		return _methodInfo.toString();
+	}
+
+	public BaseObjectInfo getReturnValue()
+	{
+		return returnValue;
+	}
+
+	public void setReturnValue(BaseObjectInfo returnValue)
+	{
+		this.returnValue = returnValue;
 	}
 }

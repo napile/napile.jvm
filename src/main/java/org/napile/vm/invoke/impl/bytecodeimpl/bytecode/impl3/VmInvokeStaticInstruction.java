@@ -59,7 +59,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
-			arguments[i] = context.last();
+			arguments[i] = context.pop();
 
 		ArrayUtil.reverseArray(arguments);
 
@@ -69,6 +69,10 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		vm.invoke(methodInfo, null, context, BaseObjectInfo.EMPTY_ARRAY);
 
-		context.getStack().pollLast();
+		StackEntry stackEntry = context.getStack().pollLast();
+		if(stackEntry.getReturnValue() != null)
+			context.push(stackEntry.getReturnValue());
+		//else
+		//	System.out.println(stackEntry + " had null value");
 	}
 }

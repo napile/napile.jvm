@@ -59,11 +59,11 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 
 		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
-			arguments[i] = context.last();
+			arguments[i] = context.pop();
 
 		ArrayUtil.reverseArray(arguments);
 
-		BaseObjectInfo objectInfo = context.last();
+		BaseObjectInfo objectInfo = context.pop();
 
 		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments);
 
@@ -71,6 +71,10 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 
 		vm.invoke(methodInfo, objectInfo, context, BaseObjectInfo.EMPTY_ARRAY);
 
-		context.getStack().pollLast();
+		StackEntry stackEntry = context.getStack().pollLast();
+		if(stackEntry.getReturnValue() != null)
+			context.push(stackEntry.getReturnValue());
+		//else
+		//	System.out.println(stackEntry + " had null value");
 	}
 }

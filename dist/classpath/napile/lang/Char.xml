@@ -22,6 +22,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
+			<pop/>
 			<load val="0"/>
 			<return/>
 		</code>

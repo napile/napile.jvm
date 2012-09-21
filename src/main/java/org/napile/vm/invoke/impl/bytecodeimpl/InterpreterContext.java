@@ -19,6 +19,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import org.jetbrains.annotations.NotNull;
 import org.napile.vm.objects.BaseObjectInfo;
 
 /**
@@ -27,45 +28,36 @@ import org.napile.vm.objects.BaseObjectInfo;
  */
 public class InterpreterContext
 {
-	private Deque<StackEntry> _stack = new ArrayDeque<StackEntry>();
-
-	private Deque<BaseObjectInfo> _values = new ArrayDeque<BaseObjectInfo>(2);
+	private Deque<StackEntry> entries = new ArrayDeque<StackEntry>();
 
 	public InterpreterContext(StackEntry... methodInfo)
 	{
 		for(StackEntry d : methodInfo)
-			_stack.add(d);
+			entries.add(d);
+	}
+
+	public void push(@NotNull BaseObjectInfo baseObjectInfo)
+	{
+		StackEntry last = getLastStack();
+
+		last.push(baseObjectInfo);
+	}
+
+	@NotNull
+	public BaseObjectInfo pop()
+	{
+		StackEntry last = getLastStack();
+
+		return last.pop();
 	}
 
 	public StackEntry getLastStack()
 	{
-		return _stack.peekLast();
-	}
-
-	public void push(BaseObjectInfo val)
-	{
-		StackEntry entry = getLastStack();
-		//StringWriter stringWriter = new StringWriter();
-		//new Exception().printStackTrace(new PrintWriter(stringWriter));
-
-		entry.getDebug().add("push: " + val + ": " + entry.getMethodInfo());
-		_values.add(val);
-	}
-
-	public BaseObjectInfo last()
-	{
-		BaseObjectInfo v = _values.pollLast();
-
-		//StringWriter stringWriter = new StringWriter();
-		//new Exception().printStackTrace(new PrintWriter(stringWriter));
-
-		StackEntry entry = getLastStack();
-		entry.getDebug().add("last: " + v + ": " + entry.getMethodInfo());
-		return v;
+		return entries.peekLast();
 	}
 
 	public Deque<StackEntry> getStack()
 	{
-		return _stack;
+		return entries;
 	}
 }

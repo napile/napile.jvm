@@ -118,7 +118,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
-			<pop />
+			<pop/>
 			<load val="0"/>
 			<new_object>
 				<type nullable="false">
@@ -130,6 +130,7 @@
 					</type_arguments>
 				</type>
 			</new_object>
+			<dup/>
 			<new_int val="0"/>
 			<invoke_special>
 				<method name="napile.lang.Array.this">
@@ -150,6 +151,7 @@
 					</parameters>
 				</method>
 			</invoke_special>
+			<pop/>
 			<invoke_virtual>
 				<method name="napile.lang.String.array$set">
 					<return_type>
@@ -169,7 +171,6 @@
 					</parameters>
 				</method>
 			</invoke_virtual>
-
 			<load val="0"/>
 			<load val="1"/>
 			<invoke_virtual>

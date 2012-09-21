@@ -12,11 +12,13 @@
 		</modifiers>
 		<parameters>
 			<parameter name="args">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
 				</type>
 			</parameter>
 		</parameters>
@@ -24,6 +26,11 @@
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</type_arguments>
 				</type>
 			</new_object>
 			<dup/>
@@ -33,6 +40,11 @@
 					<return_type>
 						<type nullable="false">
 							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
 						</type>
 					</return_type>
 					<parameters>
@@ -42,6 +54,7 @@
 					</parameters>
 				</method>
 			</invoke_special>
+			<pop/>
 			<store val="1"/>
 			<load val="1"/>
 			<new_int val="0"/>
@@ -58,7 +71,7 @@
 							<class_type name="napile.lang.Int"/>
 						</type>
 						<type nullable="false">
-							<class_type name="E"/>
+							<type_parameter_value_type name="E"/>
 						</type>
 					</parameters>
 				</method>

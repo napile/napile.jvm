@@ -54,8 +54,8 @@ public class VmPutToVariableInstruction extends VmInstruction<PutToVariableInstr
 
 		AssertUtil.assertNull(variableInfo);
 
-		BaseObjectInfo object = context.last();
-		BaseObjectInfo value = context.last();
+		BaseObjectInfo object = context.pop();
+		BaseObjectInfo value = context.pop();
 
 		AssertUtil.assertFalse(value.hasVar(variableInfo), value + " not have var: " + name);
 

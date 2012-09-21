@@ -54,7 +54,7 @@ public class VmGetVariableInstruction extends VmInstruction<GetVariableInstructi
 
 		AssertUtil.assertNull(variableInfo);
 
-		BaseObjectInfo value = context.last();
+		BaseObjectInfo value = context.pop();
 
 		AssertUtil.assertFalse(value.hasVar(variableInfo));
 

@@ -22,6 +22,9 @@
 		</modifiers>
 		<parameters>
 			<parameter name="value">
+				<modifiers>
+					<final/>
+				</modifiers>
 				<type nullable="false">
 					<class_type name="napile.lang.Null"/>
 				</type>
@@ -69,6 +72,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
+			<pop/>
 			<load val="0"/>
 			<return/>
 		</code>
@@ -90,6 +94,7 @@
 					</return_type>
 				</method>
 			</invoke_special>
+			<pop/>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$set">
 					<return_type>

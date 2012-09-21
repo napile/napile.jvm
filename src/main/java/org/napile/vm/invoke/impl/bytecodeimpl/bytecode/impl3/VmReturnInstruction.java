@@ -35,5 +35,6 @@ public class VmReturnInstruction extends VmInstruction<ReturnInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
+		context.getLastStack().setReturnValue(context.pop());
 	}
 }

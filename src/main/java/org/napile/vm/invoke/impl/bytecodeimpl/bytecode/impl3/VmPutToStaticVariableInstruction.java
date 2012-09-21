@@ -53,6 +53,6 @@ public class VmPutToStaticVariableInstruction extends VmInstruction<PutToStaticV
 
 		AssertUtil.assertNull(variableInfo);
 
-		variableInfo.setStaticValue(context.last());
+		variableInfo.setStaticValue(context.pop());
 	}
 }
