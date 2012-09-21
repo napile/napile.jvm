@@ -133,7 +133,7 @@ public class Vm
 
 	public void invoke(MethodInfo methodInfo, BaseObjectInfo object, InterpreterContext context, BaseObjectInfo... argument)
 	{
-		initStatic(methodInfo.getParent(), context);
+		initStatic(methodInfo.getParent());
 
 		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
 			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && object != null || !methodInfo.hasModifier(Modifier.STATIC) && object == null);
@@ -147,7 +147,7 @@ public class Vm
 
 	public BaseObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, BaseObjectInfo... arguments)
 	{
-		initStatic(classInfo, null);
+		initStatic(classInfo);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
@@ -216,7 +216,7 @@ public class Vm
 		return null;
 	}
 
-	private synchronized void initStatic(@NotNull ClassInfo parent, InterpreterContext context)
+	private synchronized void initStatic(@NotNull ClassInfo parent)
 	{
 		if(!parent.isStaticConstructorCalled())
 		{

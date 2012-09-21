@@ -27,7 +27,6 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 {
 	public static final VmInstruction[] EMPTY_ARRAY = new VmInstruction[0];
 
-	private int _instructionIndex;
 	private int _arrayIndex;
 
 	protected final E instruction;
@@ -54,19 +53,9 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 		return _arrayIndex;
 	}
 
-	public int getInstructionIndex()
-	{
-		return _instructionIndex;
-	}
-
-	public void setInstructionIndex(int instructionIndex)
-	{
-		_instructionIndex = instructionIndex;
-	}
-
 	@Override
 	public String toString()
 	{
-		return "[a" + _arrayIndex + ", " + "i" + _instructionIndex + "]: " + getClass().getSimpleName();
+		return "[i" + _arrayIndex + "]: " + getClass().getSimpleName();
 	}
 }

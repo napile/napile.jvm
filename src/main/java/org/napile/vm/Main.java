@@ -85,20 +85,14 @@ public class Main
 			return;
 		}
 
-		BaseObjectInfo b = new BaseObjectInfo(vm, NapileLangPackage.ARRAY);
-		b.setAttach(new BaseObjectInfo[0]);
+		ClassInfo arrayClassInfo = vm.getClass(NapileLangPackage.ARRAY);
 
-		//TODO [VISTALL] invalid for now
-		//ClassInfo javaClassString = vm.getClass(Vm.JAVA_LANG_STRING);
-		//ClassInfo javaClassStringArray = vm.getClass(Vm.JAVA_LANG_STRING_ARRAY);
+		BaseObjectInfo arrayObject = vm.newObject(arrayClassInfo, new String[]{NapileLangPackage.INT.getFqName()}, VmUtil.convertToVm(vm, vmContext.getArguments().size()));
+		BaseObjectInfo[] arrayOfObjects = arrayObject.value(BaseObjectInfo[].class);
+		for(int i = 0; i < arrayOfObjects.length; i++)
+			arrayOfObjects[i] = VmUtil.convertToVm(vm, vmContext.getArguments().get(i));
 
-		//List<String> arguments = vmContext.getArguments();
-		//ObjectInfo[] data = new ObjectInfo[arguments.size()];
-		//for(int i = 0; i < data.length; i++)
-		//	data[i] = VmUtil.convertToVm(vm, javaClassString, arguments.get(i));
-
-		//System.out.println(DumpUtil.dump(data[0]));
-		vm.invoke(methodInfo, null, null, b);
+		vm.invoke(methodInfo, null, null, arrayObject);
 	}
 
 	public static boolean isSupported(int major, int minor)

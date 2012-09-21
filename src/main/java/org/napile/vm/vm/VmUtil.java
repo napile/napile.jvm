@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
@@ -49,6 +50,24 @@ public class VmUtil
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
+	}
+
+	public static BaseObjectInfo convertToVm(@NotNull Vm vm, Object value)
+	{
+		if(value instanceof String)
+		{
+			char[] chars = ((String) value).toCharArray();
+			BaseObjectInfo arrayObject = vm.newObject(vm.getClass(NapileLangPackage.ARRAY), new String[]{NapileLangPackage.INT.getFqName()}, new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(chars.length));
+			final BaseObjectInfo[] arrayAttach = arrayObject.value(BaseObjectInfo[].class);
+			for(int i = 0; i < chars.length; i++)
+				arrayAttach[i] = new BaseObjectInfo(vm, NapileLangPackage.CHAR).setAttach(chars[i]);
+
+			return vm.newObject(vm.getClass(NapileLangPackage.STRING), new String[] {"napile.lang.Array<napile.lang.Char>"}, arrayObject);
+		}
+		else if(value instanceof Integer)
+			return new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(value);
+		else
+			throw new UnsupportedOperationException(value.getClass().getName());
 	}
 
 	@NotNull

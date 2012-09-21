@@ -58,7 +58,7 @@ public class NativeInvokeType implements InvokeType
 			{
 				BaseObjectInfo objectInfo = (BaseObjectInfo)method.invoke(null, vm, entry.getObjectInfo(), entry.getArguments());
 				if(objectInfo != null)
-					context.push(objectInfo);
+					entry.setReturnValue(objectInfo);
 			}
 			catch(Exception e)
 			{

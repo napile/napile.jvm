@@ -16,12 +16,11 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.bytecode.impl.NewStringInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
-import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -37,14 +36,6 @@ public class VmNewStringInstruction extends VmInstruction<NewStringInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		char[] chars = instruction.value.toCharArray();
-		BaseObjectInfo arrayObject = vm.newObject(vm.getClass(NapileLangPackage.ARRAY), new String[]{NapileLangPackage.INT.getFqName()}, new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(chars.length));
-		final BaseObjectInfo[] arrayAttach = arrayObject.value(BaseObjectInfo[].class);
-		for(int i = 0; i < chars.length; i++)
-			arrayAttach[i] = new BaseObjectInfo(vm, NapileLangPackage.CHAR).setAttach(chars[i]);
-
-		BaseObjectInfo stringObject = vm.newObject(vm.getClass(NapileLangPackage.STRING), new String[] {"napile.lang.Array<napile.lang.Char>"}, arrayObject);
-
-		context.push(stringObject);
+		context.push(VmUtil.convertToVm(vm, instruction.value));
 	}
 }

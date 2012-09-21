@@ -79,7 +79,9 @@ public class MethodInfo implements ReflectInfo
 
 					Constructor constructor = clazz.getConstructors()[0];
 
-					instructions[i ++ ] = (VmInstruction)constructor.newInstance(instruction);
+					VmInstruction<?> vmInstruction = (VmInstruction)constructor.newInstance(instruction);
+					vmInstruction.setArrayIndex(i++);
+					instructions[vmInstruction.getArrayIndex()] = vmInstruction;
 				}
 				catch(Exception e)
 				{

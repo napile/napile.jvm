@@ -36,4 +36,18 @@ public class napile_lang_Array
 
 		array[arg[0].value(int.class)] = arg[1];
 	}
+
+	@NativeImplement(className = "napile.lang.Array", methodName = "get", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo get(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		BaseObjectInfo[] array = objectInfo.value(BaseObjectInfo[].class);
+
+		AssertUtil.assertNull(arg[0]);
+
+		int index = arg[0].value(int.class);
+		if(index >= array.length)
+			throw new ArrayIndexOutOfBoundsException();
+
+		return array[index];
+	}
 }
