@@ -26,7 +26,7 @@ public class napile_lang_Array
 		objectInfo.setAttach(values);
 	}
 
-	@NativeImplement(className = "napile.lang.Array", methodName = "set", parameters = {"napile.lang.Int", "E"})
+	@NativeImplement(className = "napile.lang.Array", methodName = "set", parameters = {"napile.lang.Int", ":E:"})
 	public static void set(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
 		BaseObjectInfo[] array = objectInfo.value(BaseObjectInfo[].class);

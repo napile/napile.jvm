@@ -15,9 +15,9 @@
  */
 
 import org.napile.asm.lib.NapileLangPackage;
-import org.napile.asm.tree.members.types.ClassTypeNode;
-import org.napile.asm.tree.members.types.TypeConstructorNode;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.signature.SignatureVisitor;
 

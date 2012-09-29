@@ -61,7 +61,7 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
 			arguments[i] = context.pop();
 
-		ArrayUtil.reverseArray(arguments);
+		arguments = ArrayUtil.reverseArray(arguments);
 
 		BaseObjectInfo objectInfo = context.pop();
 

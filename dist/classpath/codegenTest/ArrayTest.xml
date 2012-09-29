@@ -32,9 +32,14 @@
 						</type>
 					</type_arguments>
 				</type>
+				<!--0-->
 			</new_object>
-			<dup/>
-			<new_int val="5"/>
+			<dup>
+				<!--1-->
+			</dup>
+			<new_int val="5">
+				<!--2-->
+			</new_int>
 			<invoke_special>
 				<method name="napile.lang.Array.this">
 					<return_type>
@@ -53,12 +58,23 @@
 						</type>
 					</parameters>
 				</method>
+				<!--3-->
 			</invoke_special>
-			<pop/>
-			<store val="1"/>
-			<load val="1"/>
-			<new_int val="0"/>
-			<new_int val="1234567"/>
+			<pop>
+				<!--4-->
+			</pop>
+			<store val="1">
+				<!--5-->
+			</store>
+			<load val="1">
+				<!--6-->
+			</load>
+			<new_int val="0">
+				<!--7-->
+			</new_int>
+			<new_int val="1234567">
+				<!--8-->
+			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
 					<return_type>
@@ -75,6 +91,7 @@
 						</type>
 					</parameters>
 				</method>
+				<!--9-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -84,8 +101,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--10-->
 			</invoke_static>
-			<return/>
+			<return>
+				<!--11-->
+			</return>
 		</code>
 	</method>
 </class>

@@ -16,15 +16,9 @@
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
-import org.jetbrains.annotations.NotNull;
 import org.napile.asm.AsmBuilder;
 import org.napile.asm.Modifier;
 import org.napile.asm.lib.NapileLangPackage;
@@ -35,10 +29,9 @@ import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.bytecode.MethodRef;
 import org.napile.asm.tree.members.bytecode.VariableRef;
 import org.napile.asm.tree.members.bytecode.impl.*;
-import org.napile.asm.tree.members.types.ClassTypeNode;
-import org.napile.asm.tree.members.types.TypeConstructorNode;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asm.writters.BytecodeToXmlWriter;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -230,33 +223,7 @@ public class Java2NapileBytecodeGen
 			}, 0);
 		}
 
-		classBuilder.getResult(new BytecodeToXmlWriter<File>()
-		{
-			@NotNull
-			@Override
-			public File getResult()
-			{
-				Element rootElement = document.getRootElement();
-				File f = new File("dist/classpath", rootElement.attributeValue("name") + ".xml");
-				if(f.exists())
-					f.delete();
-
-				OutputFormat format = OutputFormat.createPrettyPrint();
-				format.setIndent("\t");
-				try
-				{
-					XMLWriter writer = new XMLWriter(new FileOutputStream(f), format);
-					writer.write(document);
-					writer.close();
-				}
-				catch(IOException e)
-				{
-					e.printStackTrace();
-				}
-
-				return f;
-			}
-		});
+		//broken classBuilder.getResult(new AsmXmlFileWriter(new File("dist/classpath", rootElement.attributeValue("name") + ".xml")));
 	}
 
 	private static String normalizeFq(String str)

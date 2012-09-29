@@ -61,7 +61,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
 			arguments[i] = context.pop();
 
-		ArrayUtil.reverseArray(arguments);
+		arguments = ArrayUtil.reverseArray(arguments);
 
 		BaseObjectInfo objectInfo = context.pop();
 

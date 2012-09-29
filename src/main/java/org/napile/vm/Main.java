@@ -18,6 +18,8 @@ package org.napile.vm;
 
 import org.apache.log4j.Logger;
 import org.napile.asm.lib.NapileLangPackage;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -78,10 +80,13 @@ public class Main
 			return;
 		}
 
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, "napile.lang.Array<napile.lang.String>");
+		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY));
+		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING)));
+
+		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, typeNode);
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", "napile.lang.Array<napile.lang.String>");
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", typeNode);
 			return;
 		}
 

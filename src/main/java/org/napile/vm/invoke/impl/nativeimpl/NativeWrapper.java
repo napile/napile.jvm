@@ -79,7 +79,7 @@ public class NativeWrapper
 			int i = 0;
 			TypeNode[] params = new TypeNode[nativeImplement.parameters().length];
 			for(String param : nativeImplement.parameters())
-				params[i] = TypeNodeUtil.fromString(param);
+				params[i++] = TypeNodeUtil.fromString(param);
 
 			NativeMethodRef methodInfo = new NativeMethodRef(className.child(Name.identifier(nativeImplement.methodName())), params, method);
 

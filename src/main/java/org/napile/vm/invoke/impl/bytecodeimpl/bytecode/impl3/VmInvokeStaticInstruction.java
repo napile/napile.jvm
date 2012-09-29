@@ -61,7 +61,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 		for(int i = 0; i < methodInfo.getParameters().length; i++)
 			arguments[i] = context.pop();
 
-		ArrayUtil.reverseArray(arguments);
+		arguments = ArrayUtil.reverseArray(arguments);
 
 		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments);
 

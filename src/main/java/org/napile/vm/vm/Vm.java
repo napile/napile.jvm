@@ -41,6 +41,7 @@ import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
 import org.napile.vm.util.CollectionUtil;
 import com.intellij.openapi.util.Comparing;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -103,13 +104,13 @@ public class Vm
 		return methodInfo != null && !methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
 	}
 
-	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, TypeNode[] params)
+	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, TypeNode... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && !methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
 	}
 
-	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, TypeNode[] params)
+	public MethodInfo getStaticMethod(ClassInfo info, String name, boolean deep, TypeNode... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);
 		return methodInfo != null && methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
@@ -121,7 +122,7 @@ public class Vm
 		return methodInfo != null && methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
 	}
 
-	public MethodInfo getAnyMethod(ClassInfo info, String name, boolean deep, TypeNode[] params)
+	public MethodInfo getAnyMethod(ClassInfo info, String name, boolean deep, TypeNode... params)
 	{
 		return getMethod0(info, name, deep, params);
 	}
@@ -226,7 +227,7 @@ public class Vm
 					continue;
 
 				ownerClassInfo.setStaticConstructorCalled(true);
-				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME.getName(), false);
+				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
 
 				if(methodInfo != null)
 				{
