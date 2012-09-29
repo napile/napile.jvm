@@ -21,30 +21,30 @@ public class napile_lang_Array
 
 		BaseObjectInfo varValue = objectInfo.getVarValue(variableInfo);
 
-		BaseObjectInfo[] values = new BaseObjectInfo[varValue.value(int.class)];
+		BaseObjectInfo[] values = new BaseObjectInfo[(Integer)varValue.value()];
 
-		objectInfo.setAttach(values);
+		objectInfo.value(values);
 	}
 
 	@NativeImplement(className = "napile.lang.Array", methodName = "set", parameters = {"napile.lang.Int", ":E:"})
 	public static void set(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
-		BaseObjectInfo[] array = objectInfo.value(BaseObjectInfo[].class);
+		BaseObjectInfo[] array = objectInfo.value();
 
 		AssertUtil.assertNull(arg[0]);
 		AssertUtil.assertNull(arg[1]);
 
-		array[arg[0].value(int.class)] = arg[1];
+		array[(Integer) arg[0].value()] = arg[1];
 	}
 
 	@NativeImplement(className = "napile.lang.Array", methodName = "get", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo get(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
-		BaseObjectInfo[] array = objectInfo.value(BaseObjectInfo[].class);
+		BaseObjectInfo[] array = objectInfo.value();
 
 		AssertUtil.assertNull(arg[0]);
 
-		int index = arg[0].value(int.class);
+		Integer index = arg[0].value();
 		if(index >= array.length)
 			throw new ArrayIndexOutOfBoundsException();
 

@@ -16,12 +16,11 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.bytecode.impl.NewIntInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
-import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -37,6 +36,6 @@ public class VmNewIntInstruction extends VmInstruction<NewIntInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		context.push(new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(instruction.value));
+		context.push(VmUtil.convertToVm(vm, instruction.value));
 	}
 }

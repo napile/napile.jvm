@@ -17,11 +17,8 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
 import org.napile.asm.tree.members.bytecode.impl.NewObjectInstruction;
-import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
-import org.napile.vm.objects.BaseObjectInfo;
-import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -38,12 +35,6 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		ClassTypeNode classTypeNode = (ClassTypeNode) instruction.value.typeConstructorNode;
-
-		ClassInfo classInfo = vm.getClass(classTypeNode.className);
-
-		BaseObjectInfo classObjectInfo = new BaseObjectInfo(vm, classInfo);
-
-		context.push(classObjectInfo);
+		context.push(vm.newObject(instruction.value));
 	}
 }

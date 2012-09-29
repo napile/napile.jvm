@@ -17,10 +17,10 @@ public class napile_io_Console
 		BaseObjectInfo val = arg[0];
 
 		BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.getClass(NapileLangPackage.STRING), "array", false));
-		BaseObjectInfo[] attach = baseObjectInfo.value(BaseObjectInfo[].class);
+		BaseObjectInfo[] attach = baseObjectInfo.value();
 		StringBuilder b = new StringBuilder();
 		for(BaseObjectInfo i : attach)
-			b.append(i.value(Character.class));
+			b.append(i.value());
 
 		System.out.println(b);
 	}

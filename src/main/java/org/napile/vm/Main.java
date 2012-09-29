@@ -17,9 +17,6 @@
 package org.napile.vm;
 
 import org.apache.log4j.Logger;
-import org.napile.asm.lib.NapileLangPackage;
-import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -80,28 +77,18 @@ public class Main
 			return;
 		}
 
-		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY));
-		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING)));
-
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, typeNode);
+		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, VmUtil.ARRAY__STRING__);
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", typeNode);
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", VmUtil.ARRAY__STRING__);
 			return;
 		}
 
-		ClassInfo arrayClassInfo = vm.getClass(NapileLangPackage.ARRAY);
-
-		BaseObjectInfo arrayObject = vm.newObject(arrayClassInfo, new String[]{NapileLangPackage.INT.getFqName()}, VmUtil.convertToVm(vm, vmContext.getArguments().size()));
-		BaseObjectInfo[] arrayOfObjects = arrayObject.value(BaseObjectInfo[].class);
+		BaseObjectInfo arrayObject = vm.newObject(VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[] {VmUtil.convertToVm(vm, vmContext.getArguments().size())});
+		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < arrayOfObjects.length; i++)
 			arrayOfObjects[i] = VmUtil.convertToVm(vm, vmContext.getArguments().get(i));
 
 		vm.invoke(methodInfo, null, null, arrayObject);
-	}
-
-	public static boolean isSupported(int major, int minor)
-	{
-		return major >= 43 && minor >= 0;
 	}
 }

@@ -17,12 +17,14 @@
 package org.napile.vm.objects;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
-import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.tree.members.TypeParameterNode;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;
@@ -36,20 +38,30 @@ public final class BaseObjectInfo
 {
 	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
 
-	private BaseObjectInfo classObjectInfo; // object for 'java.lang.Class'
-	private Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
-	private ClassInfo classInfo;
+	private final Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
+
+	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
+
+	private final ClassInfo classInfo;
+
+	private final TypeNode typeNode;
 
 	private Object attach;
 
-	public BaseObjectInfo(@NotNull Vm vm, @NotNull FqName fqName)
-	{
-		this(vm, vm.getClass(fqName));
-	}
-
-	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo)
+	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo, @NotNull TypeNode typeNode)
 	{
 		this.classInfo = classInfo;
+		this.typeNode = typeNode;
+
+		Iterator<TypeParameterNode> it = classInfo.getTypeParameters().iterator();
+		Iterator<TypeNode> it2 = typeNode.arguments.iterator();
+		while(it.hasNext() && it2.hasNext())
+		{
+			TypeParameterNode t1 = it.next();
+			TypeNode t2 = it2.next();
+
+			getTypeArguments().put(t1.name, t2);
+		}
 
 		List<VariableInfo> variableInfos = VmUtil.collectAllFields(vm, classInfo);
 
@@ -62,17 +74,10 @@ public final class BaseObjectInfo
 		}
 	}
 
+	@NotNull
 	public ClassInfo getClassInfo()
 	{
 		return classInfo;
-	}
-
-	public BaseObjectInfo getClassObjectInfo(Vm vm)
-	{
-		if(classObjectInfo == null)
-			classObjectInfo = vm.getClassObjectInfo(getClassInfo());
-
-		return classObjectInfo;
 	}
 
 	public BaseObjectInfo getVarValue(@NotNull VariableInfo variableInfo)
@@ -93,23 +98,29 @@ public final class BaseObjectInfo
 	@Override
 	public String toString()
 	{
-		return "Object of " + classInfo.toString() + ". Value: " + attach;
+		return "Type: " + typeNode + ", value: " + attach;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T value(Class<? extends T> clazz)
+	public <T> T value()
 	{
 		return (T) attach;
 	}
 
-	public Object getAttach()
-	{
-		return attach;
-	}
-
-	public BaseObjectInfo setAttach(Object attach)
+	public BaseObjectInfo value(Object attach)
 	{
 		this.attach = attach;
 		return this;
+	}
+
+	@NotNull
+	public TypeNode getTypeNode()
+	{
+		return typeNode;
+	}
+
+	public Map<String, TypeNode> getTypeArguments()
+	{
+		return typeArguments;
 	}
 }

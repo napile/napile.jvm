@@ -36,7 +36,7 @@ public class DumpUtil
 	{
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
-		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append(" Value: ").append(valueToString(objectInfo.getAttach())).append('\n');
+		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append(" Value: ").append(valueToString(objectInfo.value())).append('\n');
 
 		builder.append("\tVariables:\n");
 		for(VariableInfo f : VmUtil.collectAllFields(vm, classInfo))

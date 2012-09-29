@@ -38,6 +38,12 @@ import org.napile.vm.util.AssertUtil;
  */
 public class VmUtil
 {
+	public static final TypeNode CHAR = new TypeNode(false, new ClassTypeNode(NapileLangPackage.CHAR));
+	public static final TypeNode INT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.INT));
+	public static final TypeNode STRING = new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING));
+	public static final TypeNode ARRAY__STRING__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STRING);
+	public static final TypeNode ARRAY__CHAR__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(CHAR);
+
 	private static final Logger LOGGER = Logger.getLogger(VmUtil.class);
 
 	public static void initBootStrap(Vm vm)
@@ -57,15 +63,17 @@ public class VmUtil
 		if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
-			BaseObjectInfo arrayObject = vm.newObject(vm.getClass(NapileLangPackage.ARRAY), new String[]{NapileLangPackage.INT.getFqName()}, new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(chars.length));
-			final BaseObjectInfo[] arrayAttach = arrayObject.value(BaseObjectInfo[].class);
+			BaseObjectInfo arrayObject = vm.newObject(ARRAY__CHAR__, varargTypes(INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, chars.length)});
+			final BaseObjectInfo[] arrayAttach = arrayObject.value();
 			for(int i = 0; i < chars.length; i++)
-				arrayAttach[i] = new BaseObjectInfo(vm, NapileLangPackage.CHAR).setAttach(chars[i]);
+				arrayAttach[i] = convertToVm(vm, chars[i]);
 
-			return vm.newObject(vm.getClass(NapileLangPackage.STRING), new String[] {"napile.lang.Array<napile.lang.Char>"}, arrayObject);
+			return vm.newObject(STRING, varargTypes(ARRAY__CHAR__), new BaseObjectInfo[] {arrayObject});
 		}
+		else if(value instanceof Character)
+			return vm.newObject(CHAR).value(value);
 		else if(value instanceof Integer)
-			return new BaseObjectInfo(vm, NapileLangPackage.INT).setAttach(value);
+			return vm.newObject(INT).value(value);
 		else
 			throw new UnsupportedOperationException(value.getClass().getName());
 	}
@@ -113,5 +121,10 @@ public class VmUtil
 
 			collectClasses(vm, superType, set);
 		}
+	}
+
+	public static TypeNode[] varargTypes(@NotNull TypeNode... a)
+	{
+		return a;
 	}
 }

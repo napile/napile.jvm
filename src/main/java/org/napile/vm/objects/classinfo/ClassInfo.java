@@ -29,6 +29,7 @@ import org.napile.asm.tree.members.ClassNode;
 import org.napile.asm.tree.members.ConstructorNode;
 import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.StaticConstructorNode;
+import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
@@ -88,6 +89,11 @@ public class ClassInfo implements ReflectInfo
 	public FqName getName()
 	{
 		return classNode.name;
+	}
+
+	public List<TypeParameterNode> getTypeParameters()
+	{
+		return classNode.typeParameters;
 	}
 
 	@Override

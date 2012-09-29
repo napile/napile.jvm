@@ -24,10 +24,11 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.io.text.in.type.TypeNodeUtil;
-import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
@@ -39,7 +40,6 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.util.CollectionUtil;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.util.ArrayUtil;
 
@@ -66,19 +66,6 @@ public class Vm
 	public ClassInfo getClass(FqName name)
 	{
 		return ClasspathUtil.getClassInfoOrParse(this, name);
-	}
-
-	public BaseObjectInfo getClassObjectInfo(ClassInfo classInfo)
-	{
-		BaseObjectInfo classObjectInfo = _initClasses.get(classInfo);
-		if(classObjectInfo == null)
-		{
-			classObjectInfo = newObject(getClass(NapileReflectPackage.CLASS), CollectionUtil.EMPTY_STRING_ARRAY, BaseObjectInfo.EMPTY_ARRAY);
-
-			_initClasses.put(classInfo, classObjectInfo);
-		}
-
-		return classObjectInfo;
 	}
 
 	public VariableInfo getField(ClassInfo info, String name, boolean deep)
@@ -146,17 +133,32 @@ public class Vm
 		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
-	public BaseObjectInfo newObject(ClassInfo classInfo, String[] constructorTypes, BaseObjectInfo... arguments)
+	@NotNull
+	public BaseObjectInfo newObject(@NotNull TypeNode typeNode)
 	{
-		initStatic(classInfo);
+		TypeConstructorNode typeConstructorNode = typeNode.typeConstructorNode;
+		if(typeConstructorNode instanceof ClassTypeNode)
+		{
+			ClassInfo classInfo = getClass(((ClassTypeNode) typeConstructorNode).className);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(classInfo, MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
+			initStatic(classInfo);
 
-		BaseObjectInfo classObjectInfo = new BaseObjectInfo(this, classInfo);
+			return new BaseObjectInfo(this, classInfo, typeNode);
+		}
+		else
+			throw new UnsupportedOperationException("This type constructor is cant be created by 'newObject' " + typeConstructorNode);
+	}
 
-		invoke(methodInfo, classObjectInfo, null, arguments);
+	@NotNull
+	public BaseObjectInfo newObject(@NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
+	{
+		BaseObjectInfo newObject = newObject(typeNode);
 
-		return classObjectInfo;
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
+
+		invoke(methodInfo, newObject, null, arguments);
+
+		return newObject;
 	}
 
 	public VmContext getVmContext()
