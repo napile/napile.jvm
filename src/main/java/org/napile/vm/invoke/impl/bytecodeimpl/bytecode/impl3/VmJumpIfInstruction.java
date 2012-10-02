@@ -5,6 +5,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -31,6 +32,8 @@ public class VmJumpIfInstruction extends VmInstruction<JumpIfInstruction>
 		BaseObjectInfo val = context.pop();
 		BaseObjectInfo condVal = context.pop();
 
+		if(!val.getTypeNode().equals(VmUtil.BOOL) || !condVal.getTypeNode().equals(VmUtil.BOOL))
+			throw new IllegalArgumentException();
 		isFailed = val != condVal;
 	}
 }

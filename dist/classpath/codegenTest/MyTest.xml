@@ -25,14 +25,19 @@
 			</parameter>
 		</parameters>
 		<code max_locals="2">
-			<load val="0"/>
-			<load val="1"/>
+			<load val="0">
+				<!--0-->
+			</load>
+			<load val="1">
+				<!--1-->
+			</load>
 			<put_to_variable>
 				<variable name="codegenTest.MyTest.c">
 					<type nullable="false">
 						<class_type name="napile.lang.Int"/>
 					</type>
 				</variable>
+				<!--2-->
 			</put_to_variable>
 		</code>
 	</method>
@@ -43,15 +48,20 @@
 			</type>
 		</return_type>
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<get_variable>
 				<variable name="codegenTest.MyTest.c">
 					<type nullable="false">
 						<class_type name="napile.lang.Int"/>
 					</type>
 				</variable>
+				<!--1-->
 			</get_variable>
-			<return/>
+			<return>
+				<!--2-->
+			</return>
 		</code>
 	</method>
 	<constructor>
@@ -59,7 +69,9 @@
 			<final/>
 		</modifiers>
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<invoke_special>
 				<method name="napile.lang.Any.this">
 					<return_type>
@@ -68,10 +80,17 @@
 						</type>
 					</return_type>
 				</method>
+				<!--1-->
 			</invoke_special>
-			<pop/>
-			<load val="0"/>
-			<new_int val="0"/>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<new_int val="0">
+				<!--4-->
+			</new_int>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.c$set">
 					<return_type>
@@ -85,8 +104,11 @@
 						</type>
 					</parameters>
 				</method>
+				<!--5-->
 			</invoke_virtual>
-			<load val="0"/>
+			<load val="0">
+				<!--6-->
+			</load>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.prev0">
 					<return_type>
@@ -95,14 +117,21 @@
 						</type>
 					</return_type>
 				</method>
+				<!--7-->
 			</invoke_virtual>
-			<load val="0"/>
-			<return/>
+			<load val="0">
+				<!--8-->
+			</load>
+			<return>
+				<!--9-->
+			</return>
 		</code>
 	</constructor>
 	<method name="myExpressionCodegen">
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.prev">
 					<return_type>
@@ -111,9 +140,14 @@
 						</type>
 					</return_type>
 				</method>
+				<!--1-->
 			</invoke_virtual>
-			<load val="0"/>
-			<load val="0"/>
+			<load val="0">
+				<!--2-->
+			</load>
+			<load val="0">
+				<!--3-->
+			</load>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.c$get">
 					<return_type>
@@ -122,8 +156,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--4-->
 			</invoke_virtual>
-			<new_int val="1"/>
+			<new_int val="1">
+				<!--5-->
+			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Int.plus">
 					<return_type>
@@ -137,6 +174,7 @@
 						</type>
 					</parameters>
 				</method>
+				<!--6-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.c$set">
@@ -151,8 +189,11 @@
 						</type>
 					</parameters>
 				</method>
+				<!--7-->
 			</invoke_virtual>
-			<load val="0"/>
+			<load val="0">
+				<!--8-->
+			</load>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.after">
 					<return_type>
@@ -161,6 +202,7 @@
 						</type>
 					</return_type>
 				</method>
+				<!--9-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -170,8 +212,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--10-->
 			</invoke_static>
-			<return/>
+			<return>
+				<!--11-->
+			</return>
 		</code>
 	</method>
 	<method name="prev0">
@@ -210,8 +255,11 @@
 				<type nullable="false">
 					<class_type name="codegenTest.MyTest"/>
 				</type>
+				<!--0-->
 			</new_object>
-			<dup/>
+			<dup>
+				<!--1-->
+			</dup>
 			<invoke_special>
 				<method name="codegenTest.MyTest.this">
 					<return_type>
@@ -220,10 +268,17 @@
 						</type>
 					</return_type>
 				</method>
+				<!--2-->
 			</invoke_special>
-			<pop/>
-			<store val="1"/>
-			<load val="1"/>
+			<pop>
+				<!--3-->
+			</pop>
+			<store val="1">
+				<!--4-->
+			</store>
+			<load val="1">
+				<!--5-->
+			</load>
 			<invoke_virtual>
 				<method name="codegenTest.MyTest.myExpressionCodegen">
 					<return_type>
@@ -232,6 +287,7 @@
 						</type>
 					</return_type>
 				</method>
+				<!--6-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -241,8 +297,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--7-->
 			</invoke_static>
-			<return/>
+			<return>
+				<!--8-->
+			</return>
 		</code>
 	</method>
 </class>

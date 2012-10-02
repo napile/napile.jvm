@@ -23,7 +23,9 @@
 			</parameter>
 		</parameters>
 		<code max_locals="1">
-			<new_string val="Hello world!!!"/>
+			<new_string val="Hello world!!!">
+				<!--0-->
+			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
 					<return_type>
@@ -37,36 +39,7 @@
 						</type>
 					</parameters>
 				</method>
-			</invoke_static>
-			<load val="0"/>
-			<new_int val="0"/>
-			<invoke_virtual>
-				<method name="napile.lang.Array.get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="true">
-							<class_type name="napile.lang.Any"/>
-						</type>
-					</parameters>
-				</method>
+				<!--1-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -76,8 +49,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--2-->
 			</invoke_static>
-			<return/>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 </class>

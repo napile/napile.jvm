@@ -39,6 +39,16 @@
 			<load val="1">
 				<!--2-->
 			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Bool.not">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
 					<return_type>
@@ -47,13 +57,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--3-->
+				<!--4-->
 			</invoke_static>
 			<jump_if val="8">
-				<!--4-->
-			</jump_if>
-			<new_string val="Hello world!!! : TRUE">
 				<!--5-->
+			</jump_if>
+			<new_string val="Hello world!!! : FALSE">
+				<!--6-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -68,12 +78,9 @@
 						</type>
 					</parameters>
 				</method>
-				<!--6-->
-			</invoke_static>
-			<jump val="10">
 				<!--7-->
-			</jump>
-			<new_string val="Hello world!!! : FALSE">
+			</invoke_static>
+			<new_string val="Hello world!!!">
 				<!--8-->
 			</new_string>
 			<invoke_static>
@@ -92,6 +99,53 @@
 				<!--9-->
 			</invoke_static>
 			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--10-->
+			</invoke_static>
+			<store val="1">
+				<!--11-->
+			</store>
+			<load val="1">
+				<!--12-->
+			</load>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--13-->
+			</invoke_static>
+			<jump_if val="17">
+				<!--14-->
+			</jump_if>
+			<new_string val="Hello world!!! : TRUE">
+				<!--15-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="true">
+							<class_type name="napile.lang.Any"/>
+						</type>
+					</parameters>
+				</method>
+				<!--16-->
+			</invoke_static>
+			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
 					<return_type>
 						<type nullable="false">
@@ -99,10 +153,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--10-->
+				<!--17-->
 			</invoke_static>
 			<return>
-				<!--11-->
+				<!--18-->
 			</return>
 		</code>
 	</method>

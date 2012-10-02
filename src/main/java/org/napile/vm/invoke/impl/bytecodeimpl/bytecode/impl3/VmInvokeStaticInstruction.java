@@ -27,6 +27,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ArrayUtil;
 
 /**
@@ -55,7 +56,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
 
-		AssertUtil.assertNull(methodInfo);
+		AssertUtil.assertFalse(methodInfo != null, "Method not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
 
 		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
 		for(int i = 0; i < methodInfo.getParameters().length; i++)

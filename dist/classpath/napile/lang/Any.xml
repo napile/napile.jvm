@@ -6,25 +6,14 @@
 			<final/>
 		</modifiers>
 		<code max_locals="1">
-			<load val="0"/>
-			<invoke_virtual>
-				<method name="napile.lang.Any.callFromConstructor">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-				</method>
-			</invoke_virtual>
-			<load val="0"/>
-			<return/>
+			<load val="0">
+				<!--0-->
+			</load>
+			<return>
+				<!--1-->
+			</return>
 		</code>
 	</constructor>
-	<method name="callFromConstructor">
-		<modifiers>
-			<native/>
-		</modifiers>
-	</method>
 	<method name="getClass">
 		<modifiers>
 			<native/>
@@ -32,6 +21,11 @@
 		<return_type>
 			<type nullable="false">
 				<class_type name="napile.reflect.Class"/>
+				<type_arguments>
+					<type nullable="false">
+						<class_type name="napile.lang.Any"/>
+					</type>
+				</type_arguments>
 			</type>
 		</return_type>
 	</method>
@@ -46,9 +40,6 @@
 		</return_type>
 		<parameters>
 			<parameter name="o">
-				<modifiers>
-					<final/>
-				</modifiers>
 				<type nullable="true">
 					<class_type name="napile.lang.Any"/>
 				</type>
@@ -62,8 +53,19 @@
 			</type>
 		</return_type>
 		<code max_locals="1">
-			<new_string val="toString"/>
-			<return/>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--0-->
+			</invoke_static>
+			<return>
+				<!--1-->
+			</return>
 		</code>
 	</method>
 	<method name="hashCode">
@@ -73,8 +75,19 @@
 			</type>
 		</return_type>
 		<code max_locals="1">
-			<new_int val="0"/>
-			<return/>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--0-->
+			</invoke_static>
+			<return>
+				<!--1-->
+			</return>
 		</code>
 	</method>
 </class>

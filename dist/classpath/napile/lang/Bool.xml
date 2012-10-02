@@ -283,6 +283,57 @@
 			</return>
 		</code>
 	</constructor>
+	<method name="not">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Bool"/>
+			</type>
+		</return_type>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_static>
+			<jump_if val="5">
+				<!--2-->
+			</jump_if>
+			<invoke_static>
+				<method name="napile.lang.Bool.FALSE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<jump val="6">
+				<!--4-->
+			</jump>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--5-->
+			</invoke_static>
+			<return>
+				<!--6-->
+			</return>
+		</code>
+	</method>
 	<method name="toString">
 		<return_type>
 			<type nullable="false">

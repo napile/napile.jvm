@@ -39,6 +39,7 @@ import org.napile.vm.util.AssertUtil;
 public class VmUtil
 {
 	public static final TypeNode CHAR = new TypeNode(false, new ClassTypeNode(NapileLangPackage.CHAR));
+	public static final TypeNode BOOL = new TypeNode(false, new ClassTypeNode(NapileLangPackage.BOOL));
 	public static final TypeNode INT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.INT));
 	public static final TypeNode STRING = new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING));
 	public static final TypeNode ARRAY__STRING__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STRING);
@@ -51,6 +52,7 @@ public class VmUtil
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ANY));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ARRAY));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.CHAR));
+		AssertUtil.assertNull(vm.getClass(NapileLangPackage.BOOL));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.STRING));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.INT));
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
