@@ -22,4 +22,10 @@ public class napile_lang_Int
 	{
 		return VmUtil.convertToVm(vm, objectInfo.value().equals(arg[0].value()));
 	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "toString", parameters = {})
+	public static BaseObjectInfo toString(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		return VmUtil.convertToVm(vm, objectInfo.value().toString());
+	}
 }

@@ -8,7 +8,7 @@ public class SystemTest
 	{
 		int b = 0;
 
-		while (b != 3)
+		do
 		{
 			if (b == 0)
 				Console.writeLine("b = 0");
@@ -17,9 +17,10 @@ public class SystemTest
 			if (b == 2)
 				Console.writeLine("b = 2") ;
 			if (b == 3)
-				Console.writeLine("b = 3") ;
+				Console.writeLine("b = 3");
 			b = b + 1;
 		}
+		while (b != 3);
 
 		Console.writeLine("End") ;
 	}
