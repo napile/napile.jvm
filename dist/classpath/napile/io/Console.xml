@@ -13,8 +13,8 @@
 		</modifiers>
 		<parameters>
 			<parameter name="value">
-				<type nullable="true">
-					<class_type name="napile.lang.Any"/>
+				<type nullable="false">
+					<class_type name="napile.lang.String"/>
 				</type>
 			</parameter>
 		</parameters>
