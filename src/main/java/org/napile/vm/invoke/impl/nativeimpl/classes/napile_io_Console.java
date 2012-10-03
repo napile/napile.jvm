@@ -11,7 +11,7 @@ import org.napile.vm.vm.Vm;
  */
 public class napile_io_Console
 {
-	@NativeImplement(className = "napile.io.Console", methodName = "writeLine", parameters = {"napile.lang.Any?"})
+	@NativeImplement(className = "napile.io.Console", methodName = "writeLine", parameters = {"napile.lang.String"})
 	public static void writeLine(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
 		BaseObjectInfo val = arg[0];

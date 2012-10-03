@@ -76,91 +76,8 @@
 			<load val="1">
 				<!--8-->
 			</load>
-			<new_int val="2">
-				<!--9-->
-			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.Int.mod">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--10-->
-			</invoke_virtual>
-			<new_int val="0">
-				<!--11-->
-			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.Int.equals">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="true">
-							<class_type name="napile.lang.Any"/>
-						</type>
-					</parameters>
-				</method>
-				<!--12-->
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--13-->
-			</invoke_static>
-			<jump_if val="19">
-				<!--14-->
-			</jump_if>
-			<load val="1">
-				<!--15-->
-			</load>
-			<invoke_virtual>
-				<method name="napile.lang.Int.toString">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</return_type>
-				</method>
-				<!--16-->
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--17-->
-			</invoke_static>
-			<jump val="24">
-				<!--18-->
-			</jump>
-			<load val="1">
-				<!--19-->
-			</load>
 			<new_int val="1">
-				<!--20-->
+				<!--9-->
 			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Int.plus">
@@ -175,11 +92,94 @@
 						</type>
 					</parameters>
 				</method>
-				<!--21-->
+				<!--10-->
 			</invoke_virtual>
 			<store val="1">
-				<!--22-->
+				<!--11-->
 			</store>
+			<load val="1">
+				<!--12-->
+			</load>
+			<new_int val="2">
+				<!--13-->
+			</new_int>
+			<invoke_virtual>
+				<method name="napile.lang.Int.mod">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--14-->
+			</invoke_virtual>
+			<new_int val="0">
+				<!--15-->
+			</new_int>
+			<invoke_virtual>
+				<method name="napile.lang.Int.equals">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="true">
+							<class_type name="napile.lang.Any"/>
+						</type>
+					</parameters>
+				</method>
+				<!--16-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--17-->
+			</invoke_static>
+			<jump_if val="23">
+				<!--18-->
+			</jump_if>
+			<load val="1">
+				<!--19-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Int.toString">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--20-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--21-->
+			</invoke_static>
+			<jump val="2">
+				<!--22-->
+			</jump>
 			<jump val="2">
 				<!--23-->
 			</jump>
