@@ -20,15 +20,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/dist/lib/trove-3.0.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="dom4j" level="project" />
     <orderEntry type="library" name="napile.asm" level="project" />
     <orderEntry type="library" name="idea-sdk" level="project" />
@@ -36,6 +27,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/dist/lib/antlr-4.0ea-complete.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/dist/lib/junit-4.10.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
