@@ -17,6 +17,12 @@ public class napile_lang_Int
 		return VmUtil.convertToVm(vm, (Integer) objectInfo.value() + ((Integer)arg[0].value()));
 	}
 
+	@NativeImplement(className = "napile.lang.Int", methodName = "minus", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo minus(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		return VmUtil.convertToVm(vm, (Integer) objectInfo.value() - ((Integer)arg[0].value()));
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "mod", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo mod(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{

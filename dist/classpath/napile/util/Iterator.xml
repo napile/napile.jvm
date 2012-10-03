@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="napile.util.Iterator">
+	<modifiers>
+		<abstract/>
+	</modifiers>
+	<type_parameters>
+		<type_parameter name="E">
+			<extends>
+				<type nullable="true">
+					<class_type name="napile.lang.Any"/>
+				</type>
+			</extends>
+		</type_parameter>
+	</type_parameters>
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_special>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<return>
+				<!--4-->
+			</return>
+		</code>
+	</constructor>
+	<method name="hasNext">
+		<modifiers>
+			<abstract/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Bool"/>
+			</type>
+		</return_type>
+	</method>
+	<method name="next">
+		<modifiers>
+			<abstract/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<type_parameter_value_type name="E"/>
+			</type>
+		</return_type>
+	</method>
+</class>

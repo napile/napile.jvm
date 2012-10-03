@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
@@ -60,9 +61,25 @@ public class VmUtil
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static BaseObjectInfo convertToVm(@NotNull Vm vm, Object value)
+	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @Nullable Object value)
 	{
-		if(value instanceof String)
+		if(value == null)
+		{
+			ClassInfo classInfo = vm.getClass(NapileLangPackage.NULL);
+			vm.initStaticIfNeed(classInfo);
+
+			VariableInfo variableInfo = null;
+			for(VariableInfo v : classInfo.getVariables())
+			{
+				if(v.getShortName().equals("INSTANCE"))
+					variableInfo = v;
+			}
+
+			AssertUtil.assertNull(variableInfo);
+
+			return variableInfo.getStaticValue();
+		}
+		else if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
 			BaseObjectInfo arrayObject = vm.newObject(ARRAY__CHAR__, varargTypes(INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, chars.length)});

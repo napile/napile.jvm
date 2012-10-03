@@ -5,6 +5,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -22,6 +23,8 @@ public class napile_lang_Array
 		BaseObjectInfo varValue = objectInfo.getVarValue(variableInfo);
 
 		BaseObjectInfo[] values = new BaseObjectInfo[(Integer)varValue.value()];
+		for(int i = 0; i < values.length; i++)
+			values[i] = VmUtil.convertToVm(vm, null);
 
 		objectInfo.value(values);
 	}

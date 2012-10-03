@@ -15,13 +15,18 @@ public class napile_io_Console
 	public static void writeLine(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
 		BaseObjectInfo val = arg[0];
+		//TODO [VISTALL] remove this hack
+		if(val.getClassInfo().getName().equals(NapileLangPackage.NULL))
+			System.out.println("null");
+		else
+		{
+			BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.getClass(NapileLangPackage.STRING), "array", false));
+			BaseObjectInfo[] attach = baseObjectInfo.value();
+			StringBuilder b = new StringBuilder();
+			for(BaseObjectInfo i : attach)
+				b.append(i.value());
 
-		BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.getClass(NapileLangPackage.STRING), "array", false));
-		BaseObjectInfo[] attach = baseObjectInfo.value();
-		StringBuilder b = new StringBuilder();
-		for(BaseObjectInfo i : attach)
-			b.append(i.value());
-
-		System.out.println(b);
+			System.out.println(b);
+		}
 	}
 }

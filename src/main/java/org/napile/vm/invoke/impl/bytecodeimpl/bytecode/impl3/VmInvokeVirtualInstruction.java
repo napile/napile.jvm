@@ -23,7 +23,6 @@ import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
-import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
@@ -52,19 +51,19 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
-
-		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, true, parameters);
-
-		AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
-
-		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
-		for(int i = 0; i < methodInfo.getParameters().length; i++)
+		BaseObjectInfo[] arguments = new BaseObjectInfo[instruction.methodRef.parameters.size()];
+		for(int i = 0; i < arguments.length; i++)
 			arguments[i] = context.pop();
 
 		arguments = ArrayUtil.reverseArray(arguments);
 
 		BaseObjectInfo objectInfo = context.pop();
+
+		MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
+
+		AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
+
+		methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
 		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments);
 

@@ -130,6 +130,9 @@ public class Vm
 
 		AssertUtil.assertNull(invokeType);
 
+		if(methodInfo.hasModifier(Modifier.ABSTRACT))
+			AssertUtil.assertString("Trying to invoke 'abstract' method: " + methodInfo);
+
 		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
 	}
 
