@@ -31,13 +31,16 @@
 			</parameter>
 		</parameters>
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<put_to_static_variable>
 				<variable name="napile.lang.Null.INSTANCE">
 					<type nullable="false">
 						<class_type name="napile.lang.Null"/>
 					</type>
 				</variable>
+				<!--1-->
 			</put_to_static_variable>
 		</code>
 	</method>
@@ -45,6 +48,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="0">
 			<get_static_variable>
 				<variable name="napile.lang.Null.INSTANCE">
@@ -52,8 +60,11 @@
 						<class_type name="napile.lang.Null"/>
 					</type>
 				</variable>
+				<!--0-->
 			</get_static_variable>
-			<return/>
+			<return>
+				<!--1-->
+			</return>
 		</code>
 	</method>
 	<constructor>
@@ -62,7 +73,9 @@
 			<final/>
 		</modifiers>
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<invoke_special>
 				<method name="napile.lang.Any.this">
 					<return_type>
@@ -71,20 +84,45 @@
 						</type>
 					</return_type>
 				</method>
+				<!--1-->
 			</invoke_special>
-			<pop/>
-			<load val="0"/>
-			<return/>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<return>
+				<!--4-->
+			</return>
 		</code>
 	</constructor>
+	<method name="toString">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.String"/>
+			</type>
+		</return_type>
+		<code max_locals="1">
+			<new_string val="null">
+				<!--0-->
+			</new_string>
+			<return>
+				<!--1-->
+			</return>
+		</code>
+	</method>
 	<static_constructor>
 		<code max_locals="0">
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Null"/>
 				</type>
+				<!--0-->
 			</new_object>
-			<dup/>
+			<dup>
+				<!--1-->
+			</dup>
 			<invoke_special>
 				<method name="napile.lang.Null.this">
 					<return_type>
@@ -93,8 +131,11 @@
 						</type>
 					</return_type>
 				</method>
+				<!--2-->
 			</invoke_special>
-			<pop/>
+			<pop>
+				<!--3-->
+			</pop>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$set">
 					<return_type>
@@ -108,6 +149,7 @@
 						</type>
 					</parameters>
 				</method>
+				<!--4-->
 			</invoke_static>
 		</code>
 	</static_constructor>

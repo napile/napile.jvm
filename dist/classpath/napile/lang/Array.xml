@@ -204,7 +204,7 @@
 	<method name="iterator">
 		<return_type>
 			<type nullable="false">
-				<class_type name="napile.lang.ArrayIterator"/>
+				<class_type name="napile.util.Iterator"/>
 				<type_arguments>
 					<type nullable="false">
 						<type_parameter_value_type name="E"/>
