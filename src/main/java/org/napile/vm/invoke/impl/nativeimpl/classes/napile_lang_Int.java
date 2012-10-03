@@ -16,4 +16,10 @@ public class napile_lang_Int
 	{
 		return VmUtil.convertToVm(vm, (Integer) objectInfo.value() + ((Integer)arg[0].value()));
 	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "equals", parameters = {"napile.lang.Any?"})
+	public static BaseObjectInfo equals(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		return VmUtil.convertToVm(vm, objectInfo.value().equals(arg[0].value()));
+	}
 }

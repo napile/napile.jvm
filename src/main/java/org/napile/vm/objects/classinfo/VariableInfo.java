@@ -55,6 +55,11 @@ public class VariableInfo implements ReflectInfo
 		return parent.getName().child(Name.identifier(variableNode.name));
 	}
 
+	public String getShortName()
+	{
+		return variableNode.name;
+	}
+
 	@Override
 	public boolean hasModifier(@NotNull Modifier modifier)
 	{

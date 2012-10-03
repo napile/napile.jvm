@@ -76,6 +76,23 @@ public class VmUtil
 			return vm.newObject(CHAR).value(value);
 		else if(value instanceof Integer)
 			return vm.newObject(INT).value(value);
+		else if(value instanceof Boolean)
+		{
+			ClassInfo classInfo = vm.getClass(NapileLangPackage.BOOL);
+			vm.initStaticIfNeed(classInfo);
+
+			String name = value.toString().toUpperCase();
+			VariableInfo variableInfo = null;
+			for(VariableInfo v : classInfo.getVariables())
+			{
+				if(v.getShortName().equals(name))
+					variableInfo = v;
+			}
+
+			AssertUtil.assertNull(variableInfo);
+
+			return variableInfo.getStaticValue();
+		}
 		else
 			throw new UnsupportedOperationException(value.getClass().getName());
 	}

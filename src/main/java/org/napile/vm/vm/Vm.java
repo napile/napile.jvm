@@ -121,7 +121,7 @@ public class Vm
 
 	public void invoke(MethodInfo methodInfo, BaseObjectInfo object, InterpreterContext context, BaseObjectInfo... argument)
 	{
-		initStatic(methodInfo.getParent());
+		initStaticIfNeed(methodInfo.getParent());
 
 		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
 			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && object != null || !methodInfo.hasModifier(Modifier.STATIC) && object == null);
@@ -141,7 +141,7 @@ public class Vm
 		{
 			ClassInfo classInfo = getClass(((ClassTypeNode) typeConstructorNode).className);
 
-			initStatic(classInfo);
+			initStaticIfNeed(classInfo);
 
 			return new BaseObjectInfo(this, classInfo, typeNode);
 		}
@@ -205,10 +205,10 @@ public class Vm
 	public MethodInfo getMethod0(ClassInfo info, String name, boolean deep, TypeNode[] params)
 	{
 		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMethods(this, info) : info.getMethods();
-		FqName methodName = info.getName().child(Name.identifier(name));
+
 		for(MethodInfo methodInfo : methodInfos)
 		{
-			if(!methodInfo.getName().equals(methodName))
+			if(!methodInfo.getName().shortName().getName().equals(name))
 				continue;
 
 			if(!Comparing.equal(params, methodInfo.getParameters()))
@@ -219,7 +219,7 @@ public class Vm
 		return null;
 	}
 
-	private synchronized void initStatic(@NotNull ClassInfo parent)
+	public synchronized void initStaticIfNeed(@NotNull ClassInfo parent)
 	{
 		if(!parent.isStaticConstructorCalled())
 		{

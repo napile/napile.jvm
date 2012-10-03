@@ -258,18 +258,8 @@
 			<pop>
 				<!--4-->
 			</pop>
-			<invoke_static>
-				<method name="napile.lang.Null.INSTANCE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-				</method>
-				<!--5-->
-			</invoke_static>
 			<return>
-				<!--6-->
+				<!--5-->
 			</return>
 		</code>
 	</method>

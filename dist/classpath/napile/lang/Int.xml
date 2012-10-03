@@ -12,7 +12,9 @@
 			<final/>
 		</modifiers>
 		<code max_locals="1">
-			<load val="0"/>
+			<load val="0">
+				<!--0-->
+			</load>
 			<invoke_special>
 				<method name="napile.lang.Any.this">
 					<return_type>
@@ -21,12 +23,36 @@
 						</type>
 					</return_type>
 				</method>
+				<!--1-->
 			</invoke_special>
-			<pop/>
-			<load val="0"/>
-			<return/>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<return>
+				<!--4-->
+			</return>
 		</code>
 	</constructor>
+	<method name="test">
+		<code max_locals="1">
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--0-->
+			</invoke_static>
+			<return>
+				<!--1-->
+			</return>
+		</code>
+	</method>
 	<method name="rangeTo">
 		<return_type>
 			<type nullable="false">
@@ -45,7 +71,7 @@
 				</type>
 			</parameter>
 		</parameters>
-		<code max_locals="2">
+		<code max_locals="5">
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -55,9 +81,32 @@
 						</type>
 					</type_arguments>
 				</type>
+				<!--0-->
 			</new_object>
-			<dup/>
-			<new_int val="1"/>
+			<dup>
+				<!--1-->
+			</dup>
+			<load val="0">
+				<!--2-->
+			</load>
+			<load val="1">
+				<!--3-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Int.minus">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--4-->
+			</invoke_virtual>
 			<invoke_special>
 				<method name="napile.lang.Array.this">
 					<return_type>
@@ -76,9 +125,42 @@
 						</type>
 					</parameters>
 				</method>
+				<!--5-->
 			</invoke_special>
-			<pop/>
-			<return/>
+			<pop>
+				<!--6-->
+			</pop>
+			<store val="2">
+				<!--7-->
+			</store>
+			<new_int val="0">
+				<!--8-->
+			</new_int>
+			<store val="3">
+				<!--9-->
+			</store>
+			<load val="0">
+				<!--10-->
+			</load>
+			<store val="4">
+				<!--11-->
+			</store>
+			<load val="2">
+				<!--12-->
+			</load>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--13-->
+			</invoke_static>
+			<return>
+				<!--14-->
+			</return>
 		</code>
 	</method>
 	<method name="inc">
@@ -121,6 +203,40 @@
 			<parameter name="value">
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+	<method name="compareTo">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
+	<method name="equals">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Bool"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="o">
+				<type nullable="true">
+					<class_type name="napile.lang.Any"/>
 				</type>
 			</parameter>
 		</parameters>

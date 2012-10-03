@@ -3,6 +3,7 @@ package org.napile.vm.invoke.impl.nativeimpl.classes;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -10,9 +11,9 @@ import org.napile.vm.vm.Vm;
  */
 public class napile_lang_Any
 {
-	@NativeImplement(className = "napile.lang.Any", methodName = "callFromConstructor", parameters = {})
-	public static void callFromConstructor(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	@NativeImplement(className = "napile.lang.Any", methodName = "fullyEquals", parameters = {"napile.lang.Any?"})
+	public static BaseObjectInfo fullyEquals(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
 	{
-	//	System.out.println(NapileLangPackage.ANY + ".callFromConstructor()");
+		return VmUtil.convertToVm(vm, objectInfo.hashCode() == arg[0].hashCode());
 	}
 }
