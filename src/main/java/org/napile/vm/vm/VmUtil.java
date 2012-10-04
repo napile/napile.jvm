@@ -29,6 +29,7 @@ import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -63,6 +64,8 @@ public class VmUtil
 		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
+
+		NativeWrapper.initAll(vm);
 	}
 
 	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @NotNull InterpreterContext context, @Nullable Object value)

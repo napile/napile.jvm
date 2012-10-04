@@ -36,6 +36,7 @@ import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.nativeimpl.NativeMethodRef;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -53,12 +54,12 @@ public class Vm
 {
 	private static final Logger LOGGER = Logger.getLogger(Vm.class);
 
-	private VmContext _vmContext;
+	private final VmContext _vmContext;
 
-	private JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
+	private final JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
 	private JClassLoader _currentClassLoader = _bootClassLoader;
 
-	private Map<ClassInfo, BaseObjectInfo> _initClasses = new HashMap<ClassInfo, BaseObjectInfo>();
+	private final Map<ClassInfo, List<NativeMethodRef>> nativeWrappers = new HashMap<ClassInfo, List<NativeMethodRef>>();
 
 	public Vm(VmContext vmContext)
 	{
@@ -281,5 +282,10 @@ public class Vm
 				}
 			}
 		}
+	}
+
+	public Map<ClassInfo, List<NativeMethodRef>> getNativeWrappers()
+	{
+		return nativeWrappers;
 	}
 }

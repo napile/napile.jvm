@@ -19,9 +19,7 @@ package org.napile.vm.invoke.impl.nativeimpl;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.napile.asm.io.text.in.type.TypeNodeUtil;
 import org.napile.asm.resolve.name.FqName;
@@ -44,8 +42,6 @@ import com.intellij.openapi.util.Comparing;
  */
 public class NativeWrapper
 {
-	private static Map<ClassInfo, List<NativeMethodRef>> WRAPPERS = new HashMap<ClassInfo, List<NativeMethodRef>>();
-
 	public static void initAll(Vm vm)
 	{
 		register(vm, napile_lang_Int.class);
@@ -72,9 +68,9 @@ public class NativeWrapper
 
 			final ClassInfo classInfo = vm.getClass(className);
 
-			List<NativeMethodRef> list = WRAPPERS.get(classInfo);
+			List<NativeMethodRef> list = vm.getNativeWrappers().get(classInfo);
 			if(list == null)
-				WRAPPERS.put(classInfo, list = new ArrayList<NativeMethodRef>());
+				vm.getNativeWrappers().put(classInfo, list = new ArrayList<NativeMethodRef>());
 
 			int i = 0;
 			TypeNode[] params = new TypeNode[nativeImplement.parameters().length];
@@ -87,9 +83,9 @@ public class NativeWrapper
 		}
 	}
 
-	public static NativeMethodRef getMethod(ClassInfo classInfo, FqName name, TypeNode[] params)
+	public static NativeMethodRef getMethod(Vm vm, ClassInfo classInfo, FqName name, TypeNode[] params)
 	{
-		List<NativeMethodRef> nativeMethodRefs = WRAPPERS.get(classInfo);
+		List<NativeMethodRef> nativeMethodRefs = vm.getNativeWrappers().get(classInfo);
 		if(nativeMethodRefs == null)
 			return null;
 

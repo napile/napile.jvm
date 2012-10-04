@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -133,6 +133,14 @@ public class CodegenTest
 		runMain("classAndTypeTest.GenericInMethod");
 	}
 
+	@BeforeClass
+	public static void before()
+	{
+		Log4JHelper.load();
+
+		BundleUtil.getInstance();
+	}
+
 	public static void runMain(String str)
 	{
 		List<String> arg = new ArrayList<String>();
@@ -140,16 +148,13 @@ public class CodegenTest
 		arg.add("dist/classpath");
 		arg.add("codegenTest." + str);
 
-		Log4JHelper.load();
-
-		BundleUtil.getInstance();
-
 		CLProcessor p = new CLProcessor(arg.toArray(new String[arg.size()]));
 
 		VmContext vmContext = new VmContext();
 		Vm vm = new Vm(vmContext);
 
 		p.process(vm);
+
 		if(vmContext.getMainClass() == null)
 		{
 			BundleUtil.exitAbnormal(null, "main.class.not.found");
@@ -157,8 +162,6 @@ public class CodegenTest
 		}
 
 		VmUtil.initBootStrap(vm);
-
-		NativeWrapper.initAll(vm);
 
 		ClassInfo mainClass = vm.getClass(vmContext.getMainClass());
 		if(mainClass == null)

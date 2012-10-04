@@ -44,7 +44,7 @@ public class NativeInvokeType implements InvokeType
 		StackEntry entry = context.getLastStack();
 
 		MethodInfo methodInfo = entry.getMethodInfo();
-		NativeMethodRef nativeMethodRef = NativeWrapper.getMethod(methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
+		NativeMethodRef nativeMethodRef = NativeWrapper.getMethod(vm, methodInfo.getParent(), methodInfo.getName(), methodInfo.getParameters());
 		if(nativeMethodRef == null)
 		{
 			LOGGER.info("NativeMethod not implemented: " + context.getLastStack().getMethodInfo().toString());
