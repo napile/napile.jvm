@@ -16,6 +16,7 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 
+import org.jetbrains.annotations.NotNull;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.vm.Vm;
 
@@ -29,9 +30,10 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 
 	private int _arrayIndex;
 
-	protected final E instruction;
+	@NotNull
+	public final E instruction;
 
-	public VmInstruction(E instruction)
+	public VmInstruction(@NotNull E instruction)
 	{
 		this.instruction = instruction;
 	}

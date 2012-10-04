@@ -64,11 +64,11 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		arguments = ArrayUtil.reverseArray(arguments);
 
-		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments);
+		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments, instruction.methodRef.typeArguments);
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(methodInfo, null, context, BaseObjectInfo.EMPTY_ARRAY);
+		vm.invoke(context);
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry.getReturnValue() != null)

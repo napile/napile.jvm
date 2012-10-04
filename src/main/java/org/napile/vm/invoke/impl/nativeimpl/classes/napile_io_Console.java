@@ -1,6 +1,7 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
 import org.napile.asm.lib.NapileLangPackage;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
@@ -12,9 +13,9 @@ import org.napile.vm.vm.Vm;
 public class napile_io_Console
 {
 	@NativeImplement(className = "napile.io.Console", methodName = "writeLine", parameters = {"napile.lang.String"})
-	public static void writeLine(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	public static void writeLine(Vm vm, InterpreterContext context)
 	{
-		BaseObjectInfo val = arg[0];
+		BaseObjectInfo val = context.getLastStack().getArguments()[0];
 		//TODO [VISTALL] remove this hack
 		if(val.getClassInfo().getName().equals(NapileLangPackage.NULL))
 			System.out.println("null");

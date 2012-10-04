@@ -17,12 +17,14 @@
 package org.napile.vm.objects.classinfo;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.LikeMethodNode;
+import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.bytecode.Instruction;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.InvokeType;
@@ -139,6 +141,11 @@ public class MethodInfo implements ReflectInfo
 		b.append(")");
 		b.append(" : ").append(getReturnType()).append(" ");
 		return b.toString();
+	}
+
+	public List<TypeParameterNode> getTypeParameters()
+	{
+		return methodNode.typeParameters;
 	}
 
 	public InvokeType getInvokeType()

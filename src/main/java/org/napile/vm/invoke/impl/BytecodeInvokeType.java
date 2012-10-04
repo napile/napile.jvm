@@ -86,7 +86,7 @@ public class BytecodeInvokeType implements InvokeType
 		LOGGER.info("-----------------------------------");
 		LOGGER.info("Instructions:");
 		for(int j = 0; j < _instructions.length; j++)
-		LOGGER.info("" + _instructions[j]  + ((errorIndex == j) ? " ERROR: " + e.getMessage() : ""));
+		LOGGER.info("" + _instructions[j].instruction + ((errorIndex == j) ? " ERROR: " + e.getMessage() : ""));
 		if(e != null)
 			e.printStackTrace();
 

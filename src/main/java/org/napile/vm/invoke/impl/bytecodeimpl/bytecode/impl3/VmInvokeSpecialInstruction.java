@@ -66,11 +66,11 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 
 		BaseObjectInfo objectInfo = context.pop();
 
-		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments);
+		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(methodInfo, objectInfo, context, BaseObjectInfo.EMPTY_ARRAY);
+		vm.invoke(context);
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry.getReturnValue() != null)

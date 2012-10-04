@@ -1,5 +1,6 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
@@ -14,8 +15,10 @@ import org.napile.vm.vm.VmUtil;
 public class napile_lang_String
 {
 	@NativeImplement(className = "napile.lang.String", methodName = "toString", parameters = {})
-	public static BaseObjectInfo toString(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	public static BaseObjectInfo toString(Vm vm, InterpreterContext context)
 	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
 		VariableInfo variableInfo = vm.getField(objectInfo.getClassInfo(), "array", false);
 
 		AssertUtil.assertNull(variableInfo);
@@ -28,6 +31,6 @@ public class napile_lang_String
 		// iterate BaseObjectInfo of Char
 		for(BaseObjectInfo o : array)
 			b.append(o.value());
-		return VmUtil.convertToVm(vm, b.toString());
+		return VmUtil.convertToVm(vm, context, b.toString());
 	}
 }

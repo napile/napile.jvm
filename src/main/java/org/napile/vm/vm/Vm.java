@@ -16,6 +16,7 @@
 
 package org.napile.vm.vm;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,12 +121,18 @@ public class Vm
 		return getMethod0(info, name, deep, params);
 	}
 
-	public void invoke(MethodInfo methodInfo, BaseObjectInfo object, InterpreterContext context, BaseObjectInfo... argument)
+	public void invoke(@NotNull InterpreterContext context)
 	{
+		StackEntry stackEntry = context.getLastStack();
+
+		MethodInfo methodInfo = stackEntry.getMethodInfo();
+
+		BaseObjectInfo objectInfo = stackEntry.getObjectInfo();
+
 		initStaticIfNeed(methodInfo.getParent());
 
 		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
-			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && object != null || !methodInfo.hasModifier(Modifier.STATIC) && object == null);
+			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && objectInfo != null || !methodInfo.hasModifier(Modifier.STATIC) && objectInfo == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
 
@@ -134,7 +141,7 @@ public class Vm
 		if(methodInfo.hasModifier(Modifier.ABSTRACT))
 			AssertUtil.assertString("Trying to invoke 'abstract' method: " + methodInfo);
 
-		invokeType.call(this, context == null ? new InterpreterContext(new StackEntry(object, methodInfo, argument)) : context);
+		invokeType.call(this, context);
 	}
 
 	@NotNull
@@ -154,30 +161,38 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo newObject(@NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo... arguments)
+	public BaseObjectInfo newObject(@NotNull InterpreterContext context, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
-		invoke(methodInfo, newObject, null, arguments);
+		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, Collections.<TypeNode>emptyList());
+
+		context.getStack().add(stackEntry);
+
+		invoke(context);
+
+		context.getStack().pollLast();
+		//if(stackEntry.getReturnValue() != null)
+		//	context.push(stackEntry.getReturnValue());
 
 		return newObject;
 	}
 
 	@NotNull
-	public BaseObjectInfo getOrCreateClassObject(@NotNull ClassInfo classInfo)
+	public BaseObjectInfo getOrCreateClassObject(@NotNull InterpreterContext context,@NotNull ClassInfo classInfo)
 	{
 		BaseObjectInfo objectInfo = classInfo.getClassObjectInfo();
 		if(objectInfo != null)
 			return objectInfo;
 
-		BaseObjectInfo fqName = VmUtil.convertToVm(this, classInfo.getName().getFqName());
+		BaseObjectInfo fqName = VmUtil.convertToVm(this, context, classInfo.getName().getFqName());
 
 		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
 		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getName())));
 
-		BaseObjectInfo classObjectInfo = newObject(typeNode, VmUtil.varargTypes(VmUtil.STRING), fqName);
+		BaseObjectInfo classObjectInfo = newObject(context, typeNode, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[] {fqName});
 		classInfo.setClassObjectInfo(classObjectInfo);
 		return classObjectInfo;
 	}
@@ -261,14 +276,8 @@ public class Vm
 				if(methodInfo != null)
 				{
 					LOGGER.debug("Static constructor call: " + ownerClassInfo);
-					StackEntry stackEntry = new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY);
-					InterpreterContext contextMain = /*context == null ?*/ new InterpreterContext(stackEntry);// : context;
-					//if(context == null)
-					//	contextMain.getStack().add(stackEntry);
 
-					invoke(methodInfo, null, contextMain, BaseObjectInfo.EMPTY_ARRAY);
-
-					//contextMain.getStack().pollLast();
+					invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())));
 				}
 			}
 		}

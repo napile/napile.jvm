@@ -16,8 +16,13 @@
 
 package org.napile.vm;
 
+import java.util.Collections;
+
 import org.apache.log4j.Logger;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.commons.logging.Log4JHelper;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
@@ -84,11 +89,13 @@ public class Main
 			return;
 		}
 
-		BaseObjectInfo arrayObject = vm.newObject(VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[] {VmUtil.convertToVm(vm, vmContext.getArguments().size())});
+		InterpreterContext interpreterContext = new InterpreterContext();
+
+		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().size())});
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < arrayOfObjects.length; i++)
-			arrayOfObjects[i] = VmUtil.convertToVm(vm, vmContext.getArguments().get(i));
+			arrayOfObjects[i] = VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().get(i));
 
-		vm.invoke(methodInfo, null, null, arrayObject);
+		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())));
 	}
 }

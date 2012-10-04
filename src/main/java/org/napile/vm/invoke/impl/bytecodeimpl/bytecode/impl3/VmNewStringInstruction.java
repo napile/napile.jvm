@@ -36,6 +36,6 @@ public class VmNewStringInstruction extends VmInstruction<NewStringInstruction>
 	@Override
 	public void call(Vm vm, InterpreterContext context)
 	{
-		context.push(VmUtil.convertToVm(vm, instruction.value));
+		context.push(VmUtil.convertToVm(vm, context, instruction.value));
 	}
 }

@@ -38,6 +38,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 	private FqName className;
 	private String methodName;
 	private TypeNode[] parameters;
+	private TypeNode[] typeArguments;
 
 	public VmInvokeVirtualInstruction(InvokeVirtualInstruction instruction)
 	{
@@ -46,6 +47,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		className = instruction.methodRef.method.parent();
 		methodName = instruction.methodRef.method.shortName().getName();
 		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+		typeArguments = instruction.methodRef.typeArguments.toArray(new TypeNode[instruction.methodRef.typeArguments.size()]);
 	}
 
 	@Override
@@ -65,11 +67,11 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 
 		methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
-		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments);
+		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(methodInfo, objectInfo, context, BaseObjectInfo.EMPTY_ARRAY);
+		vm.invoke(context);
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry.getReturnValue() != null)

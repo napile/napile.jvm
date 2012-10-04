@@ -28,6 +28,7 @@ import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -64,7 +65,7 @@ public class VmUtil
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 	}
 
-	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @Nullable Object value)
+	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @NotNull InterpreterContext context, @Nullable Object value)
 	{
 		if(value == null)
 		{
@@ -85,12 +86,12 @@ public class VmUtil
 		else if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
-			BaseObjectInfo arrayObject = vm.newObject(ARRAY__CHAR__, varargTypes(INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, chars.length)});
+			BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__CHAR__, varargTypes(INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, chars.length)});
 			final BaseObjectInfo[] arrayAttach = arrayObject.value();
 			for(int i = 0; i < chars.length; i++)
-				arrayAttach[i] = convertToVm(vm, chars[i]);
+				arrayAttach[i] = convertToVm(vm, context, chars[i]);
 
-			return vm.newObject(STRING, varargTypes(ARRAY__CHAR__), new BaseObjectInfo[] {arrayObject});
+			return vm.newObject(context, STRING, varargTypes(ARRAY__CHAR__), new BaseObjectInfo[] {arrayObject});
 		}
 		else if(value instanceof Character)
 			return vm.newObject(CHAR).value(value);

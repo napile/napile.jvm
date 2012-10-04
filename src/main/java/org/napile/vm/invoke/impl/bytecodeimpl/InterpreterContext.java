@@ -18,8 +18,10 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
 
 /**
@@ -49,6 +51,20 @@ public class InterpreterContext
 		StackEntry last = getLastStack();
 
 		return last.pop();
+	}
+
+	public TypeNode searchTypeParameterValue(@NotNull String name)
+	{
+		Iterator<StackEntry> iterator = entries.descendingIterator();
+		while(iterator.hasNext())
+		{
+			StackEntry stackEntry = iterator.next();
+
+			TypeNode typeNode = stackEntry.getTypeParameterValue(name);
+			if(typeNode != null)
+				return typeNode;
+		}
+		return null;
 	}
 
 	public StackEntry getLastStack()

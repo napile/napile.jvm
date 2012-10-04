@@ -8,7 +8,6 @@ import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
-import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
@@ -31,21 +30,18 @@ public class VmClassOfInstruction extends VmInstruction<ClassOfInstruction>
 
 		AssertUtil.assertFalse(classInfo != null, "Class not found");
 
-		context.push(vm.getOrCreateClassObject(classInfo));
+		context.push(vm.getOrCreateClassObject(context, classInfo));
 	}
 
-	//TODO [VISTALL] make it better - then generic linking generic from parent
 	private static FqName getFqName(@NotNull TypeNode typeNode, @NotNull InterpreterContext context)
 	{
 		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
 			return ((ClassTypeNode) typeNode.typeConstructorNode).className;
 		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
 		{
-			BaseObjectInfo ownerObject = context.getLastStack().getObjectInfo();
+			TypeNode temp = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 
-			AssertUtil.assertNull(ownerObject);
-
-			return getFqName(ownerObject.getTypeArguments().get(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name), context);
+			return getFqName(temp, context);
 		}
 		else
 			throw new UnsupportedOperationException("Unknown how get class info : " + typeNode.typeConstructorNode);

@@ -19,11 +19,18 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.TypeParameterNode;
+import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
+import org.napile.vm.util.AssertUtil;
 
 /**
  * @author VISTALL
@@ -31,53 +38,63 @@ import org.napile.vm.objects.classinfo.MethodInfo;
  */
 public class StackEntry
 {
-	private BaseObjectInfo _objectInfo;
-	private MethodInfo _methodInfo;
+	private BaseObjectInfo objectInfo;
+	private MethodInfo methodInfo;
 
-	private BaseObjectInfo[] _arguments;
+	private BaseObjectInfo[] arguments;
 
-	private final BaseObjectInfo[] _localVariables;
+	private final BaseObjectInfo[] localVariables;
 
 	// debug
-	private List<String> _debug = new ArrayList<String>();
+	private List<String> debug = new ArrayList<String>();
 
 	// stack
-	private Deque<BaseObjectInfo> stack = new ArrayDeque<BaseObjectInfo>(2);
+	private Deque<BaseObjectInfo> stack = new ArrayDeque<BaseObjectInfo>();
 
 	private BaseObjectInfo returnValue;
 
-	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments)
+	// type parameters
+	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
+
+	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
 	{
-		_objectInfo = objectInfo;
-		_methodInfo = methodInfo;
-		_arguments = arguments;
+		this.objectInfo = objectInfo;
+		this.methodInfo = methodInfo;
+		this.arguments = arguments;
+
+		AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
+
+		Iterator<TypeParameterNode> it1 = methodInfo.getTypeParameters().iterator();
+		Iterator<TypeNode> it2 = typeArguments.iterator();
+
+		while(it1.hasNext() && it2.hasNext())
+			this.typeArguments.put(it1.next().name, it2.next());
 
 		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
 		{
 			BytecodeInvokeType bytecodeInvokeType = (BytecodeInvokeType)methodInfo.getInvokeType();
 
-			_localVariables = new BaseObjectInfo[bytecodeInvokeType.getMaxLocals()];
+			localVariables = new BaseObjectInfo[bytecodeInvokeType.getMaxLocals()];
 
-			if(_localVariables.length > 0)
+			if(localVariables.length > 0)
 			{
 				int i = 0;
 
 				// if is not static - set 'this' to object
 				if(objectInfo != null)
-					_localVariables[i++] = objectInfo;
+					localVariables[i++] = objectInfo;
 
 				for(BaseObjectInfo arg : arguments)
-					_localVariables[i++] = arg;
+					localVariables[i++] = arg;
 			}
 		}
 		else
-			_localVariables = BaseObjectInfo.EMPTY_ARRAY;
+			localVariables = BaseObjectInfo.EMPTY_ARRAY;
 	}
-
 
 	public void push(BaseObjectInfo val)
 	{
-		_debug.add("push: " + val + ": " + getMethodInfo());
+		debug.add("push: " + val + ": " + getMethodInfo());
 
 		stack.add(val);
 	}
@@ -86,45 +103,53 @@ public class StackEntry
 	{
 		BaseObjectInfo v = stack.pollLast();
 
-		_debug.add("last: " + v + ": " + getMethodInfo());
+		debug.add("last: " + v + ": " + getMethodInfo());
 
 		return v;
 	}
 
 	public void set(int index, BaseObjectInfo objectInfo)
 	{
-		_localVariables[index] = objectInfo;
+		localVariables[index] = objectInfo;
 	}
 
 	public BaseObjectInfo get(int index)
 	{
-		return _localVariables[index];
+		return localVariables[index];
+	}
+
+	public TypeNode getTypeParameterValue(@NotNull String str)
+	{
+		TypeNode typeNode = typeArguments.get(str);
+		if(typeNode != null)
+			return typeNode;
+		return objectInfo == null ? null : objectInfo.getTypeArguments().get(str);
 	}
 
 	public BaseObjectInfo getObjectInfo()
 	{
-		return _objectInfo;
+		return objectInfo;
 	}
 
 	public BaseObjectInfo[] getArguments()
 	{
-		return _arguments;
+		return arguments;
 	}
 
 	public MethodInfo getMethodInfo()
 	{
-		return _methodInfo;
+		return methodInfo;
 	}
 
 	public List<String> getDebug()
 	{
-		return _debug;
+		return debug;
 	}
 
 	@Override
 	public String toString()
 	{
-		return _methodInfo.toString();
+		return methodInfo.toString();
 	}
 
 	public BaseObjectInfo getReturnValue()
