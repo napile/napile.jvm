@@ -33,6 +33,7 @@ import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.vm.objects.BaseObjectInfo;
 import com.intellij.util.ArrayUtil;
 
 /**
@@ -46,7 +47,9 @@ public class ClassInfo implements ReflectInfo
 
 	private ClassNode classNode;
 
-	private boolean _staticConstructorCalled;
+	private boolean staticConstructorCalled;
+
+	private BaseObjectInfo classObjectInfo;
 
 	public ClassInfo(ClassNode classNode)
 	{
@@ -128,17 +131,27 @@ public class ClassInfo implements ReflectInfo
 
 	public boolean isStaticConstructorCalled()
 	{
-		return _staticConstructorCalled;
+		return staticConstructorCalled;
 	}
 
 	public void setStaticConstructorCalled(boolean staticConstructorCalled)
 	{
-		_staticConstructorCalled = staticConstructorCalled;
+		this.staticConstructorCalled = staticConstructorCalled;
 	}
 
 	@Override
 	public String toString()
 	{
 		return getName().toString();
+	}
+
+	public BaseObjectInfo getClassObjectInfo()
+	{
+		return classObjectInfo;
+	}
+
+	public void setClassObjectInfo(BaseObjectInfo classObjectInfo)
+	{
+		this.classObjectInfo = classObjectInfo;
 	}
 }

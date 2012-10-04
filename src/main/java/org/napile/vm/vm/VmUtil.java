@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.lib.NapileLangPackage;
+import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -40,6 +41,8 @@ import org.napile.vm.util.AssertUtil;
 public class VmUtil
 {
 	public static final TypeNode CHAR = new TypeNode(false, new ClassTypeNode(NapileLangPackage.CHAR));
+	public static final TypeNode CLASS = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
+	public static final TypeNode TYPE = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
 	public static final TypeNode BOOL = new TypeNode(false, new ClassTypeNode(NapileLangPackage.BOOL));
 	public static final TypeNode INT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.INT));
 	public static final TypeNode STRING = new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING));

@@ -105,6 +105,30 @@ public class CodegenTest
 		runMain("HelloWorldTest");
 	}
 
+	@Test
+	public void test14()
+	{
+		runMain("classAndTypeTest.ClassOfTest");
+	}
+
+	@Test
+	public void test15()
+	{
+		runMain("classAndTypeTest.GenericTest");
+	}
+
+	@Test
+	public void test16()
+	{
+		runMain("classAndTypeTest.TypeOfTest");
+	}
+
+	@Test
+	public void test17()
+	{
+		runMain("classAndTypeTest.GenericInMethod");
+	}
+
 	public static void runMain(String str)
 	{
 		List<String> arg = new ArrayList<String>();

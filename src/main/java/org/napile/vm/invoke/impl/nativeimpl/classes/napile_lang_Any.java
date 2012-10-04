@@ -16,4 +16,10 @@ public class napile_lang_Any
 	{
 		return VmUtil.convertToVm(vm, objectInfo.hashCode() == arg[0].hashCode());
 	}
+
+	@NativeImplement(className = "napile.lang.Any", methodName = "getClass", parameters = {})
+	public static BaseObjectInfo getClass(Vm vm, BaseObjectInfo objectInfo, BaseObjectInfo[] arg)
+	{
+		return vm.getOrCreateClassObject(objectInfo.getClassInfo());
+	}
 }

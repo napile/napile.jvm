@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="codegenTest.classAndTypeTest.GenericInMethod">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_special>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<return>
+				<!--4-->
+			</return>
+		</code>
+	</constructor>
+	<method name="me">
+		<return_type>
+			<type nullable="false">
+				<type_parameter_value_type name="E"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="val">
+				<type nullable="false">
+					<type_parameter_value_type name="E"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<class_of>
+				<type nullable="false">
+					<type_parameter_value_type name="E"/>
+				</type>
+				<!--0-->
+			</class_of>
+			<invoke_virtual>
+				<method name="napile.reflect.Class.name$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<load val="1">
+				<!--3-->
+			</load>
+			<return>
+				<!--4-->
+			</return>
+		</code>
+	</method>
+	<method name="main">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<parameters>
+			<parameter name="arg">
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<new_object>
+				<type nullable="false">
+					<class_type name="codegenTest.classAndTypeTest.GenericInMethod"/>
+				</type>
+				<!--0-->
+			</new_object>
+			<dup>
+				<!--1-->
+			</dup>
+			<invoke_special>
+				<method name="codegenTest.classAndTypeTest.GenericInMethod.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="codegenTest.classAndTypeTest.GenericInMethod"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_special>
+			<pop>
+				<!--3-->
+			</pop>
+			<store val="1">
+				<!--4-->
+			</store>
+			<load val="1">
+				<!--5-->
+			</load>
+			<new_int val="1">
+				<!--6-->
+			</new_int>
+			<invoke_virtual>
+				<method name="codegenTest.classAndTypeTest.GenericInMethod.me">
+					<return_type>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</parameters>
+				</method>
+				<!--7-->
+			</invoke_virtual>
+			<return>
+				<!--8-->
+			</return>
+		</code>
+	</method>
+</class>

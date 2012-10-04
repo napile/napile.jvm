@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.io.text.in.type.TypeNodeUtil;
+import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
@@ -153,7 +154,7 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo newObject(@NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
+	public BaseObjectInfo newObject(@NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo... arguments)
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
@@ -162,6 +163,29 @@ public class Vm
 		invoke(methodInfo, newObject, null, arguments);
 
 		return newObject;
+	}
+
+	@NotNull
+	public BaseObjectInfo getOrCreateClassObject(@NotNull ClassInfo classInfo)
+	{
+		BaseObjectInfo objectInfo = classInfo.getClassObjectInfo();
+		if(objectInfo != null)
+			return objectInfo;
+
+		BaseObjectInfo fqName = VmUtil.convertToVm(this, classInfo.getName().getFqName());
+
+		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
+		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getName())));
+
+		BaseObjectInfo classObjectInfo = newObject(typeNode, VmUtil.varargTypes(VmUtil.STRING), fqName);
+		classInfo.setClassObjectInfo(classObjectInfo);
+		return classObjectInfo;
+	}
+
+	@NotNull
+	public BaseObjectInfo createTypeObject(@NotNull TypeNode typeNode)
+	{
+		return null;
 	}
 
 	public VmContext getVmContext()
