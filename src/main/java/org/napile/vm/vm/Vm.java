@@ -71,6 +71,18 @@ public class Vm
 		return ClasspathUtil.getClassInfoOrParse(this, name);
 	}
 
+	@NotNull
+	public ClassInfo safeGetClass(FqName name)
+	{
+		ClassInfo classInfo = getClass(name);
+		if(classInfo == null)
+		{
+			System.exit(-1);
+			throw new IllegalArgumentException("Class not found " + name);
+		}
+		return classInfo;
+	}
+
 	public VariableInfo getField(ClassInfo info, String name, boolean deep)
 	{
 		VariableInfo variableInfo = getField0(info, name, deep);
@@ -201,7 +213,60 @@ public class Vm
 	@NotNull
 	public BaseObjectInfo createTypeObject(@NotNull TypeNode typeNode)
 	{
+		//TODO [VISTALL]
 		return null;
+	}
+
+	public boolean isEqualOrSubType(@NotNull InterpreterContext context, @NotNull TypeNode target, @NotNull TypeNode toCheck)
+	{
+		// check first type constructor
+		if(!isEqualOrSubType0(context, target, toCheck))
+			return false;
+
+		if(!target.arguments.isEmpty())
+		{
+			if(target.arguments.size() != toCheck.arguments.size())
+				return false;
+
+			for(int i = 0; i < target.arguments.size(); i++)
+			{
+				TypeNode toCheckArg = toCheck.arguments.get(i);
+				TypeNode targetArg = target.arguments.get(i);
+				if(!isEqualOrSubType(context, targetArg, toCheckArg))
+					return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean isEqualOrSubType0(@NotNull InterpreterContext context, @NotNull final TypeNode target, @NotNull final TypeNode toCheck)
+	{
+		ClassTypeNode targetClassType = toClassType(context, target);
+		ClassTypeNode toCheckClassType = toClassType(context, toCheck);
+
+		if(toCheckClassType.equals(targetClassType))
+			return true;
+
+		if(target.nullable != toCheck.nullable)
+			return false;
+
+		ClassInfo toCheckClassInfo = safeGetClass(toCheckClassType.className);
+
+		for(TypeNode extendType : toCheckClassInfo.getExtends())
+			if(isEqualOrSubType(context, target, extendType))
+				return true;
+
+		return false;
+	}
+
+	@NotNull
+	private ClassTypeNode toClassType(@NotNull InterpreterContext context, @NotNull TypeNode typeNode)
+	{
+		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
+			return (ClassTypeNode) typeNode.typeConstructorNode;
+		else
+			throw new UnsupportedOperationException(typeNode.getClass().getName() + " is not supported");
 	}
 
 	public VmContext getVmContext()

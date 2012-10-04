@@ -133,6 +133,12 @@ public class CodegenTest
 		runMain("classAndTypeTest.GenericInMethod");
 	}
 
+	@Test
+	public void test18()
+	{
+		runMain("isTest.IsTest");
+	}
+
 	@BeforeClass
 	public static void before()
 	{
