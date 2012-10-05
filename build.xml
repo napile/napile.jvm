@@ -30,25 +30,25 @@
 	</target>
 
 	<target name="compile.resource" description="Compile resources.">
-		<copydir src="${resource}" dest="${build.resources}" />
+		<copydir src="${resource}" dest="${build.resources}"/>
 	</target>
 
 	<target name="jar" description="Create the jar file">
 		<tstamp>
-			<format property="build.tstamp" pattern="HH:mm dd.MM.yyyy " />
+			<format property="build.tstamp" pattern="HH:mm dd.MM.yyyy "/>
 		</tstamp>
 		<jar destfile="${build}/napile.jvm.jar">
 			<fileset dir="${build.classes}"/>
 			<manifest>
-				<attribute name="Build-By" value="${user.name}" />
-				<attribute name="Build-Date" value="${build.tstamp}" />
+				<attribute name="Build-By" value="${user.name}"/>
+				<attribute name="Build-Date" value="${build.tstamp}"/>
 			</manifest>
 		</jar>
 		<jar destfile="${build}/napile.jvm-resources.jar">
 			<fileset dir="${build.resources}"/>
 			<manifest>
-				<attribute name="Build-By" value="${user.name}" />
-				<attribute name="Build-Date" value="${build.tstamp}" />
+				<attribute name="Build-By" value="${user.name}"/>
+				<attribute name="Build-Date" value="${build.tstamp}"/>
 			</manifest>
 		</jar>
 	</target>
