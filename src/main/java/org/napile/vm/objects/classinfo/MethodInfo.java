@@ -26,6 +26,7 @@ import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.LikeMethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.bytecode.Instruction;
+import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
@@ -110,6 +111,11 @@ public class MethodInfo implements ReflectInfo
 	public ClassInfo getParent()
 	{
 		return parent;
+	}
+
+	public List<TryCatchBlockNode> getTryCatchBlockNodes()
+	{
+		return methodNode.tryCatchBlockNodes;
 	}
 
 	public TypeNode getReturnType()

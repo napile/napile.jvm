@@ -53,6 +53,8 @@ public class StackEntry
 
 	private BaseObjectInfo returnValue;
 
+	private int forceIndex = -2;
+
 	// type parameters
 	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
 
@@ -160,5 +162,15 @@ public class StackEntry
 	public void setReturnValue(BaseObjectInfo returnValue)
 	{
 		this.returnValue = returnValue;
+	}
+
+	public int getForceIndex()
+	{
+		return forceIndex;
+	}
+
+	public void setForceIndex(int forceIndex)
+	{
+		this.forceIndex = forceIndex;
 	}
 }

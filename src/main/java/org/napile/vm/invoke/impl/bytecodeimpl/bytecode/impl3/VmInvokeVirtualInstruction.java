@@ -61,7 +61,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 
 		MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
-		AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
+		AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", ") + " object: " + objectInfo);
 
 		methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
@@ -72,9 +72,13 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		vm.invoke(context);
 
 		StackEntry stackEntry = context.getStack().pollLast();
+		if(stackEntry == null)
+			return -1;
+
 		if(stackEntry.getReturnValue() != null)
 			context.push(stackEntry.getReturnValue());
 
-		return nextIndex;
+		int forceIndex = stackEntry.getForceIndex();
+		return forceIndex == -2 ? nextIndex : nextIndex;
 	}
 }

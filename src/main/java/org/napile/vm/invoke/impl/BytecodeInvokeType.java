@@ -54,6 +54,9 @@ public class BytecodeInvokeType implements InvokeType
 			try
 			{
 				i = instruction.call(vm, context, i + 1);
+
+				if(i == -1)
+					break;
 			}
 			catch(Exception e)
 			{
@@ -75,11 +78,13 @@ public class BytecodeInvokeType implements InvokeType
 		for(StackEntry stackEntry : entries)
 			LOGGER.info("\tat " + stackEntry);
 		StackEntry entry = context.getLastStack();
-
-		LOGGER.info("-----------------------------------");
-		LOGGER.info("Values:");
-		for(String d : entry.getDebug())
-			LOGGER.info(d);
+		if(entry != null)
+		{
+			LOGGER.info("-----------------------------------");
+			LOGGER.info("Values:");
+			for(String d : entry.getDebug())
+				LOGGER.info(d);
+		}
 
 		LOGGER.info("-----------------------------------");
 		LOGGER.info("Instructions:");

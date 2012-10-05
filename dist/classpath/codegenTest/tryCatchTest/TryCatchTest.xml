@@ -23,7 +23,7 @@
 			</parameter>
 		</parameters>
 		<code max_locals="2">
-			<new_string val="pre throw">
+			<new_string val="Before throw">
 				<!--0-->
 			</new_string>
 			<invoke_static>
@@ -43,7 +43,7 @@
 			</invoke_static>
 			<new_object>
 				<type nullable="false">
-					<class_type name="napile.lang.Throwable"/>
+					<class_type name="codegenTest.tryCatchTest.TryCatchObject"/>
 				</type>
 				<!--2-->
 			</new_object>
@@ -51,10 +51,10 @@
 				<!--3-->
 			</dup>
 			<invoke_special>
-				<method name="napile.lang.Throwable.this">
+				<method name="codegenTest.tryCatchTest.TryCatchObject.this">
 					<return_type>
 						<type nullable="false">
-							<class_type name="napile.lang.Throwable"/>
+							<class_type name="codegenTest.tryCatchTest.TryCatchObject"/>
 						</type>
 					</return_type>
 				</method>
@@ -63,35 +63,24 @@
 			<pop>
 				<!--5-->
 			</pop>
-			<throw>
+			<store val="1">
 				<!--6-->
-			</throw>
-			<jump val="11">
+			</store>
+			<load val="1">
 				<!--7-->
-			</jump>
-			<new_string val="me throw">
+			</load>
+			<invoke_virtual>
+				<method name="codegenTest.tryCatchTest.TryCatchObject.b">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
 				<!--8-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--9-->
-			</invoke_static>
-			<jump val="11">
-				<!--10-->
-			</jump>
+			</invoke_virtual>
 			<new_string val="After throw">
-				<!--11-->
+				<!--9-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -106,7 +95,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--12-->
+				<!--10-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -116,21 +105,11 @@
 						</type>
 					</return_type>
 				</method>
-				<!--13-->
+				<!--11-->
 			</invoke_static>
 			<return>
-				<!--14-->
+				<!--12-->
 			</return>
 		</code>
-		<try_catch_blocks>
-			<try_catch_block>
-				<try start_index="0" end_index="8"/>
-				<catch start_index="8" end_index="11">
-					<type nullable="false">
-						<class_type name="napile.lang.Throwable"/>
-					</type>
-				</catch>
-			</try_catch_block>
-		</try_catch_blocks>
 	</method>
 </class>

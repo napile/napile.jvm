@@ -160,7 +160,7 @@ public class CodegenTest
 	@Test
 	public void test22()
 	{
-		//runMain("tryCatchTest.TryCatchTest");
+		runMain("tryCatchTest.TryCatchTest");
 	}
 
 	@BeforeClass
