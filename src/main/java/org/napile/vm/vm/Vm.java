@@ -77,8 +77,8 @@ public class Vm
 		ClassInfo classInfo = getClass(name);
 		if(classInfo == null)
 		{
+			LOGGER.error("Class not found " + name);
 			System.exit(-1);
-			throw new IllegalArgumentException("Class not found " + name);
 		}
 		return classInfo;
 	}
@@ -163,7 +163,7 @@ public class Vm
 		TypeConstructorNode typeConstructorNode = typeNode.typeConstructorNode;
 		if(typeConstructorNode instanceof ClassTypeNode)
 		{
-			ClassInfo classInfo = getClass(((ClassTypeNode) typeConstructorNode).className);
+			ClassInfo classInfo = safeGetClass(((ClassTypeNode) typeConstructorNode).className);
 
 			initStaticIfNeed(classInfo);
 

@@ -36,23 +36,6 @@
 			</return>
 		</code>
 	</constructor>
-	<method name="test">
-		<code max_locals="1">
-			<invoke_static>
-				<method name="napile.lang.Null.INSTANCE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-				</method>
-				<!--0-->
-			</invoke_static>
-			<return>
-				<!--1-->
-			</return>
-		</code>
-	</method>
 	<method name="rangeTo">
 		<return_type>
 			<type nullable="false">
@@ -354,7 +337,7 @@
 		</modifiers>
 		<return_type>
 			<type nullable="false">
-				<class_type name="napile.lang.Int"/>
+				<class_type name="napile.condition.CompareResult"/>
 			</type>
 		</return_type>
 		<parameters>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="napile.condition.CompareResult$LOWER">
+	<modifiers>
+		<final/>
+		<static/>
+	</modifiers>
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.condition.CompareResult"/>
+		</type>
+	</extends>
+	<constructor>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_special>
+				<method name="napile.condition.CompareResult.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.condition.CompareResult"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_special>
+			<return>
+				<!--2-->
+			</return>
+		</code>
+	</constructor>
+</class>

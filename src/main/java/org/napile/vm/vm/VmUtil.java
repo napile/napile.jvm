@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.lib.NapileReflectPackage;
+import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
@@ -73,24 +74,26 @@ public class VmUtil
 		NativeWrapper.initAll(vm);
 	}
 
+	public static BaseObjectInfo staticValue(@NotNull Vm vm, @NotNull FqName fqName, @NotNull String varName)
+	{
+		ClassInfo classInfo = vm.safeGetClass(fqName);
+		vm.initStaticIfNeed(classInfo);
+
+		VariableInfo variableInfo = null;
+		for(VariableInfo v : classInfo.getVariables())
+			if(v.getShortName().equals(varName))
+				variableInfo = v;
+
+		AssertUtil.assertNull(variableInfo);
+
+		return variableInfo.getStaticValue();
+
+	}
+
 	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @NotNull InterpreterContext context, @Nullable Object value)
 	{
 		if(value == null)
-		{
-			ClassInfo classInfo = vm.getClass(NapileLangPackage.NULL);
-			vm.initStaticIfNeed(classInfo);
-
-			VariableInfo variableInfo = null;
-			for(VariableInfo v : classInfo.getVariables())
-			{
-				if(v.getShortName().equals("INSTANCE"))
-					variableInfo = v;
-			}
-
-			AssertUtil.assertNull(variableInfo);
-
-			return variableInfo.getStaticValue();
-		}
+			return staticValue(vm, NapileLangPackage.NULL, "INSTANCE");
 		else if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
@@ -116,22 +119,7 @@ public class VmUtil
 		else if(value instanceof Double)
 			return vm.newObject(DOUBLE).value(value);
 		else if(value instanceof Boolean)
-		{
-			ClassInfo classInfo = vm.getClass(NapileLangPackage.BOOL);
-			vm.initStaticIfNeed(classInfo);
-
-			String name = value.toString().toUpperCase();
-			VariableInfo variableInfo = null;
-			for(VariableInfo v : classInfo.getVariables())
-			{
-				if(v.getShortName().equals(name))
-					variableInfo = v;
-			}
-
-			AssertUtil.assertNull(variableInfo);
-
-			return variableInfo.getStaticValue();
-		}
+			return staticValue(vm, NapileLangPackage.BOOL, value == Boolean.TRUE ? "TRUE" : "FALSE");
 		else
 			throw new UnsupportedOperationException(value.getClass().getName());
 	}

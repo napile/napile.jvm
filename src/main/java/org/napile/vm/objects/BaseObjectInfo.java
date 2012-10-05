@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.napile.asm.Modifier;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
@@ -107,7 +108,7 @@ public final class BaseObjectInfo
 		return (T) attach;
 	}
 
-	public BaseObjectInfo value(Object attach)
+	public BaseObjectInfo value(@Nullable Object attach)
 	{
 		this.attach = attach;
 		return this;

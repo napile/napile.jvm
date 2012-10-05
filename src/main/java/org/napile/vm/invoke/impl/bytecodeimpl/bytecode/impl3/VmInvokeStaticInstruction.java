@@ -52,7 +52,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
-		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
+		ClassInfo classInfo = vm.safeGetClass(className);
 
 		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
 

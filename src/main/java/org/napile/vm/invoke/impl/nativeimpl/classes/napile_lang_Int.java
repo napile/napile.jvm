@@ -1,5 +1,6 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
+import org.napile.asm.lib.NapileConditionPackage;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -18,6 +19,26 @@ public class napile_lang_Int
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() + 1);
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "compareTo", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo compareTo(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		int x = (Integer) objectInfo.value();
+		int y = (Integer)arg[0].value();
+
+		String name;
+		if(x == y)
+			name = "EQUAL";
+		else if(x > y)
+			name = "GREATER";
+		else
+			name = "LOWER";
+
+		return VmUtil.staticValue(vm, NapileConditionPackage.COMPARE_RESULT, name);
 	}
 
 	@NativeImplement(className = "napile.lang.Int", methodName = "plus", parameters = {"napile.lang.Int"})
