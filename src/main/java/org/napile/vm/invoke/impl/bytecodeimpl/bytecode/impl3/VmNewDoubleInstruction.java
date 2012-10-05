@@ -35,8 +35,9 @@ public class VmNewDoubleInstruction extends VmInstruction<NewDoubleInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		context.push(VmUtil.convertToVm(vm, context, instruction.value));
+		return nextIndex;
 	}
 }

@@ -13,27 +13,20 @@ import org.napile.vm.vm.VmUtil;
  */
 public class VmJumpIfInstruction extends VmInstruction<JumpIfInstruction>
 {
-	private boolean isFailed;
-
 	public VmJumpIfInstruction(JumpIfInstruction instruction)
 	{
 		super(instruction);
 	}
 
 	@Override
-	public int getNextIndex(int index)
-	{
-		return isFailed ? instruction.value : super.getNextIndex(index);
-	}
-
-	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		BaseObjectInfo val = context.pop();
 		BaseObjectInfo condVal = context.pop();
 
 		if(!val.getTypeNode().equals(VmUtil.BOOL) || !condVal.getTypeNode().equals(VmUtil.BOOL))
 			throw new IllegalArgumentException();
-		isFailed = val != condVal;
+
+		return val != condVal ? instruction.value : nextIndex;
 	}
 }

@@ -33,8 +33,9 @@ public class VmPopInstruction extends VmInstruction<PopInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		context.pop();
+		return nextIndex;
 	}
 }

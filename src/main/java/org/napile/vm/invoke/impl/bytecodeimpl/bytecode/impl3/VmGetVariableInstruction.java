@@ -44,7 +44,7 @@ public class VmGetVariableInstruction extends VmInstruction<GetVariableInstructi
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = vm.getClass(className);
 
@@ -59,5 +59,7 @@ public class VmGetVariableInstruction extends VmInstruction<GetVariableInstructi
 		AssertUtil.assertFalse(value.hasVar(variableInfo));
 
 		context.push(value.getVarValue(variableInfo));
+
+		return nextIndex;
 	}
 }

@@ -35,12 +35,14 @@ public class VmStoreInstruction extends VmInstruction<StoreInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
 		BaseObjectInfo last = context.pop();
 
 		stackEntry.set(instruction.varIndex, last);
+
+		return nextIndex;
 	}
 }

@@ -157,6 +157,12 @@ public class CodegenTest
 		runMain("ifTest.ElvisTest");
 	}
 
+	@Test
+	public void test22()
+	{
+		//runMain("tryCatchTest.TryCatchTest");
+	}
+
 	@BeforeClass
 	public static void before()
 	{

@@ -43,7 +43,7 @@ public class VmPutToStaticVariableInstruction extends VmInstruction<PutToStaticV
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = vm.getClass(className);
 
@@ -54,5 +54,6 @@ public class VmPutToStaticVariableInstruction extends VmInstruction<PutToStaticV
 		AssertUtil.assertNull(variableInfo);
 
 		variableInfo.setStaticValue(context.pop());
+		return nextIndex;
 	}
 }

@@ -20,10 +20,12 @@ public class VmIsInstruction extends VmInstruction<IsInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		BaseObjectInfo objectInfo = context.pop();
 
 		context.push(VmUtil.convertToVm(vm, context, vm.isEqualOrSubType(context, instruction.value, objectInfo.getTypeNode())));
+
+		return nextIndex;
 	}
 }

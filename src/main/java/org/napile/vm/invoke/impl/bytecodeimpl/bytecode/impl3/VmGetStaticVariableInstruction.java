@@ -43,7 +43,7 @@ public class VmGetStaticVariableInstruction extends VmInstruction<GetStaticVaria
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = vm.getClass(className);
 
@@ -54,5 +54,7 @@ public class VmGetStaticVariableInstruction extends VmInstruction<GetStaticVaria
 		AssertUtil.assertNull(variableInfo);
 
 		context.push(variableInfo.getStaticValue());
+
+		return nextIndex;
 	}
 }

@@ -44,7 +44,7 @@ public class VmPutToVariableInstruction extends VmInstruction<PutToVariableInstr
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = vm.getClass(className);
 
@@ -60,5 +60,7 @@ public class VmPutToVariableInstruction extends VmInstruction<PutToVariableInstr
 		AssertUtil.assertFalse(value.hasVar(variableInfo), value + " not have var: " + name);
 
 		value.setVarValue(variableInfo, object);
+
+		return nextIndex;
 	}
 }

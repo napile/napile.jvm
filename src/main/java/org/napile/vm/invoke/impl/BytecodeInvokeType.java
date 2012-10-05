@@ -53,9 +53,7 @@ public class BytecodeInvokeType implements InvokeType
 
 			try
 			{
-				instruction.call(vm, context);
-
-				i = instruction.getNextIndex(i);
+				i = instruction.call(vm, context, i + 1);
 			}
 			catch(Exception e)
 			{

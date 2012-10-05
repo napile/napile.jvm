@@ -50,7 +50,7 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
@@ -75,7 +75,7 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry.getReturnValue() != null)
 			context.push(stackEntry.getReturnValue());
-		//else
-		//	System.out.println(stackEntry + " had null value");
+
+		return nextIndex;
 	}
 }

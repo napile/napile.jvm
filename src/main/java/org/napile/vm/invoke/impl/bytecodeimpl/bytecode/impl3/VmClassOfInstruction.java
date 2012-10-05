@@ -24,13 +24,15 @@ public class VmClassOfInstruction extends VmInstruction<ClassOfInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		ClassInfo classInfo = vm.getClass(getFqName(instruction.value, context));
 
 		AssertUtil.assertFalse(classInfo != null, "Class not found");
 
 		context.push(vm.getOrCreateClassObject(context, classInfo));
+
+		return nextIndex;
 	}
 
 	private static FqName getFqName(@NotNull TypeNode typeNode, @NotNull InterpreterContext context)

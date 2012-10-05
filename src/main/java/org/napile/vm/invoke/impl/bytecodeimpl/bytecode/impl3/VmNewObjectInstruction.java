@@ -33,8 +33,9 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		context.push(vm.newObject(instruction.value));
+		return nextIndex;
 	}
 }

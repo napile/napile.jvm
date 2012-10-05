@@ -38,12 +38,7 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 		this.instruction = instruction;
 	}
 
-	public abstract void call(Vm vm, InterpreterContext context);
-
-	public int getNextIndex(int index)
-	{
-		return index + 1;
-	}
+	public abstract int call(Vm vm, InterpreterContext context, int nextIndex);
 
 	public void setArrayIndex(int arrayIndex)
 	{

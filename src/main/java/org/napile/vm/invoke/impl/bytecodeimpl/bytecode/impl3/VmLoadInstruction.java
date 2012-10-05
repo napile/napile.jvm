@@ -35,12 +35,14 @@ public class VmLoadInstruction extends VmInstruction<LoadInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
 		BaseObjectInfo entry = stackEntry.get(instruction.varIndex);
 
 		context.push(entry);
+
+		return nextIndex;
 	}
 }

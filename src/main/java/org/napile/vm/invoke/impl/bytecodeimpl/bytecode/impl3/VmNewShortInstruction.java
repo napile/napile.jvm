@@ -35,8 +35,9 @@ public class VmNewShortInstruction extends VmInstruction<NewShortInstruction>
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		context.push(VmUtil.convertToVm(vm, context, instruction.value));
+		return nextIndex;
 	}
 }

@@ -49,7 +49,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 	}
 
 	@Override
-	public void call(Vm vm, InterpreterContext context)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		BaseObjectInfo[] arguments = new BaseObjectInfo[instruction.methodRef.parameters.size()];
 		for(int i = 0; i < arguments.length; i++)
@@ -74,7 +74,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry.getReturnValue() != null)
 			context.push(stackEntry.getReturnValue());
-		//else
-		//	System.out.println(stackEntry + " had null value");
+
+		return nextIndex;
 	}
 }

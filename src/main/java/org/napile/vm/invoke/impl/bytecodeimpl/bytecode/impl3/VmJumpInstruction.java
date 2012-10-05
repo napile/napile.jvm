@@ -17,13 +17,8 @@ public class VmJumpInstruction extends VmInstruction<JumpInstruction>
 	}
 
 	@Override
-	public int getNextIndex(int index)
+	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
 		return instruction.value;
-	}
-
-	@Override
-	public void call(Vm vm, InterpreterContext context)
-	{
 	}
 }
