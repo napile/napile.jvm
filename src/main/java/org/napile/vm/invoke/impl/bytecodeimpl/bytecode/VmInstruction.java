@@ -53,6 +53,6 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 	@Override
 	public String toString()
 	{
-		return "[i" + _arrayIndex + "]: " + getClass().getSimpleName();
+		return "[i" + _arrayIndex + "]: " + instruction;
 	}
 }
