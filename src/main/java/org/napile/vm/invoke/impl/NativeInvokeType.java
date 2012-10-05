@@ -27,6 +27,7 @@ import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
@@ -59,6 +60,8 @@ public class NativeInvokeType implements InvokeType
 				BaseObjectInfo objectInfo = (BaseObjectInfo)method.invoke(null, vm, context);
 				if(objectInfo != null)
 					entry.setReturnValue(objectInfo);
+				else
+					entry.setReturnValue(VmUtil.convertToVm(vm, context, null));
 			}
 			catch(Exception e)
 			{

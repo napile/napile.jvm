@@ -139,6 +139,12 @@ public class CodegenTest
 		runMain("isTest.IsTest");
 	}
 
+	@Test
+	public void test19()
+	{
+		runMain("ifTest.OrOrTest");
+	}
+
 	@BeforeClass
 	public static void before()
 	{
