@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<class version="0" name="codegenTest.ifTest.OrOrTest">
+<class version="0" name="codegenTest.ifTest.AndAndTest">
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -60,10 +60,10 @@
 				</method>
 				<!--5-->
 			</invoke_static>
-			<jump_if val="10">
+			<jump_if val="9">
 				<!--6-->
 			</jump_if>
-			<new_string val="b is 1">
+			<new_string val="b == 1">
 				<!--7-->
 			</new_string>
 			<invoke_static>
@@ -81,11 +81,30 @@
 				</method>
 				<!--8-->
 			</invoke_static>
-			<jump val="12">
+			<load val="1">
 				<!--9-->
-			</jump>
-			<new_string val="failed 1">
+			</load>
+			<is>
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
 				<!--10-->
+			</is>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--11-->
+			</invoke_static>
+			<jump_if val="15">
+				<!--12-->
+			</jump_if>
+			<new_string val="b is Int">
+				<!--13-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -97,89 +116,16 @@
 					<parameters>
 						<type nullable="false">
 							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--11-->
-			</invoke_static>
-			<load val="1">
-				<!--12-->
-			</load>
-			<new_int val="2">
-				<!--13-->
-			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.Int.equals">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="true">
-							<class_type name="napile.lang.Any"/>
 						</type>
 					</parameters>
 				</method>
 				<!--14-->
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--15-->
-			</invoke_static>
-			<jump_if val="20">
-				<!--16-->
-			</jump_if>
-			<new_string val="b is 2">
-				<!--17-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--18-->
-			</invoke_static>
-			<jump val="22">
-				<!--19-->
-			</jump>
-			<new_string val="failed 2">
-				<!--20-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--21-->
 			</invoke_static>
 			<load val="1">
-				<!--22-->
+				<!--15-->
 			</load>
-			<new_int val="2">
-				<!--23-->
+			<new_int val="1">
+				<!--16-->
 			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Int.equals">
@@ -194,7 +140,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--24-->
+				<!--17-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -204,11 +150,56 @@
 						</type>
 					</return_type>
 				</method>
-				<!--25-->
+				<!--18-->
 			</invoke_static>
-			<jump_if val="29">
-				<!--26-->
+			<jump_if val="26">
+				<!--19-->
 			</jump_if>
+			<load val="1">
+				<!--20-->
+			</load>
+			<is>
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+				<!--21-->
+			</is>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--22-->
+			</invoke_static>
+			<jump_if val="26">
+				<!--23-->
+			</jump_if>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--24-->
+			</invoke_static>
+			<jump val="27">
+				<!--25-->
+			</jump>
+			<invoke_static>
+				<method name="napile.lang.Bool.FALSE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--26-->
+			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
 					<return_type>
@@ -219,14 +210,53 @@
 				</method>
 				<!--27-->
 			</invoke_static>
-			<jump val="37">
+			<jump_if val="32">
 				<!--28-->
-			</jump>
-			<load val="1">
+			</jump_if>
+			<new_string val="b == 1 &amp;&amp; b is Int">
 				<!--29-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--30-->
+			</invoke_static>
+			<jump val="34">
+				<!--31-->
+			</jump>
+			<new_string val="fail 'b == 1 &amp;&amp; b is Int'">
+				<!--32-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--33-->
+			</invoke_static>
+			<load val="1">
+				<!--34-->
 			</load>
 			<new_int val="1">
-				<!--30-->
+				<!--35-->
 			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Int.equals">
@@ -241,7 +271,17 @@
 						</type>
 					</parameters>
 				</method>
-				<!--31-->
+				<!--36-->
+			</invoke_virtual>
+			<invoke_virtual>
+				<method name="napile.lang.Bool.not">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--37-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -251,10 +291,54 @@
 						</type>
 					</return_type>
 				</method>
-				<!--32-->
+				<!--38-->
 			</invoke_static>
-			<jump_if val="36">
-				<!--33-->
+			<jump_if val="48">
+				<!--39-->
+			</jump_if>
+			<load val="1">
+				<!--40-->
+			</load>
+			<new_int val="2">
+				<!--41-->
+			</new_int>
+			<invoke_virtual>
+				<method name="napile.lang.Int.equals">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="true">
+							<class_type name="napile.lang.Any"/>
+						</type>
+					</parameters>
+				</method>
+				<!--42-->
+			</invoke_virtual>
+			<invoke_virtual>
+				<method name="napile.lang.Bool.not">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--43-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--44-->
+			</invoke_static>
+			<jump_if val="48">
+				<!--45-->
 			</jump_if>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -264,10 +348,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--34-->
+				<!--46-->
 			</invoke_static>
-			<jump val="37">
-				<!--35-->
+			<jump val="49">
+				<!--47-->
 			</jump>
 			<invoke_static>
 				<method name="napile.lang.Bool.FALSE$get">
@@ -277,94 +361,8 @@
 						</type>
 					</return_type>
 				</method>
-				<!--36-->
-			</invoke_static>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--37-->
-			</invoke_static>
-			<jump_if val="42">
-				<!--38-->
-			</jump_if>
-			<new_string val="b is 2 or 1">
-				<!--39-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--40-->
-			</invoke_static>
-			<jump val="44">
-				<!--41-->
-			</jump>
-			<new_string val="failed 3">
-				<!--42-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--43-->
-			</invoke_static>
-			<load val="1">
-				<!--44-->
-			</load>
-			<new_int val="3">
-				<!--45-->
-			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.Int.equals">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="true">
-							<class_type name="napile.lang.Any"/>
-						</type>
-					</parameters>
-				</method>
-				<!--46-->
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--47-->
-			</invoke_static>
-			<jump_if val="51">
 				<!--48-->
-			</jump_if>
+			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
 					<return_type>
@@ -375,120 +373,50 @@
 				</method>
 				<!--49-->
 			</invoke_static>
-			<jump val="59">
+			<jump_if val="54">
 				<!--50-->
-			</jump>
-			<load val="1">
+			</jump_if>
+			<new_string val="b != 1 &amp;&amp; b != 2">
 				<!--51-->
-			</load>
-			<new_int val="4">
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
 				<!--52-->
-			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.Int.equals">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="true">
-							<class_type name="napile.lang.Any"/>
-						</type>
-					</parameters>
-				</method>
+			</invoke_static>
+			<jump val="56">
 				<!--53-->
-			</invoke_virtual>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
+			</jump>
+			<new_string val="fail 'b != 1 &amp;&amp; b != 2'">
 				<!--54-->
-			</invoke_static>
-			<jump_if val="58">
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
 				<!--55-->
-			</jump_if>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--56-->
-			</invoke_static>
-			<jump val="59">
-				<!--57-->
-			</jump>
-			<invoke_static>
-				<method name="napile.lang.Bool.FALSE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--58-->
-			</invoke_static>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$get">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</return_type>
-				</method>
-				<!--59-->
-			</invoke_static>
-			<jump_if val="64">
-				<!--60-->
-			</jump_if>
-			<new_string val="b is 3 or 4">
-				<!--61-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--62-->
-			</invoke_static>
-			<jump val="66">
-				<!--63-->
-			</jump>
-			<new_string val="failed 4">
-				<!--64-->
-			</new_string>
-			<invoke_static>
-				<method name="napile.io.Console.writeLine">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--65-->
 			</invoke_static>
 			<return>
-				<!--66-->
+				<!--56-->
 			</return>
 		</code>
 	</method>

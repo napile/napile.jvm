@@ -145,6 +145,12 @@ public class CodegenTest
 		runMain("ifTest.OrOrTest");
 	}
 
+	@Test
+	public void test20()
+	{
+		runMain("ifTest.AndAndTest");
+	}
+
 	@BeforeClass
 	public static void before()
 	{
