@@ -46,7 +46,12 @@ public class VmUtil
 	public static final TypeNode CLASS = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
 	public static final TypeNode TYPE = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
 	public static final TypeNode BOOL = new TypeNode(false, new ClassTypeNode(NapileLangPackage.BOOL));
+	public static final TypeNode BYTE = new TypeNode(false, new ClassTypeNode(NapileLangPackage.BYTE));
+	public static final TypeNode SHORT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.SHORT));
 	public static final TypeNode INT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.INT));
+	public static final TypeNode LONG = new TypeNode(false, new ClassTypeNode(NapileLangPackage.LONG));
+	public static final TypeNode FLOAT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.FLOAT));
+	public static final TypeNode DOUBLE = new TypeNode(false, new ClassTypeNode(NapileLangPackage.DOUBLE));
 	public static final TypeNode STRING = new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING));
 	public static final TypeNode ARRAY__STRING__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STRING);
 	public static final TypeNode ARRAY__CHAR__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(CHAR);
@@ -98,8 +103,18 @@ public class VmUtil
 		}
 		else if(value instanceof Character)
 			return vm.newObject(CHAR).value(value);
+		else if(value instanceof Byte)
+			return vm.newObject(BYTE).value(value);
+		else if(value instanceof Short)
+			return vm.newObject(SHORT).value(value);
 		else if(value instanceof Integer)
 			return vm.newObject(INT).value(value);
+		else if(value instanceof Long)
+			return vm.newObject(LONG).value(value);
+		else if(value instanceof Float)
+			return vm.newObject(FLOAT).value(value);
+		else if(value instanceof Double)
+			return vm.newObject(DOUBLE).value(value);
 		else if(value instanceof Boolean)
 		{
 			ClassInfo classInfo = vm.getClass(NapileLangPackage.BOOL);
