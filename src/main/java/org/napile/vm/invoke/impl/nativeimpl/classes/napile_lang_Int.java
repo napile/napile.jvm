@@ -12,6 +12,14 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Int
 {
+	@NativeImplement(className = "napile.lang.Int", methodName = "inc", parameters = {})
+	public static BaseObjectInfo inc(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() + 1);
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "plus", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo plus(Vm vm, InterpreterContext context)
 	{

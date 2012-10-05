@@ -50,12 +50,6 @@ public class CodegenTest
 	}
 
 	@Test
-	public void test4()
-	{
-		runMain("forTest.ForAndBreakTest");
-	}
-
-	@Test
 	public void test5()
 	{
 		runMain("ifTest.HelloWorldWithIf");
@@ -161,6 +155,12 @@ public class CodegenTest
 	public void test22()
 	{
 		runMain("tryCatchTest.TryCatchTest");
+	}
+
+	@Test
+	public void test23()
+	{
+		runMain("postfixTest.PostfixTest");
 	}
 
 	@BeforeClass
