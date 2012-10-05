@@ -151,6 +151,12 @@ public class CodegenTest
 		runMain("ifTest.AndAndTest");
 	}
 
+	@Test
+	public void test21()
+	{
+		runMain("ifTest.ElvisTest");
+	}
+
 	@BeforeClass
 	public static void before()
 	{

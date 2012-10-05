@@ -38,7 +38,6 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 	private FqName className;
 	private String methodName;
 	private TypeNode[] parameters;
-	private TypeNode[] typeArguments;
 
 	public VmInvokeVirtualInstruction(InvokeVirtualInstruction instruction)
 	{
@@ -47,7 +46,6 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		className = instruction.methodRef.method.parent();
 		methodName = instruction.methodRef.method.shortName().getName();
 		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
-		typeArguments = instruction.methodRef.typeArguments.toArray(new TypeNode[instruction.methodRef.typeArguments.size()]);
 	}
 
 	@Override

@@ -161,7 +161,7 @@
 							<class_type name="napile.lang.Array"/>
 							<type_arguments>
 								<type nullable="false">
-									<type_parameter_value_type name="E"/>
+									<class_type name="napile.lang.Char"/>
 								</type>
 							</type_arguments>
 						</type>
