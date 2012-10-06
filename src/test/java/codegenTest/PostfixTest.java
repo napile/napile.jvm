@@ -19,4 +19,10 @@ public class PostfixTest extends MainTest
 	{
 		run("postfixTest.PostfixWithPropertyTest");
 	}
+
+	@Test
+	public void arrayAndPropertyTest()
+	{
+		run("postfixTest.PostfixInArrayAndPropertyTest");
+	}
 }

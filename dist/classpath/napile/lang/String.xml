@@ -7,9 +7,6 @@
 		</type>
 	</extends>
 	<variable name="array">
-		<modifiers>
-			<local/>
-		</modifiers>
 		<return_type>
 			<type nullable="false">
 				<class_type name="napile.lang.Array"/>
@@ -22,9 +19,11 @@
 		</return_type>
 	</variable>
 	<method name="array$set">
-		<modifiers>
-			<local/>
-		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -60,12 +59,22 @@
 				</variable>
 				<!--2-->
 			</put_to_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<return>
+				<!--4-->
+			</return>
 		</code>
 	</method>
 	<method name="array$get">
-		<modifiers>
-			<local/>
-		</modifiers>
 		<return_type>
 			<type nullable="false">
 				<class_type name="napile.lang.Array"/>
@@ -165,6 +174,143 @@
 			</load>
 			<return>
 				<!--7-->
+			</return>
+		</code>
+	</constructor>
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
+		<parameters>
+			<parameter name="oldArray">
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.Char"/>
+						</type>
+					</type_arguments>
+				</type>
+			</parameter>
+			<parameter name="offset">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+			<parameter name="length">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="4">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_special>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="0">
+				<!--3-->
+			</load>
+			<load val="1">
+				<!--4-->
+			</load>
+			<load val="2">
+				<!--5-->
+			</load>
+			<load val="2">
+				<!--6-->
+			</load>
+			<load val="3">
+				<!--7-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Int.plus">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--8-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.ArrayUtil.copyOfRange">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.Char"/>
+						</type>
+					</type_arguments>
+				</method>
+				<!--9-->
+			</invoke_static>
+			<invoke_virtual>
+				<method name="napile.lang.String.array$set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<class_type name="napile.lang.Char"/>
+								</type>
+							</type_arguments>
+						</type>
+					</parameters>
+				</method>
+				<!--10-->
+			</invoke_virtual>
+			<load val="0">
+				<!--11-->
+			</load>
+			<return>
+				<!--12-->
 			</return>
 		</code>
 	</constructor>

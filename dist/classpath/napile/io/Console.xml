@@ -6,6 +6,19 @@
 			<class_type name="napile.lang.Any"/>
 		</type>
 	</extends>
+	<method name="write">
+		<modifiers>
+			<static/>
+			<native/>
+		</modifiers>
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.String"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
 	<method name="writeLine">
 		<modifiers>
 			<static/>

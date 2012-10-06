@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="codegenTest.arrayUtilTest.ArrayUtilTest">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<method name="main">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<parameters>
+			<parameter name="arg">
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="10">
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
+				</type>
+				<!--0-->
+			</new_object>
+			<dup>
+				<!--1-->
+			</dup>
+			<new_int val="10">
+				<!--2-->
+			</new_int>
+			<invoke_special>
+				<method name="napile.lang.Array.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--3-->
+			</invoke_special>
+			<pop>
+				<!--4-->
+			</pop>
+			<store val="1">
+				<!--5-->
+			</store>
+			<new_int val="0">
+				<!--6-->
+			</new_int>
+			<store val="2">
+				<!--7-->
+			</store>
+			<load val="1">
+				<!--8-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Array.iterator">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.util.Iterator"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+				</method>
+				<!--9-->
+			</invoke_virtual>
+			<store val="4">
+				<!--10-->
+			</store>
+			<load val="4">
+				<!--11-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.hasNext">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--12-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--13-->
+			</invoke_static>
+			<jump_if val="27">
+				<!--14-->
+			</jump_if>
+			<load val="4">
+				<!--15-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.next">
+					<return_type>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</return_type>
+				</method>
+				<!--16-->
+			</invoke_virtual>
+			<store val="3">
+				<!--17-->
+			</store>
+			<load val="1">
+				<!--18-->
+			</load>
+			<load val="2">
+				<!--19-->
+			</load>
+			<dup>
+				<!--20-->
+			</dup>
+			<invoke_virtual>
+				<method name="napile.lang.Int.inc">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+				</method>
+				<!--21-->
+			</invoke_virtual>
+			<store val="2">
+				<!--22-->
+			</store>
+			<load val="2">
+				<!--23-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Int.toString">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--24-->
+			</invoke_virtual>
+			<invoke_virtual>
+				<method name="napile.lang.Array.set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</parameters>
+				</method>
+				<!--25-->
+			</invoke_virtual>
+			<jump val="11">
+				<!--26-->
+			</jump>
+			<load val="1">
+				<!--27-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Array.iterator">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.util.Iterator"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+				</method>
+				<!--28-->
+			</invoke_virtual>
+			<store val="4">
+				<!--29-->
+			</store>
+			<load val="4">
+				<!--30-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.hasNext">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--31-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--32-->
+			</invoke_static>
+			<jump_if val="42">
+				<!--33-->
+			</jump_if>
+			<load val="4">
+				<!--34-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.next">
+					<return_type>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</return_type>
+				</method>
+				<!--35-->
+			</invoke_virtual>
+			<store val="3">
+				<!--36-->
+			</store>
+			<load val="3">
+				<!--37-->
+			</load>
+			<invoke_static>
+				<method name="napile.io.Console.write">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--38-->
+			</invoke_static>
+			<new_string val="-">
+				<!--39-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.write">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--40-->
+			</invoke_static>
+			<jump val="30">
+				<!--41-->
+			</jump>
+			<new_string val="">
+				<!--42-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--43-->
+			</invoke_static>
+			<new_string val="After copyOfRange">
+				<!--44-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--45-->
+			</invoke_static>
+			<load val="1">
+				<!--46-->
+			</load>
+			<new_int val="0">
+				<!--47-->
+			</new_int>
+			<new_int val="5">
+				<!--48-->
+			</new_int>
+			<invoke_static>
+				<method name="napile.lang.ArrayUtil.copyOfRange">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
+				</method>
+				<!--49-->
+			</invoke_static>
+			<store val="3">
+				<!--50-->
+			</store>
+			<load val="3">
+				<!--51-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Array.iterator">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.util.Iterator"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
+						</type>
+					</return_type>
+				</method>
+				<!--52-->
+			</invoke_virtual>
+			<store val="5">
+				<!--53-->
+			</store>
+			<load val="5">
+				<!--54-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.hasNext">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--55-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--56-->
+			</invoke_static>
+			<jump_if val="66">
+				<!--57-->
+			</jump_if>
+			<load val="5">
+				<!--58-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.util.Iterator.next">
+					<return_type>
+						<type nullable="false">
+							<type_parameter_value_type name="E"/>
+						</type>
+					</return_type>
+				</method>
+				<!--59-->
+			</invoke_virtual>
+			<store val="4">
+				<!--60-->
+			</store>
+			<load val="4">
+				<!--61-->
+			</load>
+			<invoke_static>
+				<method name="napile.io.Console.write">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--62-->
+			</invoke_static>
+			<new_string val="-">
+				<!--63-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.write">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--64-->
+			</invoke_static>
+			<jump val="54">
+				<!--65-->
+			</jump>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--66-->
+			</invoke_static>
+			<return>
+				<!--67-->
+			</return>
+		</code>
+	</method>
+</class>
