@@ -104,7 +104,7 @@ public class MethodInfo implements ReflectInfo
 	@Override
 	public boolean hasModifier(@NotNull Modifier modifier)
 	{
-		return ArrayUtil.contains(modifier, methodNode.modifiers);
+		return ArrayUtil.contains(modifier, getMethodNode().modifiers);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class MethodInfo implements ReflectInfo
 
 	public List<TryCatchBlockNode> getTryCatchBlockNodes()
 	{
-		return methodNode.tryCatchBlockNodes;
+		return getMethodNode().tryCatchBlockNodes;
 	}
 
 	public TypeNode getReturnType()
@@ -151,7 +151,7 @@ public class MethodInfo implements ReflectInfo
 
 	public List<TypeParameterNode> getTypeParameters()
 	{
-		return methodNode.typeParameters;
+		return getMethodNode().typeParameters;
 	}
 
 	public InvokeType getInvokeType()
@@ -162,5 +162,10 @@ public class MethodInfo implements ReflectInfo
 	public void setInvokeType(InvokeType invokeType)
 	{
 		this.invokeType = invokeType;
+	}
+
+	public LikeMethodNode<?> getMethodNode()
+	{
+		return methodNode;
 	}
 }

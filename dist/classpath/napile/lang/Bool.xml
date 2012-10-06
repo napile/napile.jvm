@@ -22,6 +22,11 @@
 			<final/>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -44,6 +49,19 @@
 				</variable>
 				<!--1-->
 			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 	<method name="TRUE$get">
@@ -86,6 +104,11 @@
 			<final/>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -108,6 +131,19 @@
 				</variable>
 				<!--1-->
 			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 	<method name="FALSE$get">
@@ -148,6 +184,11 @@
 		<modifiers>
 			<local/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -173,6 +214,19 @@
 				</variable>
 				<!--2-->
 			</put_to_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<return>
+				<!--4-->
+			</return>
 		</code>
 	</method>
 	<method name="value$get">

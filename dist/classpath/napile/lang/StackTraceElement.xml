@@ -14,6 +14,11 @@
 		</return_type>
 	</variable>
 	<method name="name$set">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -39,6 +44,19 @@
 				</variable>
 				<!--2-->
 			</put_to_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<return>
+				<!--4-->
+			</return>
 		</code>
 	</method>
 	<method name="name$get">

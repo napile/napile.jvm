@@ -24,7 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
@@ -38,6 +40,7 @@ import org.napile.vm.util.AssertUtil;
  */
 public class StackEntry
 {
+	private static final Logger LOGGER = Logger.getLogger(StackEntry.class);
 	private BaseObjectInfo objectInfo;
 	private MethodInfo methodInfo;
 
@@ -64,13 +67,17 @@ public class StackEntry
 		this.methodInfo = methodInfo;
 		this.arguments = arguments;
 
-		AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
+		//FIXME [VISTALL] stupied hack
+		if(methodInfo.getMethodNode() instanceof MethodNode)
+		{
+			AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
 
-		Iterator<TypeParameterNode> it1 = methodInfo.getTypeParameters().iterator();
-		Iterator<TypeNode> it2 = typeArguments.iterator();
+			Iterator<TypeParameterNode> it1 = methodInfo.getTypeParameters().iterator();
+			Iterator<TypeNode> it2 = typeArguments.iterator();
 
-		while(it1.hasNext() && it2.hasNext())
-			this.typeArguments.put(it1.next().name, it2.next());
+			while(it1.hasNext() && it2.hasNext())
+				this.typeArguments.put(it1.next().name, it2.next());
+		}
 
 		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
 		{
@@ -154,8 +161,11 @@ public class StackEntry
 		return methodInfo.toString();
 	}
 
+	@NotNull
 	public BaseObjectInfo getReturnValue()
 	{
+		if(returnValue == null)
+			LOGGER.error("return value cant be null: " + getMethodInfo());
 		return returnValue;
 	}
 

@@ -297,6 +297,23 @@
 			</parameter>
 		</parameters>
 	</method>
+	<method name="times">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
 	<method name="minus">
 		<modifiers>
 			<native/>

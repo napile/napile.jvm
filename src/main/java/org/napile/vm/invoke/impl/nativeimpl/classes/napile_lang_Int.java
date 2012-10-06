@@ -50,6 +50,15 @@ public class napile_lang_Int
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() + ((Integer)arg[0].value()));
 	}
 
+	@NativeImplement(className = "napile.lang.Int", methodName = "times", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo times(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() * ((Integer)arg[0].value()));
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "minus", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo minus(Vm vm, InterpreterContext context)
 	{
