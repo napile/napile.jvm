@@ -314,6 +314,51 @@
 			</return>
 		</code>
 	</constructor>
+	<method name="add">
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.Any"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<load val="0">
+				<!--0-->
+			</load>
+			<load val="1">
+				<!--1-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.StringBuilder.plusAssign">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Any"/>
+						</type>
+					</parameters>
+				</method>
+				<!--2-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<return>
+				<!--4-->
+			</return>
+		</code>
+	</method>
 	<method name="plusAssign">
 		<parameters>
 			<parameter name="value">
