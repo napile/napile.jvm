@@ -96,18 +96,18 @@ public class StackEntry
 
 	public void push(BaseObjectInfo val)
 	{
-		debug.add("push: " + val + ": " + getMethodInfo());
+		debug.add("push: " + val);
 
 		stack.add(val);
 	}
 
 	public BaseObjectInfo pop()
 	{
-		BaseObjectInfo v = stack.pollLast();
+		BaseObjectInfo val = stack.pollLast();
 
-		debug.add("last: " + v + ": " + getMethodInfo());
+		debug.add("pop: " + val);
 
-		return v;
+		return val;
 	}
 
 	public void set(int index, BaseObjectInfo objectInfo)

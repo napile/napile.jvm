@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="codegenTest.postfixTest.PostfixWithPropertyTest">
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<variable name="myVar">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+	</variable>
+	<method name="myVar$set">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="value">
+				<modifiers>
+					<final/>
+				</modifiers>
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<put_to_static_variable>
+				<variable name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar">
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</variable>
+				<!--1-->
+			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
+		</code>
+	</method>
+	<method name="myVar$get">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Int"/>
+			</type>
+		</return_type>
+		<code max_locals="0">
+			<get_static_variable>
+				<variable name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar">
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</variable>
+				<!--0-->
+			</get_static_variable>
+			<return>
+				<!--1-->
+			</return>
+		</code>
+	</method>
+	<method name="main">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<parameters>
+			<parameter name="arg">
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</type_arguments>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<invoke_static>
+				<method name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+				</method>
+				<!--0-->
+			</invoke_static>
+			<dup>
+				<!--1-->
+			</dup>
+			<invoke_virtual>
+				<method name="napile.lang.Int.inc">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar$set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--3-->
+			</invoke_static>
+			<pop>
+				<!--4-->
+			</pop>
+			<store val="1">
+				<!--5-->
+			</store>
+			<load val="1">
+				<!--6-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.Int.toString">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--7-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--8-->
+			</invoke_static>
+			<invoke_static>
+				<method name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</return_type>
+				</method>
+				<!--9-->
+			</invoke_static>
+			<invoke_virtual>
+				<method name="napile.lang.Int.toString">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--10-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--11-->
+			</invoke_static>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--12-->
+			</invoke_static>
+			<return>
+				<!--13-->
+			</return>
+		</code>
+	</method>
+	<static_constructor>
+		<code max_locals="0">
+			<new_int val="0">
+				<!--0-->
+			</new_int>
+			<invoke_static>
+				<method name="codegenTest.postfixTest.PostfixWithPropertyTest.myVar$set">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameters>
+				</method>
+				<!--1-->
+			</invoke_static>
+		</code>
+	</static_constructor>
+</class>

@@ -146,10 +146,4 @@ public class CodegenTest extends MainTest
 	{
 		run("tryCatchTest.TryCatchTest");
 	}
-
-	@Test
-	public void test23()
-	{
-		run("postfixTest.PostfixTest");
-	}
 }
