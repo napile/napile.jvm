@@ -370,10 +370,10 @@
 				<!--7-->
 			</invoke_virtual>
 			<invoke_virtual>
-				<method name="napile.lang.StringBuilder.add">
+				<method name="napile.lang.StringBuilder.plus">
 					<return_type>
 						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
+							<class_type name="napile.lang.StringBuilder"/>
 						</type>
 					</return_type>
 					<parameters>
@@ -384,17 +384,20 @@
 				</method>
 				<!--8-->
 			</invoke_virtual>
-			<load val="2">
+			<store val="2">
 				<!--9-->
-			</load>
-			<load val="1">
+			</store>
+			<load val="2">
 				<!--10-->
 			</load>
+			<load val="1">
+				<!--11-->
+			</load>
 			<invoke_virtual>
-				<method name="napile.lang.StringBuilder.add">
+				<method name="napile.lang.StringBuilder.plus">
 					<return_type>
 						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
+							<class_type name="napile.lang.StringBuilder"/>
 						</type>
 					</return_type>
 					<parameters>
@@ -403,10 +406,13 @@
 						</type>
 					</parameters>
 				</method>
-				<!--11-->
-			</invoke_virtual>
-			<load val="2">
 				<!--12-->
+			</invoke_virtual>
+			<store val="2">
+				<!--13-->
+			</store>
+			<load val="2">
+				<!--14-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.toString">
@@ -416,10 +422,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--13-->
+				<!--15-->
 			</invoke_virtual>
 			<return>
-				<!--14-->
+				<!--16-->
 			</return>
 		</code>
 	</method>
