@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<class version="0" name="napile.lang.Array">
-	<type_parameters>
-		<type_parameter name="E">
-			<extends>
-				<type nullable="true">
-					<class_type name="napile.lang.Any"/>
-				</type>
-			</extends>
-			<type_parameter_constructors/>
-		</type_parameter>
-	</type_parameters>
+<class version="0" name="codegenTest.typeParameterTest.TWithTarget">
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -47,7 +37,7 @@
 				<!--1-->
 			</load>
 			<put_to_variable>
-				<variable name="napile.lang.Array.length">
+				<variable name="codegenTest.typeParameterTest.TWithTarget.length">
 					<type nullable="false">
 						<class_type name="napile.lang.Int"/>
 					</type>
@@ -80,7 +70,7 @@
 				<!--0-->
 			</load>
 			<get_variable>
-				<variable name="napile.lang.Array.length">
+				<variable name="codegenTest.typeParameterTest.TWithTarget.length">
 					<type nullable="false">
 						<class_type name="napile.lang.Int"/>
 					</type>
@@ -126,11 +116,11 @@
 			<load val="0">
 				<!--3-->
 			</load>
-			<new_int val="0">
+			<new_int val="1">
 				<!--4-->
 			</new_int>
 			<invoke_virtual>
-				<method name="napile.lang.Array.length$set">
+				<method name="codegenTest.typeParameterTest.TWithTarget.length$set">
 					<return_type>
 						<type nullable="false">
 							<class_type name="napile.lang.Null"/>
@@ -154,7 +144,7 @@
 				<!--8-->
 			</load>
 			<invoke_virtual>
-				<method name="napile.lang.Array.length$set">
+				<method name="codegenTest.typeParameterTest.TWithTarget.length$set">
 					<return_type>
 						<type nullable="false">
 							<class_type name="napile.lang.Null"/>
@@ -174,112 +164,9 @@
 			<load val="0">
 				<!--11-->
 			</load>
-			<invoke_virtual>
-				<method name="napile.lang.Array.init">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-				</method>
-				<!--12-->
-			</invoke_virtual>
-			<load val="0">
-				<!--13-->
-			</load>
 			<return>
-				<!--14-->
+				<!--12-->
 			</return>
 		</code>
 	</constructor>
-	<method name="init">
-		<modifiers>
-			<native/>
-		</modifiers>
-		<return_type>
-			<type nullable="false">
-				<class_type name="napile.lang.Null"/>
-			</type>
-		</return_type>
-	</method>
-	<method name="set">
-		<modifiers>
-			<native/>
-		</modifiers>
-		<return_type>
-			<type nullable="false">
-				<class_type name="napile.lang.Null"/>
-			</type>
-		</return_type>
-		<parameters>
-			<parameter name="index">
-				<type nullable="false">
-					<class_type name="napile.lang.Int"/>
-				</type>
-			</parameter>
-			<parameter name="value">
-				<type nullable="false">
-					<type_parameter_value_type name="E"/>
-				</type>
-			</parameter>
-		</parameters>
-	</method>
-	<method name="get">
-		<modifiers>
-			<native/>
-		</modifiers>
-		<return_type>
-			<type nullable="false">
-				<class_type name="napile.lang.Null"/>
-			</type>
-		</return_type>
-		<parameters>
-			<parameter name="index">
-				<type nullable="false">
-					<class_type name="napile.lang.Int"/>
-				</type>
-			</parameter>
-		</parameters>
-	</method>
-	<method name="iterator">
-		<return_type>
-			<type nullable="false">
-				<class_type name="napile.util.Iterator"/>
-				<type_arguments>
-					<type nullable="false">
-						<type_parameter_value_type name="E"/>
-					</type>
-				</type_arguments>
-			</type>
-		</return_type>
-		<code max_locals="1">
-			<load val="0">
-				<!--0-->
-			</load>
-			<new_object>
-				<type nullable="false">
-					<class_type name="napile.lang.ArrayIterator"/>
-					<type_arguments>
-						<type nullable="false">
-							<type_parameter_value_type name="E"/>
-						</type>
-					</type_arguments>
-				</type>
-				<parameters>
-					<type nullable="false">
-						<class_type name="napile.lang.Array"/>
-						<type_arguments>
-							<type nullable="false">
-								<type_parameter_value_type name="E"/>
-							</type>
-						</type_arguments>
-					</type>
-				</parameters>
-				<!--1-->
-			</new_object>
-			<return>
-				<!--2-->
-			</return>
-		</code>
-	</method>
 </class>

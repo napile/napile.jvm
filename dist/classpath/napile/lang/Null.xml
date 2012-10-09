@@ -138,22 +138,6 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<dup>
-				<!--1-->
-			</dup>
-			<invoke_special>
-				<method name="napile.lang.Null.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-				</method>
-				<!--2-->
-			</invoke_special>
-			<pop>
-				<!--3-->
-			</pop>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$set">
 					<return_type>
@@ -167,8 +151,11 @@
 						</type>
 					</parameters>
 				</method>
-				<!--4-->
+				<!--1-->
 			</invoke_static>
+			<pop>
+				<!--2-->
+			</pop>
 		</code>
 	</static_constructor>
 </class>

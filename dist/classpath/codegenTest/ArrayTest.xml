@@ -10,6 +10,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="args">
 				<type nullable="false">
@@ -23,6 +28,9 @@
 			</parameter>
 		</parameters>
 		<code max_locals="2">
+			<new_int val="5">
+				<!--0-->
+			</new_int>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -32,48 +40,24 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--0-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--1-->
-			</dup>
-			<new_int val="5">
-				<!--2-->
-			</new_int>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--3-->
-			</invoke_special>
-			<pop>
-				<!--4-->
-			</pop>
+			</new_object>
 			<store val="1">
-				<!--5-->
+				<!--2-->
 			</store>
 			<load val="1">
-				<!--6-->
+				<!--3-->
 			</load>
 			<new_int val="0">
-				<!--7-->
+				<!--4-->
 			</new_int>
 			<new_int val="1234567">
-				<!--8-->
+				<!--5-->
 			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -91,7 +75,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--9-->
+				<!--6-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -101,10 +85,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--10-->
+				<!--7-->
 			</invoke_static>
 			<return>
-				<!--11-->
+				<!--8-->
 			</return>
 		</code>
 	</method>

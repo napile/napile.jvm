@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <class version="0" name="napile.condition.CompareResult">
 	<modifiers>
 		<enum/>
@@ -24,6 +25,11 @@
 			<final/>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -46,6 +52,19 @@
 				</variable>
 				<!--1-->
 			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 	<method name="GREATER$get">
@@ -88,6 +107,11 @@
 			<final/>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -110,6 +134,19 @@
 				</variable>
 				<!--1-->
 			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 	<method name="EQUAL$get">
@@ -152,6 +189,11 @@
 			<final/>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -174,6 +216,19 @@
 				</variable>
 				<!--1-->
 			</put_to_static_variable>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--2-->
+			</invoke_static>
+			<return>
+				<!--3-->
+			</return>
 		</code>
 	</method>
 	<method name="LOWER$get">
@@ -237,71 +292,41 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<invoke_special>
-				<method name="napile.condition.CompareResult$GREATER.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult$GREATER"/>
-						</type>
-					</return_type>
-				</method>
-				<!--1-->
-			</invoke_special>
 			<put_to_static_variable>
 				<variable name="napile.condition.CompareResult.GREATER">
 					<type nullable="false">
 						<class_type name="napile.condition.CompareResult.GREATER"/>
 					</type>
 				</variable>
-				<!--2-->
+				<!--1-->
 			</put_to_static_variable>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.condition.CompareResult$EQUAL"/>
 				</type>
-				<!--3-->
+				<!--2-->
 			</new_object>
-			<invoke_special>
-				<method name="napile.condition.CompareResult$EQUAL.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult$EQUAL"/>
-						</type>
-					</return_type>
-				</method>
-				<!--4-->
-			</invoke_special>
 			<put_to_static_variable>
 				<variable name="napile.condition.CompareResult.EQUAL">
 					<type nullable="false">
 						<class_type name="napile.condition.CompareResult.EQUAL"/>
 					</type>
 				</variable>
-				<!--5-->
+				<!--3-->
 			</put_to_static_variable>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.condition.CompareResult$LOWER"/>
 				</type>
-				<!--6-->
+				<!--4-->
 			</new_object>
-			<invoke_special>
-				<method name="napile.condition.CompareResult$LOWER.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult$LOWER"/>
-						</type>
-					</return_type>
-				</method>
-				<!--7-->
-			</invoke_special>
 			<put_to_static_variable>
 				<variable name="napile.condition.CompareResult.LOWER">
 					<type nullable="false">
 						<class_type name="napile.condition.CompareResult.LOWER"/>
 					</type>
 				</variable>
-				<!--8-->
+				<!--5-->
 			</put_to_static_variable>
 		</code>
 	</static_constructor>

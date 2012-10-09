@@ -17,9 +17,15 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
 import org.napile.asm.tree.members.bytecode.impl.NewObjectInstruction;
+import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
+import org.napile.vm.objects.BaseObjectInfo;
+import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -35,7 +41,29 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
-		context.push(vm.newObject(instruction.value));
+		TypeNode createType = null;
+		if(instruction.value.typeConstructorNode instanceof TypeParameterValueTypeNode)
+		{
+			TypeNode typeNode = context.searchTypeParameterValue(((TypeParameterValueTypeNode) instruction.value.typeConstructorNode).name);
+
+			AssertUtil.assertFalse(typeNode != null, "Type parameter is not found : " + ((TypeParameterValueTypeNode) instruction.value.typeConstructorNode).name);
+
+			createType = typeNode;
+		}
+		else if(instruction.value.typeConstructorNode instanceof ClassTypeNode)
+			createType = instruction.value;
+		else
+			throw new UnsupportedOperationException(instruction.value.typeConstructorNode + " cant be created by " + instruction);
+
+		assert createType != null;
+
+		BaseObjectInfo[] arguments = new BaseObjectInfo[instruction.parameters.size()];
+		for(int i = 0; i < arguments.length; i++)
+			arguments[i] = context.pop();
+
+		arguments = ArrayUtil.reverseArray(arguments);
+
+		context.push(vm.newObject(context, createType, instruction.parameters.toArray(new TypeNode[instruction.parameters.size()]), arguments));
 		return nextIndex;
 	}
 }

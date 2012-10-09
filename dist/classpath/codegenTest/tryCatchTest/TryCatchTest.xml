@@ -10,6 +10,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -47,27 +52,11 @@
 				</type>
 				<!--2-->
 			</new_object>
-			<dup>
-				<!--3-->
-			</dup>
-			<invoke_special>
-				<method name="codegenTest.tryCatchTest.TryCatchObject.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="codegenTest.tryCatchTest.TryCatchObject"/>
-						</type>
-					</return_type>
-				</method>
-				<!--4-->
-			</invoke_special>
-			<pop>
-				<!--5-->
-			</pop>
 			<store val="1">
-				<!--6-->
+				<!--3-->
 			</store>
 			<load val="1">
-				<!--7-->
+				<!--4-->
 			</load>
 			<invoke_virtual>
 				<method name="codegenTest.tryCatchTest.TryCatchObject.b">
@@ -77,10 +66,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--8-->
+				<!--5-->
 			</invoke_virtual>
 			<new_string val="After throw">
-				<!--9-->
+				<!--6-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -95,7 +84,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--10-->
+				<!--7-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -105,10 +94,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--11-->
+				<!--8-->
 			</invoke_static>
 			<return>
-				<!--12-->
+				<!--9-->
 			</return>
 		</code>
 	</method>

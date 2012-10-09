@@ -8,6 +8,7 @@
 					<class_type name="napile.lang.Any"/>
 				</type>
 			</extends>
+			<type_parameter_constructors/>
 		</type_parameter>
 	</type_parameters>
 	<extends>
@@ -144,11 +145,14 @@
 				</method>
 				<!--5-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--6-->
+			</pop>
+			<load val="0">
+				<!--7-->
 			</load>
 			<return>
-				<!--7-->
+				<!--8-->
 			</return>
 		</code>
 	</constructor>

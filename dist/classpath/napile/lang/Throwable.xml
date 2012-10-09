@@ -235,11 +235,14 @@
 				</method>
 				<!--5-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--6-->
+			</pop>
+			<load val="0">
+				<!--7-->
 			</load>
 			<load val="1">
-				<!--7-->
+				<!--8-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Throwable.message$set">
@@ -254,13 +257,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--8-->
-			</invoke_virtual>
-			<load val="0">
 				<!--9-->
+			</invoke_virtual>
+			<pop>
+				<!--10-->
+			</pop>
+			<load val="0">
+				<!--11-->
 			</load>
 			<load val="0">
-				<!--10-->
+				<!--12-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Throwable.getStack0">
@@ -275,7 +281,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--11-->
+				<!--13-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Throwable.stack$set">
@@ -295,13 +301,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--12-->
+				<!--14-->
 			</invoke_virtual>
+			<pop>
+				<!--15-->
+			</pop>
 			<load val="0">
-				<!--13-->
+				<!--16-->
 			</load>
 			<return>
-				<!--14-->
+				<!--17-->
 			</return>
 		</code>
 	</constructor>
@@ -322,6 +331,11 @@
 		</return_type>
 	</method>
 	<method name="printStackTrace">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="3">
 			<new_string val="Message: ">
 				<!--0-->

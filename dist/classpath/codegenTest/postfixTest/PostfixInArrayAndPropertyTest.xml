@@ -124,16 +124,27 @@
 				</method>
 				<!--5-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--6-->
+			</pop>
+			<load val="0">
+				<!--7-->
 			</load>
 			<return>
-				<!--7-->
+				<!--8-->
 			</return>
 		</code>
 	</constructor>
 	<method name="test">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="6">
+			<new_int val="10">
+				<!--0-->
+			</new_int>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -143,42 +154,18 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--0-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--1-->
-			</dup>
-			<new_int val="10">
-				<!--2-->
-			</new_int>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--3-->
-			</invoke_special>
-			<pop>
-				<!--4-->
-			</pop>
+			</new_object>
 			<store val="1">
-				<!--5-->
+				<!--2-->
 			</store>
 			<load val="1">
-				<!--6-->
+				<!--3-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.iterator">
@@ -193,13 +180,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--7-->
+				<!--4-->
 			</invoke_virtual>
 			<store val="3">
-				<!--8-->
+				<!--5-->
 			</store>
 			<load val="3">
-				<!--9-->
+				<!--6-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.hasNext">
@@ -209,7 +196,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--10-->
+				<!--7-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -219,13 +206,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--11-->
+				<!--8-->
 			</invoke_static>
-			<jump_if val="29">
-				<!--12-->
+			<jump_if val="26">
+				<!--9-->
 			</jump_if>
 			<load val="3">
-				<!--13-->
+				<!--10-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.next">
@@ -235,19 +222,19 @@
 						</type>
 					</return_type>
 				</method>
-				<!--14-->
+				<!--11-->
 			</invoke_virtual>
 			<store val="2">
-				<!--15-->
+				<!--12-->
 			</store>
 			<load val="1">
-				<!--16-->
+				<!--13-->
 			</load>
 			<load val="0">
-				<!--17-->
+				<!--14-->
 			</load>
 			<dup>
-				<!--18-->
+				<!--15-->
 			</dup>
 			<invoke_virtual>
 				<method name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest.index$get">
@@ -257,10 +244,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--19-->
+				<!--16-->
 			</invoke_virtual>
 			<dup1x1>
-				<!--20-->
+				<!--17-->
 			</dup1x1>
 			<invoke_virtual>
 				<method name="napile.lang.Int.inc">
@@ -270,7 +257,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--21-->
+				<!--18-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest.index$set">
@@ -285,13 +272,13 @@
 						</type>
 					</parameters>
 				</method>
-				<!--22-->
+				<!--19-->
 			</invoke_virtual>
 			<pop>
-				<!--23-->
+				<!--20-->
 			</pop>
 			<load val="0">
-				<!--24-->
+				<!--21-->
 			</load>
 			<invoke_virtual>
 				<method name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest.index$get">
@@ -301,7 +288,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--25-->
+				<!--22-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Int.toString">
@@ -311,7 +298,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--26-->
+				<!--23-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -329,13 +316,13 @@
 						</type>
 					</parameters>
 				</method>
-				<!--27-->
+				<!--24-->
 			</invoke_virtual>
-			<jump val="9">
-				<!--28-->
+			<jump val="6">
+				<!--25-->
 			</jump>
 			<load val="1">
-				<!--29-->
+				<!--26-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.iterator">
@@ -350,13 +337,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--30-->
+				<!--27-->
 			</invoke_virtual>
 			<store val="3">
-				<!--31-->
+				<!--28-->
 			</store>
 			<load val="3">
-				<!--32-->
+				<!--29-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.hasNext">
@@ -366,7 +353,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--33-->
+				<!--30-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -376,13 +363,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--34-->
+				<!--31-->
 			</invoke_static>
-			<jump_if val="42">
-				<!--35-->
+			<jump_if val="39">
+				<!--32-->
 			</jump_if>
 			<load val="3">
-				<!--36-->
+				<!--33-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.next">
@@ -392,13 +379,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--37-->
+				<!--34-->
 			</invoke_virtual>
 			<store val="2">
-				<!--38-->
+				<!--35-->
 			</store>
 			<load val="2">
-				<!--39-->
+				<!--36-->
 			</load>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -413,10 +400,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--40-->
+				<!--37-->
 			</invoke_static>
-			<jump val="32">
-				<!--41-->
+			<jump val="29">
+				<!--38-->
 			</jump>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -426,10 +413,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--42-->
+				<!--39-->
 			</invoke_static>
 			<return>
-				<!--43-->
+				<!--40-->
 			</return>
 		</code>
 	</method>
@@ -437,6 +424,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -456,27 +448,11 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<dup>
-				<!--1-->
-			</dup>
-			<invoke_special>
-				<method name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest"/>
-						</type>
-					</return_type>
-				</method>
-				<!--2-->
-			</invoke_special>
-			<pop>
-				<!--3-->
-			</pop>
 			<store val="1">
-				<!--4-->
+				<!--1-->
 			</store>
 			<load val="1">
-				<!--5-->
+				<!--2-->
 			</load>
 			<invoke_virtual>
 				<method name="codegenTest.postfixTest.PostfixInArrayAndPropertyTest.test">
@@ -486,7 +462,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--6-->
+				<!--3-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -496,10 +472,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--7-->
+				<!--4-->
 			</invoke_static>
 			<return>
-				<!--8-->
+				<!--5-->
 			</return>
 		</code>
 	</method>

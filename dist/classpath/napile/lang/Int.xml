@@ -137,25 +137,11 @@
 			</parameter>
 		</parameters>
 		<code max_locals="5">
-			<new_object>
-				<type nullable="false">
-					<class_type name="napile.lang.Array"/>
-					<type_arguments>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</type_arguments>
-				</type>
-				<!--0-->
-			</new_object>
-			<dup>
-				<!--1-->
-			</dup>
 			<load val="1">
-				<!--2-->
+				<!--0-->
 			</load>
 			<load val="0">
-				<!--3-->
+				<!--1-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Int.minus">
@@ -170,10 +156,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--4-->
+				<!--2-->
 			</invoke_virtual>
 			<new_int val="1">
-				<!--5-->
+				<!--3-->
 			</new_int>
 			<invoke_virtual>
 				<method name="napile.lang.Int.plus">
@@ -188,51 +174,44 @@
 						</type>
 					</parameters>
 				</method>
-				<!--6-->
+				<!--4-->
 			</invoke_virtual>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.lang.Array"/>
+					<type_arguments>
 						<type nullable="false">
 							<class_type name="napile.lang.Int"/>
 						</type>
-					</parameters>
-				</method>
-				<!--7-->
-			</invoke_special>
-			<pop>
-				<!--8-->
-			</pop>
+					</type_arguments>
+				</type>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
+				<!--5-->
+			</new_object>
 			<store val="2">
-				<!--9-->
+				<!--6-->
 			</store>
 			<new_int val="0">
-				<!--10-->
+				<!--7-->
 			</new_int>
 			<store val="3">
-				<!--11-->
+				<!--8-->
 			</store>
 			<load val="0">
-				<!--12-->
+				<!--9-->
 			</load>
 			<store val="4">
-				<!--13-->
+				<!--10-->
 			</store>
 			<load val="3">
-				<!--14-->
+				<!--11-->
 			</load>
 			<load val="2">
-				<!--15-->
+				<!--12-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.length$get">
@@ -242,7 +221,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--16-->
+				<!--13-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Int.equals">
@@ -257,7 +236,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--17-->
+				<!--14-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Bool.not">
@@ -267,7 +246,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--18-->
+				<!--15-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -277,19 +256,19 @@
 						</type>
 					</return_type>
 				</method>
-				<!--19-->
+				<!--16-->
 			</invoke_static>
-			<jump_if val="32">
-				<!--20-->
+			<jump_if val="29">
+				<!--17-->
 			</jump_if>
 			<load val="2">
-				<!--21-->
+				<!--18-->
 			</load>
 			<load val="3">
-				<!--22-->
+				<!--19-->
 			</load>
 			<dup>
-				<!--23-->
+				<!--20-->
 			</dup>
 			<invoke_virtual>
 				<method name="napile.lang.Int.inc">
@@ -299,16 +278,16 @@
 						</type>
 					</return_type>
 				</method>
-				<!--24-->
+				<!--21-->
 			</invoke_virtual>
 			<store val="3">
-				<!--25-->
+				<!--22-->
 			</store>
 			<load val="4">
-				<!--26-->
+				<!--23-->
 			</load>
 			<dup>
-				<!--27-->
+				<!--24-->
 			</dup>
 			<invoke_virtual>
 				<method name="napile.lang.Int.inc">
@@ -318,10 +297,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--28-->
+				<!--25-->
 			</invoke_virtual>
 			<store val="4">
-				<!--29-->
+				<!--26-->
 			</store>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -339,16 +318,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--30-->
+				<!--27-->
 			</invoke_virtual>
-			<jump val="14">
-				<!--31-->
+			<jump val="11">
+				<!--28-->
 			</jump>
 			<load val="2">
-				<!--32-->
+				<!--29-->
 			</load>
 			<return>
-				<!--33-->
+				<!--30-->
 			</return>
 		</code>
 	</method>
@@ -494,6 +473,9 @@
 				</method>
 				<!--1-->
 			</invoke_static>
+			<pop>
+				<!--2-->
+			</pop>
 		</code>
 	</static_constructor>
 </class>

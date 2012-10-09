@@ -134,11 +134,14 @@
 				</method>
 				<!--5-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--6-->
+			</pop>
+			<load val="0">
+				<!--7-->
 			</load>
 			<return>
-				<!--7-->
+				<!--8-->
 			</return>
 		</code>
 	</constructor>

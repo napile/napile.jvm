@@ -169,11 +169,14 @@
 				</method>
 				<!--5-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--6-->
+			</pop>
+			<load val="0">
+				<!--7-->
 			</load>
 			<return>
-				<!--7-->
+				<!--8-->
 			</return>
 		</code>
 	</constructor>
@@ -306,11 +309,14 @@
 				</method>
 				<!--10-->
 			</invoke_virtual>
-			<load val="0">
+			<pop>
 				<!--11-->
+			</pop>
+			<load val="0">
+				<!--12-->
 			</load>
 			<return>
-				<!--12-->
+				<!--13-->
 			</return>
 		</code>
 	</constructor>
@@ -334,30 +340,14 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<dup>
-				<!--1-->
-			</dup>
-			<invoke_special>
-				<method name="napile.lang.StringBuilder.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.StringBuilder"/>
-						</type>
-					</return_type>
-				</method>
-				<!--2-->
-			</invoke_special>
-			<pop>
-				<!--3-->
-			</pop>
 			<store val="2">
-				<!--4-->
+				<!--1-->
 			</store>
 			<load val="2">
-				<!--5-->
+				<!--2-->
 			</load>
 			<load val="0">
-				<!--6-->
+				<!--3-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.String.toString">
@@ -367,7 +357,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--7-->
+				<!--4-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.plus">
@@ -382,16 +372,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--8-->
+				<!--5-->
 			</invoke_virtual>
 			<store val="2">
-				<!--9-->
+				<!--6-->
 			</store>
 			<load val="2">
-				<!--10-->
+				<!--7-->
 			</load>
 			<load val="1">
-				<!--11-->
+				<!--8-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.plus">
@@ -406,13 +396,13 @@
 						</type>
 					</parameters>
 				</method>
-				<!--12-->
+				<!--9-->
 			</invoke_virtual>
 			<store val="2">
-				<!--13-->
+				<!--10-->
 			</store>
 			<load val="2">
-				<!--14-->
+				<!--11-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.toString">
@@ -422,10 +412,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--15-->
+				<!--12-->
 			</invoke_virtual>
 			<return>
-				<!--16-->
+				<!--13-->
 			</return>
 		</code>
 	</method>

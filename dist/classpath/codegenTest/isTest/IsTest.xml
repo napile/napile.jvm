@@ -10,6 +10,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -23,6 +28,9 @@
 			</parameter>
 		</parameters>
 		<code max_locals="2">
+			<new_int val="0">
+				<!--0-->
+			</new_int>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -32,42 +40,18 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--0-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--1-->
-			</dup>
-			<new_int val="0">
-				<!--2-->
-			</new_int>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--3-->
-			</invoke_special>
-			<pop>
-				<!--4-->
-			</pop>
+			</new_object>
 			<store val="1">
-				<!--5-->
+				<!--2-->
 			</store>
 			<load val="1">
-				<!--6-->
+				<!--3-->
 			</load>
 			<is>
 				<type nullable="false">
@@ -78,7 +62,7 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--7-->
+				<!--4-->
 			</is>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -88,13 +72,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--8-->
+				<!--5-->
 			</invoke_static>
-			<jump_if val="12">
-				<!--9-->
+			<jump_if val="9">
+				<!--6-->
 			</jump_if>
 			<new_string val="Array&lt;Int&gt; is Array&lt;Int&gt;">
-				<!--10-->
+				<!--7-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -109,10 +93,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--11-->
+				<!--8-->
 			</invoke_static>
 			<load val="1">
-				<!--12-->
+				<!--9-->
 			</load>
 			<is>
 				<type nullable="false">
@@ -123,7 +107,7 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--13-->
+				<!--10-->
 			</is>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -133,13 +117,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--14-->
+				<!--11-->
 			</invoke_static>
-			<jump_if val="18">
-				<!--15-->
+			<jump_if val="15">
+				<!--12-->
 			</jump_if>
 			<new_string val="Array&lt;Int&gt; is Array&lt;Any&gt;">
-				<!--16-->
+				<!--13-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -154,10 +138,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--17-->
+				<!--14-->
 			</invoke_static>
 			<load val="1">
-				<!--18-->
+				<!--15-->
 			</load>
 			<is>
 				<type nullable="false">
@@ -168,7 +152,7 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--19-->
+				<!--16-->
 			</is>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -178,13 +162,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--20-->
+				<!--17-->
 			</invoke_static>
-			<jump_if val="24">
-				<!--21-->
+			<jump_if val="21">
+				<!--18-->
 			</jump_if>
 			<new_string val="Array&lt;Int&gt; is Array&lt;Any?&gt;">
-				<!--22-->
+				<!--19-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -199,16 +183,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--23-->
+				<!--20-->
 			</invoke_static>
 			<load val="1">
-				<!--24-->
+				<!--21-->
 			</load>
 			<is>
 				<type nullable="false">
 					<class_type name="napile.lang.Any"/>
 				</type>
-				<!--25-->
+				<!--22-->
 			</is>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -218,13 +202,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--26-->
+				<!--23-->
 			</invoke_static>
-			<jump_if val="30">
-				<!--27-->
+			<jump_if val="27">
+				<!--24-->
 			</jump_if>
 			<new_string val="Array&lt;Int&gt; is Any">
-				<!--28-->
+				<!--25-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -239,16 +223,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--29-->
+				<!--26-->
 			</invoke_static>
 			<load val="1">
-				<!--30-->
+				<!--27-->
 			</load>
 			<is>
 				<type nullable="false">
 					<class_type name="napile.lang.Int"/>
 				</type>
-				<!--31-->
+				<!--28-->
 			</is>
 			<invoke_virtual>
 				<method name="napile.lang.Bool.not">
@@ -258,7 +242,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--32-->
+				<!--29-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -268,13 +252,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--33-->
+				<!--30-->
 			</invoke_static>
-			<jump_if val="37">
-				<!--34-->
+			<jump_if val="34">
+				<!--31-->
 			</jump_if>
 			<new_string val="Array&lt;Int&gt; !is Int">
-				<!--35-->
+				<!--32-->
 			</new_string>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -289,7 +273,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--36-->
+				<!--33-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -299,10 +283,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--37-->
+				<!--34-->
 			</invoke_static>
 			<return>
-				<!--38-->
+				<!--35-->
 			</return>
 		</code>
 	</method>

@@ -89,6 +89,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -244,6 +249,9 @@
 				</method>
 				<!--1-->
 			</invoke_static>
+			<pop>
+				<!--2-->
+			</pop>
 		</code>
 	</static_constructor>
 </class>

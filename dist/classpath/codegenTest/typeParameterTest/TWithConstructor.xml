@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<class version="0" name="napile.util.Iterator">
-	<modifiers>
-		<abstract/>
-	</modifiers>
+<class version="0" name="codegenTest.typeParameterTest.TWithConstructor">
 	<type_parameters>
 		<type_parameter name="E">
 			<extends>
@@ -11,7 +8,15 @@
 					<class_type name="napile.lang.Any"/>
 				</type>
 			</extends>
-			<type_parameter_constructors/>
+			<type_parameter_constructors>
+				<type_parameter_constructor>
+					<parameter name="value">
+						<type nullable="false">
+							<class_type name="napile.lang.Int"/>
+						</type>
+					</parameter>
+				</type_parameter_constructor>
+			</type_parameter_constructors>
 		</type_parameter>
 	</type_parameters>
 	<extends>
@@ -48,24 +53,40 @@
 			</return>
 		</code>
 	</constructor>
-	<method name="hasNext">
-		<modifiers>
-			<abstract/>
-		</modifiers>
-		<return_type>
-			<type nullable="false">
-				<class_type name="napile.lang.Bool"/>
-			</type>
-		</return_type>
-	</method>
-	<method name="next">
-		<modifiers>
-			<abstract/>
-		</modifiers>
+	<method name="create">
 		<return_type>
 			<type nullable="false">
 				<type_parameter_value_type name="E"/>
 			</type>
 		</return_type>
+		<parameters>
+			<parameter name="size">
+				<type nullable="false">
+					<class_type name="napile.lang.Int"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<load val="0">
+				<!--0-->
+			</load>
+			<load val="1">
+				<!--1-->
+			</load>
+			<new_object>
+				<type nullable="false">
+					<type_parameter_value_type name="E"/>
+				</type>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
+				<!--2-->
+			</new_object>
+			<return>
+				<!--3-->
+			</return>
+		</code>
 	</method>
 </class>

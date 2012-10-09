@@ -17,6 +17,7 @@
 						<class_type name="napile.lang.Any"/>
 					</type>
 				</extends>
+				<type_parameter_constructors/>
 			</type_parameter>
 		</type_parameters>
 		<return_type>
@@ -47,6 +48,9 @@
 			</parameter>
 		</parameters>
 		<code max_locals="3">
+			<load val="1">
+				<!--0-->
+			</load>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -56,54 +60,30 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--0-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--1-->
-			</dup>
-			<load val="1">
-				<!--2-->
-			</load>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--3-->
-			</invoke_special>
-			<pop>
-				<!--4-->
-			</pop>
+			</new_object>
 			<store val="2">
-				<!--5-->
+				<!--2-->
 			</store>
 			<load val="0">
-				<!--6-->
+				<!--3-->
 			</load>
 			<new_int val="0">
-				<!--7-->
+				<!--4-->
 			</new_int>
 			<load val="2">
-				<!--8-->
+				<!--5-->
 			</load>
 			<new_int val="0">
-				<!--9-->
+				<!--6-->
 			</new_int>
 			<load val="0">
-				<!--10-->
+				<!--7-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.length$get">
@@ -113,10 +93,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--11-->
+				<!--8-->
 			</invoke_virtual>
 			<load val="1">
-				<!--12-->
+				<!--9-->
 			</load>
 			<invoke_static>
 				<method name="napile.lang.Math.min">
@@ -134,7 +114,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--13-->
+				<!--10-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.ArrayUtil.copy">
@@ -176,13 +156,13 @@
 						</type>
 					</type_arguments>
 				</method>
-				<!--14-->
+				<!--11-->
 			</invoke_static>
 			<load val="2">
-				<!--15-->
+				<!--12-->
 			</load>
 			<return>
-				<!--16-->
+				<!--13-->
 			</return>
 		</code>
 	</method>
@@ -197,6 +177,7 @@
 						<class_type name="napile.lang.Any"/>
 					</type>
 				</extends>
+				<type_parameter_constructors/>
 			</type_parameter>
 		</type_parameters>
 		<return_type>
@@ -256,6 +237,9 @@
 			<store val="3">
 				<!--3-->
 			</store>
+			<load val="3">
+				<!--4-->
+			</load>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -265,54 +249,30 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--4-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--5-->
-			</dup>
-			<load val="3">
-				<!--6-->
-			</load>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--7-->
-			</invoke_special>
-			<pop>
-				<!--8-->
-			</pop>
+			</new_object>
 			<store val="4">
-				<!--9-->
+				<!--6-->
 			</store>
 			<load val="0">
-				<!--10-->
+				<!--7-->
 			</load>
 			<load val="1">
-				<!--11-->
+				<!--8-->
 			</load>
 			<load val="4">
-				<!--12-->
+				<!--9-->
 			</load>
 			<new_int val="0">
-				<!--13-->
+				<!--10-->
 			</new_int>
 			<load val="2">
-				<!--14-->
+				<!--11-->
 			</load>
 			<invoke_static>
 				<method name="napile.lang.ArrayUtil.copy">
@@ -354,13 +314,13 @@
 						</type>
 					</type_arguments>
 				</method>
-				<!--15-->
+				<!--12-->
 			</invoke_static>
 			<load val="4">
-				<!--16-->
+				<!--13-->
 			</load>
 			<return>
-				<!--17-->
+				<!--14-->
 			</return>
 		</code>
 	</method>
@@ -375,8 +335,14 @@
 						<class_type name="napile.lang.Any"/>
 					</type>
 				</extends>
+				<type_parameter_constructors/>
 			</type_parameter>
 		</type_parameters>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="src">
 				<type nullable="false">

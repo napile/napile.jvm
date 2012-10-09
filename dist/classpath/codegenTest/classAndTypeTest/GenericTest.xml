@@ -8,6 +8,7 @@
 					<class_type name="napile.lang.Any"/>
 				</type>
 			</extends>
+			<type_parameter_constructors/>
 		</type_parameter>
 	</type_parameters>
 	<extends>
@@ -45,6 +46,11 @@
 		</code>
 	</constructor>
 	<method name="showE">
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="2">
 			<class_of>
 				<type nullable="false">
@@ -102,6 +108,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -126,32 +137,11 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<dup>
-				<!--1-->
-			</dup>
-			<invoke_special>
-				<method name="codegenTest.classAndTypeTest.GenericTest.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="codegenTest.classAndTypeTest.GenericTest"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-				</method>
-				<!--2-->
-			</invoke_special>
-			<pop>
-				<!--3-->
-			</pop>
 			<store val="1">
-				<!--4-->
+				<!--1-->
 			</store>
 			<load val="1">
-				<!--5-->
+				<!--2-->
 			</load>
 			<invoke_virtual>
 				<method name="codegenTest.classAndTypeTest.GenericTest.showE">
@@ -161,7 +151,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--6-->
+				<!--3-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -171,10 +161,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--7-->
+				<!--4-->
 			</invoke_static>
 			<return>
-				<!--8-->
+				<!--5-->
 			</return>
 		</code>
 	</method>

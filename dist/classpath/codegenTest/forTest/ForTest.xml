@@ -10,6 +10,11 @@
 		<modifiers>
 			<static/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="arg">
 				<type nullable="false">
@@ -23,6 +28,9 @@
 			</parameter>
 		</parameters>
 		<code max_locals="4">
+			<new_int val="5">
+				<!--0-->
+			</new_int>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.lang.Array"/>
@@ -32,48 +40,24 @@
 						</type>
 					</type_arguments>
 				</type>
-				<!--0-->
-			</new_object>
-			<dup>
+				<parameters>
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</parameters>
 				<!--1-->
-			</dup>
-			<new_int val="5">
-				<!--2-->
-			</new_int>
-			<invoke_special>
-				<method name="napile.lang.Array.this">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<type_parameter_value_type name="E"/>
-								</type>
-							</type_arguments>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--3-->
-			</invoke_special>
-			<pop>
-				<!--4-->
-			</pop>
+			</new_object>
 			<store val="1">
-				<!--5-->
+				<!--2-->
 			</store>
 			<load val="1">
-				<!--6-->
+				<!--3-->
 			</load>
 			<new_int val="0">
-				<!--7-->
+				<!--4-->
 			</new_int>
 			<new_string val="b0">
-				<!--8-->
+				<!--5-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -91,16 +75,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--9-->
+				<!--6-->
 			</invoke_virtual>
 			<load val="1">
-				<!--10-->
+				<!--7-->
 			</load>
 			<new_int val="1">
-				<!--11-->
+				<!--8-->
 			</new_int>
 			<new_string val="b1">
-				<!--12-->
+				<!--9-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -118,16 +102,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--13-->
+				<!--10-->
 			</invoke_virtual>
 			<load val="1">
-				<!--14-->
+				<!--11-->
 			</load>
 			<new_int val="2">
-				<!--15-->
+				<!--12-->
 			</new_int>
 			<new_string val="b2">
-				<!--16-->
+				<!--13-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -145,16 +129,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--17-->
+				<!--14-->
 			</invoke_virtual>
 			<load val="1">
-				<!--18-->
+				<!--15-->
 			</load>
 			<new_int val="3">
-				<!--19-->
+				<!--16-->
 			</new_int>
 			<new_string val="b3">
-				<!--20-->
+				<!--17-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -172,16 +156,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--21-->
+				<!--18-->
 			</invoke_virtual>
 			<load val="1">
-				<!--22-->
+				<!--19-->
 			</load>
 			<new_int val="4">
-				<!--23-->
+				<!--20-->
 			</new_int>
 			<new_string val="b4">
-				<!--24-->
+				<!--21-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.Array.set">
@@ -199,10 +183,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--25-->
+				<!--22-->
 			</invoke_virtual>
 			<load val="1">
-				<!--26-->
+				<!--23-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.iterator">
@@ -217,13 +201,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--27-->
+				<!--24-->
 			</invoke_virtual>
 			<store val="3">
-				<!--28-->
+				<!--25-->
 			</store>
 			<load val="3">
-				<!--29-->
+				<!--26-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.hasNext">
@@ -233,7 +217,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--30-->
+				<!--27-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.lang.Bool.TRUE$get">
@@ -243,13 +227,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--31-->
+				<!--28-->
 			</invoke_static>
-			<jump_if val="40">
-				<!--32-->
+			<jump_if val="37">
+				<!--29-->
 			</jump_if>
 			<load val="3">
-				<!--33-->
+				<!--30-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.util.Iterator.next">
@@ -259,13 +243,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--34-->
+				<!--31-->
 			</invoke_virtual>
 			<store val="2">
-				<!--35-->
+				<!--32-->
 			</store>
 			<load val="2">
-				<!--36-->
+				<!--33-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.String.toString">
@@ -275,7 +259,7 @@
 						</type>
 					</return_type>
 				</method>
-				<!--37-->
+				<!--34-->
 			</invoke_virtual>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -290,10 +274,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--38-->
+				<!--35-->
 			</invoke_static>
-			<jump val="29">
-				<!--39-->
+			<jump val="26">
+				<!--36-->
 			</jump>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -303,10 +287,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--40-->
+				<!--37-->
 			</invoke_static>
 			<return>
-				<!--41-->
+				<!--38-->
 			</return>
 		</code>
 	</method>
