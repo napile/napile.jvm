@@ -57,7 +57,12 @@
 				<method name="napile.lang.Array.set">
 					<return_type>
 						<type nullable="false">
-							<type_parameter_value_type name="E"/>
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<class_type name="napile.lang.Int"/>
+								</type>
+							</type_arguments>
 						</type>
 					</return_type>
 					<parameters>
@@ -81,7 +86,12 @@
 				<method name="napile.lang.Array.set">
 					<return_type>
 						<type nullable="false">
-							<type_parameter_value_type name="E"/>
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<class_type name="napile.lang.Int"/>
+								</type>
+							</type_arguments>
 						</type>
 					</return_type>
 					<parameters>
