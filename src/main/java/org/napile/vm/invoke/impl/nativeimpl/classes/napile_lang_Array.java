@@ -34,7 +34,7 @@ public class napile_lang_Array
 	}
 
 	@NativeImplement(className = "napile.lang.Array", methodName = "set", parameters = {"napile.lang.Int", ":E:"})
-	public static void set(Vm vm, InterpreterContext context)
+	public static BaseObjectInfo set(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 		BaseObjectInfo[] arg = context.getLastStack().getArguments();
@@ -45,6 +45,7 @@ public class napile_lang_Array
 		AssertUtil.assertNull(arg[1]);
 
 		array[(Integer) arg[0].value()] = arg[1];
+		return objectInfo;
 	}
 
 	@NativeImplement(className = "napile.lang.Array", methodName = "get", parameters = {"napile.lang.Int"})
