@@ -61,7 +61,7 @@ public final class BaseObjectInfo
 			TypeParameterNode t1 = it.next();
 			TypeNode t2 = it2.next();
 
-			typeArguments.put(t1.name, t2);
+			typeArguments.put(t1.name.getName(), t2);
 		}
 
 		List<VariableInfo> variableInfos = VmUtil.collectAllFields(vm, classInfo);

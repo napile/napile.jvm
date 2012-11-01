@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.resolve.name.FqName;
-import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.AbstractMemberNode;
 import org.napile.asm.tree.members.ClassNode;
 import org.napile.asm.tree.members.ConstructorNode;
@@ -66,7 +65,7 @@ public class ClassInfo implements ReflectInfo
 				for(int i = 0; i < parameters.length; i++)
 					parameters[i] = methodNode.parameters.get(i).typeNode;
 
-				methodInfos.add(new MethodInfo(this, Name.identifier(methodNode.name), methodNode, methodNode.returnType, parameters));
+				methodInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
 			}
 			else if(memberNode instanceof ConstructorNode)
 			{

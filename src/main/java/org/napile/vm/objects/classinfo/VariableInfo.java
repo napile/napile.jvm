@@ -19,7 +19,6 @@ package org.napile.vm.objects.classinfo;
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
-import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -52,12 +51,12 @@ public class VariableInfo implements ReflectInfo
 	@Override
 	public FqName getName()
 	{
-		return parent.getName().child(Name.identifier(variableNode.name));
+		return parent.getName().child(variableNode.name);
 	}
 
 	public String getShortName()
 	{
-		return variableNode.name;
+		return variableNode.name.getName();
 	}
 
 	@Override
