@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<class version="0" name="codegenTest.thisConstructor.ThisConstructor">
+	<modifiers>
+		<static/>
+	</modifiers>
+	<extends>
+		<type nullable="false">
+			<class_type name="napile.lang.Any"/>
+		</type>
+	</extends>
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
+		<code max_locals="1">
+			<load val="0">
+				<!--0-->
+			</load>
+			<new_string val="val">
+				<!--1-->
+			</new_string>
+			<invoke_special>
+				<method name="codegenTest.thisConstructor.ThisConstructor.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="codegenTest.thisConstructor.ThisConstructor"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--2-->
+			</invoke_special>
+			<pop>
+				<!--3-->
+			</pop>
+			<new_string val="after this call">
+				<!--4-->
+			</new_string>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--5-->
+			</invoke_static>
+			<load val="0">
+				<!--6-->
+			</load>
+			<return>
+				<!--7-->
+			</return>
+		</code>
+	</constructor>
+	<constructor>
+		<modifiers>
+			<final/>
+		</modifiers>
+		<parameters>
+			<parameter name="value">
+				<type nullable="false">
+					<class_type name="napile.lang.String"/>
+				</type>
+			</parameter>
+		</parameters>
+		<code max_locals="2">
+			<load val="0">
+				<!--0-->
+			</load>
+			<invoke_special>
+				<method name="napile.lang.Any.this">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--1-->
+			</invoke_special>
+			<pop>
+				<!--2-->
+			</pop>
+			<load val="1">
+				<!--3-->
+			</load>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--4-->
+			</invoke_static>
+			<load val="0">
+				<!--5-->
+			</load>
+			<return>
+				<!--6-->
+			</return>
+		</code>
+	</constructor>
+</class>
