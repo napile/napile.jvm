@@ -76,7 +76,7 @@ public class StackEntry
 			Iterator<TypeNode> it2 = typeArguments.iterator();
 
 			while(it1.hasNext() && it2.hasNext())
-				this.typeArguments.put(it1.next().name, it2.next());
+				this.typeArguments.put(it1.next().name.getName(), it2.next());
 		}
 
 		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
