@@ -145,16 +145,6 @@
 				<!--3-->
 			</invoke_static>
 			<invoke_virtual>
-				<method name="napile.lang.Any.toString">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</return_type>
-				</method>
-				<!--4-->
-			</invoke_virtual>
-			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.plus">
 					<return_type>
 						<type nullable="false">
@@ -167,10 +157,10 @@
 						</type>
 					</parameters>
 				</method>
-				<!--5-->
+				<!--4-->
 			</invoke_virtual>
 			<new_string val="\n\n\t4. After MY_VAR\n">
-				<!--6-->
+				<!--5-->
 			</new_string>
 			<invoke_virtual>
 				<method name="napile.lang.StringBuilder.plus">
@@ -185,7 +175,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--7-->
+				<!--6-->
 			</invoke_virtual>
 			<invoke_virtual>
 				<method name="napile.lang.Any.toString">
@@ -195,13 +185,13 @@
 						</type>
 					</return_type>
 				</method>
-				<!--8-->
+				<!--7-->
 			</invoke_virtual>
 			<store val="1">
-				<!--9-->
+				<!--8-->
 			</store>
 			<load val="1">
-				<!--10-->
+				<!--9-->
 			</load>
 			<invoke_static>
 				<method name="napile.io.Console.writeLine">
@@ -216,7 +206,7 @@
 						</type>
 					</parameters>
 				</method>
-				<!--11-->
+				<!--10-->
 			</invoke_static>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
@@ -226,10 +216,10 @@
 						</type>
 					</return_type>
 				</method>
-				<!--12-->
+				<!--11-->
 			</invoke_static>
 			<return>
-				<!--13-->
+				<!--12-->
 			</return>
 		</code>
 	</method>
