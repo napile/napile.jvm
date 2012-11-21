@@ -13,4 +13,10 @@ public class InjectionTest extends MainTest
 	{
 		run("injectionTest.TextInjectionTest");
 	}
+
+	@Test
+	public void test2()
+	{
+		run("injectionTest.TextInjection2Test");
+	}
 }
