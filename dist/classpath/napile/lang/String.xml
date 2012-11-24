@@ -110,10 +110,15 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="array">
 				<modifiers>
@@ -182,11 +187,16 @@
 				<!--8-->
 			</return>
 		</code>
-	</constructor>
-	<constructor>
+	</method>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="oldArray">
 				<type nullable="false">
@@ -322,7 +332,7 @@
 				<!--13-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="plus">
 		<return_type>
 			<type nullable="false">

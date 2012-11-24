@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Null">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -85,11 +88,16 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
-			<local/>
 			<final/>
+			<local/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -114,7 +122,7 @@
 				<!--4-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="toString">
 		<return_type>
 			<type nullable="false">
@@ -130,7 +138,15 @@
 			</return>
 		</code>
 	</method>
-	<static_constructor>
+	<method name="static">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="0">
 			<new_object>
 				<type nullable="false">
@@ -138,24 +154,14 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<invoke_static>
-				<method name="napile.lang.Null.INSTANCE$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</parameters>
-				</method>
+			<put_to_static_variable>
+				<variable name="napile.lang.Null.INSTANCE">
+					<type nullable="false">
+						<class_type name="napile.lang.Null"/>
+					</type>
+				</variable>
 				<!--1-->
-			</invoke_static>
-			<pop>
-				<!--2-->
-			</pop>
+			</put_to_static_variable>
 		</code>
-	</static_constructor>
+	</method>
 </class>

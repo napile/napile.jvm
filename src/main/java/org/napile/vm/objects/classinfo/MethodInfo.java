@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
-import org.napile.asm.tree.members.LikeMethodNode;
+import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.bytecode.Instruction;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
@@ -42,19 +42,16 @@ import com.intellij.util.Function;
  */
 public class MethodInfo implements ReflectInfo
 {
-	public static final Name CONSTRUCTOR_NAME = Name.identifier("this");
-	public static final Name STATIC_CONSTRUCTOR_NAME = Name.identifier("static");
-
 	private final ClassInfo parent;
 	private final Name name;
-	private final LikeMethodNode<?> methodNode;
+	private final MethodNode methodNode;
 	private final TypeNode returnType;
 
 	private final TypeNode[] parameters;
 
 	private InvokeType invokeType;
 
-	public MethodInfo(ClassInfo parentType, Name name, LikeMethodNode<?> likeMethodNode, TypeNode typeNode, TypeNode[] parameters)
+	public MethodInfo(ClassInfo parentType, Name name, MethodNode likeMethodNode, TypeNode typeNode, TypeNode[] parameters)
 	{
 		this.parent = parentType;
 		this.name = name;
@@ -164,7 +161,7 @@ public class MethodInfo implements ReflectInfo
 		this.invokeType = invokeType;
 	}
 
-	public LikeMethodNode<?> getMethodNode()
+	public MethodNode getMethodNode()
 	{
 		return methodNode;
 	}

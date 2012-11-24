@@ -26,6 +26,8 @@ import org.napile.vm.vm.Vm;
  */
 public abstract class VmInstruction<E extends org.napile.asm.tree.members.bytecode.Instruction>
 {
+	public static final int BREAK_INDEX = -1;
+
 	public static final VmInstruction[] EMPTY_ARRAY = new VmInstruction[0];
 
 	private int _arrayIndex;

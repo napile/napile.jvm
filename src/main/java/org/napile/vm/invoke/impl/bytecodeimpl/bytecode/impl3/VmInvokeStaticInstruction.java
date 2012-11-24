@@ -72,11 +72,11 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry == null)
-			return -1;
+			return BREAK_INDEX;
 
-		context.push(stackEntry.getReturnValue());
+		context.push(stackEntry.getReturnValue(false));
 
 		int forceIndex = stackEntry.getForceIndex();
-		return forceIndex == -2 ? nextIndex : nextIndex;
+		return forceIndex == -2 ? nextIndex : forceIndex;
 	}
 }

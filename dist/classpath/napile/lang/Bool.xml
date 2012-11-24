@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Bool">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -8,8 +11,8 @@
 	</extends>
 	<variable name="TRUE">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -19,8 +22,8 @@
 	</variable>
 	<method name="TRUE$set">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -66,8 +69,8 @@
 	</method>
 	<method name="TRUE$get">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -90,8 +93,8 @@
 	</method>
 	<variable name="FALSE">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -101,8 +104,8 @@
 	</variable>
 	<method name="FALSE$set">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -148,8 +151,8 @@
 	</method>
 	<method name="FALSE$get">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -255,11 +258,16 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
-			<local/>
 			<final/>
+			<local/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="value">
 				<modifiers>
@@ -290,9 +298,9 @@
 			<load val="0">
 				<!--3-->
 			</load>
-			<new_string val="">
+			<load val="1">
 				<!--4-->
-			</new_string>
+			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Bool.value$set">
 					<return_type>
@@ -314,35 +322,11 @@
 			<load val="0">
 				<!--7-->
 			</load>
-			<load val="1">
-				<!--8-->
-			</load>
-			<invoke_virtual>
-				<method name="napile.lang.Bool.value$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.String"/>
-						</type>
-					</parameters>
-				</method>
-				<!--9-->
-			</invoke_virtual>
-			<pop>
-				<!--10-->
-			</pop>
-			<load val="0">
-				<!--11-->
-			</load>
 			<return>
-				<!--12-->
+				<!--8-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="not">
 		<return_type>
 			<type nullable="false">
@@ -419,7 +403,15 @@
 			</return>
 		</code>
 	</method>
-	<static_constructor>
+	<method name="static">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="0">
 			<new_string val="true">
 				<!--0-->
@@ -435,26 +427,16 @@
 				</parameters>
 				<!--1-->
 			</new_object>
-			<invoke_static>
-				<method name="napile.lang.Bool.TRUE$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</parameters>
-				</method>
+			<put_to_static_variable>
+				<variable name="napile.lang.Bool.TRUE">
+					<type nullable="false">
+						<class_type name="napile.lang.Bool"/>
+					</type>
+				</variable>
 				<!--2-->
-			</invoke_static>
-			<pop>
-				<!--3-->
-			</pop>
+			</put_to_static_variable>
 			<new_string val="false">
-				<!--4-->
+				<!--3-->
 			</new_string>
 			<new_object>
 				<type nullable="false">
@@ -465,26 +447,16 @@
 						<class_type name="napile.lang.String"/>
 					</type>
 				</parameters>
-				<!--5-->
+				<!--4-->
 			</new_object>
-			<invoke_static>
-				<method name="napile.lang.Bool.FALSE$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Bool"/>
-						</type>
-					</parameters>
-				</method>
-				<!--6-->
-			</invoke_static>
-			<pop>
-				<!--7-->
-			</pop>
+			<put_to_static_variable>
+				<variable name="napile.lang.Bool.FALSE">
+					<type nullable="false">
+						<class_type name="napile.lang.Bool"/>
+					</type>
+				</variable>
+				<!--5-->
+			</put_to_static_variable>
 		</code>
-	</static_constructor>
+	</method>
 </class>

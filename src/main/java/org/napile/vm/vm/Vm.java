@@ -28,6 +28,7 @@ import org.napile.asm.io.text.in.type.TypeNodeUtil;
 import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
@@ -144,7 +145,7 @@ public class Vm
 
 		initStaticIfNeed(methodInfo.getParent());
 
-		if(!methodInfo.getName().equals(MethodInfo.CONSTRUCTOR_NAME))
+		if(!methodInfo.getName().shortName().equals(MethodNode.CONSTRUCTOR_NAME))
 			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && objectInfo != null || !methodInfo.hasModifier(Modifier.STATIC) && objectInfo == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
@@ -178,7 +179,7 @@ public class Vm
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodInfo.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
 		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, Collections.<TypeNode>emptyList());
 
@@ -337,7 +338,7 @@ public class Vm
 					continue;
 
 				ownerClassInfo.setStaticConstructorCalled(true);
-				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodInfo.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
+				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodNode.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
 
 				if(methodInfo != null)
 				{

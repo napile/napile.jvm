@@ -58,12 +58,6 @@ public class CodegenTest extends MainTest
 	}
 
 	@Test
-	public void test8()
-	{
-		run("multi.AB");
-	}
-
-	@Test
 	public void test9()
 	{
 		run("whileTest.WhileTest");
@@ -93,29 +87,6 @@ public class CodegenTest extends MainTest
 		run("HelloWorldTest");
 	}
 
-	@Test
-	public void test14()
-	{
-		run("classAndTypeTest.ClassOfTest");
-	}
-
-	@Test
-	public void test15()
-	{
-		run("classAndTypeTest.GenericTest");
-	}
-
-	@Test
-	public void test16()
-	{
-		//runMain("classAndTypeTest.TypeOfTest");
-	}
-
-	@Test
-	public void test17()
-	{
-		run("classAndTypeTest.GenericInMethod");
-	}
 
 	@Test
 	public void test18()

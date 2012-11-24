@@ -161,10 +161,9 @@ public class StackEntry
 		return methodInfo.toString();
 	}
 
-	@NotNull
-	public BaseObjectInfo getReturnValue()
+	public BaseObjectInfo getReturnValue(boolean macro)
 	{
-		if(returnValue == null)
+		if(!macro && returnValue == null)
 			LOGGER.error("return value cant be null: " + getMethodInfo());
 		return returnValue;
 	}

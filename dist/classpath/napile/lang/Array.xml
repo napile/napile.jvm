@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Array">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<type_parameters>
 		<type_parameter name="E">
 			<extends>
@@ -92,10 +95,15 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="length">
 				<modifiers>
@@ -126,9 +134,9 @@
 			<load val="0">
 				<!--3-->
 			</load>
-			<new_int val="0">
+			<load val="1">
 				<!--4-->
-			</new_int>
+			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.length$set">
 					<return_type>
@@ -150,30 +158,6 @@
 			<load val="0">
 				<!--7-->
 			</load>
-			<load val="1">
-				<!--8-->
-			</load>
-			<invoke_virtual>
-				<method name="napile.lang.Array.length$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--9-->
-			</invoke_virtual>
-			<pop>
-				<!--10-->
-			</pop>
-			<load val="0">
-				<!--11-->
-			</load>
 			<invoke_virtual>
 				<method name="napile.lang.Array.init">
 					<return_type>
@@ -182,16 +166,16 @@
 						</type>
 					</return_type>
 				</method>
-				<!--12-->
+				<!--8-->
 			</invoke_virtual>
 			<load val="0">
-				<!--13-->
+				<!--9-->
 			</load>
 			<return>
-				<!--14-->
+				<!--10-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="init">
 		<modifiers>
 			<native/>

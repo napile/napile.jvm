@@ -21,17 +21,14 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
-import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.AbstractMemberNode;
 import org.napile.asm.tree.members.ClassNode;
-import org.napile.asm.tree.members.ConstructorNode;
+import org.napile.asm.tree.members.MacroNode;
 import org.napile.asm.tree.members.MethodNode;
-import org.napile.asm.tree.members.StaticConstructorNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
 import com.intellij.util.ArrayUtil;
 
@@ -58,6 +55,15 @@ public class ClassInfo implements ReflectInfo
 		{
 			if(memberNode instanceof VariableNode)
 				variableInfos.add(new VariableInfo(this, (VariableNode) memberNode));
+			else if(memberNode instanceof MacroNode)
+			{
+				MacroNode methodNode = (MacroNode) memberNode;
+				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
+				for(int i = 0; i < parameters.length; i++)
+					parameters[i] = methodNode.parameters.get(i).typeNode;
+
+				methodInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
+			}
 			else if(memberNode instanceof MethodNode)
 			{
 				MethodNode methodNode = (MethodNode) memberNode;
@@ -66,22 +72,6 @@ public class ClassInfo implements ReflectInfo
 					parameters[i] = methodNode.parameters.get(i).typeNode;
 
 				methodInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
-			}
-			else if(memberNode instanceof ConstructorNode)
-			{
-				ConstructorNode methodNode = (ConstructorNode) memberNode;
-				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
-				for(int i = 0; i < parameters.length; i++)
-					parameters[i] = methodNode.parameters.get(i).typeNode;
-
-
-				methodInfos.add(new MethodInfo(this, MethodInfo.CONSTRUCTOR_NAME, methodNode, new TypeNode(false, new ClassTypeNode(classNode.name)), parameters));
-			}
-			else if(memberNode instanceof StaticConstructorNode)
-			{
-				StaticConstructorNode methodNode = (StaticConstructorNode) memberNode;
-
-				methodInfos.add(new MethodInfo(this, MethodInfo.STATIC_CONSTRUCTOR_NAME, methodNode, new TypeNode(false, new ClassTypeNode(NapileLangPackage.NULL)), new TypeNode[0]));
 			}
 		}
 	}

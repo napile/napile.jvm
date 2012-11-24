@@ -11,8 +11,8 @@
 	</extends>
 	<variable name="GREATER">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -22,8 +22,8 @@
 	</variable>
 	<method name="GREATER$set">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -69,8 +69,8 @@
 	</method>
 	<method name="GREATER$get">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -93,8 +93,8 @@
 	</method>
 	<variable name="EQUAL">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -104,8 +104,8 @@
 	</variable>
 	<method name="EQUAL$set">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -151,8 +151,8 @@
 	</method>
 	<method name="EQUAL$get">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -175,8 +175,8 @@
 	</method>
 	<variable name="LOWER">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -186,8 +186,8 @@
 	</variable>
 	<method name="LOWER$set">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -233,8 +233,8 @@
 	</method>
 	<method name="LOWER$get">
 		<modifiers>
-			<final/>
 			<static/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
@@ -255,10 +255,15 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -283,8 +288,16 @@
 				<!--4-->
 			</return>
 		</code>
-	</constructor>
-	<static_constructor>
+	</method>
+	<method name="static">
+		<modifiers>
+			<static/>
+		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<class_type name="napile.lang.Null"/>
+			</type>
+		</return_type>
 		<code max_locals="0">
 			<new_object>
 				<type nullable="false">
@@ -292,72 +305,42 @@
 				</type>
 				<!--0-->
 			</new_object>
-			<invoke_static>
-				<method name="napile.condition.CompareResult.GREATER$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult"/>
-						</type>
-					</parameters>
-				</method>
+			<put_to_static_variable>
+				<variable name="napile.condition.CompareResult.GREATER">
+					<type nullable="false">
+						<class_type name="napile.condition.CompareResult"/>
+					</type>
+				</variable>
 				<!--1-->
-			</invoke_static>
-			<pop>
+			</put_to_static_variable>
+			<new_object>
+				<type nullable="false">
+					<class_type name="napile.condition.CompareResult"/>
+				</type>
 				<!--2-->
-			</pop>
-			<new_object>
-				<type nullable="false">
-					<class_type name="napile.condition.CompareResult"/>
-				</type>
+			</new_object>
+			<put_to_static_variable>
+				<variable name="napile.condition.CompareResult.EQUAL">
+					<type nullable="false">
+						<class_type name="napile.condition.CompareResult"/>
+					</type>
+				</variable>
 				<!--3-->
-			</new_object>
-			<invoke_static>
-				<method name="napile.condition.CompareResult.EQUAL$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult"/>
-						</type>
-					</parameters>
-				</method>
-				<!--4-->
-			</invoke_static>
-			<pop>
-				<!--5-->
-			</pop>
+			</put_to_static_variable>
 			<new_object>
 				<type nullable="false">
 					<class_type name="napile.condition.CompareResult"/>
 				</type>
-				<!--6-->
+				<!--4-->
 			</new_object>
-			<invoke_static>
-				<method name="napile.condition.CompareResult.LOWER$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.condition.CompareResult"/>
-						</type>
-					</parameters>
-				</method>
-				<!--7-->
-			</invoke_static>
-			<pop>
-				<!--8-->
-			</pop>
+			<put_to_static_variable>
+				<variable name="napile.condition.CompareResult.LOWER">
+					<type nullable="false">
+						<class_type name="napile.condition.CompareResult"/>
+					</type>
+				</variable>
+				<!--5-->
+			</put_to_static_variable>
 		</code>
-	</static_constructor>
+	</method>
 </class>

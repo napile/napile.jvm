@@ -94,10 +94,15 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<parameters>
 			<parameter name="name">
 				<modifiers>
@@ -156,5 +161,22 @@
 				<!--8-->
 			</return>
 		</code>
-	</constructor>
+	</method>
+	<method name="get">
+		<modifiers>
+			<native/>
+		</modifiers>
+		<return_type>
+			<type nullable="true">
+				<class_type name="napile.lang.Any"/>
+			</type>
+		</return_type>
+		<parameters>
+			<parameter name="object">
+				<type nullable="false">
+					<class_type name="napile.lang.Any"/>
+				</type>
+			</parameter>
+		</parameters>
+	</method>
 </class>

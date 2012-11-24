@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.StringBuilder">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -201,10 +204,15 @@
 			</return>
 		</code>
 	</method>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -244,61 +252,41 @@
 				</parameters>
 				<!--5-->
 			</new_object>
-			<invoke_virtual>
-				<method name="napile.lang.StringBuilder.array$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Array"/>
-							<type_arguments>
-								<type nullable="false">
-									<class_type name="napile.lang.Char"/>
-								</type>
-							</type_arguments>
-						</type>
-					</parameters>
-				</method>
+			<put_to_variable>
+				<variable name="napile.lang.StringBuilder.array">
+					<type nullable="false">
+						<class_type name="napile.lang.Array"/>
+						<type_arguments>
+							<type nullable="false">
+								<class_type name="napile.lang.Char"/>
+							</type>
+						</type_arguments>
+					</type>
+				</variable>
 				<!--6-->
-			</invoke_virtual>
-			<pop>
-				<!--7-->
-			</pop>
+			</put_to_variable>
 			<load val="0">
-				<!--8-->
+				<!--7-->
 			</load>
 			<new_int val="0">
-				<!--9-->
+				<!--8-->
 			</new_int>
-			<invoke_virtual>
-				<method name="napile.lang.StringBuilder.count$set">
-					<return_type>
-						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
-						</type>
-					</return_type>
-					<parameters>
-						<type nullable="false">
-							<class_type name="napile.lang.Int"/>
-						</type>
-					</parameters>
-				</method>
-				<!--10-->
-			</invoke_virtual>
-			<pop>
-				<!--11-->
-			</pop>
+			<put_to_variable>
+				<variable name="napile.lang.StringBuilder.count">
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</variable>
+				<!--9-->
+			</put_to_variable>
 			<load val="0">
-				<!--12-->
+				<!--10-->
 			</load>
 			<return>
-				<!--13-->
+				<!--11-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="plus">
 		<return_type>
 			<type nullable="false">
@@ -752,7 +740,12 @@
 				<method name="napile.lang.Array.set">
 					<return_type>
 						<type nullable="false">
-							<class_type name="napile.lang.Null"/>
+							<class_type name="napile.lang.Array"/>
+							<type_arguments>
+								<type nullable="false">
+									<type_parameter_value_type name="E"/>
+								</type>
+							</type_arguments>
 						</type>
 					</return_type>
 					<parameters>

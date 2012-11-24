@@ -37,6 +37,6 @@ public class VmReturnInstruction extends VmInstruction<ReturnInstruction>
 	{
 		context.getLastStack().setReturnValue(context.pop());
 
-		return nextIndex;
+		return BREAK_INDEX;
 	}
 }

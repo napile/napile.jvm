@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="codegenTest.classAndTypeTest.GenericTest">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<type_parameters>
 		<type_parameter name="E">
 			<extends>
@@ -16,10 +19,15 @@
 			<class_type name="napile.lang.Any"/>
 		</type>
 	</extends>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -44,7 +52,7 @@
 				<!--4-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="showE">
 		<return_type>
 			<type nullable="false">

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="napile.lang.Any">
-	<constructor>
+	<modifiers>
+		<static/>
+	</modifiers>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -13,7 +21,7 @@
 				<!--1-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="getClass">
 		<modifiers>
 			<native/>
@@ -86,8 +94,8 @@
 	</method>
 	<method name="fullyEquals">
 		<modifiers>
-			<final/>
 			<native/>
+			<final/>
 		</modifiers>
 		<return_type>
 			<type nullable="false">
