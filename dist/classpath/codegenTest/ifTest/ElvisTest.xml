@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <class version="0" name="codegenTest.ifTest.ElvisTest">
+	<modifiers>
+		<static/>
+	</modifiers>
 	<extends>
 		<type nullable="false">
 			<class_type name="napile.lang.Any"/>
@@ -91,11 +94,11 @@
 			<store val="1">
 				<!--9-->
 			</store>
-			<load val="0">
+			<load val="1">
 				<!--10-->
 			</load>
 			<invoke_virtual>
-				<method name="napile.lang.Any.toString">
+				<method name="napile.lang.String.toString">
 					<return_type>
 						<type nullable="false">
 							<class_type name="napile.lang.String"/>
@@ -119,6 +122,12 @@
 				</method>
 				<!--12-->
 			</invoke_static>
+			<load val="1">
+				<!--13-->
+			</load>
+			<dup>
+				<!--14-->
+			</dup>
 			<invoke_static>
 				<method name="napile.lang.Null.INSTANCE$get">
 					<return_type>
@@ -127,10 +136,82 @@
 						</type>
 					</return_type>
 				</method>
-				<!--13-->
+				<!--15-->
+			</invoke_static>
+			<invoke_virtual>
+				<method name="napile.lang.Any.equals">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="true">
+							<class_type name="napile.lang.Any"/>
+						</type>
+					</parameters>
+				</method>
+				<!--16-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.lang.Bool.TRUE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Bool"/>
+						</type>
+					</return_type>
+				</method>
+				<!--17-->
+			</invoke_static>
+			<jump_if val="20">
+				<!--18-->
+			</jump_if>
+			<new_string val="this text cant be set">
+				<!--19-->
+			</new_string>
+			<store val="1">
+				<!--20-->
+			</store>
+			<load val="1">
+				<!--21-->
+			</load>
+			<invoke_virtual>
+				<method name="napile.lang.String.toString">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</return_type>
+				</method>
+				<!--22-->
+			</invoke_virtual>
+			<invoke_static>
+				<method name="napile.io.Console.writeLine">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+					<parameters>
+						<type nullable="false">
+							<class_type name="napile.lang.String"/>
+						</type>
+					</parameters>
+				</method>
+				<!--23-->
+			</invoke_static>
+			<invoke_static>
+				<method name="napile.lang.Null.INSTANCE$get">
+					<return_type>
+						<type nullable="false">
+							<class_type name="napile.lang.Null"/>
+						</type>
+					</return_type>
+				</method>
+				<!--24-->
 			</invoke_static>
 			<return>
-				<!--14-->
+				<!--25-->
 			</return>
 		</code>
 	</method>

@@ -40,12 +40,6 @@ public class CodegenTest extends MainTest
 	}
 
 	@Test
-	public void test5()
-	{
-		run("ifTest.HelloWorldWithIf");
-	}
-
-	@Test
 	public void test6()
 	{
 		run("labelTest.LabelTest");
@@ -94,23 +88,7 @@ public class CodegenTest extends MainTest
 		run("isTest.IsTest");
 	}
 
-	@Test
-	public void test19()
-	{
-		run("ifTest.OrOrTest");
-	}
 
-	@Test
-	public void test20()
-	{
-		run("ifTest.AndAndTest");
-	}
-
-	@Test
-	public void test21()
-	{
-		run("ifTest.ElvisTest");
-	}
 
 	@Test
 	public void test22()
