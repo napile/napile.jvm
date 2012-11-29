@@ -12,6 +12,13 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Any
 {
+	@NativeImplement(className = "napile.lang.Any", methodName = "hashCode", parameters = {})
+	public static BaseObjectInfo hashCode(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		return VmUtil.convertToVm(vm, context, objectInfo.hashCode());
+	}
+
 	@NativeImplement(className = "napile.lang.Any", methodName = "fullyEquals", parameters = {"napile.lang.Any?"})
 	public static BaseObjectInfo fullyEquals(Vm vm, InterpreterContext context)
 	{

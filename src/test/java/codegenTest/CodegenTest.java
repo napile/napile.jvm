@@ -95,4 +95,10 @@ public class CodegenTest extends MainTest
 	{
 		run("tryCatchTest.TryCatchTest");
 	}
+
+	@Test
+	public void hashCodeTest()
+	{
+		run("HashCodeTest");
+	}
 }

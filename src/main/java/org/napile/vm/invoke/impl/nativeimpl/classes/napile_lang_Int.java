@@ -21,6 +21,14 @@ public class napile_lang_Int
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() + 1);
 	}
 
+	@NativeImplement(className = "napile.lang.Int", methodName = "dec", parameters = {})
+	public static BaseObjectInfo dec(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() - 1);
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "compareTo", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo compareTo(Vm vm, InterpreterContext context)
 	{
