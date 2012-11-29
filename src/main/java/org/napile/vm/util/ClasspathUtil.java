@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.apache.log4j.Logger;
 import org.napile.asm.resolve.name.FqName;
@@ -27,6 +30,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.parsing.ClassParser;
 import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
 import org.napile.vm.objects.classinfo.parsing.filemapping.SingleFileMapping;
+import org.napile.vm.objects.classinfo.parsing.filemapping.ZippedFileMapping;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -85,7 +89,7 @@ public class ClasspathUtil
 				LOGGER.error(e, e);
 			}
 		}
-		/*else if(ext.equals("jar"))
+		else if(ext.equals("nzip"))
 		{
 			try
 			{
@@ -94,11 +98,11 @@ public class ClasspathUtil
 				while(entryEnumeration.hasMoreElements())
 				{
 					ZipEntry entry = entryEnumeration.nextElement();
-					if(FileUtil.getFileExtension(entry.getName()).equals("class"))
+					if(FileUtil.getFileExtension(entry.getName()).equals("nxml"))
 					{
-						String classZipName = entry.getName().replace("/", ".").replace(".class", "");
+						String classZipName = entry.getName().replace("/", ".").replace(".nxml", "");
 
-						vm.getVmContext().addMapping(classZipName, new ZippedFileMapping(file, entry.getName()));
+						vm.getVmContext().addMapping(new FqName(classZipName), new ZippedFileMapping(file, entry.getName()));
 					}
 				}
 				zipFile.close();
@@ -107,7 +111,7 @@ public class ClasspathUtil
 			{
 				LOGGER.error(e, e);
 			}
-		}   */
+		}
 	}
 
 	public static ClassInfo getClassInfoOrParse(Vm vm, FqName name)

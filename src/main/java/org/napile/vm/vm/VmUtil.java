@@ -61,13 +61,13 @@ public class VmUtil
 
 	public static void initBootStrap(Vm vm)
 	{
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ANY));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.ARRAY));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.CHAR));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.BOOL));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.STRING));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.INT));
-		AssertUtil.assertNull(vm.getClass(NapileLangPackage.NULL));
+		vm.safeGetClass(NapileLangPackage.ANY);
+		vm.safeGetClass(NapileLangPackage.ARRAY);
+		vm.safeGetClass(NapileLangPackage.CHAR);
+		vm.safeGetClass(NapileLangPackage.BOOL);
+		vm.safeGetClass(NapileLangPackage.STRING);
+		vm.safeGetClass(NapileLangPackage.INT);
+		vm.safeGetClass(NapileLangPackage.NULL);
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 

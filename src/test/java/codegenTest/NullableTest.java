@@ -25,4 +25,16 @@ public class NullableTest extends MainTest
 	{
 		run("nullableTest.Sure2Test");
 	}
+
+	@Test
+	public void test3()
+	{
+		run("nullableTest.NullableWithAnyTest");
+	}
+
+	@Test
+	public void test4()
+	{
+		run("nullableTest.NullToStringTest");
+	}
 }
