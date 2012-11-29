@@ -26,6 +26,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ArrayUtil;
 
@@ -58,26 +59,33 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		arguments = ArrayUtil.reverseArray(arguments);
 
 		BaseObjectInfo objectInfo = context.pop();
+		if(instruction.nullable && objectInfo == VmUtil.convertToVm(vm, context, null))
+		{
+			context.push(VmUtil.convertToVm(vm, context, null));
+			return nextIndex;
+		}
+		else
+		{
+			MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
-		MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
+			AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", ") + " object: " + objectInfo);
 
-		AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", ") + " object: " + objectInfo);
+			methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
 
-		methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
+			StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
 
-		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
+			context.getStack().add(nextEntry);
 
-		context.getStack().add(nextEntry);
+			vm.invoke(context);
 
-		vm.invoke(context);
+			StackEntry stackEntry = context.getStack().pollLast();
+			if(stackEntry == null)
+				return BREAK_INDEX;
 
-		StackEntry stackEntry = context.getStack().pollLast();
-		if(stackEntry == null)
-			return BREAK_INDEX;
+			context.push(stackEntry.getReturnValue(false));
 
-		context.push(stackEntry.getReturnValue(false));
-
-		int forceIndex = stackEntry.getForceIndex();
-		return forceIndex == -2 ? nextIndex : forceIndex;
+			int forceIndex = stackEntry.getForceIndex();
+			return forceIndex == -2 ? nextIndex : forceIndex;
+		}
 	}
 }

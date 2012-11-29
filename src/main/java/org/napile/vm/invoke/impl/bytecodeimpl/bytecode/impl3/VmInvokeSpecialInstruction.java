@@ -27,6 +27,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
+import org.napile.vm.vm.VmUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ArrayUtil;
 
@@ -65,20 +66,27 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 		arguments = ArrayUtil.reverseArray(arguments);
 
 		BaseObjectInfo objectInfo = context.pop();
+		if(instruction.nullable && objectInfo == VmUtil.convertToVm(vm, context, null))
+		{
+			context.push(VmUtil.convertToVm(vm, context, null));
+			return nextIndex;
+		}
+		else
+		{
+			StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
 
-		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
+			context.getStack().add(nextEntry);
 
-		context.getStack().add(nextEntry);
+			vm.invoke(context);
 
-		vm.invoke(context);
+			StackEntry stackEntry = context.getStack().pollLast();
+			if(stackEntry == null)
+				return BREAK_INDEX;
 
-		StackEntry stackEntry = context.getStack().pollLast();
-		if(stackEntry == null)
-			return BREAK_INDEX;
+			context.push(stackEntry.getReturnValue(false));
 
-		context.push(stackEntry.getReturnValue(false));
-
-		int forceIndex = stackEntry.getForceIndex();
-		return forceIndex == -2 ? nextIndex : forceIndex;
+			int forceIndex = stackEntry.getForceIndex();
+			return forceIndex == -2 ? nextIndex : forceIndex;
+		}
 	}
 }
