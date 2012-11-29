@@ -2,6 +2,7 @@
 
 <class version="0" name="napile.util.Iterator">
 	<modifiers>
+		<static/>
 		<abstract/>
 	</modifiers>
 	<type_parameters>
@@ -19,10 +20,15 @@
 			<class_type name="napile.lang.Any"/>
 		</type>
 	</extends>
-	<constructor>
+	<method name="this">
 		<modifiers>
 			<final/>
 		</modifiers>
+		<return_type>
+			<type nullable="false">
+				<this_type/>
+			</type>
+		</return_type>
 		<code max_locals="1">
 			<load val="0">
 				<!--0-->
@@ -47,7 +53,7 @@
 				<!--4-->
 			</return>
 		</code>
-	</constructor>
+	</method>
 	<method name="hasNext">
 		<modifiers>
 			<abstract/>

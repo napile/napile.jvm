@@ -68,7 +68,7 @@ public class StackEntry
 		this.arguments = arguments;
 
 		//FIXME [VISTALL] stupied hack
-		if(methodInfo.getMethodNode() instanceof MethodNode)
+		if(!methodInfo.getMethodNode().name.equals(MethodNode.CONSTRUCTOR_NAME) && !methodInfo.getMethodNode().name.equals(MethodNode.STATIC_CONSTRUCTOR_NAME))
 		{
 			AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
 

@@ -24,8 +24,8 @@ public class napile_lang_Throwable
 
 	public static final TypeNode ARRAY__STACK_TRACE_ELEMENT__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STACK_TRACE_ELEMENT);
 
-	@NativeImplement(className = "napile.lang.Throwable", methodName = "getStack0", parameters = {})
-	public static BaseObjectInfo getStack0(Vm vm, InterpreterContext context)
+	@NativeImplement(className = "napile.lang.Throwable", methodName = "stack$lazy", parameters = {})
+	public static BaseObjectInfo stack$lazy(Vm vm, InterpreterContext context)
 	{
 		Deque<StackEntry> list = context.getStack();
 
@@ -44,7 +44,7 @@ public class napile_lang_Throwable
 				temp ++;
 				continue;
 			}
-			array[i++] = vm.newObject(context, STACK_TRACE_ELEMENT, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, "\t" + stackEntry.getMethodInfo().getName().getFqName())});
+			array[i++] = vm.newObject(context, STACK_TRACE_ELEMENT, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, stackEntry.getMethodInfo().getName().getFqName())});
 		}
 		return arrayObject;
 	}

@@ -273,8 +273,22 @@
 			<load val="0">
 				<!--3-->
 			</load>
-			<load val="1">
+			<new_int val="0">
 				<!--4-->
+			</new_int>
+			<put_to_variable>
+				<variable name="napile.lang.ArrayIterator.index">
+					<type nullable="false">
+						<class_type name="napile.lang.Int"/>
+					</type>
+				</variable>
+				<!--5-->
+			</put_to_variable>
+			<load val="0">
+				<!--6-->
+			</load>
+			<load val="1">
+				<!--7-->
 			</load>
 			<invoke_virtual>
 				<method name="napile.lang.ArrayIterator.array$set">
@@ -294,16 +308,16 @@
 						</type>
 					</parameters>
 				</method>
-				<!--5-->
+				<!--8-->
 			</invoke_virtual>
 			<pop>
-				<!--6-->
+				<!--9-->
 			</pop>
 			<load val="0">
-				<!--7-->
+				<!--10-->
 			</load>
 			<return>
-				<!--8-->
+				<!--11-->
 			</return>
 		</code>
 	</method>
