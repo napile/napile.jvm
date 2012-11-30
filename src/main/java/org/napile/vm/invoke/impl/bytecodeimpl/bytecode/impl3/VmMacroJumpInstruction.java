@@ -54,9 +54,9 @@ public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 	{
 		ClassInfo classInfo = vm.safeGetClass(className);
 
-		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
+		MethodInfo methodInfo = vm.getMacro(classInfo, methodName, false, parameters);
 
-		AssertUtil.assertFalse(methodInfo != null, "Method not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
+		AssertUtil.assertFalse(methodInfo != null, "Macro not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
 
 		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
 		for(int i = 0; i < methodInfo.getParameters().length; i++)

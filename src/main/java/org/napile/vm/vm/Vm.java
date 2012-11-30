@@ -136,6 +136,18 @@ public class Vm
 		return getMethod0(info, name, deep, params);
 	}
 
+	public MethodInfo getMacro(ClassInfo info, String name, boolean deep, TypeNode... params)
+	{
+		MethodInfo methodInfo = getMacro0(info, name, deep, params);
+		return methodInfo != null && !methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
+	}
+
+	public MethodInfo getStaticMacro(ClassInfo info, String name, boolean deep, TypeNode... params)
+	{
+		MethodInfo methodInfo = getMacro0(info, name, deep, params);
+		return methodInfo != null && methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
+	}
+
 	public void invoke(@NotNull InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
@@ -311,6 +323,23 @@ public class Vm
 			typeParams[i] = TypeNodeUtil.fromString(params[i]);
 
 		return getMethod0(info, name, deep, typeParams);
+	}
+
+	public MethodInfo getMacro0(ClassInfo info, String name, boolean deep, TypeNode[] params)
+	{
+		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMacros(this, info) : info.getMacros();
+
+		for(MethodInfo methodInfo : methodInfos)
+		{
+			if(!methodInfo.getName().shortName().getName().equals(name))
+				continue;
+
+			if(!Comparing.equal(params, methodInfo.getParameters()))
+				continue;
+
+			return methodInfo;
+		}
+		return null;
 	}
 
 	public MethodInfo getMethod0(ClassInfo info, String name, boolean deep, TypeNode[] params)

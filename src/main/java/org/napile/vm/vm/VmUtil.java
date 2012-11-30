@@ -145,6 +145,16 @@ public class VmUtil
 	}
 
 	@NotNull
+	public static List<MethodInfo> collectAllMacros(@NotNull Vm vm, @NotNull ClassInfo info)
+	{
+		List<MethodInfo> list = new ArrayList<MethodInfo>();
+		for(ClassInfo classInfo : collectAllClasses(vm, info))
+			list.addAll(classInfo.getMacros());
+
+		return list;
+	}
+
+	@NotNull
 	public static Set<ClassInfo> collectAllClasses(@NotNull Vm vm, @NotNull ClassInfo classInfo)
 	{
 		Set<ClassInfo> result = new LinkedHashSet<ClassInfo>();

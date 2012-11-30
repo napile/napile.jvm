@@ -40,6 +40,7 @@ public class ClassInfo implements ReflectInfo
 {
 	private final List<VariableInfo> variableInfos = new ArrayList<VariableInfo>(0);
 	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
+	private final List<MethodInfo> macroInfos = new ArrayList<MethodInfo>(0);
 
 	private ClassNode classNode;
 
@@ -62,7 +63,7 @@ public class ClassInfo implements ReflectInfo
 				for(int i = 0; i < parameters.length; i++)
 					parameters[i] = methodNode.parameters.get(i).typeNode;
 
-				methodInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
+				macroInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
 			}
 			else if(memberNode instanceof MethodNode)
 			{
@@ -110,6 +111,12 @@ public class ClassInfo implements ReflectInfo
 	public List<MethodInfo> getMethods()
 	{
 		return methodInfos;
+	}
+
+	@NotNull
+	public List<MethodInfo> getMacros()
+	{
+		return macroInfos;
 	}
 
 	@Override
