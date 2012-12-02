@@ -18,13 +18,13 @@ import org.napile.vm.vm.VmUtil;
  * @author VISTALL
  * @date 16:08/05.10.12
  */
-public class napile_lang_Throwable
+public class napile_lang_Exception
 {
 	public static final TypeNode STACK_TRACE_ELEMENT = new TypeNode(false, new ClassTypeNode(new FqName("napile.lang.StackTraceElement")));
 
 	public static final TypeNode ARRAY__STACK_TRACE_ELEMENT__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STACK_TRACE_ELEMENT);
 
-	@NativeImplement(className = "napile.lang.Throwable", methodName = "stack$lazy", parameters = {})
+	@NativeImplement(className = "napile.lang.Exception", methodName = "stack$lazy", parameters = {})
 	public static BaseObjectInfo stack$lazy(Vm vm, InterpreterContext context)
 	{
 		Deque<StackEntry> list = context.getStack();

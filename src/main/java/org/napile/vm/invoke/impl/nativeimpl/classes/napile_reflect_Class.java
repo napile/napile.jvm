@@ -24,7 +24,15 @@ public class napile_reflect_Class
 {
 	public static final TypeNode NAPILE_REFLECT_VARIABLE = new TypeNode(false, new ClassTypeNode(new FqName("napile.reflect.Variable")));
 
+	public static final TypeNode NAPILE_REFLECT_METHOD = new TypeNode(false, new ClassTypeNode(new FqName("napile.reflect.Method")));
+
+	public static final TypeNode NAPILE_REFLECT_MACRO = new TypeNode(false, new ClassTypeNode(new FqName("napile.reflect.Method")));
+
 	public static final TypeNode ARRAY__NAPILE_REFLECT_VARIABLE__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(NAPILE_REFLECT_VARIABLE);
+
+	public static final TypeNode ARRAY__NAPILE_REFLECT_METHOD__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(NAPILE_REFLECT_METHOD);
+
+	public static final TypeNode ARRAY__NAPILE_REFLECT_MACRO__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(NAPILE_REFLECT_MACRO);
 
 	@NativeImplement(className = "napile.reflect.Class", methodName = "variables$lazy", parameters = {})
 	public static BaseObjectInfo variables$lazy(Vm vm, InterpreterContext context)

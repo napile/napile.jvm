@@ -30,8 +30,8 @@ import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_Console;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Any;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Array;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Char;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Exception;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Int;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Throwable;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_reflect_Class;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.util.AssertUtil;
@@ -50,7 +50,7 @@ public class NativeWrapper
 		register(vm, napile_lang_Char.class);
 		register(vm, napile_lang_Any.class);
 		register(vm, napile_lang_Array.class);
-		register(vm, napile_lang_Throwable.class);
+		register(vm, napile_lang_Exception.class);
 
 		register(vm, napile_reflect_Class.class);
 
