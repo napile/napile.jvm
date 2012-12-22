@@ -31,7 +31,7 @@ public class MainTest
 
 		List<String> arg = new ArrayList<String>();
 		arg.add("-cp");
-		arg.add("dist/classpath;dist/napile.lang.nzip");
+		arg.add("dist/classpath;dist/codegenTest.nzip");
 		arg.add("codegenTest." + str);
 
 		CLProcessor p = new CLProcessor(arg.toArray(new String[arg.size()]));

@@ -74,7 +74,7 @@ public class ClasspathUtil
 	private static void checkFile(Vm vm, File file)
 	{
 		String ext = FileUtil.getFileExtension(file);
-		if(ext.equals("xml"))
+		if(ext.equals("nxml"))
 		{
 			try
 			{
