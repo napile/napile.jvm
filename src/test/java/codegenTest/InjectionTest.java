@@ -11,12 +11,12 @@ public class InjectionTest extends MainTest
 	@Test
 	public void test1()
 	{
-		//run("injectionTest.TextInjectionTest");
+		run("injectionTest.TextInjectionTest");
 	}
 
 	@Test
 	public void test2()
 	{
-		//run("injectionTest.TextInjection2Test");
+		run("injectionTest.TextInjection2Test");
 	}
 }
