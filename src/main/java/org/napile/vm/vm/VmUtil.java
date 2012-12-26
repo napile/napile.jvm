@@ -81,7 +81,7 @@ public class VmUtil
 
 		VariableInfo variableInfo = null;
 		for(VariableInfo v : classInfo.getVariables())
-			if(v.getShortName().equals(varName))
+			if(v.getName().equals(varName))
 				variableInfo = v;
 
 		AssertUtil.assertNull(variableInfo);

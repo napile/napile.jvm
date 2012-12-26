@@ -59,7 +59,7 @@ public class MainTest
 		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, VmUtil.ARRAY__STRING__);
 		if(methodInfo == null)
 		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getName(), "main", VmUtil.ARRAY__STRING__);
+			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getFqName(), "main", VmUtil.ARRAY__STRING__);
 			return;
 		}
 

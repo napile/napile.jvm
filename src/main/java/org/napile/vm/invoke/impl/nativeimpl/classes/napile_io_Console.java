@@ -17,7 +17,7 @@ public class napile_io_Console
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];
 		//TODO [VISTALL] remove this hack
-		if(val.getClassInfo().getName().equals(NapileLangPackage.NULL))
+		if(val.getClassInfo().getFqName().equals(NapileLangPackage.NULL))
 			System.out.println("null");
 		else
 		{
@@ -36,7 +36,7 @@ public class napile_io_Console
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];
 		//TODO [VISTALL] remove this hack
-		if(val.getClassInfo().getName().equals(NapileLangPackage.NULL))
+		if(val.getClassInfo().getFqName().equals(NapileLangPackage.NULL))
 			System.out.println("null");
 		else
 		{

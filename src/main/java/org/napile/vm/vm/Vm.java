@@ -158,7 +158,7 @@ public class Vm
 
 		initStaticIfNeed(methodInfo.getParent());
 
-		if(!methodInfo.getName().shortName().equals(MethodNode.CONSTRUCTOR_NAME))
+		if(!methodInfo.getFqName().shortName().equals(MethodNode.CONSTRUCTOR_NAME))
 			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && objectInfo != null || !methodInfo.hasModifier(Modifier.STATIC) && objectInfo == null);
 
 		InvokeType invokeType = methodInfo.getInvokeType();
@@ -215,10 +215,10 @@ public class Vm
 			return objectInfo;
 
 		BaseObjectInfo nullV = VmUtil.convertToVm(this, context, null);
-		BaseObjectInfo fqName = VmUtil.convertToVm(this, context, classInfo.getName().getFqName());
+		BaseObjectInfo fqName = VmUtil.convertToVm(this, context, classInfo.getFqName().getFqName());
 
 		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
-		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getName())));
+		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getFqName())));
 
 		BaseObjectInfo classObjectInfo = newObject(context, typeNode, VmUtil.varargTypes(new TypeNode(true, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(AsmConstants.ANY_TYPE), VmUtil.STRING), new BaseObjectInfo[] {nullV,  fqName});
 		classInfo.setClassObjectInfo(classObjectInfo);
@@ -307,11 +307,11 @@ public class Vm
 
 	public VariableInfo getField0(final ClassInfo info, String name, boolean deep)
 	{
-		FqName fieldName = info.getName().child(Name.identifier(name));
+		FqName fieldName = info.getFqName().child(Name.identifier(name));
 
 		List<VariableInfo> variableInfos = deep ? VmUtil.collectAllFields(this, info) : info.getVariables();
 		for(VariableInfo variableInfo : variableInfos)
-			if(variableInfo.getName().equals(fieldName))
+			if(variableInfo.getFqName().equals(fieldName))
 				return variableInfo;
 		return null;
 	}
@@ -331,7 +331,7 @@ public class Vm
 
 		for(MethodInfo methodInfo : methodInfos)
 		{
-			if(!methodInfo.getName().shortName().getName().equals(name))
+			if(!methodInfo.getFqName().shortName().getName().equals(name))
 				continue;
 
 			if(!Comparing.equal(params, methodInfo.getParameters()))
@@ -348,7 +348,7 @@ public class Vm
 
 		for(MethodInfo methodInfo : methodInfos)
 		{
-			if(!methodInfo.getName().shortName().getName().equals(name))
+			if(!methodInfo.getFqName().shortName().getName().equals(name))
 				continue;
 
 			if(!Comparing.equal(params, methodInfo.getParameters()))

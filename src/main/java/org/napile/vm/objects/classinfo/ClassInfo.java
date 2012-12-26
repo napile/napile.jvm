@@ -79,7 +79,7 @@ public class ClassInfo implements ReflectInfo
 
 	@NotNull
 	@Override
-	public FqName getName()
+	public FqName getFqName()
 	{
 		return classNode.name;
 	}
@@ -125,6 +125,13 @@ public class ClassInfo implements ReflectInfo
 		return null;
 	}
 
+	@NotNull
+	@Override
+	public String getName()
+	{
+		return classNode.name.shortName().getName();
+	}
+
 	public boolean isStaticConstructorCalled()
 	{
 		return staticConstructorCalled;
@@ -138,7 +145,7 @@ public class ClassInfo implements ReflectInfo
 	@Override
 	public String toString()
 	{
-		return getName().toString();
+		return getFqName().toString();
 	}
 
 	public BaseObjectInfo getClassObjectInfo()

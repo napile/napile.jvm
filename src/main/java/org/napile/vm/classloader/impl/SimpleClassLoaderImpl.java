@@ -42,7 +42,7 @@ public class SimpleClassLoaderImpl implements JClassLoader
 	@Override
 	public void addClassInfo(ClassInfo classInfo)
 	{
-		_classes.put(classInfo.getName(), classInfo);
+		_classes.put(classInfo.getFqName(), classInfo);
 	}
 
 	@Override

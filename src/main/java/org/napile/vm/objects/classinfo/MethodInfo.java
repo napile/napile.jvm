@@ -93,9 +93,9 @@ public class MethodInfo implements ReflectInfo
 
 	@NotNull
 	@Override
-	public FqName getName()
+	public FqName getFqName()
 	{
-		return parent.getName().child(name);
+		return parent.getFqName().child(name);
 	}
 
 	@Override
@@ -108,6 +108,12 @@ public class MethodInfo implements ReflectInfo
 	public ClassInfo getParent()
 	{
 		return parent;
+	}
+
+	@NotNull
+	public String getName()
+	{
+		return methodNode.name.getName();
 	}
 
 	public List<TryCatchBlockNode> getTryCatchBlockNodes()
@@ -132,7 +138,7 @@ public class MethodInfo implements ReflectInfo
 		if(hasModifier(Modifier.STATIC))
 			b.append("static ");
 		b.append("meth ");
-		b.append(getName()).append("(");
+		b.append(getFqName()).append("(");
 		b.append(StringUtil.join(parameters, new Function<TypeNode, String>()
 		{
 			@Override

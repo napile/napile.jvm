@@ -29,7 +29,10 @@ public interface ReflectInfo
 	ClassInfo getParent();
 
 	@NotNull
-	FqName getName();
+	String getName();
+
+	@NotNull
+	FqName getFqName();
 
 	boolean hasModifier(@NotNull Modifier modifier);
 }

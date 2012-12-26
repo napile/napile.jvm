@@ -13,4 +13,10 @@ public class StringTest extends MainTest
 	{
 		run("stringTest.StringTest");
 	}
+
+	@Test
+	public void test1()
+	{
+		run("stringTest.EndsWithTest");
+	}
 }

@@ -49,12 +49,13 @@ public class VariableInfo implements ReflectInfo
 
 	@NotNull
 	@Override
-	public FqName getName()
+	public FqName getFqName()
 	{
-		return parent.getName().child(variableNode.name);
+		return parent.getFqName().child(variableNode.name);
 	}
 
-	public String getShortName()
+	@NotNull
+	public String getName()
 	{
 		return variableNode.name.getName();
 	}
@@ -84,9 +85,9 @@ public class VariableInfo implements ReflectInfo
 	public String toString()
 	{
 		StringBuilder b = new StringBuilder();
-		b.append(getParent().getName()).append(":");
+		b.append(getParent().getFqName()).append(":");
 		b.append(getType().toString()).append(" ");
-		b.append(getName());
+		b.append(getFqName());
 		return b.toString();
 	}
 }

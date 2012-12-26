@@ -36,14 +36,14 @@ public class DumpUtil
 	{
 		ClassInfo classInfo = objectInfo.getClassInfo();
 		StringBuilder builder = new StringBuilder();
-		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getName()).append(" Value: ").append(valueToString(objectInfo.value())).append('\n');
+		builder.append("Object dump: ").append(objectInfo.hashCode()).append(", class: ").append(classInfo.getFqName()).append(" Value: ").append(valueToString(objectInfo.value())).append('\n');
 
 		builder.append("\tVariables:\n");
 		for(VariableInfo f : VmUtil.collectAllFields(vm, classInfo))
 			if(f.hasModifier(Modifier.STATIC))
-				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(f.getStaticValue()).append("\n");
+				builder.append("\t\t").append(f.getFqName().shortName()).append(": ").append(f.getStaticValue()).append("\n");
 			else
-				builder.append("\t\t").append(f.getName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');
+				builder.append("\t\t").append(f.getFqName().shortName()).append(": ").append(objectInfo.getVarValue(f)).append('\n');
 		return builder.toString();
 	}
 
