@@ -52,7 +52,7 @@ public class ClassInfo implements ReflectInfo
 	{
 		this.classNode = classNode;
 
-		for(AbstractMemberNode<?> memberNode : classNode.members)
+		for(AbstractMemberNode<?> memberNode : classNode.getMembers())
 		{
 			if(memberNode instanceof VariableNode)
 				variableInfos.add(new VariableInfo(this, (VariableNode) memberNode));
@@ -61,7 +61,7 @@ public class ClassInfo implements ReflectInfo
 				MacroNode methodNode = (MacroNode) memberNode;
 				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
 				for(int i = 0; i < parameters.length; i++)
-					parameters[i] = methodNode.parameters.get(i).typeNode;
+					parameters[i] = methodNode.parameters.get(i).returnType;
 
 				macroInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
 			}
@@ -70,7 +70,7 @@ public class ClassInfo implements ReflectInfo
 				MethodNode methodNode = (MethodNode) memberNode;
 				TypeNode[] parameters = new TypeNode[methodNode.parameters.size()];
 				for(int i = 0; i < parameters.length; i++)
-					parameters[i] = methodNode.parameters.get(i).typeNode;
+					parameters[i] = methodNode.parameters.get(i).returnType;
 
 				methodInfos.add(new MethodInfo(this, methodNode.name, methodNode, methodNode.returnType, parameters));
 			}
