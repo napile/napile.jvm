@@ -105,6 +105,12 @@ public class MethodInfo implements ReflectInfo
 	}
 
 	@Override
+	public Modifier[] getModifiers()
+	{
+		return methodNode.modifiers;
+	}
+
+	@Override
 	public ClassInfo getParent()
 	{
 		return parent;

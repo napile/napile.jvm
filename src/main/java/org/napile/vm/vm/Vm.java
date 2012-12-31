@@ -45,6 +45,7 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
+import org.napile.vm.util.VmReflectUtil;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.util.ArrayUtil;
 
@@ -220,7 +221,7 @@ public class Vm
 		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
 		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getFqName())));
 
-		BaseObjectInfo classObjectInfo = newObject(context, typeNode, VmUtil.varargTypes(new TypeNode(true, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(AsmConstants.ANY_TYPE), VmUtil.STRING), new BaseObjectInfo[] {nullV,  fqName});
+		BaseObjectInfo classObjectInfo = newObject(context, typeNode, VmUtil.varargTypes(new TypeNode(true, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(AsmConstants.ANY_TYPE), VmUtil.STRING, VmReflectUtil.NAPILE_LANG_ARRAY__MODIFIER__), new BaseObjectInfo[] {nullV,  fqName, VmReflectUtil.createArray$Modifier$(this, context, classInfo)});
 		classInfo.setClassObjectInfo(classObjectInfo);
 		return classObjectInfo;
 	}

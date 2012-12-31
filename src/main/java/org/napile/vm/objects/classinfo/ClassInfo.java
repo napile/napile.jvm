@@ -95,6 +95,12 @@ public class ClassInfo implements ReflectInfo
 		return ArrayUtil.contains(modifier, classNode.modifiers);
 	}
 
+	@Override
+	public Modifier[] getModifiers()
+	{
+		return classNode.modifiers;
+	}
+
 	@NotNull
 	public List<VariableInfo> getVariables()
 	{

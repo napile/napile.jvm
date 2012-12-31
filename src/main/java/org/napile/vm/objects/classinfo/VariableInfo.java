@@ -66,6 +66,12 @@ public class VariableInfo implements ReflectInfo
 		return ArrayUtil.contains(modifier, variableNode.modifiers);
 	}
 
+	@Override
+	public Modifier[] getModifiers()
+	{
+		return variableNode.modifiers;
+	}
+
 	public void setStaticValue(BaseObjectInfo value)
 	{
 		staticValue = value;

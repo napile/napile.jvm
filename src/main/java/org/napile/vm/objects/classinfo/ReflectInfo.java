@@ -35,4 +35,6 @@ public interface ReflectInfo
 	FqName getFqName();
 
 	boolean hasModifier(@NotNull Modifier modifier);
+
+	Modifier[] getModifiers();
 }
