@@ -63,7 +63,7 @@ public class napile_reflect_Class
 			String name = methodInfo.getName();
 			if(name.equals(MethodNode.CONSTRUCTOR_NAME.getName()) || name.equals(MethodNode.STATIC_CONSTRUCTOR_NAME.getName()))
 				continue;
-			methodObjects.add(vm.newObject(context, NAPILE_REFLECT_CONSTRUCTOR, VmUtil.varargTypes(NAPILE_REFLECT_CLASS__ANY_NULLABLE__, VmUtil.STRING, VmReflectUtil.NAPILE_LANG_ARRAY__MODIFIER__), new BaseObjectInfo[]{baseObjectInfo, VmUtil.convertToVm(vm, context, methodInfo.getName()), VmReflectUtil.createArray$Modifier$(vm, context, methodInfo)}));
+			methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.METHOD, baseObjectInfo, vm, context, methodInfo));
 		}
 
 		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__NAPILE_REFLECT_METHOD__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, methodObjects.size())});
@@ -91,7 +91,7 @@ public class napile_reflect_Class
 		{
 			String name = methodInfo.getName();
 			if(name.equals(MethodNode.CONSTRUCTOR_NAME.getName()))
-				methodObjects.add(vm.newObject(context, NAPILE_REFLECT_CONSTRUCTOR, VmUtil.varargTypes(NAPILE_REFLECT_CLASS__ANY_NULLABLE__, VmUtil.STRING, VmReflectUtil.NAPILE_LANG_ARRAY__MODIFIER__), new BaseObjectInfo[]{baseObjectInfo, VmUtil.convertToVm(vm, context, methodInfo.getName()), VmReflectUtil.createArray$Modifier$(vm, context, methodInfo)}));
+				methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.CONSTRUCTOR, baseObjectInfo, vm, context, methodInfo));
 		}
 
 		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__NAPILE_REFLECT_CONSTRUCTOR__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, methodObjects.size())});
@@ -116,7 +116,7 @@ public class napile_reflect_Class
 
 		List<BaseObjectInfo> methodObjects = new ArrayList<BaseObjectInfo>(methods.size());
 		for(MethodInfo methodInfo : methods)
-			methodObjects.add(vm.newObject(context, NAPILE_REFLECT_MACRO, VmUtil.varargTypes(NAPILE_REFLECT_CLASS__ANY_NULLABLE__, VmUtil.STRING, VmReflectUtil.NAPILE_LANG_ARRAY__MODIFIER__), new BaseObjectInfo[]{baseObjectInfo, VmUtil.convertToVm(vm, context, methodInfo.getName()), VmReflectUtil.createArray$Modifier$(vm, context, methodInfo)}));
+			methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.MACRO, baseObjectInfo, vm, context, methodInfo));
 
 		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__NAPILE_REFLECT_MACRO__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, methodObjects.size())});
 		BaseObjectInfo[] array = arrayObject.value();

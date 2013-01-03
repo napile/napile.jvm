@@ -23,7 +23,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.napile.asm.AsmConstants;
 import org.napile.asm.Modifier;
 import org.napile.asm.io.text.in.type.TypeNodeUtil;
 import org.napile.asm.lib.NapileReflectPackage;
@@ -215,13 +214,10 @@ public class Vm
 		if(objectInfo != null)
 			return objectInfo;
 
-		BaseObjectInfo nullV = VmUtil.convertToVm(this, context, null);
-		BaseObjectInfo fqName = VmUtil.convertToVm(this, context, classInfo.getFqName().getFqName());
-
 		TypeNode typeNode = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
 		typeNode.arguments.add(new TypeNode(false, new ClassTypeNode(classInfo.getFqName())));
 
-		BaseObjectInfo classObjectInfo = newObject(context, typeNode, VmUtil.varargTypes(new TypeNode(true, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(AsmConstants.ANY_TYPE), VmUtil.STRING, VmReflectUtil.NAPILE_LANG_ARRAY__MODIFIER__), new BaseObjectInfo[] {nullV,  fqName, VmReflectUtil.createArray$Modifier$(this, context, classInfo)});
+		BaseObjectInfo classObjectInfo = VmReflectUtil.createReflectObject(typeNode, VmUtil.convertToVm(this, context, null), this, context, classInfo);
 		classInfo.setClassObjectInfo(classObjectInfo);
 		return classObjectInfo;
 	}

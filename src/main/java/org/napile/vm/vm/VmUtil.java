@@ -24,6 +24,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.napile.asm.AsmConstants;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
@@ -53,7 +54,7 @@ public class VmUtil
 	public static final TypeNode LONG = new TypeNode(false, new ClassTypeNode(NapileLangPackage.LONG));
 	public static final TypeNode FLOAT = new TypeNode(false, new ClassTypeNode(NapileLangPackage.FLOAT));
 	public static final TypeNode DOUBLE = new TypeNode(false, new ClassTypeNode(NapileLangPackage.DOUBLE));
-	public static final TypeNode STRING = new TypeNode(false, new ClassTypeNode(NapileLangPackage.STRING));
+	public static final TypeNode STRING = AsmConstants.STRING_TYPE;
 	public static final TypeNode ARRAY__STRING__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STRING);
 	public static final TypeNode ARRAY__CHAR__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(CHAR);
 
