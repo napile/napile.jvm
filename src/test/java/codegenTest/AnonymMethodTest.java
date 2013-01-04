@@ -13,4 +13,10 @@ public class AnonymMethodTest extends MainTest
 	{
 		run("anonymMethodTest.AnonymMethTest");
 	}
+
+	@Test
+	public void test1()
+	{
+		run("anonymMethodTest.AnonymMethWrapTest");
+	}
 }
