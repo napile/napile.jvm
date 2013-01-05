@@ -23,8 +23,8 @@ public class VmSwapInstruction extends VmInstruction<SwapInstruction>
 	{
 		BaseObjectInfo o1 = context.pop();
 		BaseObjectInfo o2 = context.pop();
-		context.push(o2);
 		context.push(o1);
+		context.push(o2);
 		return nextIndex;
 	}
 }
