@@ -21,6 +21,14 @@ public class napile_lang_Int
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() + 1);
 	}
 
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitNot", parameters = {})
+	public static BaseObjectInfo bitNot(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, ~ (Integer) objectInfo.value());
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "dec", parameters = {})
 	public static BaseObjectInfo dec(Vm vm, InterpreterContext context)
 	{
@@ -74,6 +82,41 @@ public class napile_lang_Int
 		BaseObjectInfo[] arg = context.getLastStack().getArguments();
 
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() - ((Integer)arg[0].value()));
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "minus", parameters = {})
+	public static BaseObjectInfo minus$(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, - (Integer) objectInfo.value());
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitXor", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitXor(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() ^ ((Integer)arg[0].value()));
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitOr", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitOr(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() | ((Integer)arg[0].value()));
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitAnd", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitAnd(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() & ((Integer)arg[0].value()));
 	}
 
 	@NativeImplement(className = "napile.lang.Int", methodName = "mod", parameters = {"napile.lang.Int"})

@@ -29,21 +29,16 @@ public class napile_lang_Exception
 	{
 		Deque<StackEntry> list = context.getStack();
 
-		final int size = list.size() - 2;
-		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__STACK_TRACE_ELEMENT__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, size)});
+		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__STACK_TRACE_ELEMENT__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, list.size())});
 
 		BaseObjectInfo[] array = arrayObject.value();
 		int i = 0;
-		int temp = 0;
+
 		Iterator<StackEntry> iterator = context.getStack().descendingIterator();
 		while(iterator.hasNext())
 		{
 			StackEntry stackEntry = iterator.next();
-			if(temp != 2)
-			{
-				temp ++;
-				continue;
-			}
+
 			array[i++] = vm.newObject(context, STACK_TRACE_ELEMENT, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, stackEntry.getMethodInfo().getFqName().getFqName())});
 		}
 		return arrayObject;
