@@ -128,6 +128,33 @@ public class napile_lang_Int
 		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() % ((Integer)arg[0].value()));
 	}
 
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitShiftLeft", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitShiftLeft(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() << ((Integer)arg[0].value()));
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitShiftRight", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitShiftRight(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() >> ((Integer)arg[0].value()));
+	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "bitShiftRightZ", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo bitShiftRightZ(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		return VmUtil.convertToVm(vm, context, (Integer) objectInfo.value() >>> ((Integer)arg[0].value()));
+	}
+
 	@NativeImplement(className = "napile.lang.Int", methodName = "equals", parameters = {"napile.lang.Any?"})
 	public static BaseObjectInfo equals(Vm vm, InterpreterContext context)
 	{
