@@ -32,6 +32,7 @@ import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
+import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
@@ -277,8 +278,13 @@ public class Vm
 	{
 		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
 			return (ClassTypeNode) typeNode.typeConstructorNode;
+		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
+		{
+			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name.getName());
+			return toClassType(context, typeParameterType);
+		}
 		else
-			throw new UnsupportedOperationException(typeNode.getClass().getName() + " is not supported");
+			throw new UnsupportedOperationException(typeNode.typeConstructorNode.getClass().getName() + " is not supported");
 	}
 
 	public VmContext getVmContext()

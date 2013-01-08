@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.AbstractMemberNode;
+import org.napile.asm.tree.members.AnnotationNode;
 import org.napile.asm.tree.members.ClassNode;
 import org.napile.asm.tree.members.MacroNode;
 import org.napile.asm.tree.members.MethodNode;
@@ -99,6 +100,12 @@ public class ClassInfo implements ReflectInfo
 	public Modifier[] getModifiers()
 	{
 		return classNode.modifiers;
+	}
+
+	@Override
+	public List<AnnotationNode> getAnnotations()
+	{
+		return classNode.annotations;
 	}
 
 	@NotNull

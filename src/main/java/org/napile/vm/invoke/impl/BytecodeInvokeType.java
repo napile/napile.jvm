@@ -16,11 +16,13 @@
 
 package org.napile.vm.invoke.impl;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.napile.asm.tree.members.bytecode.Instruction;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
@@ -101,9 +103,29 @@ public class BytecodeInvokeType implements InvokeType
 		return _instructions;
 	}
 
-	public void setInstructions(VmInstruction[] instructions)
+	public void convertInstructions(List<Instruction> instructions)
 	{
-		_instructions = instructions;
+		VmInstruction[] vmInstructions = new VmInstruction[instructions.size()];
+		_instructions = vmInstructions;
+
+		int i = 0;
+		for(Instruction instruction : instructions)
+		{
+			try
+			{
+				Class<?> clazz = Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.Vm" + instruction.getClass().getSimpleName());
+
+				Constructor constructor = clazz.getConstructors()[0];
+
+				VmInstruction<?> vmInstruction = (VmInstruction)constructor.newInstance(instruction);
+				vmInstruction.setArrayIndex(i++);
+				vmInstructions[vmInstruction.getArrayIndex()] = vmInstruction;
+			}
+			catch(Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	public int getMaxLocals()

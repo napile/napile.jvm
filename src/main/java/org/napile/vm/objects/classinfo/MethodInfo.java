@@ -16,22 +16,20 @@
 
 package org.napile.vm.objects.classinfo;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.AnnotationNode;
 import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
-import org.napile.asm.tree.members.bytecode.Instruction;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.NativeInvokeType;
-import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.Function;
@@ -65,29 +63,8 @@ public class MethodInfo implements ReflectInfo
 		{
 			BytecodeInvokeType bytecodeInvokeType = new BytecodeInvokeType();
 			bytecodeInvokeType.setMaxLocals(likeMethodNode.maxLocals);
+			bytecodeInvokeType.convertInstructions(likeMethodNode.instructions);
 			setInvokeType(bytecodeInvokeType);
-
-			VmInstruction[] instructions = new VmInstruction[likeMethodNode.instructions.size()];
-			bytecodeInvokeType.setInstructions(instructions);
-
-			int i = 0;
-			for(Instruction instruction : likeMethodNode.instructions)
-			{
-				try
-				{
-					Class<?> clazz = Class.forName("org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.Vm" + instruction.getClass().getSimpleName());
-
-					Constructor constructor = clazz.getConstructors()[0];
-
-					VmInstruction<?> vmInstruction = (VmInstruction)constructor.newInstance(instruction);
-					vmInstruction.setArrayIndex(i++);
-					instructions[vmInstruction.getArrayIndex()] = vmInstruction;
-				}
-				catch(Exception e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
 		}
 	}
 
@@ -114,6 +91,12 @@ public class MethodInfo implements ReflectInfo
 	public ClassInfo getParent()
 	{
 		return parent;
+	}
+
+	@Override
+	public List<AnnotationNode> getAnnotations()
+	{
+		return methodNode.annotations;
 	}
 
 	@NotNull

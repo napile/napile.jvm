@@ -16,9 +16,12 @@
 
 package org.napile.vm.objects.classinfo;
 
+import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.tree.members.AnnotationNode;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -70,6 +73,12 @@ public class VariableInfo implements ReflectInfo
 	public Modifier[] getModifiers()
 	{
 		return variableNode.modifiers;
+	}
+
+	@Override
+	public List<AnnotationNode> getAnnotations()
+	{
+		return variableNode.annotations;
 	}
 
 	public void setStaticValue(BaseObjectInfo value)

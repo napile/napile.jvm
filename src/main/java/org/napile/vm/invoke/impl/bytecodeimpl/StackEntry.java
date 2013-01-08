@@ -61,6 +61,14 @@ public class StackEntry
 	// type parameters
 	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
 
+	// for annotations
+	public StackEntry()
+	{
+		this.arguments = BaseObjectInfo.EMPTY_ARRAY;
+
+		localVariables = BaseObjectInfo.EMPTY_ARRAY;
+	}
+
 	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
 	{
 		this.objectInfo = objectInfo;
@@ -158,7 +166,7 @@ public class StackEntry
 	@Override
 	public String toString()
 	{
-		return methodInfo.toString();
+		return methodInfo == null ? "null" : methodInfo.toString();
 	}
 
 	public BaseObjectInfo getReturnValue(boolean macro)

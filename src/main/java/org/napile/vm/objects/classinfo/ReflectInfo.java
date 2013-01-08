@@ -16,9 +16,12 @@
 
 package org.napile.vm.objects.classinfo;
 
+import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.tree.members.AnnotationNode;
 
 /**
  * @author VISTALL
@@ -37,4 +40,6 @@ public interface ReflectInfo
 	boolean hasModifier(@NotNull Modifier modifier);
 
 	Modifier[] getModifiers();
+
+	List<AnnotationNode> getAnnotations();
 }

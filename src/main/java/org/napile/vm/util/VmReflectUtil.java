@@ -1,12 +1,17 @@
 package org.napile.vm.util;
 
+import java.util.List;
+
 import org.napile.asm.AsmConstants;
 import org.napile.asm.Modifier;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.lib.NapileReflectPackage;
+import org.napile.asm.tree.members.AnnotationNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.vm.Vm;
@@ -63,11 +68,26 @@ public class VmReflectUtil
 
 	public static BaseObjectInfo createArray$Any$Annotations(Vm vm, InterpreterContext context, ReflectInfo memberNode)
 	{
-		BaseObjectInfo baseObjectInfo = vm.newObject(context, NAPILE_LANG_ARRAY__ANY__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, 0)});
+		List<AnnotationNode> annotations = memberNode.getAnnotations();
+
+		BaseObjectInfo baseObjectInfo = vm.newObject(context, NAPILE_LANG_ARRAY__ANY__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, annotations.size())});
 		BaseObjectInfo[] value = baseObjectInfo.value();
 
-		//TODO [VISTALL] annotations invoking
+		StackEntry stackEntry = new StackEntry();
+		context.getStack().add(stackEntry);
 
+		int i = 0;
+		for(AnnotationNode annotationNode : annotations)
+		{
+			BytecodeInvokeType invokeType = new BytecodeInvokeType();
+			invokeType.convertInstructions(annotationNode.instructions);
+
+			invokeType.call(vm, context);
+
+			value[i++] = stackEntry.pop();
+		}
+
+		context.getStack().pollLast();
 		return baseObjectInfo;
 	}
 }
