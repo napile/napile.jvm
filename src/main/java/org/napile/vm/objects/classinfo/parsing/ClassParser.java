@@ -21,6 +21,7 @@ import java.io.InputStream;
 
 import org.napile.asm.io.xml.in.AsmXmlFileReader;
 import org.napile.asm.resolve.name.FqName;
+import org.napile.asm.tree.members.AbstractMemberNode;
 import org.napile.asm.tree.members.ClassNode;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.vm.Vm;
@@ -57,9 +58,13 @@ public class ClassParser
 		ClassNode classNode = reader.read(inputStream);
 
 		ClassInfo classInfo = new ClassInfo(classNode);
-
 		_vm.getCurrentClassLoader().addClassInfo(classInfo);
 
+		for(AbstractMemberNode<?> memberNode : classNode.getMembers())
+		{
+			if(memberNode instanceof ClassNode)
+				_vm.getCurrentClassLoader().addClassInfo(new ClassInfo((ClassNode) memberNode));
+		}
 		return classInfo;
 	}
 }

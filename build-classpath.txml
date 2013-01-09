@@ -1,0 +1,17 @@
+<project name="napile-lang" default="dist-with-testget">
+	<property name="out.dir" value="../napile.classpath.draft"/>
+
+	<target name="dist-with-testget">
+		<delete dir="dist/codegenTest.nzip" />
+		<delete dir="${out.dir}/build/tests/" />
+
+		<mkdir dir="${out.dir}/build/tests/" />
+		<mkdir dir="${out.dir}/build/tests/codegenTest" />
+
+		<napilec srcdir="${out.dir}/src/testgen/napile:${out.dir}/src/main/napile" outdir="${out.dir}/build/tests" />
+
+		<nzip destfile="dist/codegenTest.nzip" moduledir="${out.dir}/src/main/napile">
+			<fileset dir="${out.dir}/build/tests/" />
+		</nzip>
+	</target>
+</project>
