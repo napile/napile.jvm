@@ -20,4 +20,13 @@ public class napile_lang_Char
 
 		return VmUtil.convertToVm(vm, context, objectInfo.value().equals(arg[0].value()));
 	}
+
+	@NativeImplement(className = "napile.lang.Char", methodName = "toByte", parameters = {})
+	public static BaseObjectInfo toByte(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		Character c = objectInfo.value();
+		return VmUtil.convertToVm(vm, context, (byte)c.charValue());
+	}
 }

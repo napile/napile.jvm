@@ -171,4 +171,13 @@ public class napile_lang_Int
 
 		return VmUtil.convertToVm(vm, context, objectInfo.value().toString());
 	}
+
+	@NativeImplement(className = "napile.lang.Int", methodName = "toByte", parameters = {})
+	public static BaseObjectInfo toByte(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		Integer integer = objectInfo.value();
+		return VmUtil.convertToVm(vm, context, integer.byteValue());
+	}
 }
