@@ -60,11 +60,17 @@ public class ClassParser
 		ClassInfo classInfo = new ClassInfo(classNode);
 		_vm.getCurrentClassLoader().addClassInfo(classInfo);
 
-		for(AbstractMemberNode<?> memberNode : classNode.getMembers())
-		{
-			if(memberNode instanceof ClassNode)
-				_vm.getCurrentClassLoader().addClassInfo(new ClassInfo((ClassNode) memberNode));
-		}
+		addClasses(classNode);
 		return classInfo;
+	}
+
+	private void addClasses(ClassNode classNode)
+	{
+		for(AbstractMemberNode<?> memberNode : classNode.getMembers())
+			if(memberNode instanceof ClassNode)
+			{
+				_vm.getCurrentClassLoader().addClassInfo(new ClassInfo((ClassNode) memberNode));
+				addClasses((ClassNode) memberNode);
+			}
 	}
 }
