@@ -26,15 +26,7 @@ import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_NativeConsole;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_File;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Any;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Array;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Byte;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Char;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Exception;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Int;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_reflect_Class;
+import org.napile.vm.invoke.impl.nativeimpl.classes.*;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.vm.Vm;
@@ -50,6 +42,7 @@ public class NativeWrapper
 	{
 		register(vm, napile_lang_Byte.class);
 		register(vm, napile_lang_Int.class);
+		register(vm, napile_lang_Long.class);
 		register(vm, napile_lang_Char.class);
 		register(vm, napile_lang_Any.class);
 		register(vm, napile_lang_Array.class);
