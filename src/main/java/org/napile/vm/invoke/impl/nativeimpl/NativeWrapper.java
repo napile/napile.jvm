@@ -26,7 +26,7 @@ import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_Console;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_NativeConsole;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_io_File;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Any;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Array;
@@ -57,7 +57,7 @@ public class NativeWrapper
 
 		register(vm, napile_reflect_Class.class);
 
-		register(vm, napile_io_Console.class);
+		register(vm, napile_io_NativeConsole.class);
 		register(vm, napile_io_File.class);
 	}
 

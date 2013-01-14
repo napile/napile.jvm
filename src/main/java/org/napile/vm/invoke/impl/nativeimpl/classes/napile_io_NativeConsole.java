@@ -10,9 +10,9 @@ import org.napile.vm.vm.Vm;
  * @author VISTALL
  * @date 23:32/20.09.12
  */
-public class napile_io_Console
+public class napile_io_NativeConsole
 {
-	@NativeImplement(className = "napile.io.Console", methodName = "write", parameters = {"napile.lang.String"})
+	@NativeImplement(className = "napile.io.NativeConsole", methodName = "write", parameters = {"napile.lang.String"})
 	public static void write(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];
@@ -31,7 +31,7 @@ public class napile_io_Console
 		}
 	}
 
-	@NativeImplement(className = "napile.io.Console", methodName = "writeLine", parameters = {"napile.lang.String"})
+	@NativeImplement(className = "napile.io.NativeConsole", methodName = "writeLine", parameters = {"napile.lang.String"})
 	public static void writeLine(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];
