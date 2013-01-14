@@ -33,7 +33,7 @@ public class VmReflectUtil
 
 	public static BaseObjectInfo createReflectObject(TypeNode typeNode, BaseObjectInfo owner, Vm vm, InterpreterContext context, ReflectInfo reflectInfo)
 	{
-		return vm.newObject
+		BaseObjectInfo objectInfo = vm.newObject
 		(
 				context,
 				typeNode,
@@ -52,6 +52,8 @@ public class VmReflectUtil
 								createArray$Any$Annotations(vm, context, reflectInfo)
 						}
 		);
+		objectInfo.value(reflectInfo);
+		return objectInfo;
 	}
 
 	public static BaseObjectInfo createArray$Modifier$(Vm vm, InterpreterContext context, ReflectInfo memberNode)

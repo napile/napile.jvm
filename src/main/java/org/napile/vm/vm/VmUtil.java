@@ -30,6 +30,7 @@ import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -44,6 +45,8 @@ import org.napile.vm.util.AssertUtil;
  */
 public class VmUtil
 {
+	public static final FqName VM_MAIN_CALLER = new FqName("org.napile.vm.MainCaller");
+
 	public static final TypeNode CHAR = new TypeNode(false, new ClassTypeNode(NapileLangPackage.CHAR));
 	public static final TypeNode CLASS = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
 	public static final TypeNode TYPE = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
@@ -69,6 +72,7 @@ public class VmUtil
 		vm.safeGetClass(NapileLangPackage.STRING);
 		vm.safeGetClass(NapileLangPackage.INT);
 		vm.safeGetClass(NapileLangPackage.NULL);
+		vm.safeGetClass(VM_MAIN_CALLER);
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
 
@@ -123,6 +127,27 @@ public class VmUtil
 			return staticValue(vm, NapileLangPackage.BOOL, value == Boolean.TRUE ? "TRUE" : "FALSE");
 		else
 			throw new UnsupportedOperationException(value.getClass().getName());
+	}
+
+	@NotNull
+	public static Object convertToJava(@NotNull Vm vm, @NotNull BaseObjectInfo val)
+	{
+		TypeNode typeNode = val.getTypeNode();
+		TypeConstructorNode constructorNode = typeNode.typeConstructorNode;
+		if(!(constructorNode instanceof ClassTypeNode))
+			throw new UnsupportedOperationException(typeNode.toString());
+		FqName fqName = ((ClassTypeNode) constructorNode).className;
+		if(fqName.equals(NapileLangPackage.STRING))
+		{
+			BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.getClass(NapileLangPackage.STRING), "array", false));
+			BaseObjectInfo[] attach = baseObjectInfo.value();
+			StringBuilder b = new StringBuilder();
+			for(BaseObjectInfo i : attach)
+				b.append(i.value());
+			return b.toString();
+		}
+		else
+			throw new UnsupportedOperationException(fqName.toString());
 	}
 
 	@NotNull

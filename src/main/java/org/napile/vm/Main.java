@@ -16,13 +16,16 @@
 
 package org.napile.vm;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Thread;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -71,27 +74,46 @@ public class Main
 		VmUtil.initBootStrap(vm);
 		LOGGER.debug("VmUtil.initBootStrap(): " + (System.currentTimeMillis() - startTime) + " ms.");
 
-		ClassInfo mainClass = vm.getClass(vmContext.getMainClass());
-		if(mainClass == null)
-		{
-			BundleUtil.exitAbnormal(null, "class.s1.not.found", vmContext.getMainClass());
-			return;
-		}
-
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, VmUtil.ARRAY__STRING__);
-		if(methodInfo == null)
-		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getFqName(), "main", VmUtil.ARRAY__STRING__);
-			return;
-		}
+		ClassInfo vmCaller = vm.safeGetClass(VmUtil.VM_MAIN_CALLER);
+		MethodInfo methodInfo = vm.getStaticMethod(vmCaller, "main", false, VmUtil.ARRAY__STRING__);
 
 		InterpreterContext interpreterContext = new InterpreterContext();
 
-		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().size())});
+		List<BaseObjectInfo> list = new ArrayList<BaseObjectInfo>();
+		if(vmContext.getMainClass() != null)
+			list.add(VmUtil.convertToVm(vm, interpreterContext, vmContext.getMainClass().getFqName()));
+
+		for(String str : vmContext.getArguments())
+			list.add(VmUtil.convertToVm(vm, interpreterContext, str));
+
+		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, list.size())});
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
-		for(int i = 0; i < arrayOfObjects.length; i++)
-			arrayOfObjects[i] = VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().get(i));
+		for(int i = 0; i < list.size(); i++)
+			arrayOfObjects[i] = list.get(i);
 
 		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())));
+
+		while(true)
+		{
+			boolean isAlive = false;
+			for(Thread thread : napile_lang_Thread.THREADS)
+				if(thread.isAlive())
+				{
+					isAlive = true;
+					break;
+				}
+
+			if(!isAlive)
+				break;
+
+			try
+			{
+				Thread.sleep(1000L);
+			}
+			catch(InterruptedException e)
+			{
+				break;
+			}
+		}
 	}
 }

@@ -103,6 +103,7 @@ public class Vm
 		return getField0(info, name, deep);
 	}
 
+	@Deprecated
 	public MethodInfo getMethod(ClassInfo info, String name, boolean deep, String... params)
 	{
 		MethodInfo methodInfo = getMethod0(info, name, deep, params);

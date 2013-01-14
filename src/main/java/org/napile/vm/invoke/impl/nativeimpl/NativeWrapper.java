@@ -47,8 +47,11 @@ public class NativeWrapper
 		register(vm, napile_lang_Any.class);
 		register(vm, napile_lang_Array.class);
 		register(vm, napile_lang_Exception.class);
+		register(vm, napile_lang_Thread.class);
 
 		register(vm, napile_reflect_Class.class);
+		register(vm, napile_reflect_Method.class);
+		register(vm, napile_reflect_ReflectUtil.class);
 
 		register(vm, napile_io_NativeConsole.class);
 		register(vm, napile_io_File.class);
