@@ -21,7 +21,7 @@ public class napile_lang_Thread
 	private static final ThreadGroup THREAD_GROUP = new ThreadGroup("napile-threads");
 	public static List<Thread> THREADS = new ArrayList<Thread>();
 
-	@NativeImplement(className = "napile.lang.Thread", methodName = "start0", parameters = {})
+	@NativeImplement(methodName = "start0", parameters = {})
 	public static void start0(final Vm vm, final InterpreterContext context)
 	{
 		final BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

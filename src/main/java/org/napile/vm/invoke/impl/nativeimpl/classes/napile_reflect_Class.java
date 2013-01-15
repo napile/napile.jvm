@@ -45,7 +45,7 @@ public class napile_reflect_Class
 
 	public static final TypeNode ARRAY__NAPILE_REFLECT_MACRO__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(NAPILE_REFLECT_MACRO);
 
-	@NativeImplement(className = "napile.reflect.Class", methodName = "getMethods", parameters = {})
+	@NativeImplement(methodName = "getMethods", parameters = {})
 	public static BaseObjectInfo getMethods(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
@@ -74,7 +74,7 @@ public class napile_reflect_Class
 		return arrayObject;
 	}
 
-	@NativeImplement(className = "napile.reflect.Class", methodName = "getConstructors", parameters = {})
+	@NativeImplement(methodName = "getConstructors", parameters = {})
 	public static BaseObjectInfo getConstructors(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();
@@ -102,7 +102,7 @@ public class napile_reflect_Class
 		return arrayObject;
 	}
 
-	@NativeImplement(className = "napile.reflect.Class", methodName = "getMacros", parameters = {})
+	@NativeImplement(methodName = "getMacros", parameters = {})
 	public static BaseObjectInfo getMacros(Vm vm, InterpreterContext context)
 	{
 		StackEntry stackEntry = context.getLastStack();

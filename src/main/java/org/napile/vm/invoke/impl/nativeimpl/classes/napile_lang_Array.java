@@ -14,7 +14,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Array
 {
-	@NativeImplement(className = "napile.lang.Array", methodName = "init", parameters = {})
+	@NativeImplement(methodName = "init", parameters = {})
 	public static void init(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
@@ -33,7 +33,7 @@ public class napile_lang_Array
 		objectInfo.value(values);
 	}
 
-	@NativeImplement(className = "napile.lang.Array", methodName = "set", parameters = {"napile.lang.Int", ":E:"})
+	@NativeImplement(methodName = "set", parameters = {"napile.lang.Int", ":E:"})
 	public static BaseObjectInfo set(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
@@ -48,7 +48,7 @@ public class napile_lang_Array
 		return objectInfo;
 	}
 
-	@NativeImplement(className = "napile.lang.Array", methodName = "get", parameters = {"napile.lang.Int"})
+	@NativeImplement(methodName = "get", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo get(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

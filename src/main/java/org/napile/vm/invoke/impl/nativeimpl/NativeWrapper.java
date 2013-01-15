@@ -55,6 +55,7 @@ public class NativeWrapper
 
 		register(vm, napile_io_NativeConsole.class);
 		register(vm, napile_io_File.class);
+		register(vm, napile_io_FileDescriptor.class);
 	}
 
 	private static void register(Vm vm, Class<?> clazz)
@@ -70,7 +71,7 @@ public class NativeWrapper
 
 			AssertUtil.assertTrue(method.getParameterTypes().length != 2 || method.getParameterTypes()[0] != Vm.class || method.getParameterTypes()[1] != InterpreterContext.class);
 
-			final FqName className = new FqName(nativeImplement.className());
+			final FqName className = new FqName(clazz.getSimpleName().replace("_", "."));
 
 			final ClassInfo classInfo = vm.getClass(className);
 

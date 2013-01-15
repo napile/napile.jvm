@@ -16,7 +16,7 @@ import org.napile.vm.vm.Vm;
  */
 public class napile_reflect_Method
 {
-	@NativeImplement(className = "napile.reflect.Method", methodName = "invokeStatic0", parameters = {"napile.lang.Array<napile.lang.Any?>"})
+	@NativeImplement(methodName = "invokeStatic0", parameters = {"napile.lang.Array<napile.lang.Any?>"})
 	public static BaseObjectInfo invokeStatic0(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

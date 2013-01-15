@@ -12,7 +12,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Char
 {
-	@NativeImplement(className = "napile.lang.Char", methodName = "equals", parameters = {"napile.lang.Any?"})
+	@NativeImplement(methodName = "equals", parameters = {"napile.lang.Any?"})
 	public static BaseObjectInfo equals(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
@@ -21,7 +21,7 @@ public class napile_lang_Char
 		return VmUtil.convertToVm(vm, context, objectInfo.value().equals(arg[0].value()));
 	}
 
-	@NativeImplement(className = "napile.lang.Char", methodName = "toByte", parameters = {})
+	@NativeImplement(methodName = "toByte", parameters = {})
 	public static BaseObjectInfo toByte(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

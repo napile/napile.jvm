@@ -13,7 +13,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_io_NativeConsole
 {
-	@NativeImplement(className = "napile.io.NativeConsole", methodName = "write", parameters = {"napile.lang.String"})
+	@NativeImplement(methodName = "write", parameters = {"napile.lang.String"})
 	public static void write(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];
@@ -24,7 +24,7 @@ public class napile_io_NativeConsole
 			System.out.print(VmUtil.convertToJava(vm, val));
 	}
 
-	@NativeImplement(className = "napile.io.NativeConsole", methodName = "writeLine", parameters = {"napile.lang.String"})
+	@NativeImplement(methodName = "writeLine", parameters = {"napile.lang.String"})
 	public static void writeLine(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo val = context.getLastStack().getArguments()[0];

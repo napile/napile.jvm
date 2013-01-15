@@ -29,8 +29,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface NativeImplement
 {
-	String className();
-
 	String methodName();
 
 	String[] parameters() default {};

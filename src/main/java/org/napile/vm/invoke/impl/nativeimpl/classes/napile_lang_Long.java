@@ -12,7 +12,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Long
 {
-	@NativeImplement(className = "napile.lang.Long", methodName = "inc", parameters = {})
+	@NativeImplement(methodName = "inc", parameters = {})
 	public static BaseObjectInfo inc(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
@@ -20,7 +20,15 @@ public class napile_lang_Long
 		return VmUtil.convertToVm(vm, context, (Long) objectInfo.value() + 1);
 	}
 
-	@NativeImplement(className = "napile.lang.Long", methodName = "toString", parameters = {})
+	@NativeImplement(methodName = "minus", parameters = {})
+	public static BaseObjectInfo minus(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, - (Long) objectInfo.value());
+	}
+
+	@NativeImplement(methodName = "toString", parameters = {})
 	public static BaseObjectInfo toString(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

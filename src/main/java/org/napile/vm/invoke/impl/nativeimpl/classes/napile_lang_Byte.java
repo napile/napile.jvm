@@ -28,7 +28,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_lang_Byte
 {
-	@NativeImplement(className = "napile.lang.Byte", methodName = "minus", parameters = {})
+	@NativeImplement(methodName = "minus", parameters = {})
 	public static BaseObjectInfo minus$(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

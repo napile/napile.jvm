@@ -30,7 +30,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_io_File
 {
-	@NativeImplement(className = "napile.io.File", methodName = "existsImpl", parameters = {"napile.lang.Array<napile.lang.Byte>"})
+	@NativeImplement(methodName = "existsImpl", parameters = {"napile.lang.Array<napile.lang.Byte>"})
 	public static BaseObjectInfo existsImpl(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();

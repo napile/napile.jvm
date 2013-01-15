@@ -14,7 +14,7 @@ import org.napile.vm.vm.VmUtil;
  */
 public class napile_reflect_ReflectUtil
 {
-	@NativeImplement(className = "napile.reflect.ReflectUtil", methodName = "findClass0", parameters = {"napile.lang.String"})
+	@NativeImplement(methodName = "findClass0", parameters = {"napile.lang.String"})
 	public static BaseObjectInfo findClass0(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo[] arguments = context.getLastStack().getArguments();
