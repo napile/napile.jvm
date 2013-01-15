@@ -56,6 +56,7 @@ public class NativeWrapper
 		register(vm, napile_io_NativeConsole.class);
 		register(vm, napile_io_File.class);
 		register(vm, napile_io_FileDescriptor.class);
+		register(vm, org_apache_harmony_luni_platform_OSFileSystem.class);
 	}
 
 	private static void register(Vm vm, Class<?> clazz)

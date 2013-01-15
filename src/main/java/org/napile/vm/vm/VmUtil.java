@@ -130,7 +130,8 @@ public class VmUtil
 	}
 
 	@NotNull
-	public static Object convertToJava(@NotNull Vm vm, @NotNull BaseObjectInfo val)
+	@SuppressWarnings("unchecked")
+	public static <T> T convertToJava(@NotNull Vm vm, @NotNull BaseObjectInfo val)
 	{
 		TypeNode typeNode = val.getTypeNode();
 		TypeConstructorNode constructorNode = typeNode.typeConstructorNode;
@@ -139,15 +140,32 @@ public class VmUtil
 		FqName fqName = ((ClassTypeNode) constructorNode).className;
 		if(fqName.equals(NapileLangPackage.STRING))
 		{
-			BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.getClass(NapileLangPackage.STRING), "array", false));
+			BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.safeGetClass(NapileLangPackage.STRING), "array", false));
 			BaseObjectInfo[] attach = baseObjectInfo.value();
 			StringBuilder b = new StringBuilder();
 			for(BaseObjectInfo i : attach)
 				b.append(i.value());
-			return b.toString();
+			return (T) b.toString();
 		}
-		else
-			throw new UnsupportedOperationException(fqName.toString());
+		else if(fqName.equals(NapileLangPackage.INT) || fqName.equals(NapileLangPackage.LONG) || fqName.equals(NapileLangPackage.SHORT) || fqName.equals(NapileLangPackage.BYTE))
+			return val.value();
+		else if(fqName.equals(NapileLangPackage.ARRAY))
+		{
+			Integer length = convertToJava(vm, val.getVarValue(vm.getField(vm.safeGetClass(NapileLangPackage.ARRAY), "length", false)));
+
+			BaseObjectInfo[] values = val.value();
+			TypeNode argument = typeNode.arguments.get(0);
+			FqName argFq = ((ClassTypeNode)argument.typeConstructorNode).className;
+			if(argFq.equals(NapileLangPackage.BYTE))
+			{
+				byte[] data = new byte[length];
+				for(int i = 0; i < data.length; i++)
+					data[i] = (Byte) convertToJava(vm, values[i]);
+				return (T) data;
+			}
+		}
+
+		throw new UnsupportedOperationException(fqName.toString());
 	}
 
 	@NotNull
