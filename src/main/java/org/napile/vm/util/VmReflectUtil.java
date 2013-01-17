@@ -13,6 +13,7 @@ import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.objects.BaseObjectInfo;
+import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
@@ -47,9 +48,9 @@ public class VmReflectUtil
 				new BaseObjectInfo[]
 						{
 								owner,
-								VmUtil.convertToVm(vm, context, reflectInfo.getName()),
+								VmUtil.convertToVm(vm, context, reflectInfo instanceof ClassInfo ? ((ClassInfo) reflectInfo).classNode.name.getFqName() : reflectInfo.getName()),
 								createArray$Modifier$(vm, context, reflectInfo),
-								createArray$Any$Annotations(vm, context, reflectInfo)
+								createArray$Any$Annotations(vm, context, reflectInfo.getAnnotations())
 						}
 		);
 		objectInfo.value(reflectInfo);
@@ -68,10 +69,8 @@ public class VmReflectUtil
 		return baseObjectInfo;
 	}
 
-	public static BaseObjectInfo createArray$Any$Annotations(Vm vm, InterpreterContext context, ReflectInfo memberNode)
+	public static BaseObjectInfo createArray$Any$Annotations(Vm vm, InterpreterContext context, List<AnnotationNode> annotations)
 	{
-		List<AnnotationNode> annotations = memberNode.getAnnotations();
-
 		BaseObjectInfo baseObjectInfo = vm.newObject(context, NAPILE_LANG_ARRAY__ANY__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, annotations.size())});
 		BaseObjectInfo[] value = baseObjectInfo.value();
 

@@ -47,6 +47,8 @@ public final class BaseObjectInfo
 
 	private final TypeNode typeNode;
 
+	private BaseObjectInfo typeObject;
+
 	private Object attach;
 
 	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo, @NotNull TypeNode typeNode)
@@ -123,5 +125,15 @@ public final class BaseObjectInfo
 	public Map<String, TypeNode> getTypeArguments()
 	{
 		return typeArguments;
+	}
+
+	public BaseObjectInfo getTypeObject()
+	{
+		return typeObject;
+	}
+
+	public void setTypeObject(BaseObjectInfo typeObject)
+	{
+		this.typeObject = typeObject;
 	}
 }

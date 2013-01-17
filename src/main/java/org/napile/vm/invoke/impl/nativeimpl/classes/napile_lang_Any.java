@@ -34,4 +34,19 @@ public class napile_lang_Any
 
 		return vm.getOrCreateClassObject(context, objectInfo.getClassInfo());
 	}
+
+	@NativeImplement(methodName = "getType", parameters = {})
+	public static BaseObjectInfo getType(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo typeInfo = objectInfo.getTypeObject();
+		if(typeInfo != null)
+			return typeInfo;
+		else
+		{
+			typeInfo = vm.createTypeObject(context, objectInfo.getTypeNode());
+			objectInfo.setTypeObject(typeInfo);
+			return typeInfo;
+		}
+	}
 }

@@ -19,7 +19,7 @@ public class VmTypeOfInstruction extends VmInstruction<TypeOfInstruction>
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
-		context.push(vm.createTypeObject(instruction.value));
+		context.push(vm.createTypeObject(context, instruction.value));
 
 		return nextIndex;
 	}

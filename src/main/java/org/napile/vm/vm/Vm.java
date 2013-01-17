@@ -23,8 +23,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.AsmConstants;
 import org.napile.asm.Modifier;
 import org.napile.asm.io.text.in.type.TypeNodeUtil;
+import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
@@ -55,18 +57,19 @@ import com.intellij.util.ArrayUtil;
  */
 public class Vm
 {
+	private static final TypeNode NAPILE_LANG_ARRAY__TYPE____ANY____ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE)).visitArgument(AsmConstants.ANY_TYPE));
 	private static final Logger LOGGER = Logger.getLogger(Vm.class);
 
-	private final VmContext _vmContext;
+	private final VmContext vmContext;
 
-	private final JClassLoader _bootClassLoader = new SimpleClassLoaderImpl(null);
-	private JClassLoader _currentClassLoader = _bootClassLoader;
+	private final JClassLoader bootClassLoader = new SimpleClassLoaderImpl(null);
+	private JClassLoader currentClassLoader = bootClassLoader;
 
 	private final Map<ClassInfo, List<NativeMethodRef>> nativeWrappers = new HashMap<ClassInfo, List<NativeMethodRef>>();
 
 	public Vm(VmContext vmContext)
 	{
-		_vmContext = vmContext;
+		this.vmContext = vmContext;
 	}
 
 	public ClassInfo getClass(FqName name)
@@ -210,7 +213,7 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo getOrCreateClassObject(@NotNull InterpreterContext context,@NotNull ClassInfo classInfo)
+	public BaseObjectInfo getOrCreateClassObject(@NotNull InterpreterContext context, @NotNull ClassInfo classInfo)
 	{
 		BaseObjectInfo objectInfo = classInfo.getClassObjectInfo();
 		if(objectInfo != null)
@@ -225,10 +228,33 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo createTypeObject(@NotNull TypeNode typeNode)
+	public BaseObjectInfo createTypeObject(@NotNull InterpreterContext context, @NotNull TypeNode t)
 	{
-		//TODO [VISTALL]
-		return null;
+		TypeNode targetType = toType(context, t);
+
+		TypeNode newObjectType = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
+		newObjectType.visitArgument(targetType);
+
+		BaseObjectInfo array = newObject(context, NAPILE_LANG_ARRAY__TYPE____ANY____, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(this, context, targetType.arguments.size())});
+		BaseObjectInfo[] values = array.value();
+		for(int i = 0; i < values.length; i++)
+			values[i] = createTypeObject(context, targetType.arguments.get(i));
+
+		return newObject(context, newObjectType,
+				new TypeNode[]
+				{
+					new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(new TypeNode(false, new TypeParameterValueTypeNode(Name.identifier("E")))),
+						NAPILE_LANG_ARRAY__TYPE____ANY____,
+						AsmConstants.BOOL_TYPE,
+					VmReflectUtil.NAPILE_LANG_ARRAY__ANY__
+				},
+				new BaseObjectInfo[]
+				{
+					getOrCreateClassObject(context, safeGetClass(toClassType(context, t).className)),
+					array,
+					VmUtil.convertToVm(this, context, targetType.nullable),
+					VmReflectUtil.createArray$Any$Annotations(this, context, targetType.annotations)
+				});
 	}
 
 	public boolean isEqualOrSubType(@NotNull InterpreterContext context, @NotNull TypeNode target, @NotNull TypeNode toCheck)
@@ -288,25 +314,39 @@ public class Vm
 			throw new UnsupportedOperationException(typeNode.typeConstructorNode.getClass().getName() + " is not supported");
 	}
 
+	@NotNull
+	private TypeNode toType(@NotNull InterpreterContext context, @NotNull TypeNode typeNode)
+	{
+		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
+			return typeNode;
+		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
+		{
+			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name.getName());
+			return toType(context, typeParameterType);
+		}
+		else
+			throw new UnsupportedOperationException(typeNode.typeConstructorNode.getClass().getName() + " is not supported");
+	}
+
 	public VmContext getVmContext()
 	{
-		return _vmContext;
+		return vmContext;
 	}
 
 	public JClassLoader getBootClassLoader()
 	{
-		return _bootClassLoader;
+		return bootClassLoader;
 	}
 
 	public JClassLoader getCurrentClassLoader()
 	{
-		return _currentClassLoader;
+		return currentClassLoader;
 	}
 
 	public JClassLoader moveFromBootClassLoader()
 	{
-		_currentClassLoader = new SimpleClassLoaderImpl(_currentClassLoader);
-		return _currentClassLoader;
+		currentClassLoader = new SimpleClassLoaderImpl(currentClassLoader);
+		return currentClassLoader;
 	}
 
 	public VariableInfo getField0(final ClassInfo info, String name, boolean deep)

@@ -125,4 +125,17 @@ public class napile_reflect_Class
 
 		return arrayObject;
 	}
+
+	@NativeImplement(methodName = "getXmlDoc", parameters = {})
+	public static BaseObjectInfo getXmlDoc(Vm vm, InterpreterContext context)
+	{
+		StackEntry stackEntry = context.getLastStack();
+
+		BaseObjectInfo baseObjectInfo = AssertUtil.assertNull(stackEntry.getObjectInfo());
+
+		// type of object is - napile.reflect.Class<napile.lang.Int>
+		ClassInfo classInfo = vm.safeGetClass(((ClassTypeNode)baseObjectInfo.getTypeNode().arguments.get(0).typeConstructorNode).className);
+
+		return VmUtil.convertToVm(vm, context, classInfo.classNode.toString());
+	}
 }

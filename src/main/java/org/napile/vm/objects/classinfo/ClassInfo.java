@@ -43,7 +43,7 @@ public class ClassInfo implements ReflectInfo
 	private final List<MethodInfo> methodInfos = new ArrayList<MethodInfo>(0);
 	private final List<MethodInfo> macroInfos = new ArrayList<MethodInfo>(0);
 
-	private ClassNode classNode;
+	public ClassNode classNode;
 
 	private boolean staticConstructorCalled;
 
