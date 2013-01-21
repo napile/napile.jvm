@@ -18,6 +18,8 @@ package org.napile.vm.invoke.impl.bytecodeimpl;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,8 +28,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
+import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.objects.BaseObjectInfo;
@@ -42,17 +46,20 @@ public class StackEntry
 {
 	private static final Logger LOGGER = Logger.getLogger(StackEntry.class);
 	private BaseObjectInfo objectInfo;
+	@Deprecated
 	private MethodInfo methodInfo;
 
-	private BaseObjectInfo[] arguments;
+	private final BaseObjectInfo[] arguments;
 
 	private final BaseObjectInfo[] localVariables;
 
 	// debug
-	private List<String> debug = new ArrayList<String>();
+	private final List<String> debug = new ArrayList<String>();
 
 	// stack
-	private Deque<BaseObjectInfo> stack = new ArrayDeque<BaseObjectInfo>();
+	private final Deque<BaseObjectInfo> stack = new ArrayDeque<BaseObjectInfo>();
+
+	private final Collection<TryCatchBlockNode> tryCatchBlockNodes;
 
 	private BaseObjectInfo returnValue;
 
@@ -61,12 +68,16 @@ public class StackEntry
 	// type parameters
 	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
 
-	// for annotations
-	public StackEntry()
+	// for annotations & anonym invoke
+	public StackEntry(int maxLocals, BaseObjectInfo[] arguments, Collection<TryCatchBlockNode> tryCatchBlockNodes)
 	{
-		this.arguments = BaseObjectInfo.EMPTY_ARRAY;
+		this.arguments = arguments;
 
-		localVariables = BaseObjectInfo.EMPTY_ARRAY;
+		this.tryCatchBlockNodes = tryCatchBlockNodes;
+
+		localVariables = maxLocals == 0 ? BaseObjectInfo.EMPTY_ARRAY : new BaseObjectInfo[maxLocals];
+
+		System.arraycopy(arguments, 0, localVariables, 0, arguments.length);
 	}
 
 	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
@@ -86,6 +97,12 @@ public class StackEntry
 			while(it1.hasNext() && it2.hasNext())
 				this.typeArguments.put(it1.next().name.getName(), it2.next());
 		}
+
+		CodeInfo codeInfo = methodInfo.getMethodNode().code;
+		if(codeInfo != null)
+			tryCatchBlockNodes = codeInfo.tryCatchBlockNodes;
+		else
+			tryCatchBlockNodes = Collections.emptyList();
 
 		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
 		{
@@ -153,6 +170,7 @@ public class StackEntry
 		return arguments;
 	}
 
+	@Deprecated
 	public MethodInfo getMethodInfo()
 	{
 		return methodInfo;
@@ -189,5 +207,10 @@ public class StackEntry
 	public void setForceIndex(int forceIndex)
 	{
 		this.forceIndex = forceIndex;
+	}
+
+	public Collection<TryCatchBlockNode> getTryCatchBlockNodes()
+	{
+		return tryCatchBlockNodes;
 	}
 }

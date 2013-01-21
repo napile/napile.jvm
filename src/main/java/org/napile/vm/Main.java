@@ -91,7 +91,7 @@ public class Main
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);
 
-		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())));
+		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
 
 		while(true)
 		{

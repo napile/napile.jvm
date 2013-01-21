@@ -1,10 +1,10 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
-import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.tree.members.bytecode.impl.ThrowInstruction;
@@ -45,7 +45,7 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 		{
 			StackEntry stackEntry = iterator.next();
 
-			List<TryCatchBlockNode> tryCatchBlockNodes = stackEntry.getMethodInfo().getTryCatchBlockNodes();
+			Collection<TryCatchBlockNode> tryCatchBlockNodes = stackEntry.getTryCatchBlockNodes();
 			for(TryCatchBlockNode tryCatchBlockNode : tryCatchBlockNodes)
 			{
 				TryBlock tryBlock = tryCatchBlockNode.tryBlock;
@@ -78,7 +78,7 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 
 		AssertUtil.assertFalse(methodInfo != null, "`printStackTrace` is not found");
 
-		vm.invoke(new InterpreterContext(new StackEntry(object, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())));
+		vm.invoke(new InterpreterContext(new StackEntry(object, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
 
 		return -1;
 	}

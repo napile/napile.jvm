@@ -23,9 +23,9 @@ import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.AnnotationNode;
+import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
-import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
@@ -62,8 +62,14 @@ public class MethodInfo implements ReflectInfo
 		else
 		{
 			BytecodeInvokeType bytecodeInvokeType = new BytecodeInvokeType();
-			bytecodeInvokeType.setMaxLocals(likeMethodNode.maxLocals);
-			bytecodeInvokeType.convertInstructions(likeMethodNode.instructions);
+			CodeInfo codeInfo = likeMethodNode.code;
+			if(codeInfo != null)
+			{
+				bytecodeInvokeType.convertInstructions(codeInfo.instructions);
+				bytecodeInvokeType.setMaxLocals(codeInfo.maxLocals);
+			}
+			else
+				bytecodeInvokeType.setMaxLocals(0);
 			setInvokeType(bytecodeInvokeType);
 		}
 	}
@@ -103,11 +109,6 @@ public class MethodInfo implements ReflectInfo
 	public String getName()
 	{
 		return methodNode.name.getName();
-	}
-
-	public List<TryCatchBlockNode> getTryCatchBlockNodes()
-	{
-		return getMethodNode().tryCatchBlockNodes;
 	}
 
 	public TypeNode getReturnType()

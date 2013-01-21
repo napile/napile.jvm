@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="napile.asm">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/dist/lib/napile.asm-0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/napile.asm-0.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/dist/lib/napile.asm-0.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/napile.asm-0.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

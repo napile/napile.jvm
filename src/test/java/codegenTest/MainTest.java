@@ -8,6 +8,7 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.commons.logging.Log4JHelper;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Thread;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -29,12 +30,12 @@ public class MainTest
 
 		BundleUtil.getInstance();
 
-		List<String> arg = new ArrayList<String>();
-		arg.add("-cp");
-		arg.add("dist/classpath;dist/codegenTest.nzip");
-		arg.add("codegenTest." + str);
+		List<String> arguments = new ArrayList<String>();
+		arguments.add("-cp");
+		arguments.add("dist/classpath;dist/codegenTest.nzip");
+		arguments.add("codegenTest." + str);
 
-		CLProcessor p = new CLProcessor(arg.toArray(new String[arg.size()]));
+		CLProcessor p = new CLProcessor(arguments.toArray(new String[arguments.size()]));
 
 		VmContext vmContext = new VmContext();
 		Vm vm = new Vm(vmContext);
@@ -49,27 +50,46 @@ public class MainTest
 
 		VmUtil.initBootStrap(vm);
 
-		ClassInfo mainClass = vm.getClass(vmContext.getMainClass());
-		if(mainClass == null)
-		{
-			BundleUtil.exitAbnormal(null, "class.s1.not.found", vmContext.getMainClass());
-			return;
-		}
-
-		MethodInfo methodInfo = vm.getStaticMethod(mainClass, "main", false, VmUtil.ARRAY__STRING__);
-		if(methodInfo == null)
-		{
-			BundleUtil.exitAbnormal(null, "not.found.s1.s2.s3", mainClass.getFqName(), "main", VmUtil.ARRAY__STRING__);
-			return;
-		}
+		ClassInfo vmCaller = vm.safeGetClass(VmUtil.VM_MAIN_CALLER);
+		MethodInfo methodInfo = vm.getStaticMethod(vmCaller, "main", false, VmUtil.ARRAY__STRING__);
 
 		InterpreterContext interpreterContext = new InterpreterContext();
 
-		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[] {VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().size())});
-		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
-		for(int i = 0; i < arrayOfObjects.length; i++)
-			arrayOfObjects[i] = VmUtil.convertToVm(vm, interpreterContext, vmContext.getArguments().get(i));
+		List<BaseObjectInfo> list = new ArrayList<BaseObjectInfo>();
+		if(vmContext.getMainClass() != null)
+			list.add(VmUtil.convertToVm(vm, interpreterContext, vmContext.getMainClass().getFqName()));
 
-		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())));
+		for(String a : arguments)
+			list.add(VmUtil.convertToVm(vm, interpreterContext, a));
+
+		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, list.size())});
+		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
+		for(int i = 0; i < list.size(); i++)
+			arrayOfObjects[i] = list.get(i);
+
+		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
+
+		while(true)
+		{
+			boolean isAlive = false;
+			for(Thread thread : napile_lang_Thread.THREADS)
+				if(thread.isAlive())
+				{
+					isAlive = true;
+					break;
+				}
+
+			if(!isAlive)
+				break;
+
+			try
+			{
+				Thread.sleep(1000L);
+			}
+			catch(InterruptedException e)
+			{
+				break;
+			}
+		}
 	}
 }

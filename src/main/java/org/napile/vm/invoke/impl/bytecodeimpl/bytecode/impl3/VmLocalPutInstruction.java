@@ -16,7 +16,7 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import org.napile.asm.tree.members.bytecode.impl.LoadInstruction;
+import org.napile.asm.tree.members.bytecode.impl.LocalPutInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
@@ -25,11 +25,11 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 19:54/21.09.12
+ * @date 20:00/21.09.12
  */
-public class VmLoadInstruction extends VmInstruction<LoadInstruction>
+public class VmLocalPutInstruction extends VmInstruction<LocalPutInstruction>
 {
-	public VmLoadInstruction(LoadInstruction instruction)
+	public VmLocalPutInstruction(LocalPutInstruction instruction)
 	{
 		super(instruction);
 	}
@@ -39,9 +39,9 @@ public class VmLoadInstruction extends VmInstruction<LoadInstruction>
 	{
 		StackEntry stackEntry = context.getLastStack();
 
-		BaseObjectInfo entry = stackEntry.get(instruction.varIndex);
+		BaseObjectInfo last = context.pop();
 
-		context.push(entry);
+		stackEntry.set(instruction.varIndex, last);
 
 		return nextIndex;
 	}

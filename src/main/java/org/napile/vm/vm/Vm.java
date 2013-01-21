@@ -153,7 +153,7 @@ public class Vm
 		return methodInfo != null && methodInfo.hasModifier(Modifier.STATIC) ? methodInfo : null;
 	}
 
-	public void invoke(@NotNull InterpreterContext context)
+	public void invoke(@NotNull InterpreterContext context, @NotNull InvokeType invokeType)
 	{
 		StackEntry stackEntry = context.getLastStack();
 
@@ -161,17 +161,16 @@ public class Vm
 
 		BaseObjectInfo objectInfo = stackEntry.getObjectInfo();
 
-		initStaticIfNeed(methodInfo.getParent());
+		if(methodInfo != null)
+		{
+			initStaticIfNeed(methodInfo.getParent());
 
-		if(!methodInfo.getFqName().shortName().equals(MethodNode.CONSTRUCTOR_NAME))
-			AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && objectInfo != null || !methodInfo.hasModifier(Modifier.STATIC) && objectInfo == null);
+			if(!methodInfo.getFqName().shortName().equals(MethodNode.CONSTRUCTOR_NAME))
+				AssertUtil.assertTrue(methodInfo.hasModifier(Modifier.STATIC) && objectInfo != null || !methodInfo.hasModifier(Modifier.STATIC) && objectInfo == null);
 
-		InvokeType invokeType = methodInfo.getInvokeType();
-
-		AssertUtil.assertNull(invokeType);
-
-		if(methodInfo.hasModifier(Modifier.ABSTRACT))
-			AssertUtil.assertString("Trying to invoke 'abstract' method: " + methodInfo);
+			if(methodInfo.hasModifier(Modifier.ABSTRACT))
+				AssertUtil.assertString("Trying to invoke 'abstract' method: " + methodInfo);
+		}
 
 		invokeType.call(this, context);
 	}
@@ -203,7 +202,7 @@ public class Vm
 
 		context.getStack().add(stackEntry);
 
-		invoke(context);
+		invoke(context, methodInfo.getInvokeType());
 
 		context.getStack().pollLast();
 		//if(stackEntry.getReturnValue() != null)
@@ -419,7 +418,7 @@ public class Vm
 				{
 					LOGGER.debug("Static constructor call: " + ownerClassInfo);
 
-					invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())));
+					invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
 				}
 			}
 		}

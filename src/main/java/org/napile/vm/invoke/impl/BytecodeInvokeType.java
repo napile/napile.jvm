@@ -18,6 +18,7 @@ package org.napile.vm.invoke.impl;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class BytecodeInvokeType implements InvokeType
 		return _instructions;
 	}
 
-	public void convertInstructions(List<Instruction> instructions)
+	public void convertInstructions(Collection<Instruction> instructions)
 	{
 		VmInstruction[] vmInstructions = new VmInstruction[instructions.size()];
 		_instructions = vmInstructions;

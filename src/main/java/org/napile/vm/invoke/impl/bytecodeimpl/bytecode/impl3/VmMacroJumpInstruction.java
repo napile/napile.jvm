@@ -70,7 +70,7 @@ public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(context);
+		vm.invoke(context, methodInfo.getInvokeType());
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry == null)

@@ -1,12 +1,15 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.napile.asm.tree.members.bytecode.impl.InvokeAnonymInstruction;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
-import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.vm.Vm;
 import com.intellij.util.ArrayUtil;
 
@@ -36,21 +39,25 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 
 		BaseObjectInfo link = context.pop();
 
-		Object[] data = (Object[]) link.value();
+		VmPutAnonymInstruction.AnonymContext data = link.value();
 
-		StackEntry nextEntry = new StackEntry((BaseObjectInfo) data[0], (MethodInfo) data[1], arguments, instruction.methodRef.typeArguments);
+		List<BaseObjectInfo> args = new ArrayList<BaseObjectInfo>(arguments.length + data.require.length);
+		Collections.addAll(args, arguments);
+		Collections.addAll(args, data.require);
+
+		StackEntry nextEntry = new StackEntry(data.invokeType.getMaxLocals(), args.toArray(new BaseObjectInfo[args.size()]), data.tryCatchBlockNodes);
 
 		context.getStack().add(nextEntry);
 
-		vm.invoke(context);
+		vm.invoke(context, data.invokeType);
 
 		StackEntry stackEntry = context.getStack().pollLast();
 		if(stackEntry == null)
 			return BREAK_INDEX;
 
-		context.push(stackEntry.getReturnValue(false));
+		context.push(nextEntry.getReturnValue(false));
 
-		int forceIndex = stackEntry.getForceIndex();
+		int forceIndex = nextEntry.getForceIndex();
 		return forceIndex == -2 ? nextIndex : forceIndex;
 	}
 }

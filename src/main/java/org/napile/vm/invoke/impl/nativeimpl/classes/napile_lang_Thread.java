@@ -33,7 +33,7 @@ public class napile_lang_Thread
 			{
 				MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), "run", false, new TypeNode[0]);
 				StackEntry stackEntry = new StackEntry(objectInfo, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList());
-				vm.invoke(new InterpreterContext(stackEntry));
+				vm.invoke(new InterpreterContext(stackEntry), methodInfo.getInvokeType());
 			}
 		});
 

@@ -27,7 +27,7 @@ public class napile_reflect_Method
 
 		context.getStack().add(stackEntry);
 
-		vm.invoke(context);
+		vm.invoke(context, methodInfo.getInvokeType());
 
 		context.getStack().remove(stackEntry);
 

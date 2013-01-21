@@ -74,21 +74,23 @@ public class VmReflectUtil
 		BaseObjectInfo baseObjectInfo = vm.newObject(context, NAPILE_LANG_ARRAY__ANY__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, annotations.size())});
 		BaseObjectInfo[] value = baseObjectInfo.value();
 
-		StackEntry stackEntry = new StackEntry();
-		context.getStack().add(stackEntry);
-
 		int i = 0;
 		for(AnnotationNode annotationNode : annotations)
 		{
+			StackEntry stackEntry = new StackEntry(0, BaseObjectInfo.EMPTY_ARRAY, annotationNode.code.tryCatchBlockNodes);
+
+			context.getStack().add(stackEntry);
+
 			BytecodeInvokeType invokeType = new BytecodeInvokeType();
-			invokeType.convertInstructions(annotationNode.instructions);
+			invokeType.convertInstructions(annotationNode.code.instructions);
 
 			invokeType.call(vm, context);
 
 			value[i++] = stackEntry.pop();
+
+			context.getStack().remove(stackEntry);
 		}
 
-		context.getStack().pollLast();
 		return baseObjectInfo;
 	}
 }
