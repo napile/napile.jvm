@@ -16,19 +16,17 @@
 
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import java.util.Collection;
-
 import org.jetbrains.annotations.NotNull;
 import org.napile.asm.AsmConstants;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.bytecode.impl.PutAnonymInstruction;
-import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
+import org.napile.asm.util.IntIntPair;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.vm.Vm;
-import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -38,9 +36,9 @@ public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 {
 	public static class AnonymContext
 	{
-		public BaseObjectInfo[] require;
 		public BytecodeInvokeType invokeType;
-		public Collection<TryCatchBlockNode> tryCatchBlockNodes;
+
+		public StackEntry stackEntry;
 	}
 
 	private BytecodeInvokeType invokeType;
@@ -57,19 +55,20 @@ public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
+		StackEntry last = context.getLastStack();
+
 		AnonymContext c = new AnonymContext();
+		c.stackEntry = new StackEntry(instruction.code.maxLocals, new BaseObjectInfo[instruction.code.maxLocals], instruction.code.tryCatchBlockNodes);
 
-		BaseObjectInfo[] require = new BaseObjectInfo[instruction.require];
-		for(int i = 0; i < instruction.require; i++)
-			require[i] = context.pop();
-
-		c.require = ArrayUtil.reverseArray(require);
+		for(IntIntPair pair : instruction.require)
+		{
+			c.stackEntry.set(pair.b, last.get(pair.a));
+		}
 
 		BaseObjectInfo objectInfo = new BaseObjectInfo(vm, vm.safeGetClass(NapileLangPackage.NULL), AsmConstants.NULL_TYPE);
 		objectInfo.value(c);
 
 		c.invokeType = invokeType;
-		c.tryCatchBlockNodes = instruction.code.tryCatchBlockNodes;
 
 		context.push(objectInfo);
 		return nextIndex;

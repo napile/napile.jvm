@@ -43,11 +43,12 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 
 		VmPutAnonymInstruction.AnonymContext data = link.value();
 
-		List<BaseObjectInfo> args = new ArrayList<BaseObjectInfo>(arguments.length + data.require.length);
+		List<BaseObjectInfo> args = new ArrayList<BaseObjectInfo>(arguments.length);
 		Collections.addAll(args, arguments);
-		Collections.addAll(args, data.require);
 
-		StackEntry nextEntry = new StackEntry(args.size(), args.toArray(new BaseObjectInfo[args.size()]), data.tryCatchBlockNodes);
+		StackEntry nextEntry = data.stackEntry;
+		for(int i = 0; i < arguments.length; i++)
+			nextEntry.setValue(i, arguments[i]);
 
 		context.getStack().add(nextEntry);
 

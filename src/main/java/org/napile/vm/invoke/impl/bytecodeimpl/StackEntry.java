@@ -149,7 +149,7 @@ public class StackEntry
 		localVariables[index].set(objectInfo);
 	}
 
-	public void set(int index, LocalVariable localVariable)
+	public void set(int index, @NotNull LocalVariable localVariable)
 	{
 		localVariables[index] = localVariable;
 	}
@@ -159,6 +159,7 @@ public class StackEntry
 		return localVariables[index].get();
 	}
 
+	@NotNull
 	public LocalVariable get(int index)
 	{
 		return localVariables[index];
