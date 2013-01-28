@@ -33,7 +33,8 @@ import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.localVariable.LocalVariable;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.localVariable.SimpleLocalVariable;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.AssertUtil;
@@ -51,7 +52,7 @@ public class StackEntry
 
 	private final BaseObjectInfo[] arguments;
 
-	private final BaseObjectInfo[] localVariables;
+	private LocalVariable[] localVariables;
 
 	// debug
 	private final List<String> debug = new ArrayList<String>();
@@ -61,7 +62,7 @@ public class StackEntry
 
 	private final Collection<TryCatchBlockNode> tryCatchBlockNodes;
 
-	private BaseObjectInfo returnValue;
+	private BaseObjectInfo[] returnValues;
 
 	private int forceIndex = -2;
 
@@ -75,9 +76,10 @@ public class StackEntry
 
 		this.tryCatchBlockNodes = tryCatchBlockNodes;
 
-		localVariables = maxLocals == 0 ? BaseObjectInfo.EMPTY_ARRAY : new BaseObjectInfo[maxLocals];
+		initLocalVariables(maxLocals);
 
-		System.arraycopy(arguments, 0, localVariables, 0, arguments.length);
+		for(int i = 0; i < arguments.length; i++)
+			setValue(i, arguments[i]);
 	}
 
 	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
@@ -104,26 +106,26 @@ public class StackEntry
 		else
 			tryCatchBlockNodes = Collections.emptyList();
 
-		if(methodInfo.getInvokeType() instanceof BytecodeInvokeType)
+		initLocalVariables(methodInfo.getInvokeType().getMaxLocals());
+
+		if(methodInfo.getInvokeType().getMaxLocals() > 0)
 		{
-			BytecodeInvokeType bytecodeInvokeType = (BytecodeInvokeType)methodInfo.getInvokeType();
+			int i = 0;
 
-			localVariables = new BaseObjectInfo[bytecodeInvokeType.getMaxLocals()];
+			// if is not static - set 'this' to object
+			if(objectInfo != null)
+				setValue(i++, objectInfo);
 
-			if(localVariables.length > 0)
-			{
-				int i = 0;
-
-				// if is not static - set 'this' to object
-				if(objectInfo != null)
-					localVariables[i++] = objectInfo;
-
-				for(BaseObjectInfo arg : arguments)
-					localVariables[i++] = arg;
-			}
+			for(BaseObjectInfo arg : arguments)
+				setValue(i++, arg);
 		}
-		else
-			localVariables = BaseObjectInfo.EMPTY_ARRAY;
+	}
+
+	private void initLocalVariables(int size)
+	{
+		localVariables = size == 0 ? LocalVariable.EMPTY_ARRAY : new LocalVariable[size];
+		for(int i = 0; i < size; i++)
+			localVariables[i] = new SimpleLocalVariable();
 	}
 
 	public void push(BaseObjectInfo val)
@@ -142,12 +144,22 @@ public class StackEntry
 		return val;
 	}
 
-	public void set(int index, BaseObjectInfo objectInfo)
+	public void setValue(int index, BaseObjectInfo objectInfo)
 	{
-		localVariables[index] = objectInfo;
+		localVariables[index].set(objectInfo);
 	}
 
-	public BaseObjectInfo get(int index)
+	public void set(int index, LocalVariable localVariable)
+	{
+		localVariables[index] = localVariable;
+	}
+
+	public BaseObjectInfo getValue(int index)
+	{
+		return localVariables[index].get();
+	}
+
+	public LocalVariable get(int index)
 	{
 		return localVariables[index];
 	}
@@ -187,16 +199,22 @@ public class StackEntry
 		return methodInfo == null ? "null" : methodInfo.toString();
 	}
 
-	public BaseObjectInfo getReturnValue(boolean macro)
+	public void initReturnValues(int count)
 	{
-		if(!macro && returnValue == null)
-			LOGGER.error("return value cant be null: " + getMethodInfo());
-		return returnValue;
+		returnValues = new BaseObjectInfo[count];
 	}
 
-	public void setReturnValue(BaseObjectInfo returnValue)
+	public void setReturnValue(int index, BaseObjectInfo value)
 	{
-		this.returnValue = returnValue;
+		returnValues[index] = value;
+	}
+
+	public BaseObjectInfo[] getReturnValues(boolean macro)
+	{
+		if(!macro && returnValues == null)
+			LOGGER.error("return value cant be null: " + getMethodInfo(), new Exception());
+
+		return returnValues;
 	}
 
 	public int getForceIndex()

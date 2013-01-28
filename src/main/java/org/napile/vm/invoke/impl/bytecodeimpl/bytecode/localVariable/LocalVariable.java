@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2012 napile.org
+ * Copyright 2010-2013 napile.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package org.napile.vm.invoke;
+package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.localVariable;
 
-import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.vm.Vm;
+import org.jetbrains.annotations.NotNull;
+import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL
- * @date 0:13/17.02.2012
+ * @date 21:16/21.01.13
  */
-public interface InvokeType
+public interface LocalVariable
 {
-	void call(Vm vm, InterpreterContext context);
+	LocalVariable[] EMPTY_ARRAY = new LocalVariable[0];
 
-	int getMaxLocals();
+	void set(@NotNull BaseObjectInfo objectInfo);
+
+	@NotNull
+	BaseObjectInfo get();
 }

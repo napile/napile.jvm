@@ -58,7 +58,7 @@ public class BytecodeInvokeType implements InvokeType
 			{
 				i = instruction.call(vm, context, i + 1);
 
-				if(i == -1)
+				if(i == VmInstruction.BREAK_INDEX)
 					break;
 			}
 			catch(Exception e)
@@ -129,6 +129,7 @@ public class BytecodeInvokeType implements InvokeType
 		}
 	}
 
+	@Override
 	public int getMaxLocals()
 	{
 		return _maxLocals;

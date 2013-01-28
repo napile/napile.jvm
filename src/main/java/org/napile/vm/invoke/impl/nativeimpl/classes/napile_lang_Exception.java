@@ -25,7 +25,7 @@ public class napile_lang_Exception
 	public static final TypeNode ARRAY__STACK_TRACE_ELEMENT__ = new TypeNode(false, new ClassTypeNode(NapileLangPackage.ARRAY)).visitArgument(STACK_TRACE_ELEMENT);
 
 	@NativeImplement(methodName = "generateStack", parameters = {})
-	public static BaseObjectInfo stack$lazy(Vm vm, InterpreterContext context)
+	public static BaseObjectInfo generateStack(Vm vm, InterpreterContext context)
 	{
 		Deque<StackEntry> list = context.getStack();
 

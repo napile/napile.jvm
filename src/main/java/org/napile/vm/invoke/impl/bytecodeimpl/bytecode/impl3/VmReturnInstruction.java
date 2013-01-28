@@ -18,6 +18,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
 import org.napile.asm.tree.members.bytecode.impl.ReturnInstruction;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 import org.napile.vm.vm.Vm;
 
@@ -35,7 +36,11 @@ public class VmReturnInstruction extends VmInstruction<ReturnInstruction>
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
-		context.getLastStack().setReturnValue(context.pop());
+		StackEntry stackEntry = context.getLastStack();
+		stackEntry.initReturnValues(instruction.count);
+
+		for(int i = 0; i < instruction.count; i ++)
+			stackEntry.setReturnValue(i, stackEntry.pop());
 
 		return BREAK_INDEX;
 	}

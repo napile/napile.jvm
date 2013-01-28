@@ -39,7 +39,7 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 {
 	private FqName className;
 	private String methodName;
-	private TypeNode[] parameters;
+	private TypeNode[] parameterTypes;
 
 	public VmInvokeSpecialInstruction(InvokeSpecialInstruction instruction)
 	{
@@ -47,7 +47,9 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 
 		className = instruction.methodRef.method.parent();
 		methodName = instruction.methodRef.method.shortName().getName();
-		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+		parameterTypes = new TypeNode[instruction.methodRef.parameters.size()];
+		for(int i = 0; i < parameterTypes.length; i++)
+			parameterTypes[i] = instruction.methodRef.parameters.get(i).returnType;
 	}
 
 	@Override
@@ -55,12 +57,12 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 	{
 		ClassInfo classInfo = AssertUtil.assertNull(vm.getClass(className));
 
-		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, false, parameters);
+		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, false, parameterTypes);
 
 		AssertUtil.assertFalse(methodInfo != null, "Method not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
 
-		BaseObjectInfo[] arguments = new BaseObjectInfo[methodInfo.getParameters().length];
-		for(int i = 0; i < methodInfo.getParameters().length; i++)
+		BaseObjectInfo[] arguments = new BaseObjectInfo[parameterTypes.length];
+		for(int i = 0; i < arguments.length; i++)
 			arguments[i] = context.pop();
 
 		arguments = ArrayUtil.reverseArray(arguments);
@@ -83,7 +85,8 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 			if(stackEntry == null)
 				return BREAK_INDEX;
 
-			context.push(stackEntry.getReturnValue(false));
+			for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+				context.push(returnValue);
 
 			int forceIndex = stackEntry.getForceIndex();
 			return forceIndex == -2 ? nextIndex : forceIndex;

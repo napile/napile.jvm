@@ -39,7 +39,7 @@ public class VmLocalGetInstruction extends VmInstruction<LocalGetInstruction>
 	{
 		StackEntry stackEntry = context.getLastStack();
 
-		BaseObjectInfo entry = stackEntry.get(instruction.varIndex);
+		BaseObjectInfo entry = stackEntry.getValue(instruction.varIndex);
 
 		context.push(entry);
 

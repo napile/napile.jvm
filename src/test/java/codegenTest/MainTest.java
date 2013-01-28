@@ -59,7 +59,7 @@ public class MainTest
 		if(vmContext.getMainClass() != null)
 			list.add(VmUtil.convertToVm(vm, interpreterContext, vmContext.getMainClass().getFqName()));
 
-		for(String a : arguments)
+		for(String a : vmContext.getArguments())
 			list.add(VmUtil.convertToVm(vm, interpreterContext, a));
 
 		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, list.size())});

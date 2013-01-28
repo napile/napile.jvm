@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @author VISTALL
  * @date 11:56/04.01.13
@@ -9,7 +6,7 @@ public class Test
 {
 	public static void main(String...arg) throws Exception
 	{
-		List<Thread> t = Arrays.asList(new Thread(new Runnable()
+		/*List<Thread> t = Arrays.asList(new Thread(new Runnable()
 		{
 			@Override
 			public void run()
@@ -43,6 +40,6 @@ public class Test
 				System.out.println(a.isAlive());
 
 			Thread.sleep(5000L);
-		}
+		}   */
 	}
 }

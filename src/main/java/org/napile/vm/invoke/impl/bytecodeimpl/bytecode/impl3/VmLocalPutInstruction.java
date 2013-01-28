@@ -41,7 +41,7 @@ public class VmLocalPutInstruction extends VmInstruction<LocalPutInstruction>
 
 		BaseObjectInfo last = context.pop();
 
-		stackEntry.set(instruction.varIndex, last);
+		stackEntry.setValue(instruction.varIndex, last);
 
 		return nextIndex;
 	}

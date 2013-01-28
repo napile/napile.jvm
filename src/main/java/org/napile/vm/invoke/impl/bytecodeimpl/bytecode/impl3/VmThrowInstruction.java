@@ -56,7 +56,7 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 					{
 						if(vm.isEqualOrSubType(context, object.getTypeNode(), catchBlock.exception))
 						{
-							stackEntry.set(catchBlock.variableIndex, object);
+							stackEntry.setValue(catchBlock.variableIndex, object);
 
 							if(stackEntry == last)
 								return catchBlock.startIndex;

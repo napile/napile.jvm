@@ -38,7 +38,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 {
 	private FqName className;
 	private String methodName;
-	private TypeNode[] parameters;
+	private TypeNode[] parameterTypes;
 
 	public VmInvokeVirtualInstruction(InvokeVirtualInstruction instruction)
 	{
@@ -46,7 +46,9 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 
 		className = instruction.methodRef.method.parent();
 		methodName = instruction.methodRef.method.shortName().getName();
-		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+		parameterTypes = new TypeNode[instruction.methodRef.parameters.size()];
+		for(int i = 0; i < parameterTypes.length; i++)
+			parameterTypes[i] = instruction.methodRef.parameters.get(i).returnType;
 	}
 
 	@Override
@@ -66,11 +68,11 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 		}
 		else
 		{
-			MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
+			MethodInfo methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameterTypes);
 
 			AssertUtil.assertFalse(methodInfo != null, "Method not found `" + methodName + "` " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", ") + " object: " + objectInfo);
 
-			methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameters);
+			methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameterTypes);
 
 			StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
 
@@ -82,7 +84,8 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 			if(stackEntry == null)
 				return BREAK_INDEX;
 
-			context.push(stackEntry.getReturnValue(false));
+			for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+				context.push(returnValue);
 
 			int forceIndex = stackEntry.getForceIndex();
 			return forceIndex == -2 ? nextIndex : forceIndex;

@@ -19,20 +19,22 @@ import com.intellij.util.ArrayUtil;
  */
 public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruction>
 {
-	private TypeNode[] parameters;
+	private TypeNode[] parameterTypes;
 
 	public VmInvokeAnonymInstruction(InvokeAnonymInstruction instruction)
 	{
 		super(instruction);
 
-		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+		parameterTypes = new TypeNode[instruction.methodRef.parameters.size()];
+		for(int i = 0; i < parameterTypes.length; i++)
+			parameterTypes[i] = instruction.methodRef.parameters.get(i).returnType;
 	}
 
 	@Override
 	public int call(Vm vm, InterpreterContext context, int nextIndex)
 	{
-		BaseObjectInfo[] arguments = new BaseObjectInfo[parameters.length];
-		for(int i = 0; i < parameters.length; i++)
+		BaseObjectInfo[] arguments = new BaseObjectInfo[parameterTypes.length];
+		for(int i = 0; i < parameterTypes.length; i++)
 			arguments[i] = context.pop();
 
 		arguments = ArrayUtil.reverseArray(arguments);
@@ -45,7 +47,7 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 		Collections.addAll(args, arguments);
 		Collections.addAll(args, data.require);
 
-		StackEntry nextEntry = new StackEntry(data.invokeType.getMaxLocals(), args.toArray(new BaseObjectInfo[args.size()]), data.tryCatchBlockNodes);
+		StackEntry nextEntry = new StackEntry(args.size(), args.toArray(new BaseObjectInfo[args.size()]), data.tryCatchBlockNodes);
 
 		context.getStack().add(nextEntry);
 
@@ -55,7 +57,8 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 		if(stackEntry == null)
 			return BREAK_INDEX;
 
-		context.push(nextEntry.getReturnValue(false));
+		for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+			context.push(returnValue);
 
 		int forceIndex = nextEntry.getForceIndex();
 		return forceIndex == -2 ? nextIndex : forceIndex;

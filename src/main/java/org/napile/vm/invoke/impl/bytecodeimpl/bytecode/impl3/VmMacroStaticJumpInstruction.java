@@ -60,10 +60,12 @@ public class VmMacroStaticJumpInstruction extends VmInstruction<MacroStaticJumpI
 
 		StackEntry prevEntry = context.getLastStack();
 
-		BaseObjectInfo returnValue = stackEntry.getReturnValue(true);
-		if(returnValue != null)
+		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(true);
+		if(returnValues != null)
 		{
-			prevEntry.setReturnValue(returnValue);
+			prevEntry.initReturnValues(returnValues.length);
+			for(int i = 0; i < returnValues.length; i++)
+				prevEntry.setReturnValue(i, returnValues[i]);
 			prevEntry.setForceIndex(BREAK_INDEX);
 			return BREAK_INDEX;
 		}

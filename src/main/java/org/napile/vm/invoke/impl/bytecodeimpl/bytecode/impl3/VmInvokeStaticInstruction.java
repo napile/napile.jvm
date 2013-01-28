@@ -38,7 +38,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 {
 	private FqName className;
 	private String methodName;
-	private TypeNode[] parameters;
+	private TypeNode[] parameterTypes;
 
 	public VmInvokeStaticInstruction(InvokeStaticInstruction instruction)
 	{
@@ -46,7 +46,9 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 
 		className = instruction.methodRef.method.parent();
 		methodName = instruction.methodRef.method.shortName().getName();
-		parameters = instruction.methodRef.parameters.toArray(new TypeNode[instruction.methodRef.parameters.size()]);
+		parameterTypes = new TypeNode[instruction.methodRef.parameters.size()];
+		for(int i = 0; i < parameterTypes.length; i++)
+			parameterTypes[i] = instruction.methodRef.parameters.get(i).returnType;
 	}
 
 	@Override
@@ -54,7 +56,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 	{
 		ClassInfo classInfo = vm.safeGetClass(className);
 
-		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameters);
+		MethodInfo methodInfo = vm.getAnyMethod(classInfo, methodName, true, parameterTypes);
 
 		AssertUtil.assertFalse(methodInfo != null, "Method not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
 
@@ -74,7 +76,8 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 		if(stackEntry == null)
 			return BREAK_INDEX;
 
-		context.push(stackEntry.getReturnValue(false));
+		for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+			context.push(returnValue);
 
 		int forceIndex = stackEntry.getForceIndex();
 		return forceIndex == -2 ? nextIndex : forceIndex;

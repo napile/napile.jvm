@@ -58,10 +58,16 @@ public class NativeInvokeType implements InvokeType
 			try
 			{
 				BaseObjectInfo objectInfo = (BaseObjectInfo)method.invoke(null, vm, context);
+
+				entry.initReturnValues(1);
 				if(objectInfo != null)
-					entry.setReturnValue(objectInfo);
+					entry.setReturnValue(0, objectInfo);
 				else
-					entry.setReturnValue(VmUtil.convertToVm(vm, context, null));
+					entry.setReturnValue(0, VmUtil.convertToVm(vm, context, null));
+			}
+			catch(NativeThrowException e)
+			{
+
 			}
 			catch(Exception e)
 			{
@@ -69,5 +75,11 @@ public class NativeInvokeType implements InvokeType
 				System.exit(-1);
 			}
 		}
+	}
+
+	@Override
+	public int getMaxLocals()
+	{
+		return 0;
 	}
 }
