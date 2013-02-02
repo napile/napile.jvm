@@ -79,7 +79,13 @@ public class StackEntry
 		initLocalVariables(maxLocals);
 
 		for(int i = 0; i < arguments.length; i++)
-			setValue(i, arguments[i]);
+		{
+			BaseObjectInfo argument = arguments[i];
+			if(argument == null)
+				continue;
+
+			setValue(i, argument);
+		}
 	}
 
 	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)

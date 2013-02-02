@@ -32,7 +32,6 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
-import org.napile.vm.invoke.impl.nativeimpl.NativeWrapper;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -75,8 +74,6 @@ public class VmUtil
 		vm.safeGetClass(VM_MAIN_CALLER);
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
-
-		NativeWrapper.initAll(vm);
 	}
 
 	public static BaseObjectInfo staticValue(@NotNull Vm vm, @NotNull FqName fqName, @NotNull String varName)

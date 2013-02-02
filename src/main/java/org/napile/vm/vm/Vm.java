@@ -17,9 +17,7 @@
 package org.napile.vm.vm;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +38,6 @@ import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
-import org.napile.vm.invoke.impl.nativeimpl.NativeMethodRef;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -65,7 +62,6 @@ public class Vm
 	private final JClassLoader bootClassLoader = new SimpleClassLoaderImpl(null);
 	private JClassLoader currentClassLoader = bootClassLoader;
 
-	private final Map<ClassInfo, List<NativeMethodRef>> nativeWrappers = new HashMap<ClassInfo, List<NativeMethodRef>>();
 
 	public Vm(VmContext vmContext)
 	{
@@ -422,10 +418,5 @@ public class Vm
 				}
 			}
 		}
-	}
-
-	public Map<ClassInfo, List<NativeMethodRef>> getNativeWrappers()
-	{
-		return nativeWrappers;
 	}
 }
