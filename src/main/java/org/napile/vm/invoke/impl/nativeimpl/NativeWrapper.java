@@ -85,7 +85,7 @@ public class NativeWrapper
 			}
 			catch(ClassNotFoundException e)
 			{
-				throw new RuntimeException(e);
+				return null;
 			}
 		}
 
