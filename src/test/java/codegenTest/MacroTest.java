@@ -11,12 +11,12 @@ public class MacroTest extends MainTest
 	@Test
 	public void test1()
 	{
-		run("macroTest.Macro1Test");
+		//run("macroTest.Macro1Test");
 	}
 
 	@Test
 	public void test2()
 	{
-		run("macroTest.Macro2Test");
+		//run("macroTest.Macro2Test");
 	}
 }

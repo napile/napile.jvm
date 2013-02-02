@@ -17,7 +17,7 @@ public class NullableTest extends MainTest
 	@Test
 	public void test1()
 	{
-		run("nullableTest.SureTest");
+		//run("nullableTest.SureTest");
 	}
 
 	@Test
