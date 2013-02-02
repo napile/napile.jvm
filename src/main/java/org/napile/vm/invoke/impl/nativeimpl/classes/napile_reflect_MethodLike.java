@@ -1,26 +1,19 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
 import org.napile.asm.AsmConstants;
-import org.napile.asm.Modifier;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.resolve.name.FqName;
-import org.napile.asm.tree.members.AnnotationNode;
 import org.napile.asm.tree.members.MethodParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
-import org.napile.vm.objects.classinfo.ClassInfo;
+import org.napile.vm.objects.classinfo.CallParameterInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.objects.classinfo.ReflectInfo;
 import org.napile.vm.util.VmReflectUtil;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
-import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
@@ -44,46 +37,7 @@ public class napile_reflect_MethodLike
 		int i = 0;
 		for(final MethodParameterNode methodParameterNode : methodInfo.getMethodNode().parameters)
 		{
-			BaseObjectInfo v = VmReflectUtil.createReflectObject(NAPILE_REFLECT_CALL_PARAMETER, VmUtil.convertToVm(vm, context, null), vm, context, new ReflectInfo()
-			{
-				@Override
-				public ClassInfo getParent()
-				{
-					return null;
-				}
-
-				@NotNull
-				@Override
-				public String getName()
-				{
-					return methodParameterNode.name.getName();
-				}
-
-				@NotNull
-				@Override
-				public FqName getFqName()
-				{
-					return FqName.ROOT;
-				}
-
-				@Override
-				public boolean hasModifier(@NotNull Modifier modifier)
-				{
-					return ArrayUtil.contains(modifier, methodParameterNode.modifiers);
-				}
-
-				@Override
-				public Modifier[] getModifiers()
-				{
-					return methodParameterNode.modifiers;
-				}
-
-				@Override
-				public List<AnnotationNode> getAnnotations()
-				{
-					return methodParameterNode.annotations;
-				}
-			});
+			BaseObjectInfo v = VmReflectUtil.createReflectObject(NAPILE_REFLECT_CALL_PARAMETER, VmUtil.convertToVm(vm, context, null), vm, context, new CallParameterInfo(methodParameterNode));
 
 			value[i] = v;
 		}
