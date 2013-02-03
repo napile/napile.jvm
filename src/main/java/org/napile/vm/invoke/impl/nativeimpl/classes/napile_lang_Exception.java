@@ -29,7 +29,7 @@ public class napile_lang_Exception
 	{
 		Deque<StackEntry> list = context.getStack();
 
-		BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__STACK_TRACE_ELEMENT__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, list.size())});
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, ARRAY__STACK_TRACE_ELEMENT__, list.size());
 
 		BaseObjectInfo[] array = arrayObject.value();
 		int i = 0;

@@ -6,40 +6,16 @@ public class Test
 {
 	public static void main(String...arg) throws Exception
 	{
-		/*List<Thread> t = Arrays.asList(new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				System.out.println("First");
-				while(true)
-					try
-					{
-						Thread.sleep(5000L);
-					}
-					catch(InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-			}
-		}), new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				System.out.println("Second");
-			}
-		}));
 
-		for(Thread a : t)
-			a.start();
+		int[] a = new int[1];
 
-		while(true)
+		int index = 0;
+		int length = a.length;
+		if(index < 0 || index >= length)
 		{
-			for(Thread a : t)
-				System.out.println(a.isAlive());
+			throw new UnsupportedOperationException();
+		}
 
-			Thread.sleep(5000L);
-		}   */
+		int d = a[index];
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.commons.logging.Log4JHelper;
+import org.napile.vm.util.Log4JHelper;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Thread;

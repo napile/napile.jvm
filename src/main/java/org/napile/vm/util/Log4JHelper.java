@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.napile.commons.logging;
+package org.napile.vm.util;
 
 import java.net.URL;
 import java.util.logging.Handler;

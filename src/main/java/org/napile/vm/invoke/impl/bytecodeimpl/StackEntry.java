@@ -28,8 +28,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.CodeInfo;
-import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
@@ -67,7 +67,7 @@ public class StackEntry
 	private int forceIndex = -2;
 
 	// type parameters
-	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
+	private final Map<Name, TypeNode> typeArguments = new HashMap<Name, TypeNode>();
 
 	// for annotations & anonym invoke
 	public StackEntry(int maxLocals, BaseObjectInfo[] arguments, Collection<TryCatchBlockNode> tryCatchBlockNodes)
@@ -94,17 +94,13 @@ public class StackEntry
 		this.methodInfo = methodInfo;
 		this.arguments = arguments;
 
-		//FIXME [VISTALL] stupied hack
-		if(!methodInfo.getMethodNode().name.equals(MethodNode.CONSTRUCTOR_NAME) && !methodInfo.getMethodNode().name.equals(MethodNode.STATIC_CONSTRUCTOR_NAME))
-		{
-			AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
+		AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
 
-			Iterator<TypeParameterNode> it1 = methodInfo.getTypeParameters().iterator();
-			Iterator<TypeNode> it2 = typeArguments.iterator();
+		Iterator<TypeParameterNode> it1 = methodInfo.getTypeParameters().iterator();
+		Iterator<TypeNode> it2 = typeArguments.iterator();
 
-			while(it1.hasNext() && it2.hasNext())
-				this.typeArguments.put(it1.next().name.getName(), it2.next());
-		}
+		while(it1.hasNext() && it2.hasNext())
+			this.typeArguments.put(it1.next().name, it2.next());
 
 		CodeInfo codeInfo = methodInfo.getMethodNode().code;
 		if(codeInfo != null)
@@ -171,7 +167,7 @@ public class StackEntry
 		return localVariables[index];
 	}
 
-	public TypeNode getTypeParameterValue(@NotNull String str)
+	public TypeNode getTypeParameterValue(@NotNull Name str)
 	{
 		TypeNode typeNode = typeArguments.get(str);
 		if(typeNode != null)

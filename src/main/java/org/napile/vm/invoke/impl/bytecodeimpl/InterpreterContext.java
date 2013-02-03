@@ -21,7 +21,9 @@ import java.util.Deque;
 import java.util.Iterator;
 
 import org.jetbrains.annotations.NotNull;
+import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
 import org.napile.vm.objects.BaseObjectInfo;
 
 /**
@@ -53,16 +55,26 @@ public class InterpreterContext
 		return last.pop();
 	}
 
-	public TypeNode searchTypeParameterValue(@NotNull String name)
+	public TypeNode searchTypeParameterValue(@NotNull Name name)
 	{
 		Iterator<StackEntry> iterator = entries.descendingIterator();
+		return searchTypeParameterValue(iterator, name);
+	}
+
+	private TypeNode searchTypeParameterValue(@NotNull Iterator<StackEntry> iterator, @NotNull Name name)
+	{
 		while(iterator.hasNext())
 		{
 			StackEntry stackEntry = iterator.next();
 
 			TypeNode typeNode = stackEntry.getTypeParameterValue(name);
 			if(typeNode != null)
-				return typeNode;
+			{
+				if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
+					return searchTypeParameterValue(iterator, ((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
+				else
+					return typeNode;
+			}
 		}
 		return null;
 	}

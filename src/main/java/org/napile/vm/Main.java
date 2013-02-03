@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.commons.logging.Log4JHelper;
+import org.napile.vm.util.Log4JHelper;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Thread;
@@ -86,7 +86,7 @@ public class Main
 		for(String str : vmContext.getArguments())
 			list.add(VmUtil.convertToVm(vm, interpreterContext, str));
 
-		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, list.size())});
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, VmUtil.ARRAY__STRING__, list.size());
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);

@@ -44,7 +44,6 @@ import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.util.AssertUtil;
 import org.napile.vm.util.ClasspathUtil;
-import org.napile.vm.util.VmReflectUtil;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.util.ArrayUtil;
 
@@ -194,15 +193,13 @@ public class Vm
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
-		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, Collections.<TypeNode>emptyList());
+		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, typeNode.arguments);
 
 		context.getStack().add(stackEntry);
 
 		invoke(context, methodInfo.getInvokeType());
 
-		context.getStack().pollLast();
-		//if(stackEntry.getReturnValue() != null)
-		//	context.push(stackEntry.getReturnValue());
+		context.getStack().remove(stackEntry);
 
 		return newObject;
 	}
@@ -230,7 +227,7 @@ public class Vm
 		TypeNode newObjectType = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
 		newObjectType.visitArgument(targetType);
 
-		BaseObjectInfo array = newObject(context, NAPILE_LANG_ARRAY__TYPE____ANY____, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(this, context, targetType.arguments.size())});
+		BaseObjectInfo array = VmUtil.createArray(this, NAPILE_LANG_ARRAY__TYPE____ANY____, targetType.arguments.size());
 		BaseObjectInfo[] values = array.value();
 		for(int i = 0; i < values.length; i++)
 			values[i] = createTypeObject(context, targetType.arguments.get(i));
@@ -302,7 +299,7 @@ public class Vm
 			return (ClassTypeNode) typeNode.typeConstructorNode;
 		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
 		{
-			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name.getName());
+			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 			return toClassType(context, typeParameterType);
 		}
 		else
@@ -316,7 +313,7 @@ public class Vm
 			return typeNode;
 		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
 		{
-			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name.getName());
+			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 			return toType(context, typeParameterType);
 		}
 		else

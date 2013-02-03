@@ -1,6 +1,5 @@
 package org.napile.vm.invoke.impl.nativeimpl.classes;
 
-import org.napile.asm.AsmConstants;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.MethodParameterNode;
@@ -11,7 +10,7 @@ import org.napile.vm.invoke.impl.nativeimpl.NativeImplement;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.CallParameterInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
-import org.napile.vm.util.VmReflectUtil;
+import org.napile.vm.vm.VmReflectUtil;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
 
@@ -31,7 +30,7 @@ public class napile_reflect_MethodLike
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 		MethodInfo methodInfo = objectInfo.value();
 
-		BaseObjectInfo array = vm.newObject(context, NAPILE_LANG_ARRAY__CALL_PARAMETER__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, methodInfo.getMethodNode().parameters.size())});
+		BaseObjectInfo array =VmUtil.createArray(vm, NAPILE_LANG_ARRAY__CALL_PARAMETER__, methodInfo.getMethodNode().parameters.size());
 		BaseObjectInfo[] value = array.value();
 
 		int i = 0;

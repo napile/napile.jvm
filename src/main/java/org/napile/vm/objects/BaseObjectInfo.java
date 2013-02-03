@@ -24,6 +24,7 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.Modifier;
+import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.objects.classinfo.ClassInfo;
@@ -41,7 +42,7 @@ public final class BaseObjectInfo
 
 	private final Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
 
-	private final Map<String, TypeNode> typeArguments = new HashMap<String, TypeNode>();
+	private final Map<Name, TypeNode> typeArguments = new HashMap<Name, TypeNode>();
 
 	private final ClassInfo classInfo;
 
@@ -63,7 +64,7 @@ public final class BaseObjectInfo
 			TypeParameterNode t1 = it.next();
 			TypeNode t2 = it2.next();
 
-			typeArguments.put(t1.name.getName(), t2);
+			typeArguments.put(t1.name, t2);
 		}
 
 		List<VariableInfo> variableInfos = VmUtil.collectAllFields(vm, classInfo);
@@ -122,7 +123,7 @@ public final class BaseObjectInfo
 		return typeNode;
 	}
 
-	public Map<String, TypeNode> getTypeArguments()
+	public Map<Name, TypeNode> getTypeArguments()
 	{
 		return typeArguments;
 	}

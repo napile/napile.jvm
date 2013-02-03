@@ -44,7 +44,7 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 		TypeNode createType = null;
 		if(instruction.value.typeConstructorNode instanceof TypeParameterValueTypeNode)
 		{
-			TypeNode typeNode = context.searchTypeParameterValue(((TypeParameterValueTypeNode) instruction.value.typeConstructorNode).name.getName());
+			TypeNode typeNode = context.searchTypeParameterValue(((TypeParameterValueTypeNode) instruction.value.typeConstructorNode).name);
 
 			AssertUtil.assertFalse(typeNode != null, "Type parameter is not found : " + ((TypeParameterValueTypeNode) instruction.value.typeConstructorNode).name);
 

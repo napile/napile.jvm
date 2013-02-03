@@ -2,7 +2,6 @@ package org.napile.vm.invoke.impl.nativeimpl.classes;
 
 import java.util.Collections;
 
-import org.napile.asm.AsmConstants;
 import org.napile.asm.lib.NapileLangPackage;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
@@ -42,7 +41,7 @@ public class napile_reflect_Method
 			throw new NativeThrowException(stackEntry.getForceIndex());
 
 		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(false);
-		BaseObjectInfo array = vm.newObject(context, NAPILE_LANG_ARRAY__ANY_NULLABLE__, new TypeNode[]{AsmConstants.INT_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, returnValues.length)});
+		BaseObjectInfo array = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ANY_NULLABLE__, returnValues.length);
 		BaseObjectInfo[] objectsOfArray = array.value();
 		System.arraycopy(returnValues, 0, objectsOfArray, 0, objectsOfArray.length);
 		return array;

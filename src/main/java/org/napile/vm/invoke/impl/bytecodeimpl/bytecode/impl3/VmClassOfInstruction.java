@@ -41,7 +41,7 @@ public class VmClassOfInstruction extends VmInstruction<ClassOfInstruction>
 			return ((ClassTypeNode) typeNode.typeConstructorNode).className;
 		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
 		{
-			TypeNode temp = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name.getName());
+			TypeNode temp = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 
 			return getFqName(temp, context);
 		}

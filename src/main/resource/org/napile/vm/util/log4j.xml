@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!DOCTYPE log4j:configuration SYSTEM "I:\github.com\napile-lang\napile.jvm\src\main\resource\org\napile\vm\util\log4j.dtd">
 <log4j:configuration>
 	<!-- This appender prints information to console -->
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">

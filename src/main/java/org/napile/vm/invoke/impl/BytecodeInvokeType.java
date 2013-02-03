@@ -28,6 +28,7 @@ import org.napile.vm.invoke.InvokeType;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
+import org.napile.vm.jit.JitCompiler;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -99,15 +100,9 @@ public class BytecodeInvokeType implements InvokeType
 		LOGGER.info("-----------------------------------");
 	}
 
-	public VmInstruction[] getInstructions()
-	{
-		return _instructions;
-	}
-
 	public void convertInstructions(Collection<Instruction> instructions)
 	{
 		VmInstruction[] vmInstructions = new VmInstruction[instructions.size()];
-		_instructions = vmInstructions;
 
 		int i = 0;
 		for(Instruction instruction : instructions)
@@ -127,6 +122,8 @@ public class BytecodeInvokeType implements InvokeType
 				throw new RuntimeException(e);
 			}
 		}
+
+		_instructions = JitCompiler.INSTANCE.processInstructions(vmInstructions);
 	}
 
 	@Override

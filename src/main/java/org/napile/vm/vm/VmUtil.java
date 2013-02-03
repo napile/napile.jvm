@@ -99,7 +99,7 @@ public class VmUtil
 		else if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
-			BaseObjectInfo arrayObject = vm.newObject(context, ARRAY__CHAR__, varargTypes(INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, chars.length)});
+			BaseObjectInfo arrayObject =createArray(vm, ARRAY__CHAR__, chars.length);
 			final BaseObjectInfo[] arrayAttach = arrayObject.value();
 			for(int i = 0; i < chars.length; i++)
 				arrayAttach[i] = convertToVm(vm, context, chars[i]);
@@ -124,6 +124,20 @@ public class VmUtil
 			return staticValue(vm, NapileLangPackage.BOOL, value == Boolean.TRUE ? "TRUE" : "FALSE");
 		else
 			throw new UnsupportedOperationException(value.getClass().getName());
+	}
+
+	public static BaseObjectInfo createArray(Vm vm, TypeNode type, int size)
+	{
+		ClassInfo classInfo = vm.safeGetClass(NapileLangPackage.ARRAY);
+
+		BaseObjectInfo baseObjectInfo = new BaseObjectInfo(vm, classInfo, type);
+		baseObjectInfo.setVarValue(vm.getField(classInfo, "length", false), vm.newObject(INT).value(size));
+		BaseObjectInfo[] value = new BaseObjectInfo[size];
+		for(int i = 0; i < value.length; i++)
+			value[i] = staticValue(vm, NapileLangPackage.NULL, "INSTANCE");
+
+		baseObjectInfo.value(value);
+		return baseObjectInfo;
 	}
 
 	@NotNull
