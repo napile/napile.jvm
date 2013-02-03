@@ -33,8 +33,8 @@ public class napile_lang_Array
 		objectInfo.value(values);
 	}
 
-	@NativeImplement(methodName = "set", parameters = {"napile.lang.Int", ":E:"})
-	public static BaseObjectInfo set(Vm vm, InterpreterContext context)
+	@NativeImplement(methodName = "set0", parameters = {"napile.lang.Int", ":E:"})
+	public static BaseObjectInfo set0(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 		BaseObjectInfo[] arg = context.getLastStack().getArguments();
@@ -48,8 +48,8 @@ public class napile_lang_Array
 		return objectInfo;
 	}
 
-	@NativeImplement(methodName = "get", parameters = {"napile.lang.Int"})
-	public static BaseObjectInfo get(Vm vm, InterpreterContext context)
+	@NativeImplement(methodName = "get0", parameters = {"napile.lang.Int"})
+	public static BaseObjectInfo get0(Vm vm, InterpreterContext context)
 	{
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 		BaseObjectInfo[] arg = context.getLastStack().getArguments();
