@@ -49,7 +49,7 @@ public class NewObjectJitInstructionReplacer implements JitInstructionReplacer<N
 			else
 			{
 				TypeNode argument = typeNode.arguments.get(0);
-				if(!(argument.typeConstructorNode instanceof ClassTypeNode))
+				if(!(argument.typeConstructorNode instanceof ClassTypeNode) || !argument.annotations.isEmpty())
 					return old;
 
 				FqName argumentFq = ((ClassTypeNode) argument.typeConstructorNode).className;
