@@ -45,6 +45,7 @@ import org.napile.vm.util.AssertUtil;
 public class VmUtil
 {
 	public static final FqName VM_MAIN_CALLER = new FqName("org.napile.vm.MainCaller");
+	public static final FqName INVALID = new FqName("napile.lang.Invalid");
 
 	public static final TypeNode CHAR = new TypeNode(false, new ClassTypeNode(NapileLangPackage.CHAR));
 	public static final TypeNode CLASS = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS));
@@ -71,6 +72,7 @@ public class VmUtil
 		vm.safeGetClass(NapileLangPackage.STRING);
 		vm.safeGetClass(NapileLangPackage.INT);
 		vm.safeGetClass(NapileLangPackage.NULL);
+		vm.safeGetClass(INVALID);
 		vm.safeGetClass(VM_MAIN_CALLER);
 
 		vm.moveFromBootClassLoader(); // change bootstrap class loader - to new instance
@@ -99,12 +101,20 @@ public class VmUtil
 		else if(value instanceof String)
 		{
 			char[] chars = ((String) value).toCharArray();
-			BaseObjectInfo arrayObject =createArray(vm, ARRAY__CHAR__, chars.length);
+
+			ClassInfo stringClassInfo = vm.safeGetClass(NapileLangPackage.STRING);
+			BaseObjectInfo stringObject = new BaseObjectInfo(vm, stringClassInfo, AsmConstants.STRING_TYPE);
+			stringObject.setVarValue(vm.getField(stringClassInfo, "count", false), VmUtil.convertToVm(vm, context, chars.length));
+			stringObject.setVarValue(vm.getField(stringClassInfo, "offset", false), VmUtil.convertToVm(vm, context, 0));
+
+			BaseObjectInfo arrayObject = createArray(vm, ARRAY__CHAR__, chars.length);
+			stringObject.setVarValue(vm.getField(stringClassInfo, "array", false), arrayObject);
+
 			final BaseObjectInfo[] arrayAttach = arrayObject.value();
 			for(int i = 0; i < chars.length; i++)
 				arrayAttach[i] = convertToVm(vm, context, chars[i]);
 
-			return vm.newObject(context, STRING, varargTypes(ARRAY__CHAR__), new BaseObjectInfo[] {arrayObject});
+			return stringObject;
 		}
 		else if(value instanceof Character)
 			return vm.newObject(CHAR).value(value);

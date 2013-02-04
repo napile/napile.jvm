@@ -33,4 +33,10 @@ public class napile_util_TypeUtil
 	{
 		return VmUtil.convertToVm(vm, context, null);
 	}
+
+	@NativeImplement(methodName = "getInvalidNotNull", parameters = {})
+	public static BaseObjectInfo getInvalidNotNull(Vm vm, InterpreterContext context)
+	{
+		return VmUtil.staticValue(vm, VmUtil.INVALID, "INSTANCE");
+	}
 }
