@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 15:21/03.11.12
  */
-public class ReflectionTest extends MainTest
+public class ReflectionTest extends MainRunClassTestCase
 {
-	@Test
-	public void test0()
+	public void testReflectTest()
 	{
-		run("reflectionTest.ReflectTest");
 	}
 }

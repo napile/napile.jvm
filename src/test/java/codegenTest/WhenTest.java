@@ -1,34 +1,24 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 16:46/03.01.13
  */
-public class WhenTest extends MainTest
+public class WhenTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testWhenTest()
 	{
-		run("whenTest.WhenTest");
 	}
 
-	@Test
-	public void test1()
+	public void testWhenTest1()
 	{
-		run("whenTest.WhenTest1");
 	}
 
-	@Test
-	public void test2()
+	public void testWhenIsTest()
 	{
-		run("whenTest.WhenIsTest");
 	}
 
-	@Test
-	public void test3()
+	public void testWhenExpTest()
 	{
-		run("whenTest.WhenExpTest");
 	}
 }

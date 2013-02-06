@@ -1,22 +1,18 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 19:37/12.11.12
  */
-public class InjectionTest extends MainTest
+public class InjectionTest extends MainRunClassTestCase
 {
-	@Test
-	public void test1()
+	public void testTextInjectionTest()
 	{
-		run("injectionTest.TextInjectionTest");
+
 	}
 
-	@Test
-	public void test2()
+	public void testTextInjection2Test()
 	{
-		run("injectionTest.TextInjection2Test");
+
 	}
 }

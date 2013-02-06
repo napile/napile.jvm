@@ -1,22 +1,16 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 15:44/04.11.12
  */
-public class StringTest extends MainTest
+public class StringTest extends MainRunClassTestCase
 {
-	@Test
-	public void test0()
+	public void testStringTest()
 	{
-		run("stringTest.StringTest");
 	}
 
-	@Test
-	public void test1()
+	public void testEndsWithTest()
 	{
-		run("stringTest.EndsWithTest");
 	}
 }

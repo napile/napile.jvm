@@ -1,28 +1,20 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 16:14/06.10.12
  */
-public class PostfixTest extends MainTest
+public class PostfixTest extends MainRunClassTestCase
 {
-	@Test
-	public void firstTest()
+	public void testPostfixTest()
 	{
-		run("postfixTest.PostfixTest");
 	}
 
-	@Test
-	public void withProperty()
+	public void testPostfixWithPropertyTest()
 	{
-		run("postfixTest.PostfixWithPropertyTest");
 	}
 
-	@Test
-	public void arrayAndPropertyTest()
+	public void testPostfixInArrayAndPropertyTest()
 	{
-		run("postfixTest.PostfixInArrayAndPropertyTest");
 	}
 }

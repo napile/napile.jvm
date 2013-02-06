@@ -1,13 +1,15 @@
 package codegenTest;
 
+import org.napile.vm.SkipTest;
+
 /**
  * @author VISTALL
  * @date 13:11/05.12.12
  */
-public class ThreadTest extends MainTest
+public class ThreadTest extends MainRunClassTestCase
 {
-	public void test()
+	@SkipTest
+	public void testThreadTest()
 	{
-		run("threadTest.ThreadTest");
 	}
 }

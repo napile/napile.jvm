@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 14:03/23.11.12
  */
-public class MultiTest extends MainTest
+public class MultiTest extends MainRunClassTestCase
 {
-	@Test
-	public void test8()
+	public void testAC()
 	{
-		run("multi.AC");
 	}
 }

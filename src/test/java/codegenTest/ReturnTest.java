@@ -16,17 +16,13 @@
 
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 12:40/24.11.12
  */
-public class ReturnTest extends MainTest
+public class ReturnTest extends MainRunClassTestCase
 {
-	@Test
-	public void test0()
+	public void testReturnTest()
 	{
-		run("returnTest.ReturnTest");
 	}
 }

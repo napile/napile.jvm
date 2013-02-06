@@ -1,11 +1,13 @@
 package codegenTest;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.vm.util.Log4JHelper;
+import org.napile.vm.SkipTest;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.nativeimpl.classes.napile_lang_Thread;
@@ -13,27 +15,63 @@ import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.util.BundleUtil;
+import org.napile.vm.util.Log4JHelper;
 import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmContext;
 import org.napile.vm.vm.VmUtil;
+import com.intellij.openapi.util.text.StringUtil;
+import junit.framework.TestCase;
 
 /**
  * @author VISTALL
  * @date 19:14/05.10.12
  */
-public class MainTest
+public abstract class MainRunClassTestCase extends TestCase
 {
-	public static void run(String str)
+	@Override
+	protected void runTest() throws Throwable
+	{
+		assertNotNull("TestCase.fName cannot be null", getName()); // Some VMs crash when calling getMethod(null,null);
+		Method runMethod = null;
+		try
+		{
+			// use getMethod to get all public inherited
+			// methods. getDeclaredMethods returns all
+			// methods of this class but excludes the
+			// inherited ones.
+			runMethod = getClass().getMethod(getName(), (Class[]) null);
+		}
+		catch(NoSuchMethodException e)
+		{
+			fail("Method \"" + getName() + "\" not found");
+		}
+		if(!Modifier.isPublic(runMethod.getModifiers()))
+		{
+			fail("Method \"" + getName() + "\" should be public");
+		}
+
+		if(runMethod.getAnnotation(SkipTest.class) != null)
+		{
+			System.out.println(runMethod.getName() + " is skipped");
+			return;
+		}
+		doTest();
+	}
+
+	protected void doTest()
 	{
 		Log4JHelper.load();
 
 		BundleUtil.getInstance();
 
+		String testName = getName();
+		testName = testName.substring(4, testName.length());
+
 		List<String> arguments = new ArrayList<String>();
 		arguments.add("-cp");
 		arguments.add("dist/classpath;dist/codegenTest.nzip");
-		arguments.add("codegenTest." + str);
+		arguments.add("codegenTest." + StringUtil.decapitalize(getClass().getSimpleName()) + "." + testName);
 
 		CLProcessor p = new CLProcessor(arguments.toArray(new String[arguments.size()]));
 
@@ -67,7 +105,7 @@ public class MainTest
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);
 
-		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[] {arrayObject}, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
+		vm.invoke(new InterpreterContext(new StackEntry(null, methodInfo, new BaseObjectInfo[]{arrayObject}, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
 
 		while(true)
 		{

@@ -1,22 +1,20 @@
 package codegenTest;
 
-import org.junit.Test;
+import org.napile.vm.SkipTest;
 
 /**
  * @author VISTALL
  * @date 17:57/21.11.12
  */
-public class MacroTest extends MainTest
+public class MacroTest extends MainRunClassTestCase
 {
-	@Test
-	public void test1()
+	@SkipTest
+	public void testMacro1Test()
 	{
-		//run("macroTest.Macro1Test");
 	}
 
-	@Test
-	public void test2()
+	@SkipTest
+	public void testMacro2Test()
 	{
-		//run("macroTest.Macro2Test");
 	}
 }

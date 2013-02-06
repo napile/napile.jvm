@@ -1,40 +1,31 @@
 package codegenTest;
 
-import org.junit.Test;
+import org.napile.vm.SkipTest;
 
 /**
  * @author VISTALL
  * @date 9:12/29.11.12
  */
-public class NullableTest extends MainTest
+public class NullableTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testNullableTest()
 	{
-		run("nullableTest.NullableTest");
 	}
 
-	@Test
-	public void test1()
+	@SkipTest
+	public void testSureTest()
 	{
-		//run("nullableTest.SureTest");
 	}
 
-	@Test
-	public void test2()
+	public void testSure2Test()
 	{
-		run("nullableTest.Sure2Test");
 	}
 
-	@Test
-	public void test3()
+	public void testNullableWithAnyTest()
 	{
-		run("nullableTest.NullableWithAnyTest");
 	}
 
-	@Test
-	public void test4()
+	public void testNullToStringTest()
 	{
-		run("nullableTest.NullToStringTest");
 	}
 }

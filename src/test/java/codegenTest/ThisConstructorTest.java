@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 13:42/01.11.12
  */
-public class ThisConstructorTest extends MainTest
+public class ThisConstructorTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testThisConstructorTest()
 	{
-		run("thisConstructor.ThisConstructorTest");
 	}
 }

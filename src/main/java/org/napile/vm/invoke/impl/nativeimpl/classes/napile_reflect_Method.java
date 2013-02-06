@@ -38,7 +38,9 @@ public class napile_reflect_Method
 		context.getStack().remove(stackEntry);
 
 		if(stackEntry.getForceIndex() != -2)
+		{
 			throw new NativeThrowException(stackEntry.getForceIndex());
+		}
 
 		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(false);
 		BaseObjectInfo array = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ANY_NULLABLE__, returnValues.length);

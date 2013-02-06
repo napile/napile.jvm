@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 12:06/03.11.12
  */
-public class LazyPropertyTest extends MainTest
+public class LazyPropertyTest extends MainRunClassTestCase
 {
-	@Test
-	public void test0()
+	public void testLazyPropertyTest()
 	{
-		run("lazyPropertyTest.LazyPropertyTest");
 	}
 }

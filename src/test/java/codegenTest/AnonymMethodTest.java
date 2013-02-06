@@ -1,22 +1,16 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 18:58/29.11.12
  */
-public class AnonymMethodTest extends MainTest
+public class AnonymMethodTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testAnonymMethTest()
 	{
-		run("anonymMethodTest.AnonymMethTest");
 	}
 
-	@Test
-	public void test1()
+	public void testAnonymMethWrapTest()
 	{
-		run("anonymMethodTest.AnonymMethWrapTest");
 	}
 }

@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 20:04/08.10.12
  */
-public class TypeParameterTest extends MainTest
+public class TypeParameterTest extends MainRunClassTestCase
 {
-	@Test
-	public void test1()
+	public void testTWithConstructorTest()
 	{
-		run("typeParameterTest.TWithConstructorTest");
 	}
 }

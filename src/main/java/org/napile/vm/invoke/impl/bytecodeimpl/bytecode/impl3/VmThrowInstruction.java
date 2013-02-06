@@ -1,9 +1,7 @@
 package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 
-import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.Iterator;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +35,7 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 		final BaseObjectInfo object = context.pop();
 
 		final StackEntry last = context.getLastStack();
-		final Deque<StackEntry> copy = new ArrayDeque<StackEntry>(context.getStack());
+		//final Deque<StackEntry> copy = new ArrayDeque<StackEntry>(context.getStack());
 
 		// reverse iterator, first element is this stackentry
 		Iterator<StackEntry> iterator = context.getStack().descendingIterator();
@@ -64,7 +62,8 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 							{
 								stackEntry.setForceIndex(catchBlock.startIndex);
 
-								return -1;
+								last.setForceIndex(BREAK_INDEX);
+								return BREAK_INDEX;
 							}
 						}
 					}

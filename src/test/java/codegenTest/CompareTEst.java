@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 19:44/05.10.12
  */
-public class CompareTest extends MainTest
+public class CompareTest extends MainRunClassTestCase
 {
-	@Test
-	public void compareIntTest()
+	public void testCompareIntTest()
 	{
-		run("compareTest.CompareIntTest");
 	}
 }

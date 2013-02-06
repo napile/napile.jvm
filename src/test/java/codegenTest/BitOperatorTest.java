@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 11:32/05.01.13
  */
-public class BitOperatorTest extends MainTest
+public class BitOperatorTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testOperators()
 	{
-		run("bitOperators.Operators");
 	}
 }

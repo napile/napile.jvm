@@ -1,22 +1,16 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 19:57/05.01.13
  */
-public class MultiTypeTest extends MainTest
+public class MultiTypeTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testTest()
 	{
-		run("multiTypeTest.Test");
 	}
 
-	@Test
-	public void test1()
+	public void testInstanceVarTest()
 	{
-		run("multiTypeTest.InstanceVarTest");
 	}
 }

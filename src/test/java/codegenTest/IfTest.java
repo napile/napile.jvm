@@ -6,29 +6,23 @@ import org.junit.Test;
  * @author VISTALL
  * @date 11:46/29.11.12
  */
-public class IfTest extends MainTest
+public class IfTest extends MainRunClassTestCase
 {
-	@Test
-	public void test5()
+	public void testHelloWorldWithIf()
 	{
-		run("ifTest.HelloWorldWithIf");
+	}
+
+	public void testOrOrTest()
+	{
 	}
 
 	@Test
-	public void test19()
+	public void testAndAndTest()
 	{
-		run("ifTest.OrOrTest");
 	}
 
 	@Test
-	public void test20()
+	public void testElvisTest()
 	{
-		run("ifTest.AndAndTest");
-	}
-
-	@Test
-	public void test21()
-	{
-		run("ifTest.ElvisTest");
 	}
 }

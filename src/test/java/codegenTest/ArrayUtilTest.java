@@ -1,21 +1,16 @@
 package codegenTest;
 
-import java.util.Arrays;
-
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 17:27/06.10.12
  */
-public class ArrayUtilTest extends MainTest
+public class ArrayUtilTest extends MainRunClassTestCase
 {
-	@Test
-	public void test1()
+	public void testArrayUtilTest()
 	{
-		run("arrayUtilTest.ArrayUtilTest");
+		doTest();
 
-		System.out.println();
+	/*	System.out.println();
 		System.out.println("----------------------");
 		System.out.println("java");
 		System.out.println("----------------------");
@@ -39,15 +34,12 @@ public class ArrayUtilTest extends MainTest
 		{
 			System.out.print(a);
 			System.out.print("-");
-		}
+		} */
 	}
 
-	@Test
-	public void test2()
+	public void testArrayUtilCopyOfTest()
 	{
-		run("arrayUtilTest.ArrayUtilCopyOfTest");
-
-		System.out.println();
+		/*System.out.println();
 		System.out.println("----------------------");
 		System.out.println("java");
 		System.out.println("----------------------");
@@ -71,6 +63,6 @@ public class ArrayUtilTest extends MainTest
 		{
 			System.out.print(a);
 			System.out.print("-");
-		}
+		}   */
 	}
 }

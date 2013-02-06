@@ -16,17 +16,13 @@
 
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 15:09/02.02.13
  */
-public class MapTest extends MainTest
+public class MapTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testMapTest0()
 	{
-		run("mapTest.MapTest0");
 	}
 }

@@ -1,34 +1,24 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 16:19/23.11.12
  */
-public class ClassAndTypeTest extends MainTest
+public class ClassAndTypeTest extends MainRunClassTestCase
 {
-	@Test
-	public void test14()
+	public void testClassOfTest()
 	{
-		run("classAndTypeTest.ClassOfTest");
 	}
 
-	@Test
-	public void test15()
+	public void testGenericTest()
 	{
-		run("classAndTypeTest.GenericTest");
 	}
 
-	@Test
-	public void test16()
+	public void testTypeOfTest()
 	{
-		//runMain("classAndTypeTest.TypeOfTest");
 	}
 
-	@Test
-	public void test17()
+	public void testGenericInMethod()
 	{
-		run("classAndTypeTest.GenericInMethod");
 	}
 }

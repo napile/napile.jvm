@@ -1,16 +1,13 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 13:31/10.01.13
  */
-public class IoTest extends MainTest
+public class IoTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testFileExistsTest()
 	{
-		run("ioTest.FileExistsTest");
+
 	}
 }

@@ -1,16 +1,12 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @date 10:01/08.01.13
  */
-public class AnnotationTest extends MainTest
+public class AnnotationTest extends MainRunClassTestCase
 {
-	@Test
-	public void test()
+	public void testMyObject()
 	{
-		run("annotationTest.MyObject");
 	}
 }
