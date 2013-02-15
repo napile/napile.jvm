@@ -100,7 +100,7 @@ public abstract class MainRunClassTestCase extends TestCase
 		for(String a : vmContext.getArguments())
 			list.add(VmUtil.convertToVm(vm, interpreterContext, a));
 
-		BaseObjectInfo arrayObject = vm.newObject(interpreterContext, null, VmUtil.ARRAY__STRING__, VmUtil.varargTypes(VmUtil.INT), new BaseObjectInfo[]{VmUtil.convertToVm(vm, interpreterContext, list.size())});
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, VmUtil.ARRAY__STRING__, list.size());
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);
