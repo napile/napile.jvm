@@ -65,7 +65,7 @@ public class MethodInfo implements ReflectInfo
 			CodeInfo codeInfo = likeMethodNode.code;
 			if(codeInfo != null)
 			{
-				bytecodeInvokeType.convertInstructions(codeInfo.instructions);
+				bytecodeInvokeType.convertInstructions(codeInfo.instructions, this);
 				bytecodeInvokeType.setMaxLocals(codeInfo.maxLocals);
 			}
 			else

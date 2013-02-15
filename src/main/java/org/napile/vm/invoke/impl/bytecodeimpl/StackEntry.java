@@ -31,7 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.TypeParameterNode;
-import org.napile.asm.tree.members.bytecode.InstructionInCodePosition;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.localVariable.LocalVariable;
@@ -48,9 +47,11 @@ public class StackEntry
 {
 	private static final Logger LOGGER = Logger.getLogger(StackEntry.class);
 
-	public InstructionInCodePosition position;
+	@NotNull
+	public CallPosition position = CallPosition.EMPTY;
 
 	private BaseObjectInfo objectInfo;
+
 	@Deprecated
 	private MethodInfo methodInfo;
 
@@ -92,10 +93,11 @@ public class StackEntry
 		}
 	}
 
-	public StackEntry(BaseObjectInfo objectInfo, MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
+	public StackEntry(BaseObjectInfo objectInfo, @Deprecated MethodInfo methodInfo, BaseObjectInfo[] arguments, List<TypeNode> typeArguments)
 	{
 		this.objectInfo = objectInfo;
 		this.methodInfo = methodInfo;
+
 		this.arguments = arguments;
 
 		AssertUtil.assertFalse(methodInfo.getTypeParameters().size() == typeArguments.size(), methodInfo.toString() + " " + methodInfo.getTypeParameters().size() + " != " + typeArguments.size());
@@ -203,7 +205,7 @@ public class StackEntry
 	@Override
 	public String toString()
 	{
-		return methodInfo == null ? "null" : methodInfo.toString();
+		return position.toString();
 	}
 
 	public void initReturnValues(int count)

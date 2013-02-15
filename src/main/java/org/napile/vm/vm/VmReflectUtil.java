@@ -79,7 +79,7 @@ public class VmReflectUtil
 			context.getStack().add(stackEntry);
 
 			BytecodeInvokeType invokeType = new BytecodeInvokeType();
-			invokeType.convertInstructions(annotationNode.code.instructions);
+			invokeType.convertInstructions(annotationNode.code.instructions, null);
 
 			invokeType.call(vm, context);
 

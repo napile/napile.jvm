@@ -29,7 +29,6 @@ import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.MethodNode;
-import org.napile.asm.tree.members.bytecode.InstructionInCodePosition;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
@@ -37,8 +36,10 @@ import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.CallPosition;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.VmNewObjectInstruction;
 import org.napile.vm.objects.BaseObjectInfo;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.MethodInfo;
@@ -188,14 +189,14 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo newObject(@NotNull InterpreterContext context, InstructionInCodePosition position, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
+	public BaseObjectInfo newObject(@NotNull InterpreterContext context, VmNewObjectInstruction instruction, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
 		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, typeNode.arguments);
-		stackEntry.position = position;
+		stackEntry.position = new CallPosition(instruction);
 
 		context.getStack().add(stackEntry);
 

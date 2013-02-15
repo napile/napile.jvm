@@ -63,7 +63,7 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 
 		arguments = ArrayUtil.reverseArray(arguments);
 
-		context.push(vm.newObject(context, instruction.position, createType, instruction.parameters.toArray(new TypeNode[instruction.parameters.size()]), arguments));
+		context.push(vm.newObject(context, this, createType, instruction.parameters.toArray(new TypeNode[instruction.parameters.size()]), arguments));
 		return nextIndex;
 	}
 }

@@ -18,6 +18,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode;
 
 import org.jetbrains.annotations.NotNull;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.objects.classinfo.MethodInfo;
 import org.napile.vm.vm.Vm;
 
 /**
@@ -30,7 +31,9 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 
 	public static final VmInstruction[] EMPTY_ARRAY = new VmInstruction[0];
 
-	private int _arrayIndex;
+	public MethodInfo parent;
+
+	private int index;
 
 	@NotNull
 	public final E instruction;
@@ -42,19 +45,19 @@ public abstract class VmInstruction<E extends org.napile.asm.tree.members.byteco
 
 	public abstract int call(Vm vm, InterpreterContext context, int nextIndex);
 
-	public void setArrayIndex(int arrayIndex)
+	public void setIndex(int index)
 	{
-		_arrayIndex = arrayIndex;
+		this.index = index;
 	}
 
-	public int getArrayIndex()
+	public int getIndex()
 	{
-		return _arrayIndex;
+		return index;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "[i" + _arrayIndex + "]: " + instruction;
+		return "[i" + index + "]: " + instruction;
 	}
 }

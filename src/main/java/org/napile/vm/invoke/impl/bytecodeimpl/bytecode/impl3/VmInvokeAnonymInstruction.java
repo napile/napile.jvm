@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.napile.asm.tree.members.bytecode.impl.InvokeAnonymInstruction;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.vm.invoke.impl.bytecodeimpl.CallPosition;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
@@ -47,7 +48,7 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 		Collections.addAll(args, arguments);
 
 		StackEntry nextEntry = data.stackEntry;
-		nextEntry.position = instruction.position;
+		nextEntry.position = new CallPosition(this);
 		for(int i = 0; i < arguments.length; i++)
 			nextEntry.setValue(i, arguments[i]);
 

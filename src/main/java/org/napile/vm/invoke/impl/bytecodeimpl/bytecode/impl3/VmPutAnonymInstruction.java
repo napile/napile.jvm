@@ -49,7 +49,7 @@ public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 
 		invokeType = new BytecodeInvokeType();
 		invokeType.setMaxLocals(instruction.code.maxLocals);
-		invokeType.convertInstructions(instruction.code.instructions);
+		invokeType.convertInstructions(instruction.code.instructions, null);
 	}
 
 	@Override

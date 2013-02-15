@@ -19,6 +19,7 @@ package org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.bytecode.impl.MacroJumpInstruction;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.vm.invoke.impl.bytecodeimpl.CallPosition;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
@@ -67,7 +68,7 @@ public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 		BaseObjectInfo objectInfo = context.pop();
 
 		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
-		nextEntry.position = instruction.position;
+		nextEntry.position = new CallPosition(this);
 
 		context.getStack().add(nextEntry);
 
