@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.TypeParameterNode;
+import org.napile.asm.tree.members.bytecode.InstructionInCodePosition;
 import org.napile.asm.tree.members.bytecode.tryCatch.TryCatchBlockNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.localVariable.LocalVariable;
@@ -46,6 +47,9 @@ import org.napile.vm.util.AssertUtil;
 public class StackEntry
 {
 	private static final Logger LOGGER = Logger.getLogger(StackEntry.class);
+
+	public InstructionInCodePosition position;
+
 	private BaseObjectInfo objectInfo;
 	@Deprecated
 	private MethodInfo methodInfo;
@@ -212,11 +216,8 @@ public class StackEntry
 		returnValues[index] = value;
 	}
 
-	public BaseObjectInfo[] getReturnValues(boolean macro)
+	public BaseObjectInfo[] getReturnValues()
 	{
-		if(!macro && returnValues == null)
-			LOGGER.error("return value cant be null: " + getMethodInfo(), new Exception());
-
 		return returnValues;
 	}
 

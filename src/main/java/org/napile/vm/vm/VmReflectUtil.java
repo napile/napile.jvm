@@ -34,8 +34,7 @@ public class VmReflectUtil
 	{
 		BaseObjectInfo objectInfo = vm.newObject
 		(
-				context,
-				typeNode,
+				context, null, typeNode,
 				VmUtil.varargTypes
 						(
 								NAPILE_REFLECT_CLASS__ANY__NULLABLE_,

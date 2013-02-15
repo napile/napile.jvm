@@ -75,6 +75,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 			methodInfo = vm.getMethod(objectInfo.getClassInfo(), methodName, true, parameterTypes);
 
 			StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
+			nextEntry.position = instruction.position;
 
 			context.getStack().add(nextEntry);
 
@@ -84,7 +85,7 @@ public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstr
 			if(stackEntry == null)
 				return BREAK_INDEX;
 
-			for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+			for(BaseObjectInfo returnValue : stackEntry.getReturnValues())
 				context.push(returnValue);
 
 			int forceIndex = stackEntry.getForceIndex();

@@ -47,6 +47,7 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 		Collections.addAll(args, arguments);
 
 		StackEntry nextEntry = data.stackEntry;
+		nextEntry.position = instruction.position;
 		for(int i = 0; i < arguments.length; i++)
 			nextEntry.setValue(i, arguments[i]);
 
@@ -58,7 +59,7 @@ public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruc
 		if(stackEntry == null)
 			return BREAK_INDEX;
 
-		for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+		for(BaseObjectInfo returnValue : stackEntry.getReturnValues())
 			context.push(returnValue);
 
 		int forceIndex = nextEntry.getForceIndex();

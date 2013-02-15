@@ -29,6 +29,7 @@ import org.napile.asm.lib.NapileReflectPackage;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.MethodNode;
+import org.napile.asm.tree.members.bytecode.InstructionInCodePosition;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
@@ -187,13 +188,14 @@ public class Vm
 	}
 
 	@NotNull
-	public BaseObjectInfo newObject(@NotNull InterpreterContext context, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
+	public BaseObjectInfo newObject(@NotNull InterpreterContext context, InstructionInCodePosition position, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
 
 		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, typeNode.arguments);
+		stackEntry.position = position;
 
 		context.getStack().add(stackEntry);
 
@@ -232,7 +234,7 @@ public class Vm
 		for(int i = 0; i < values.length; i++)
 			values[i] = createTypeObject(context, targetType.arguments.get(i));
 
-		return newObject(context, newObjectType,
+		return newObject(context, null, newObjectType,
 				new TypeNode[]
 				{
 					new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(new TypeNode(false, new TypeParameterValueTypeNode(Name.identifier("E")))),

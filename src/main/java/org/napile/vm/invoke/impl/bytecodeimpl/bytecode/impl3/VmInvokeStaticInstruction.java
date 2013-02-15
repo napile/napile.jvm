@@ -67,6 +67,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 		arguments = ArrayUtil.reverseArray(arguments);
 
 		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments, instruction.methodRef.typeArguments);
+		nextEntry.position = instruction.position;
 
 		context.getStack().add(nextEntry);
 
@@ -76,7 +77,7 @@ public class VmInvokeStaticInstruction extends VmInstruction<InvokeStaticInstruc
 		if(stackEntry == null)
 			return BREAK_INDEX;
 
-		for(BaseObjectInfo returnValue : stackEntry.getReturnValues(false))
+		for(BaseObjectInfo returnValue : stackEntry.getReturnValues())
 			context.push(returnValue);
 
 		int forceIndex = stackEntry.getForceIndex();

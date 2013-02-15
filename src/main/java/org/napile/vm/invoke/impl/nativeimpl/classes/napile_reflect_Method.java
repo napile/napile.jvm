@@ -42,8 +42,12 @@ public class napile_reflect_Method
 			throw new NativeThrowException(stackEntry.getForceIndex());
 		}
 
-		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(false);
+		BaseObjectInfo[] returnValues = stackEntry.getReturnValues();
+		if(returnValues == null)
+			return null;
+
 		BaseObjectInfo array = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ANY_NULLABLE__, returnValues.length);
+
 		BaseObjectInfo[] objectsOfArray = array.value();
 		System.arraycopy(returnValues, 0, objectsOfArray, 0, objectsOfArray.length);
 		return array;

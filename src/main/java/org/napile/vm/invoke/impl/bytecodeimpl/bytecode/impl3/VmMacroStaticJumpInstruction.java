@@ -49,6 +49,7 @@ public class VmMacroStaticJumpInstruction extends VmInstruction<MacroStaticJumpI
 		arguments = ArrayUtil.reverseArray(arguments);
 
 		StackEntry nextEntry = new StackEntry(null, methodInfo, arguments, instruction.methodRef.typeArguments);
+		nextEntry.position = instruction.position;
 
 		context.getStack().add(nextEntry);
 
@@ -60,7 +61,7 @@ public class VmMacroStaticJumpInstruction extends VmInstruction<MacroStaticJumpI
 
 		StackEntry prevEntry = context.getLastStack();
 
-		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(true);
+		BaseObjectInfo[] returnValues = stackEntry.getReturnValues();
 		if(returnValues != null)
 		{
 			prevEntry.initReturnValues(returnValues.length);

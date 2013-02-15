@@ -51,9 +51,9 @@ public class napile_reflect_CallParameter
 		BaseObjectInfo annotationArray = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ASM_ANNOTATION__, 0);
 		BaseObjectInfo constructorObject = null;
 		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
-			constructorObject = vm.newObject(context, NAPILE_ASM_MEMBERS_ASM_TYPE_CONSTRUCTOR_ASM_CLASS_TYPE, new TypeNode[]{AsmConstants.STRING_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, ((ClassTypeNode) typeNode.typeConstructorNode).className.getFqName())});
+			constructorObject = vm.newObject(context, null, NAPILE_ASM_MEMBERS_ASM_TYPE_CONSTRUCTOR_ASM_CLASS_TYPE, new TypeNode[]{AsmConstants.STRING_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, ((ClassTypeNode) typeNode.typeConstructorNode).className.getFqName())});
 		else if(typeNode.typeConstructorNode instanceof TypeParameterValueTypeNode)
-			constructorObject = vm.newObject(context, NAPILE_ASM_MEMBERS_ASM_TYPE_CONSTRUCTOR_ASM_TYPE_PARAMETER_TYPE, new TypeNode[]{AsmConstants.STRING_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, ((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name)});
+			constructorObject = vm.newObject(context, null, NAPILE_ASM_MEMBERS_ASM_TYPE_CONSTRUCTOR_ASM_TYPE_PARAMETER_TYPE, new TypeNode[]{AsmConstants.STRING_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, ((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name)});
 		else
 			throw new UnsupportedOperationException("Unknown how convert constructor " + typeNode.typeConstructorNode);
 
@@ -62,6 +62,6 @@ public class napile_reflect_CallParameter
 		for(int i = 0; i < parametersArrayValue.length; i++)
 			parametersArrayValue[i] = convertType(vm, context, typeNode.arguments.get(i));
 
-		return vm.newObject(context, NAPILE_ASM_MEMBERS_ASM_TYPE, ASM_TYPE_PARAMETERS, new BaseObjectInfo[]{annotationArray, constructorObject, parametersArray, VmUtil.convertToVm(vm, context, typeNode.nullable)});
+		return vm.newObject(context, null, NAPILE_ASM_MEMBERS_ASM_TYPE, ASM_TYPE_PARAMETERS, new BaseObjectInfo[]{annotationArray, constructorObject, parametersArray, VmUtil.convertToVm(vm, context, typeNode.nullable)});
 	}
 }

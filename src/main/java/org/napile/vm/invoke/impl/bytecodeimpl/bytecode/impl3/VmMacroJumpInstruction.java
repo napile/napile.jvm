@@ -67,6 +67,7 @@ public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 		BaseObjectInfo objectInfo = context.pop();
 
 		StackEntry nextEntry = new StackEntry(objectInfo, methodInfo, arguments, instruction.methodRef.typeArguments);
+		nextEntry.position = instruction.position;
 
 		context.getStack().add(nextEntry);
 
@@ -78,7 +79,7 @@ public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 
 		StackEntry prevEntry = context.getLastStack();
 
-		BaseObjectInfo[] returnValues = stackEntry.getReturnValues(true);
+		BaseObjectInfo[] returnValues = stackEntry.getReturnValues();
 		if(returnValues != null)
 		{
 			prevEntry.initReturnValues(returnValues.length);

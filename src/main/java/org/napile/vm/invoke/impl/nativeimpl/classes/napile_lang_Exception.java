@@ -39,7 +39,7 @@ public class napile_lang_Exception
 		{
 			StackEntry stackEntry = iterator.next();
 
-			array[i++] = vm.newObject(context, STACK_TRACE_ELEMENT, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, stackEntry.getMethodInfo() == null ? "anonym" : stackEntry.getMethodInfo().getFqName().getFqName())});
+			array[i++] = vm.newObject(context, null, STACK_TRACE_ELEMENT, VmUtil.varargTypes(VmUtil.STRING), new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, stackEntry.getMethodInfo() == null ? "anonym" : stackEntry.getMethodInfo().getFqName().getFqName())});
 		}
 		return arrayObject;
 	}
