@@ -33,6 +33,7 @@ import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
+import org.napile.asm.util.Comparing2;
 import org.napile.vm.classloader.JClassLoader;
 import org.napile.vm.classloader.impl.SimpleClassLoaderImpl;
 import org.napile.vm.invoke.InvokeType;
@@ -252,6 +253,34 @@ public class Vm
 				});
 	}
 
+	private boolean canAcceptTypes(@NotNull TypeNode[] original, @NotNull TypeNode[] target)
+	{
+		if(original.length != target.length)
+		{
+			return false;
+		}
+
+		for(int i = 0; i < original.length; i++)
+		{
+			if(!canAcceptType(original[i], target[i]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean canAcceptType(@NotNull TypeNode original, @NotNull TypeNode target)
+	{
+		if(!target.typeConstructorNode.equals(original.typeConstructorNode))
+			return false;
+
+		if(!Comparing2.equal(target.arguments, original.arguments))
+			return false;
+
+		return target.nullable == original.nullable;
+	}
+
 	public boolean isEqualOrSubType(@NotNull InterpreterContext context, @NotNull TypeNode target, @NotNull TypeNode toCheck)
 	{
 		// check first type constructor
@@ -387,10 +416,10 @@ public class Vm
 
 		for(MethodInfo methodInfo : methodInfos)
 		{
-			if(!methodInfo.getFqName().shortName().getName().equals(name))
+			if(!methodInfo.getName().equals(name))
 				continue;
 
-			if(!Comparing.equal(params, methodInfo.getParameters()))
+			if(!canAcceptTypes(params, methodInfo.getParameters()))
 				continue;
 
 			return methodInfo;

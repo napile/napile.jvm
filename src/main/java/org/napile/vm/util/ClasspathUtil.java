@@ -51,11 +51,11 @@ public class ClasspathUtil
 			if(!f.exists())
 				continue;
 
-			checkDir(vm, f);
+			checkDirOrFile(vm, f);
 		}
 	}
 
-	private static void checkDir(Vm vm, File dir)
+	private static void checkDirOrFile(Vm vm, File dir)
 	{
 		if(!dir.exists())
 			return;
@@ -65,7 +65,7 @@ public class ClasspathUtil
 			File[] list = dir.listFiles();
 			if(list != null)
 				for(File f : list)
-					checkDir(vm, f);
+					checkDirOrFile(vm, f);
 		}
 		else
 			checkFile(vm, dir);
@@ -104,10 +104,18 @@ public class ClasspathUtil
 
 						vm.getVmContext().addMapping(new FqName(classZipName), new ZippedFileMapping(file, entry.getName()));
 					}
+					/*else if(entry.getName().equals("@module@.xml"))
+					{
+						SAXReader reader = new SAXReader(false);
+
+						Document document = reader.read(zipFile.getInputStream(entry));
+
+
+					} */
 				}
 				zipFile.close();
 			}
-			catch(IOException e)
+			catch(Exception e)
 			{
 				LOGGER.error(e, e);
 			}
