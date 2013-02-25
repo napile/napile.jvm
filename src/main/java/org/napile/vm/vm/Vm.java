@@ -31,6 +31,8 @@ import org.napile.asm.resolve.name.Name;
 import org.napile.asm.tree.members.MethodNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.asm.tree.members.types.constructors.ClassTypeNode;
+import org.napile.asm.tree.members.types.constructors.MethodTypeNode;
+import org.napile.asm.tree.members.types.constructors.MultiTypeNode;
 import org.napile.asm.tree.members.types.constructors.TypeConstructorNode;
 import org.napile.asm.tree.members.types.constructors.TypeParameterValueTypeNode;
 import org.napile.asm.util.Comparing2;
@@ -347,6 +349,14 @@ public class Vm
 		{
 			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 			return toType(context, typeParameterType);
+		}
+		else if(typeNode.typeConstructorNode instanceof MethodTypeNode)
+		{
+			return new TypeNode(false, new ClassTypeNode(NapileLangPackage.ANONYM_CONTEXT));
+		}
+		else if(typeNode.typeConstructorNode instanceof MultiTypeNode)
+		{
+			return new TypeNode(false, new ClassTypeNode(NapileLangPackage.MULTI));
 		}
 		else
 			throw new UnsupportedOperationException(typeNode.typeConstructorNode.getClass().getName() + " is not supported");
