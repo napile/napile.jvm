@@ -336,6 +336,14 @@ public class Vm
 			TypeNode typeParameterType = context.searchTypeParameterValue(((TypeParameterValueTypeNode) typeNode.typeConstructorNode).name);
 			return toClassType(context, typeParameterType);
 		}
+		else if(typeNode.typeConstructorNode instanceof MethodTypeNode)
+		{
+			return new ClassTypeNode(NapileLangPackage.ANONYM_CONTEXT);
+		}
+		else if(typeNode.typeConstructorNode instanceof MultiTypeNode)
+		{
+			return new ClassTypeNode(NapileLangPackage.MULTI);
+		}
 		else
 			throw new UnsupportedOperationException(typeNode.typeConstructorNode.getClass().getName() + " is not supported");
 	}
