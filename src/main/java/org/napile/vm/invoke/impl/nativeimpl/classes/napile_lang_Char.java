@@ -29,4 +29,12 @@ public class napile_lang_Char
 		Character c = objectInfo.value();
 		return VmUtil.convertToVm(vm, context, (byte)c.charValue());
 	}
+
+	@NativeImplement(methodName = "toString", parameters = {})
+	public static BaseObjectInfo toString(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+
+		return VmUtil.convertToVm(vm, context, objectInfo.value().toString());
+	}
 }
