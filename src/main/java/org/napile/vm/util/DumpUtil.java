@@ -28,7 +28,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 23:20/06.02.2012
+ * @since 23:20/06.02.2012
  */
 public class DumpUtil
 {

@@ -10,7 +10,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 1:58/20.09.12
+ * @since 1:58/20.09.12
  */
 public class napile_lang_Array
 {

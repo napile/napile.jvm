@@ -26,7 +26,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 
 /**
  * @author VISTALL
- * @date 14:55/10.02.2012
+ * @since 14:55/10.02.2012
  */
 public class SimpleClassLoaderImpl implements JClassLoader
 {

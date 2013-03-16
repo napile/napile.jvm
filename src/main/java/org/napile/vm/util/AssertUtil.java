@@ -21,7 +21,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL
- * @date 18:28/31.01.2012
+ * @since 18:28/31.01.2012
  */
 public class AssertUtil
 {

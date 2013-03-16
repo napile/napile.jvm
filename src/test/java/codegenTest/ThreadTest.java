@@ -4,7 +4,7 @@ import org.napile.vm.SkipTest;
 
 /**
  * @author VISTALL
- * @date 13:11/05.12.12
+ * @since 13:11/05.12.12
  */
 public class ThreadTest extends MainRunClassTestCase
 {

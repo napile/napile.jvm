@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 
 /**
  * @author VISTALL
- * @date 19:14/05.10.12
+ * @since 19:14/05.10.12
  */
 public abstract class MainRunClassTestCase extends TestCase
 {

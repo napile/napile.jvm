@@ -22,7 +22,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:22/31.01.2012
+ * @since 16:22/31.01.2012
  */
 public enum CLOption
 {

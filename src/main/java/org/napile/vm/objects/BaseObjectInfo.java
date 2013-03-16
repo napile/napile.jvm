@@ -34,7 +34,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 23:25/15.02.2012
+ * @since 23:25/15.02.2012
  */
 public final class BaseObjectInfo
 {

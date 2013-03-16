@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 /**
  * @author VISTALL
- * @date 13:41/15.01.13
+ * @since 13:41/15.01.13
  */
 public class IoInputStream extends IoStream<InputStream>
 {

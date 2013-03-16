@@ -7,7 +7,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 18:23/27.09.12
+ * @since 18:23/27.09.12
  */
 public class VmJumpInstruction extends VmInstruction<JumpInstruction>
 {

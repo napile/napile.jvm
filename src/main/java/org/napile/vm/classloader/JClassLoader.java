@@ -23,7 +23,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 
 /**
  * @author VISTALL
- * @date 14:54/10.02.2012
+ * @since 14:54/10.02.2012
  */
 public interface JClassLoader
 {

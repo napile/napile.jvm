@@ -35,7 +35,7 @@ import com.intellij.openapi.util.Comparing;
 
 /**
  * @author VISTALL
- * @date 23:59/16.02.2012
+ * @since 23:59/16.02.2012
  */
 public class NativeWrapper
 {

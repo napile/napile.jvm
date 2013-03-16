@@ -24,7 +24,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 19:56/21.09.12
+ * @since 19:56/21.09.12
  */
 public class VmNewIntInstruction extends VmInstruction<NewIntInstruction>
 {

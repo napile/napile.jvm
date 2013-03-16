@@ -2,7 +2,7 @@ package org.napile.vm.invoke.impl;
 
 /**
  * @author VISTALL
- * @date 19:44/21.01.13
+ * @since 19:44/21.01.13
  */
 public class NativeThrowException extends RuntimeException
 {

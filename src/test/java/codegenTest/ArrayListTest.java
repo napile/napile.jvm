@@ -2,7 +2,7 @@ package codegenTest;
 
 /**
  * @author VISTALL
- * @date 15:23/02.12.12
+ * @since 15:23/02.12.12
  */
 public class ArrayListTest extends MainRunClassTestCase
 {

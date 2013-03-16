@@ -18,7 +18,7 @@ import org.napile.vm.objects.classinfo.ReflectInfo;
 
 /**
  * @author VISTALL
- * @date 15:33/31.12.12
+ * @since 15:33/31.12.12
  */
 public class VmReflectUtil
 {

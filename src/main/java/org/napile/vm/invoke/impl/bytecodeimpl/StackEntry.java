@@ -41,7 +41,7 @@ import org.napile.vm.util.AssertUtil;
 
 /**
  * @author VISTALL
- * @date 21:09/15.02.2012
+ * @since 21:09/15.02.2012
  */
 public class StackEntry
 {

@@ -10,7 +10,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 19:13/04.10.12
+ * @since 19:13/04.10.12
  */
 public class VmIsInstruction extends VmInstruction<IsInstruction>
 {

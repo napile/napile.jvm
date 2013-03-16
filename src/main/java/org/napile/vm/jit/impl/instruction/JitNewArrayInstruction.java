@@ -29,7 +29,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 13:29/03.02.13
+ * @since 13:29/03.02.13
  */
 public class JitNewArrayInstruction extends VmInstruction<NewObjectInstruction>
 {

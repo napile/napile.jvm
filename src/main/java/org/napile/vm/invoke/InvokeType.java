@@ -21,7 +21,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 0:13/17.02.2012
+ * @since 0:13/17.02.2012
  */
 public interface InvokeType
 {

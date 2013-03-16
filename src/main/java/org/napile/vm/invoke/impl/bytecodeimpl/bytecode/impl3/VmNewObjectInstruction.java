@@ -29,7 +29,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 19:58/21.09.12
+ * @since 19:58/21.09.12
  */
 public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 {

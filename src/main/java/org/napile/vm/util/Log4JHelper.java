@@ -25,7 +25,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 /**
  * @author VISTALL
- * @date 9:10/19.05.2011
+ * @since 9:10/19.05.2011
  */
 public class Log4JHelper
 {

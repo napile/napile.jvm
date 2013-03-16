@@ -1,6 +1,6 @@
 /**
  * @author VISTALL
- * @date 11:56/04.01.13
+ * @since 11:56/04.01.13
  */
 public class Test
 {

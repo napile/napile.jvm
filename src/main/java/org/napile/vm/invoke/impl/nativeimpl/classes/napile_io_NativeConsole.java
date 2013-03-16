@@ -9,7 +9,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 23:32/20.09.12
+ * @since 23:32/20.09.12
  */
 public class napile_io_NativeConsole
 {

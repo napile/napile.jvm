@@ -2,7 +2,7 @@ package codegenTest;
 
 /**
  * @author VISTALL
- * @date 9:12/29.11.12
+ * @since 9:12/29.11.12
  */
 public class NullableTest extends MainRunClassTestCase
 {

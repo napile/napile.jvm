@@ -21,7 +21,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL
- * @date 21:17/21.01.13
+ * @since 21:17/21.01.13
  */
 public class SimpleLocalVariable implements LocalVariable
 {

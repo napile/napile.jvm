@@ -12,7 +12,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 13:25/15.01.13
+ * @since 13:25/15.01.13
  */
 public class IoSupport
 {

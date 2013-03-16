@@ -23,7 +23,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 19:58/21.09.12
+ * @since 19:58/21.09.12
  */
 public class VmPopInstruction extends VmInstruction<PopInstruction>
 {

@@ -30,7 +30,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 20:37/20.01.13
+ * @since 20:37/20.01.13
  */
 public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 {

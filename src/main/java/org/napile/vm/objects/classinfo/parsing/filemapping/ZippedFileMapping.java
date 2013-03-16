@@ -24,7 +24,7 @@ import java.util.zip.ZipFile;
 
 /**
  * @author VISTALL
- * @date 19:27/02.02.2012
+ * @since 19:27/02.02.2012
  */
 public class ZippedFileMapping implements FileMapping
 {

@@ -34,7 +34,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 4:21/06.02.2012
+ * @since 4:21/06.02.2012
  */
 public class BytecodeInvokeType implements InvokeType
 {

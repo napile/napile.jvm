@@ -23,7 +23,7 @@ import org.napile.asm.tree.members.types.TypeNode;
 
 /**
  * @author VISTALL
- * @date 0:27/17.02.2012
+ * @since 0:27/17.02.2012
  */
 public class NativeMethodRef
 {

@@ -33,7 +33,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 19:55/21.09.12
+ * @since 19:55/21.09.12
  */
 public class VmInvokeVirtualInstruction extends VmInstruction<InvokeVirtualInstruction>
 {

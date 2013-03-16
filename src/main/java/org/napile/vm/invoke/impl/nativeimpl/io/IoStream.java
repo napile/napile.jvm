@@ -4,7 +4,7 @@ import java.io.Closeable;
 
 /**
  * @author VISTALL
- * @date 13:37/15.01.13
+ * @since 13:37/15.01.13
  */
 public abstract class IoStream<T extends Closeable>
 {

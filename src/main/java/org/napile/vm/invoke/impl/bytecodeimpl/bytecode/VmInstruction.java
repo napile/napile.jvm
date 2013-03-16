@@ -23,7 +23,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 10:16/05.02.2012
+ * @since 10:16/05.02.2012
  */
 public abstract class VmInstruction<E extends org.napile.asm.tree.members.bytecode.Instruction>
 {

@@ -14,7 +14,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 19:29/14.01.13
+ * @since 19:29/14.01.13
  */
 public class napile_lang_Thread
 {

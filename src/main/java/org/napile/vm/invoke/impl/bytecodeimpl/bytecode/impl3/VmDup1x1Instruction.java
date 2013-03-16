@@ -9,7 +9,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 20:23/06.10.12
+ * @since 20:23/06.10.12
  */
 public class VmDup1x1Instruction extends VmInstruction<Dup1x1Instruction>
 {

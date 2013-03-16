@@ -18,7 +18,7 @@ package org.napile.vm.util.module;
 
 /**
  * @author VISTALL
- * @date 15:07/15.02.13
+ * @since 15:07/15.02.13
  */
 public class Module
 {

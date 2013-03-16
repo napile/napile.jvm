@@ -16,7 +16,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 19:16/29.11.12
+ * @since 19:16/29.11.12
  */
 public class VmInvokeAnonymInstruction extends VmInstruction<InvokeAnonymInstruction>
 {

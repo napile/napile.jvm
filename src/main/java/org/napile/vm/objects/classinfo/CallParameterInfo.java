@@ -12,7 +12,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 18:24/02.02.13
+ * @since 18:24/02.02.13
  */
 public class CallParameterInfo implements ReflectInfo
 {

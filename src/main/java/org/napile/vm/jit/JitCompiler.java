@@ -21,7 +21,7 @@ import org.napile.vm.jit.impl.replacer.NewObjectJitInstructionReplacer;
 
 /**
  * @author VISTALL
- * @date 13:26/03.02.13
+ * @since 13:26/03.02.13
  */
 public class JitCompiler
 {

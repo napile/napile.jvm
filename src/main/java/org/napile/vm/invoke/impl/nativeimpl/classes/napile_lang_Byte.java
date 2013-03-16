@@ -24,7 +24,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 13:52/10.01.13
+ * @since 13:52/10.01.13
  */
 public class napile_lang_Byte
 {

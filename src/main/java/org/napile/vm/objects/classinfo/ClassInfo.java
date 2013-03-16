@@ -35,7 +35,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 16:01/31.01.2012
+ * @since 16:01/31.01.2012
  */
 public class ClassInfo implements ReflectInfo
 {

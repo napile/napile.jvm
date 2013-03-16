@@ -37,7 +37,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 15:59/31.01.2012
+ * @since 15:59/31.01.2012
  */
 public class Main
 {

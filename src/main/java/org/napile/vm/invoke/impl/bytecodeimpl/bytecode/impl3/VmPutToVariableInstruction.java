@@ -28,7 +28,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 19:57/21.09.12
+ * @since 19:57/21.09.12
  */
 public class VmPutToVariableInstruction extends VmInstruction<PutToVariableInstruction>
 {

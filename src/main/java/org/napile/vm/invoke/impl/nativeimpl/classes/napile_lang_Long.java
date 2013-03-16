@@ -9,7 +9,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 18:58/14.01.13
+ * @since 18:58/14.01.13
  */
 public class napile_lang_Long
 {

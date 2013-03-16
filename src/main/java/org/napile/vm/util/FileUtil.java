@@ -20,7 +20,7 @@ import java.io.File;
 
 /**
  * @author VISTALL
- * @date 2:57/02.02.2012
+ * @since 2:57/02.02.2012
  */
 public class FileUtil
 {

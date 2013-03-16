@@ -26,7 +26,7 @@ import org.napile.vm.objects.classinfo.parsing.filemapping.FileMapping;
 
 /**
  * @author VISTALL
- * @date 16:42/31.01.2012
+ * @since 16:42/31.01.2012
  */
 public class VmContext
 {

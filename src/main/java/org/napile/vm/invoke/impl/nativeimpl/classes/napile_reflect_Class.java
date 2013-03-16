@@ -23,7 +23,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 15:22/03.11.12
+ * @since 15:22/03.11.12
  */
 public class napile_reflect_Class
 {

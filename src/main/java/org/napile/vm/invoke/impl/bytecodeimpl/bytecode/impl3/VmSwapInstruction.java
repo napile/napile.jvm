@@ -9,7 +9,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 12:28/29.11.12
+ * @since 12:28/29.11.12
  */
 public class VmSwapInstruction extends VmInstruction<SwapInstruction>
 {

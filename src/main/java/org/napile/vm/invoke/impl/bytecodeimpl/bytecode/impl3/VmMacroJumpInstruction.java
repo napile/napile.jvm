@@ -33,7 +33,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 13:04/24.11.12
+ * @since 13:04/24.11.12
  */
 public class VmMacroJumpInstruction extends VmInstruction<MacroJumpInstruction>
 {

@@ -35,7 +35,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 20:35/02.02.2012
+ * @since 20:35/02.02.2012
  */
 public class ClasspathUtil
 {

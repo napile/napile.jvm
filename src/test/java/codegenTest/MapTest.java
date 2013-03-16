@@ -18,7 +18,7 @@ package codegenTest;
 
 /**
  * @author VISTALL
- * @date 15:09/02.02.13
+ * @since 15:09/02.02.13
  */
 public class MapTest extends MainRunClassTestCase
 {

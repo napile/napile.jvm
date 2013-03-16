@@ -2,7 +2,7 @@ package codegenTest;
 
 /**
  * @author VISTALL
- * @date 19:57/05.01.13
+ * @since 19:57/05.01.13
  */
 public class MultiTypeTest extends MainRunClassTestCase
 {

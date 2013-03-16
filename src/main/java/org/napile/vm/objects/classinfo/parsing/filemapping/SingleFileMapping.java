@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 /**
  * @author VISTALL
- * @date 19:26/02.02.2012
+ * @since 19:26/02.02.2012
  */
 public class SingleFileMapping implements FileMapping
 {

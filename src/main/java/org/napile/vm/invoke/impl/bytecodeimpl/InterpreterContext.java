@@ -28,7 +28,7 @@ import org.napile.vm.objects.BaseObjectInfo;
 
 /**
  * @author VISTALL
- * @date 19:56/15.02.2012
+ * @since 19:56/15.02.2012
  */
 public class InterpreterContext
 {

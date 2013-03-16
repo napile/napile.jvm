@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author VISTALL
- * @date 23:53/16.02.2012
+ * @since 23:53/16.02.2012
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})

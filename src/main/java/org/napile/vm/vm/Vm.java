@@ -54,7 +54,7 @@ import com.intellij.util.ArrayUtil;
 
 /**
  * @author VISTALL
- * @date 17:26/31.01.2012
+ * @since 17:26/31.01.2012
  */
 public class Vm
 {

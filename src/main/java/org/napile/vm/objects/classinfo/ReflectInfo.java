@@ -25,7 +25,7 @@ import org.napile.asm.tree.members.AnnotationNode;
 
 /**
  * @author VISTALL
- * @date 3:03/02.02.2012
+ * @since 3:03/02.02.2012
  */
 public interface ReflectInfo
 {

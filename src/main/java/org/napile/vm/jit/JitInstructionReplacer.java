@@ -22,7 +22,7 @@ import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.VmInstruction;
 
 /**
  * @author VISTALL
- * @date 13:30/03.02.13
+ * @since 13:30/03.02.13
  */
 public interface JitInstructionReplacer<V extends Instruction>
 {

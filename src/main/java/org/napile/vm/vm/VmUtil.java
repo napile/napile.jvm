@@ -40,7 +40,7 @@ import org.napile.vm.util.AssertUtil;
 
 /**
  * @author VISTALL
- * @date 18:27/31.01.2012
+ * @since 18:27/31.01.2012
  */
 public class VmUtil
 {

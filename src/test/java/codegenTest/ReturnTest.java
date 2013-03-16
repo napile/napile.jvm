@@ -18,7 +18,7 @@ package codegenTest;
 
 /**
  * @author VISTALL
- * @date 12:40/24.11.12
+ * @since 12:40/24.11.12
  */
 public class ReturnTest extends MainRunClassTestCase
 {

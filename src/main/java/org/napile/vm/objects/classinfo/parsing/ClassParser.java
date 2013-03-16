@@ -28,7 +28,7 @@ import org.napile.vm.vm.Vm;
 
 /**
  * @author VISTALL
- * @date 16:02/31.01.2012
+ * @since 16:02/31.01.2012
  */
 public class ClassParser
 {

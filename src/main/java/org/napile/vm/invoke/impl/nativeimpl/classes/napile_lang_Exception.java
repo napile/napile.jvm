@@ -17,7 +17,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 16:08/05.10.12
+ * @since 16:08/05.10.12
  */
 public class napile_lang_Exception
 {

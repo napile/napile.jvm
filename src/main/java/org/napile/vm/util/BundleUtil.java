@@ -23,7 +23,7 @@ import org.napile.vm.Main;
 
 /**
  * @author VISTALL
- * @date 20:25/02.02.2012
+ * @since 20:25/02.02.2012
  */
 public class BundleUtil
 {

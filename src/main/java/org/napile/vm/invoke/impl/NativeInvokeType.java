@@ -31,7 +31,7 @@ import org.napile.vm.vm.VmUtil;
 
 /**
  * @author VISTALL
- * @date 0:14/17.02.2012
+ * @since 0:14/17.02.2012
  */
 public class NativeInvokeType implements InvokeType
 {

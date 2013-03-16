@@ -36,7 +36,7 @@ import com.intellij.util.Function;
 
 /**
  * @author VISTALL
- * @date 16:03/31.01.2012
+ * @since 16:03/31.01.2012
  */
 public class MethodInfo implements ReflectInfo
 {

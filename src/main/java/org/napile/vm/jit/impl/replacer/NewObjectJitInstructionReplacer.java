@@ -29,7 +29,7 @@ import org.napile.vm.jit.impl.instruction.JitNewArrayInstruction;
 
 /**
  * @author VISTALL
- * @date 13:32/03.02.13
+ * @since 13:32/03.02.13
  */
 public class NewObjectJitInstructionReplacer implements JitInstructionReplacer<NewObjectInstruction>
 {
