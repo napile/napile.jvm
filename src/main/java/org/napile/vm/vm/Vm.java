@@ -314,7 +314,7 @@ public class Vm
 		if(toCheckClassType.equals(targetClassType))
 			return true;
 
-		if(target.nullable != toCheck.nullable)
+		if(!target.nullable && toCheck.nullable)
 			return false;
 
 		ClassInfo toCheckClassInfo = safeGetClass(toCheckClassType.className);
