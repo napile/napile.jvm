@@ -33,9 +33,16 @@ import com.intellij.util.ArrayUtil;
  */
 public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 {
+	private TypeNode[] methodParameters;
+
 	public VmNewObjectInstruction(NewObjectInstruction instruction)
 	{
 		super(instruction);
+		methodParameters = new TypeNode[instruction.parameters.size()];
+		for(int i = 0; i < methodParameters.length; i++)
+		{
+			methodParameters[i] = instruction.parameters.get(i).returnType;
+		}
 	}
 
 	@Override
@@ -57,13 +64,13 @@ public class VmNewObjectInstruction extends VmInstruction<NewObjectInstruction>
 
 		assert createType != null;
 
-		BaseObjectInfo[] arguments = new BaseObjectInfo[instruction.parameters.size()];
+		BaseObjectInfo[] arguments = new BaseObjectInfo[methodParameters.length];
 		for(int i = 0; i < arguments.length; i++)
 			arguments[i] = context.pop();
 
 		arguments = ArrayUtil.reverseArray(arguments);
 
-		context.push(vm.newObject(context, this, createType, instruction.parameters.toArray(new TypeNode[instruction.parameters.size()]), arguments));
+		context.push(vm.newObject(context, this, createType, methodParameters, arguments));
 		return nextIndex;
 	}
 }
