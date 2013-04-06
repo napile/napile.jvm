@@ -57,6 +57,26 @@ public class napile_lang_Int
 		return VmUtil.staticValue(vm, NapileConditionPackage.COMPARE_RESULT, name);
 	}
 
+	@NativeImplement(methodName = "compareTo", parameters = {"napile.lang.Byte"})
+	public static BaseObjectInfo compareTo$Byte(Vm vm, InterpreterContext context)
+	{
+		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
+		BaseObjectInfo[] arg = context.getLastStack().getArguments();
+
+		int x = (Integer) objectInfo.value();
+		byte y = (Byte)arg[0].value();
+
+		String name;
+		if(x == y)
+			name = "EQUAL";
+		else if(x > y)
+			name = "GREATER";
+		else
+			name = "LOWER";
+
+		return VmUtil.staticValue(vm, NapileConditionPackage.COMPARE_RESULT, name);
+	}
+
 	@NativeImplement(methodName = "plus", parameters = {"napile.lang.Int"})
 	public static BaseObjectInfo plus(Vm vm, InterpreterContext context)
 	{

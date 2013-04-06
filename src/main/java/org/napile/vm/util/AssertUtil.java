@@ -44,8 +44,13 @@ public class AssertUtil
 
 	public static <T> T assertNull(T val)
 	{
+		return assertNull(val, "Cant be null");
+	}
+
+	public static <T> T assertNull(T val, String text)
+	{
 		if(val == null)
-			throw new IllegalArgumentException("Cant be null");
+			throw new IllegalArgumentException(text);
 		return val;
 	}
 

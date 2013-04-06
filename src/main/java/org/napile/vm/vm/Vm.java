@@ -16,6 +16,7 @@
 
 package org.napile.vm.vm;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -196,7 +197,7 @@ public class Vm
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
 
-		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes));
+		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes), "Constructor not found for: " + typeNode + " constructorTypes: " + Arrays.toString(constructorTypes));
 
 		StackEntry stackEntry = new StackEntry(newObject, methodInfo, arguments, typeNode.arguments);
 		stackEntry.position = new CallPosition(instruction);
