@@ -52,6 +52,7 @@ public class JitNewArrayInstruction extends VmInstruction<NewObjectInstruction>
 		BaseObjectInfo arrayObjectValue = VmUtil.convertToVm(vm, context, arrayValue);
 
 		BaseObjectInfo arrayObject = new BaseObjectInfo(vm, classInfo, instruction.value, false);
+		arrayObject.initializeVariables(null, context, vm);
 		arrayObject.setVarValue(vm.getField(classInfo, "length", false), sizeObject);
 
 		BaseObjectInfo[] value = new BaseObjectInfo[size];

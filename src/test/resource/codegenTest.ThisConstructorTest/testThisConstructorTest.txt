@@ -1,0 +1,3 @@
+ThisConstructor0
+val
+after this call

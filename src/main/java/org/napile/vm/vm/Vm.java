@@ -236,26 +236,22 @@ public class Vm
 		TypeNode newObjectType = new TypeNode(false, new ClassTypeNode(NapileReflectPackage.TYPE));
 		newObjectType.visitArgument(targetType);
 
-		BaseObjectInfo array = VmUtil.createArray(this, NAPILE_LANG_ARRAY__TYPE____ANY____, targetType.arguments.size());
+		BaseObjectInfo array = VmUtil.createArray(this, context, NAPILE_LANG_ARRAY__TYPE____ANY____, targetType.arguments.size());
 		BaseObjectInfo[] values = array.value();
 		for(int i = 0; i < values.length; i++)
 			values[i] = createTypeObject(context, targetType.arguments.get(i));
 
-		return newObject(context, null, newObjectType,
-				new TypeNode[]
-				{
-					new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(new TypeNode(false, new TypeParameterValueTypeNode(Name.identifier("E")))),
-						NAPILE_LANG_ARRAY__TYPE____ANY____,
-						AsmConstants.BOOL_TYPE,
-					VmReflectUtil.NAPILE_LANG_ARRAY__ANY__
-				},
-				new BaseObjectInfo[]
-				{
-					getOrCreateClassObject(context, safeGetClass(toClassType(context, t).className)),
-					array,
-					VmUtil.convertToVm(this, context, targetType.nullable),
-					VmReflectUtil.createArray$Any$Annotations(this, context, targetType.annotations)
-				});
+		return newObject(context, null, newObjectType, new TypeNode[]{
+				new TypeNode(false, new ClassTypeNode(NapileReflectPackage.CLASS)).visitArgument(new TypeNode(false, new TypeParameterValueTypeNode(Name.identifier("E")))),
+				NAPILE_LANG_ARRAY__TYPE____ANY____,
+				AsmConstants.BOOL_TYPE,
+				VmReflectUtil.NAPILE_LANG_ARRAY__ANY__
+		}, new BaseObjectInfo[]{
+				getOrCreateClassObject(context, safeGetClass(toClassType(context, t).className)),
+				array,
+				VmUtil.convertToVm(this, context, targetType.nullable),
+				VmReflectUtil.createArray$Any$Annotations(this, context, targetType.annotations)
+		});
 	}
 
 	private boolean canAcceptTypes(@NotNull TypeNode[] original, @NotNull TypeNode[] target)
@@ -416,7 +412,7 @@ public class Vm
 
 	public MethodInfo getMacro0(ClassInfo info, String name, boolean deep, TypeNode[] params)
 	{
-		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMacros(this, info) : info.getMacros();
+		List<MethodInfo> methodInfos = deep ? VmUtil.collectAllMacros(this, info) : info.getMacros();
 
 		for(MethodInfo methodInfo : methodInfos)
 		{
@@ -433,7 +429,7 @@ public class Vm
 
 	public MethodInfo getMethod0(ClassInfo info, String name, boolean deep, TypeNode[] params)
 	{
-		List<MethodInfo> methodInfos =  deep ? VmUtil.collectAllMethods(this, info) : info.getMethods();
+		List<MethodInfo> methodInfos = deep ? VmUtil.collectAllMethods(this, info) : info.getMethods();
 
 		for(MethodInfo methodInfo : methodInfos)
 		{
@@ -450,22 +446,32 @@ public class Vm
 
 	public synchronized void initStaticIfNeed(@NotNull ClassInfo parent)
 	{
+		if(parent.getObjectForStatic() != null)
+		{
+			return;
+		}
+
 		for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(this, parent))
 		{
-			if(ownerClassInfo.getObjectForStatic() != null)
-				continue;
-
-			BaseObjectInfo baseObjectInfo = new BaseObjectInfo(this, ownerClassInfo, new TypeNode(false, new ClassTypeNode(ownerClassInfo.getFqName())), true);
-			ownerClassInfo.setObjectForStatic(baseObjectInfo);
-			baseObjectInfo.initializeVariables(null , new InterpreterContext(), this);
-
-			MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodNode.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
-
-			if(methodInfo != null)
+			synchronized(ownerClassInfo)
 			{
-				LOGGER.debug("Static constructor call: " + ownerClassInfo);
+				if(ownerClassInfo.getObjectForStatic() != null)
+				{
+					continue;
+				}
 
-				invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
+				BaseObjectInfo baseObjectInfo = new BaseObjectInfo(this, ownerClassInfo, new TypeNode(false, new ClassTypeNode(ownerClassInfo.getFqName())), true);
+				ownerClassInfo.setObjectForStatic(baseObjectInfo);
+				baseObjectInfo.initializeVariables(null, new InterpreterContext(), this);
+
+				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodNode.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
+
+				if(methodInfo != null)
+				{
+					invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
+				}
+
+				LOGGER.debug("Static init: " + ownerClassInfo);
 			}
 		}
 	}

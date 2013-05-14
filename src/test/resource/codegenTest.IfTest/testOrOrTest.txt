@@ -1,0 +1,4 @@
+b is 1
+failed 2
+b is 2 or 1
+failed 4

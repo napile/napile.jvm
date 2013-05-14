@@ -105,10 +105,11 @@ public class VmUtil
 
 			ClassInfo stringClassInfo = vm.safeGetClass(NapileLangPackage.STRING);
 			BaseObjectInfo stringObject = new BaseObjectInfo(vm, stringClassInfo, AsmConstants.STRING_TYPE, false);
+			stringObject.initializeVariables(null, context, vm);
 			stringObject.setVarValue(vm.getField(stringClassInfo, "count", false), VmUtil.convertToVm(vm, context, chars.length));
 			stringObject.setVarValue(vm.getField(stringClassInfo, "offset", false), VmUtil.convertToVm(vm, context, 0));
 
-			BaseObjectInfo arrayObject = createArray(vm, ARRAY__CHAR__, chars.length);
+			BaseObjectInfo arrayObject = createArray(vm, context, ARRAY__CHAR__, chars.length);
 			stringObject.setVarValue(vm.getField(stringClassInfo, "array", false), arrayObject);
 
 			final BaseObjectInfo[] arrayAttach = arrayObject.value();
@@ -137,11 +138,12 @@ public class VmUtil
 			throw new UnsupportedOperationException(value.getClass().getName());
 	}
 
-	public static BaseObjectInfo createArray(Vm vm, TypeNode type, int size)
+	public static BaseObjectInfo createArray(Vm vm, InterpreterContext context, TypeNode type, int size)
 	{
 		ClassInfo classInfo = vm.safeGetClass(NapileLangPackage.ARRAY);
 
 		BaseObjectInfo baseObjectInfo = new BaseObjectInfo(vm, classInfo, type, false);
+		baseObjectInfo.initializeVariables(null, context, vm);
 		baseObjectInfo.setVarValue(vm.getField(classInfo, "length", false), vm.newObject(INT).value(size));
 		BaseObjectInfo[] value = new BaseObjectInfo[size];
 		for(int i = 0; i < value.length; i++)
@@ -163,6 +165,8 @@ public class VmUtil
 		if(fqName.equals(NapileLangPackage.STRING))
 		{
 			BaseObjectInfo baseObjectInfo = val.getVarValue(vm.getField(vm.safeGetClass(NapileLangPackage.STRING), "array", false));
+			baseObjectInfo.initializeVariables(null, new InterpreterContext(), vm);
+
 			BaseObjectInfo[] attach = baseObjectInfo.value();
 			StringBuilder b = new StringBuilder();
 			for(BaseObjectInfo i : attach)

@@ -18,6 +18,7 @@ package org.napile.vm.objects;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmUtil;
+import com.intellij.util.ExceptionUtil;
 
 /**
  * @author VISTALL
@@ -58,6 +60,8 @@ public final class BaseObjectInfo
 
 	private Object attach;
 
+	private String createStackTrace;
+
 	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo, @NotNull TypeNode typeNode, boolean staticObject)
 	{
 		this.classInfo = classInfo;
@@ -75,7 +79,7 @@ public final class BaseObjectInfo
 		}
 
 		List<VariableInfo> variableInfos = staticObject ? classInfo.getVariables() : VmUtil.collectAllFields(vm, classInfo);
-		variables = new HashMap<VariableInfo, VariableState>(variableInfos.size());
+		variables = new LinkedHashMap<VariableInfo, VariableState>(variableInfos.size());
 
 		for(VariableInfo f : variableInfos)
 		{
@@ -84,6 +88,7 @@ public final class BaseObjectInfo
 
 			variables.put(f, new VariableState());
 		}
+		createStackTrace = ExceptionUtil.getThrowableText(new Exception());
 	}
 
 	@NotNull
@@ -101,9 +106,9 @@ public final class BaseObjectInfo
 			throw new IllegalArgumentException("Object: " + this + " not contains variable: " + variableInfo);
 		}
 
-		if(variableState.value == null)
+		if(!variableState.initialized)
 		{
-			throw new IllegalArgumentException("Object: " + this + " variable: " + variableInfo + " is not initialized.");
+			throw new IllegalArgumentException("Object: " + this + " variable: " + variableInfo + " is not initialized.\n" + createStackTrace);
 		}
 		return variableState.value;
 	}

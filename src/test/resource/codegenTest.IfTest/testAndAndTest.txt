@@ -1,0 +1,4 @@
+b == 1
+b is Int
+b == 1 && b is Int
+fail 'b != 1 && b != 2'

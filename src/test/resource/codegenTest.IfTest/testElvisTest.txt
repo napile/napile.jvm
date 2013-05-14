@@ -1,0 +1,2 @@
+now is not null
+now is not null

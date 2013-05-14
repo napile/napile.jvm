@@ -56,7 +56,7 @@ public class VmReflectUtil
 
 	public static BaseObjectInfo createArray$Modifier$(Vm vm, InterpreterContext context, ReflectInfo memberNode)
 	{
-		BaseObjectInfo baseObjectInfo = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__MODIFIER__, memberNode.getModifiers().length);
+		BaseObjectInfo baseObjectInfo = VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__MODIFIER__, memberNode.getModifiers().length);
 		BaseObjectInfo[] value = baseObjectInfo.value();
 
 		int i = 0;
@@ -68,7 +68,7 @@ public class VmReflectUtil
 
 	public static BaseObjectInfo createArray$Any$Annotations(Vm vm, InterpreterContext context, List<AnnotationNode> annotations)
 	{
-		BaseObjectInfo baseObjectInfo = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ANY__, annotations.size());
+		BaseObjectInfo baseObjectInfo = VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__ANY__, annotations.size());
 		BaseObjectInfo[] value = baseObjectInfo.value();
 
 		int i = 0;

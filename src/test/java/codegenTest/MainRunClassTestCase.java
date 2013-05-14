@@ -1,5 +1,8 @@
 package codegenTest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import org.napile.vm.util.cloption.CLProcessor;
 import org.napile.vm.vm.Vm;
 import org.napile.vm.vm.VmContext;
 import org.napile.vm.vm.VmUtil;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import junit.framework.TestCase;
 
@@ -33,6 +37,13 @@ public abstract class MainRunClassTestCase extends TestCase
 	protected void runTest() throws Throwable
 	{
 		assertNotNull("TestCase.fName cannot be null", getName()); // Some VMs crash when calling getMethod(null,null);
+
+		final PrintStream oldOut = System.out;
+
+		final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+		PrintStream printStream = new PrintStream(byteStream);
+		System.setOut(printStream);
+
 		Method runMethod = null;
 		try
 		{
@@ -57,6 +68,22 @@ public abstract class MainRunClassTestCase extends TestCase
 			return;
 		}
 		doTest();
+
+		System.setOut(oldOut);
+
+		final String s = "src/test/resource/" + getClass().getName() + "/" + getName() + ".txt";
+
+		File file = new File(s);
+		if(!file.exists())
+		{
+			FileUtil.writeToFile(file, byteStream.toByteArray());
+		}
+		else
+		{
+			final String expectedResult = FileUtil.loadFile(file);
+
+			assertEquals(s, expectedResult, byteStream.toString());
+		}
 	}
 
 	protected void doTest()
@@ -100,7 +127,7 @@ public abstract class MainRunClassTestCase extends TestCase
 		for(String a : vmContext.getArguments())
 			list.add(VmUtil.convertToVm(vm, interpreterContext, a));
 
-		BaseObjectInfo arrayObject = VmUtil.createArray(vm, VmUtil.ARRAY__STRING__, list.size());
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, interpreterContext, VmUtil.ARRAY__STRING__, list.size());
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);

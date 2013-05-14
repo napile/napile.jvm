@@ -1,0 +1,1 @@
+codegenTest.classAndTypeTest.ClassOfTest

@@ -1,0 +1,5 @@
+Array<Int> is Array<Int>
+Array<Int> is Array<Any>
+Array<Int> is Array<Any?>
+Array<Int> is Any
+Array<Int> is Any?

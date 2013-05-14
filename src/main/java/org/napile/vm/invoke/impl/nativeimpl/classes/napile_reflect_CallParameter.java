@@ -48,7 +48,7 @@ public class napile_reflect_CallParameter
 	private static BaseObjectInfo convertType(Vm vm, InterpreterContext context, TypeNode typeNode)
 	{
 		//TODO [VISTALL] annotations
-		BaseObjectInfo annotationArray = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ASM_ANNOTATION__, 0);
+		BaseObjectInfo annotationArray = VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__ASM_ANNOTATION__, 0);
 		BaseObjectInfo constructorObject = null;
 		if(typeNode.typeConstructorNode instanceof ClassTypeNode)
 			constructorObject = vm.newObject(context, null, NAPILE_ASM_MEMBERS_ASM_TYPE_CONSTRUCTOR_ASM_CLASS_TYPE, new TypeNode[]{AsmConstants.STRING_TYPE}, new BaseObjectInfo[]{VmUtil.convertToVm(vm, context, ((ClassTypeNode) typeNode.typeConstructorNode).className.getFqName())});
@@ -57,7 +57,7 @@ public class napile_reflect_CallParameter
 		else
 			throw new UnsupportedOperationException("Unknown how convert constructor " + typeNode.typeConstructorNode);
 
-		BaseObjectInfo parametersArray = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ASM_TYPE__, typeNode.arguments.size());
+		BaseObjectInfo parametersArray = VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__ASM_TYPE__, typeNode.arguments.size());
 		BaseObjectInfo[] parametersArrayValue = parametersArray.value();
 		for(int i = 0; i < parametersArrayValue.length; i++)
 			parametersArrayValue[i] = convertType(vm, context, typeNode.arguments.get(i));

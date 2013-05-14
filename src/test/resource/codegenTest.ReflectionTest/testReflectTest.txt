@@ -1,0 +1,8 @@
+method: myVar$get|false
+method: myVar$set|false
+method: myVar2$get|false
+method: myVar2$set|false
+method: test|false
+method: testStatic|true
+constructor: this
+macro: testIt|false

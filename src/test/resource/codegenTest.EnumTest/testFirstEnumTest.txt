@@ -1,0 +1,3 @@
+napile.condition.CompareResult$EQUAL
+napile.condition.CompareResult$GREATER
+napile.condition.CompareResult$LOWER

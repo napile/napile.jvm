@@ -86,7 +86,7 @@ public class Main
 		for(String str : vmContext.getArguments())
 			list.add(VmUtil.convertToVm(vm, interpreterContext, str));
 
-		BaseObjectInfo arrayObject = VmUtil.createArray(vm, VmUtil.ARRAY__STRING__, list.size());
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, interpreterContext, VmUtil.ARRAY__STRING__, list.size());
 		BaseObjectInfo[] arrayOfObjects = arrayObject.value();
 		for(int i = 0; i < list.size(); i++)
 			arrayOfObjects[i] = list.get(i);

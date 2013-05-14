@@ -1,0 +1,16 @@
+Languages
+	1. XML = <xml att="1234" />
+	2. Java =
+			public class A
+			{
+				public static void main(String... arg)
+				{
+
+				}
+			}
+	3. SQL = SELECT * WHERE `name` = 1 FROM tests
+
+	MY_VAR == 1   
+
+	4. After MY_VAR
+

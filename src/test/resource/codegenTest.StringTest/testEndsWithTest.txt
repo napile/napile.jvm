@@ -1,0 +1,2 @@
+str: endsWith : result(With): true
+str: endsWith : result(ends): false

@@ -1,0 +1,2 @@
+napile.collection.List<napile.lang.String?>
+codegenTest.typeTest.TypeTarget<napile.collection.List<napile.lang.String?>>

@@ -46,7 +46,7 @@ public class napile_reflect_Method
 		if(returnValues == null)
 			return null;
 
-		BaseObjectInfo array = VmUtil.createArray(vm, NAPILE_LANG_ARRAY__ANY_NULLABLE__, returnValues.length);
+		BaseObjectInfo array = VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__ANY_NULLABLE__, returnValues.length);
 
 		BaseObjectInfo[] objectsOfArray = array.value();
 		System.arraycopy(returnValues, 0, objectsOfArray, 0, objectsOfArray.length);

@@ -66,7 +66,7 @@ public class napile_reflect_Class
 			methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.METHOD, baseObjectInfo, vm, context, methodInfo));
 		}
 
-		BaseObjectInfo arrayObject = VmUtil.createArray(vm, ARRAY__NAPILE_REFLECT_METHOD__, methodObjects.size());
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, context, ARRAY__NAPILE_REFLECT_METHOD__, methodObjects.size());
 		BaseObjectInfo[] array = arrayObject.value();
 		for(int i = 0; i < methodObjects.size(); i++)
 			array[i] = methodObjects.get(i);
@@ -94,7 +94,7 @@ public class napile_reflect_Class
 				methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.CONSTRUCTOR, baseObjectInfo, vm, context, methodInfo));
 		}
 
-		BaseObjectInfo arrayObject = VmUtil.createArray(vm, ARRAY__NAPILE_REFLECT_CONSTRUCTOR__, methodObjects.size());
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm, context, ARRAY__NAPILE_REFLECT_CONSTRUCTOR__, methodObjects.size());
 		BaseObjectInfo[] array = arrayObject.value();
 		for(int i = 0; i < methodObjects.size(); i++)
 			array[i] = methodObjects.get(i);
@@ -118,7 +118,7 @@ public class napile_reflect_Class
 		for(MethodInfo methodInfo : methods)
 			methodObjects.add(VmReflectUtil.createReflectObject(VmReflectUtil.MACRO, baseObjectInfo, vm, context, methodInfo));
 
-		BaseObjectInfo arrayObject = VmUtil.createArray(vm, ARRAY__NAPILE_REFLECT_MACRO__, methodObjects.size());
+		BaseObjectInfo arrayObject = VmUtil.createArray(vm,context, ARRAY__NAPILE_REFLECT_MACRO__, methodObjects.size());
 		BaseObjectInfo[] array = arrayObject.value();
 		for(int i = 0; i < methodObjects.size(); i++)
 			array[i] = methodObjects.get(i);

@@ -30,7 +30,7 @@ public class napile_reflect_MethodLike
 		BaseObjectInfo objectInfo = context.getLastStack().getObjectInfo();
 		MethodInfo methodInfo = objectInfo.value();
 
-		BaseObjectInfo array =VmUtil.createArray(vm, NAPILE_LANG_ARRAY__CALL_PARAMETER__, methodInfo.getMethodNode().parameters.size());
+		BaseObjectInfo array =VmUtil.createArray(vm, context, NAPILE_LANG_ARRAY__CALL_PARAMETER__, methodInfo.getMethodNode().parameters.size());
 		BaseObjectInfo[] value = array.value();
 
 		int i = 0;

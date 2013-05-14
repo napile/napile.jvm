@@ -1,0 +1,4 @@
+i == 1
+center
+i - else
+after
