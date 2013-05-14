@@ -22,9 +22,9 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.asm.tree.members.AnnotationNode;
+import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.VariableNode;
 import org.napile.asm.tree.members.types.TypeNode;
-import org.napile.vm.objects.BaseObjectInfo;
 import com.intellij.util.ArrayUtil;
 
 /**
@@ -35,8 +35,6 @@ public class VariableInfo implements ReflectInfo
 {
 	private final ClassInfo parent;
 	private final VariableNode variableNode;
-
-	private BaseObjectInfo staticValue;
 
 	public VariableInfo(ClassInfo parent, VariableNode variableNode)
 	{
@@ -81,19 +79,14 @@ public class VariableInfo implements ReflectInfo
 		return variableNode.annotations;
 	}
 
-	public void setStaticValue(BaseObjectInfo value)
-	{
-		staticValue = value;
-	}
-
-	public BaseObjectInfo getStaticValue()
-	{
-		return staticValue;
-	}
-
 	public TypeNode getType()
 	{
 		return variableNode.returnType;
+	}
+
+	public CodeInfo getCodeInfo()
+	{
+		return variableNode.code;
 	}
 
 	@Override

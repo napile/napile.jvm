@@ -65,7 +65,7 @@ public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 			c.stackEntry.set(pair.b, last.get(pair.a));
 		}
 
-		BaseObjectInfo objectInfo = new BaseObjectInfo(vm, vm.safeGetClass(NapileLangPackage.NULL), AsmConstants.NULL_TYPE);
+		BaseObjectInfo objectInfo = new BaseObjectInfo(vm, vm.safeGetClass(NapileLangPackage.NULL), AsmConstants.NULL_TYPE, false);
 		objectInfo.value(c);
 
 		c.invokeType = invokeType;

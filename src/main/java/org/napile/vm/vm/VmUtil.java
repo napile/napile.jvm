@@ -90,10 +90,11 @@ public class VmUtil
 
 		AssertUtil.assertNull(variableInfo);
 
-		return variableInfo.getStaticValue();
+		return classInfo.getObjectForStatic().getVarValue(variableInfo);
 
 	}
 
+	@NotNull
 	public static BaseObjectInfo convertToVm(@NotNull Vm vm, @NotNull InterpreterContext context, @Nullable Object value)
 	{
 		if(value == null)
@@ -103,7 +104,7 @@ public class VmUtil
 			char[] chars = ((String) value).toCharArray();
 
 			ClassInfo stringClassInfo = vm.safeGetClass(NapileLangPackage.STRING);
-			BaseObjectInfo stringObject = new BaseObjectInfo(vm, stringClassInfo, AsmConstants.STRING_TYPE);
+			BaseObjectInfo stringObject = new BaseObjectInfo(vm, stringClassInfo, AsmConstants.STRING_TYPE, false);
 			stringObject.setVarValue(vm.getField(stringClassInfo, "count", false), VmUtil.convertToVm(vm, context, chars.length));
 			stringObject.setVarValue(vm.getField(stringClassInfo, "offset", false), VmUtil.convertToVm(vm, context, 0));
 
@@ -140,7 +141,7 @@ public class VmUtil
 	{
 		ClassInfo classInfo = vm.safeGetClass(NapileLangPackage.ARRAY);
 
-		BaseObjectInfo baseObjectInfo = new BaseObjectInfo(vm, classInfo, type);
+		BaseObjectInfo baseObjectInfo = new BaseObjectInfo(vm, classInfo, type, false);
 		baseObjectInfo.setVarValue(vm.getField(classInfo, "length", false), vm.newObject(INT).value(size));
 		BaseObjectInfo[] value = new BaseObjectInfo[size];
 		for(int i = 0; i < value.length; i++)

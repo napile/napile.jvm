@@ -70,7 +70,7 @@ public class VmThrowInstruction extends VmInstruction<ThrowInstruction>
 				}
 			}
 
-			iterator.remove();
+		//	iterator.remove();
 		}
 
 		MethodInfo methodInfo = vm.getMethod(object.getClassInfo(), "printStackTrace", true, new TypeNode[0]);

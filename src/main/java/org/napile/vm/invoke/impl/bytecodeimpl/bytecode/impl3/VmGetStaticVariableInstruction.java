@@ -53,7 +53,7 @@ public class VmGetStaticVariableInstruction extends VmInstruction<GetStaticVaria
 
 		AssertUtil.assertNull(variableInfo);
 
-		context.push(variableInfo.getStaticValue());
+		context.push(classInfo.getObjectForStatic().getVarValue(variableInfo));
 
 		return nextIndex;
 	}

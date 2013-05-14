@@ -25,8 +25,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.Modifier;
 import org.napile.asm.resolve.name.Name;
+import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
+import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
+import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
+import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.VmNewObjectInstruction;
 import org.napile.vm.objects.classinfo.ClassInfo;
 import org.napile.vm.objects.classinfo.VariableInfo;
 import org.napile.vm.vm.Vm;
@@ -40,22 +45,24 @@ public final class BaseObjectInfo
 {
 	public static final BaseObjectInfo[] EMPTY_ARRAY = new BaseObjectInfo[0];
 
-	private final Map<VariableInfo, BaseObjectInfo> variables = new HashMap<VariableInfo, BaseObjectInfo>();
+	private final Map<VariableInfo, VariableState> variables;
 
 	private final Map<Name, TypeNode> typeArguments = new HashMap<Name, TypeNode>();
 
 	private final ClassInfo classInfo;
 
 	private final TypeNode typeNode;
+	private final boolean staticObject;
 
 	private BaseObjectInfo typeObject;
 
 	private Object attach;
 
-	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo, @NotNull TypeNode typeNode)
+	public BaseObjectInfo(@NotNull Vm vm, @NotNull ClassInfo classInfo, @NotNull TypeNode typeNode, boolean staticObject)
 	{
 		this.classInfo = classInfo;
 		this.typeNode = typeNode;
+		this.staticObject = staticObject;
 
 		Iterator<TypeParameterNode> it = classInfo.getTypeParameters().iterator();
 		Iterator<TypeNode> it2 = typeNode.arguments.iterator();
@@ -67,14 +74,15 @@ public final class BaseObjectInfo
 			typeArguments.put(t1.name, t2);
 		}
 
-		List<VariableInfo> variableInfos = VmUtil.collectAllFields(vm, classInfo);
+		List<VariableInfo> variableInfos = staticObject ? classInfo.getVariables() : VmUtil.collectAllFields(vm, classInfo);
+		variables = new HashMap<VariableInfo, VariableState>(variableInfos.size());
 
 		for(VariableInfo f : variableInfos)
 		{
-			if(f.hasModifier(Modifier.STATIC))
+			if(f.hasModifier(Modifier.STATIC) && !staticObject || !f.hasModifier(Modifier.STATIC) && staticObject)
 				continue;
 
-			variables.put(f, null);
+			variables.put(f, new VariableState());
 		}
 	}
 
@@ -86,7 +94,18 @@ public final class BaseObjectInfo
 
 	public BaseObjectInfo getVarValue(@NotNull VariableInfo variableInfo)
 	{
-		return variables.get(variableInfo);
+		final VariableState variableState = variables.get(variableInfo);
+
+		if(variableState == null)
+		{
+			throw new IllegalArgumentException("Object: " + this + " not contains variable: " + variableInfo);
+		}
+
+		if(variableState.value == null)
+		{
+			throw new IllegalArgumentException("Object: " + this + " variable: " + variableInfo + " is not initialized.");
+		}
+		return variableState.value;
 	}
 
 	public boolean hasVar(VariableInfo variableInfo)
@@ -96,7 +115,47 @@ public final class BaseObjectInfo
 
 	public void setVarValue(@NotNull VariableInfo varValue, @NotNull BaseObjectInfo value)
 	{
-		variables.put(varValue, value);
+		final VariableState variableState = variables.get(varValue);
+
+		if(variableState == null)
+		{
+			throw new IllegalArgumentException("Object: " + this + " not contains variable: " + varValue);
+		}
+
+		variableState.value = value;
+	}
+
+	public void initializeVariables(VmNewObjectInstruction instruction, InterpreterContext context, Vm vm)
+	{
+		for(Map.Entry<VariableInfo, VariableState> entry : variables.entrySet())
+		{
+			final VariableInfo key = entry.getKey();
+			final VariableState value = entry.getValue();
+
+			if(!value.initialized)
+			{
+				value.initialized = true;
+
+				final CodeInfo codeInfo = key.getCodeInfo();
+				if(codeInfo == null)
+				{
+					continue;
+				}
+
+				StackEntry stackEntry = new StackEntry(codeInfo.maxLocals, staticObject ? BaseObjectInfo.EMPTY_ARRAY : new BaseObjectInfo[] {this}, codeInfo.tryCatchBlockNodes);
+				//stackEntry.position = new CallPosition(instruction);
+
+				context.getStack().add(stackEntry);
+
+				BytecodeInvokeType invokeType = new BytecodeInvokeType();
+				invokeType.convertInstructions(codeInfo.instructions, null);
+
+				invokeType.call(vm, context);
+
+				context.getStack().remove(stackEntry);
+
+			}
+		}
 	}
 
 	@Override

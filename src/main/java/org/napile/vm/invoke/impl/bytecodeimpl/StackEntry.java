@@ -213,7 +213,7 @@ public class StackEntry
 		returnValues = new BaseObjectInfo[count];
 	}
 
-	public void setReturnValue(int index, BaseObjectInfo value)
+	public void setReturnValue(int index, @NotNull BaseObjectInfo value)
 	{
 		returnValues[index] = value;
 	}

@@ -60,7 +60,7 @@ public class VmInvokeSpecialInstruction extends VmInstruction<InvokeSpecialInstr
 
 		MethodInfo methodInfo = vm.getMethod(classInfo, methodName, false, parameterTypes);
 
-		AssertUtil.assertFalse(methodInfo != null, "Method not found " + methodName + " " + className + " parameters " + StringUtil.join(instruction.methodRef.parameters, ", "));
+		AssertUtil.assertFalse(methodInfo != null, "Method not found '" + methodName + "' class '" + className + "' parameters {" + StringUtil.join(instruction.methodRef.parameters, ", ") + "}");
 
 		BaseObjectInfo[] arguments = new BaseObjectInfo[parameterTypes.length];
 		for(int i = 0; i < arguments.length; i++)

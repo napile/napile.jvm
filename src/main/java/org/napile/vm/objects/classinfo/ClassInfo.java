@@ -45,9 +45,8 @@ public class ClassInfo implements ReflectInfo
 
 	public ClassNode classNode;
 
-	private boolean staticConstructorCalled;
-
 	private BaseObjectInfo classObjectInfo;
+	private BaseObjectInfo objectForStatic;
 
 	public ClassInfo(ClassNode classNode)
 	{
@@ -145,16 +144,6 @@ public class ClassInfo implements ReflectInfo
 		return classNode.name.shortName().getName();
 	}
 
-	public boolean isStaticConstructorCalled()
-	{
-		return staticConstructorCalled;
-	}
-
-	public void setStaticConstructorCalled(boolean staticConstructorCalled)
-	{
-		this.staticConstructorCalled = staticConstructorCalled;
-	}
-
 	@Override
 	public String toString()
 	{
@@ -169,5 +158,15 @@ public class ClassInfo implements ReflectInfo
 	public void setClassObjectInfo(BaseObjectInfo classObjectInfo)
 	{
 		this.classObjectInfo = classObjectInfo;
+	}
+
+	public BaseObjectInfo getObjectForStatic()
+	{
+		return objectForStatic;
+	}
+
+	public void setObjectForStatic(BaseObjectInfo objectForStatic)
+	{
+		this.objectForStatic = objectForStatic;
 	}
 }

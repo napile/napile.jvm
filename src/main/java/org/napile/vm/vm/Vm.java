@@ -186,7 +186,7 @@ public class Vm
 
 			initStaticIfNeed(classInfo);
 
-			return new BaseObjectInfo(this, classInfo, typeNode);
+			return new BaseObjectInfo(this, classInfo, typeNode, false);
 		}
 		else
 			throw new UnsupportedOperationException("This type constructor is cant be created by 'newObject' " + typeConstructorNode);
@@ -196,6 +196,8 @@ public class Vm
 	public BaseObjectInfo newObject(@NotNull InterpreterContext context, VmNewObjectInstruction instruction, @NotNull TypeNode typeNode, TypeNode[] constructorTypes, BaseObjectInfo[] arguments)
 	{
 		BaseObjectInfo newObject = newObject(typeNode);
+
+		newObject.initializeVariables(instruction, context, this);
 
 		MethodInfo methodInfo = AssertUtil.assertNull(getMethod(newObject.getClassInfo(), MethodNode.CONSTRUCTOR_NAME.getName(), false, constructorTypes), "Constructor not found for: " + typeNode + " constructorTypes: " + Arrays.toString(constructorTypes));
 
@@ -448,22 +450,22 @@ public class Vm
 
 	public synchronized void initStaticIfNeed(@NotNull ClassInfo parent)
 	{
-		if(!parent.isStaticConstructorCalled())
+		for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(this, parent))
 		{
-			for(ClassInfo ownerClassInfo : VmUtil.collectAllClasses(this, parent))
+			if(ownerClassInfo.getObjectForStatic() != null)
+				continue;
+
+			BaseObjectInfo baseObjectInfo = new BaseObjectInfo(this, ownerClassInfo, new TypeNode(false, new ClassTypeNode(ownerClassInfo.getFqName())), true);
+			ownerClassInfo.setObjectForStatic(baseObjectInfo);
+			baseObjectInfo.initializeVariables(null , new InterpreterContext(), this);
+
+			MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodNode.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
+
+			if(methodInfo != null)
 			{
-				if(ownerClassInfo.isStaticConstructorCalled())
-					continue;
+				LOGGER.debug("Static constructor call: " + ownerClassInfo);
 
-				ownerClassInfo.setStaticConstructorCalled(true);
-				MethodInfo methodInfo = getStaticMethod(ownerClassInfo, MethodNode.STATIC_CONSTRUCTOR_NAME.getName(), false, ArrayUtil.EMPTY_STRING_ARRAY);
-
-				if(methodInfo != null)
-				{
-					LOGGER.debug("Static constructor call: " + ownerClassInfo);
-
-					invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
-				}
+				invoke(new InterpreterContext(new StackEntry(null, methodInfo, BaseObjectInfo.EMPTY_ARRAY, Collections.<TypeNode>emptyList())), methodInfo.getInvokeType());
 			}
 		}
 	}
