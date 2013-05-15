@@ -74,7 +74,7 @@ public class VmReflectUtil
 		int i = 0;
 		for(AnnotationNode annotationNode : annotations)
 		{
-			StackEntry stackEntry = new StackEntry(0, null, BaseObjectInfo.EMPTY_ARRAY, annotationNode.code.tryCatchBlockNodes);
+			StackEntry stackEntry = new StackEntry(annotationNode.code.maxLocals, null, BaseObjectInfo.EMPTY_ARRAY, annotationNode.code.tryCatchBlockNodes);
 
 			context.getStack().add(stackEntry);
 
@@ -83,7 +83,7 @@ public class VmReflectUtil
 
 			invokeType.call(vm, context);
 
-			value[i++] = stackEntry.pop();
+			value[i++] = stackEntry.getReturnValues()[0];
 
 			context.getStack().remove(stackEntry);
 		}
