@@ -16,15 +16,12 @@
 
 package codegenTest;
 
-import org.napile.vm.SkipTest;
-
 /**
  * @author VISTALL
  * @since 15:09/02.02.13
  */
 public class MapTest extends MainRunClassTestCase
 {
-	@SkipTest
 	public void testMapTest0()
 	{
 	}

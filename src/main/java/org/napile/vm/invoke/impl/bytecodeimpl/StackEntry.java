@@ -75,9 +75,10 @@ public class StackEntry
 	private final Map<Name, TypeNode> typeArguments = new HashMap<Name, TypeNode>();
 
 	// for annotations & anonym invoke
-	public StackEntry(int maxLocals, BaseObjectInfo[] arguments, Collection<TryCatchBlockNode> tryCatchBlockNodes)
+	public StackEntry(int maxLocals, BaseObjectInfo thisObject, BaseObjectInfo[] arguments, Collection<TryCatchBlockNode> tryCatchBlockNodes)
 	{
 		this.arguments = arguments;
+		this.objectInfo = thisObject;
 
 		this.tryCatchBlockNodes = tryCatchBlockNodes;
 

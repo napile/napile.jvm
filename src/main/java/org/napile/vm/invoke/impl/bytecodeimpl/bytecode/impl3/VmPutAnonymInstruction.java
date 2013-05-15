@@ -58,7 +58,7 @@ public class VmPutAnonymInstruction extends VmInstruction<PutAnonymInstruction>
 		StackEntry last = context.getLastStack();
 
 		AnonymContext c = new AnonymContext();
-		c.stackEntry = new StackEntry(instruction.code.maxLocals, new BaseObjectInfo[instruction.code.maxLocals], instruction.code.tryCatchBlockNodes);
+		c.stackEntry = new StackEntry(instruction.code.maxLocals, null, new BaseObjectInfo[instruction.code.maxLocals], instruction.code.tryCatchBlockNodes);
 
 		for(IntIntPair pair : instruction.require)
 		{

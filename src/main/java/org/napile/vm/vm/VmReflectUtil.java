@@ -74,7 +74,7 @@ public class VmReflectUtil
 		int i = 0;
 		for(AnnotationNode annotationNode : annotations)
 		{
-			StackEntry stackEntry = new StackEntry(0, BaseObjectInfo.EMPTY_ARRAY, annotationNode.code.tryCatchBlockNodes);
+			StackEntry stackEntry = new StackEntry(0, null, BaseObjectInfo.EMPTY_ARRAY, annotationNode.code.tryCatchBlockNodes);
 
 			context.getStack().add(stackEntry);
 

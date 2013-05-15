@@ -1,0 +1,8 @@
+size 1
+require(test2) test 2
+size 1
+require(123456789) 123456789
+require(0) 0
+size 1
+require(123456789) 123456789
+require(null) null

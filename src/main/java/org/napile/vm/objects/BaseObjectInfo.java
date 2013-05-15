@@ -30,6 +30,7 @@ import org.napile.asm.tree.members.CodeInfo;
 import org.napile.asm.tree.members.TypeParameterNode;
 import org.napile.asm.tree.members.types.TypeNode;
 import org.napile.vm.invoke.impl.BytecodeInvokeType;
+import org.napile.vm.invoke.impl.bytecodeimpl.CallPosition;
 import org.napile.vm.invoke.impl.bytecodeimpl.InterpreterContext;
 import org.napile.vm.invoke.impl.bytecodeimpl.StackEntry;
 import org.napile.vm.invoke.impl.bytecodeimpl.bytecode.impl3.VmNewObjectInstruction;
@@ -147,8 +148,8 @@ public final class BaseObjectInfo
 					continue;
 				}
 
-				StackEntry stackEntry = new StackEntry(codeInfo.maxLocals, staticObject ? BaseObjectInfo.EMPTY_ARRAY : new BaseObjectInfo[] {this}, codeInfo.tryCatchBlockNodes);
-				//stackEntry.position = new CallPosition(instruction);
+				StackEntry stackEntry = new StackEntry(codeInfo.maxLocals, staticObject ? null : this, staticObject ? BaseObjectInfo.EMPTY_ARRAY : new BaseObjectInfo[] {this}, codeInfo.tryCatchBlockNodes);
+				stackEntry.position = new CallPosition(instruction);
 
 				context.getStack().add(stackEntry);
 
