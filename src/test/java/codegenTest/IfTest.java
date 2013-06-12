@@ -1,7 +1,5 @@
 package codegenTest;
 
-import org.junit.Test;
-
 /**
  * @author VISTALL
  * @since 11:46/29.11.12
@@ -16,12 +14,10 @@ public class IfTest extends MainRunClassTestCase
 	{
 	}
 
-	@Test
 	public void testAndAndTest()
 	{
 	}
 
-	@Test
 	public void testElvisTest()
 	{
 	}
