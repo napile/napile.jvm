@@ -1,13 +1,10 @@
 <component name="libraryTable">
   <library name="idea-sdk">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/dist/lib/sources.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/dist/lib/annotations.jar!/" />
       <root url="jar://$PROJECT_DIR$/dist/lib/util.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <DOCUMENTATION />
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/dist/lib/sources.zip!/jps/antLayout/src" />
       <root url="jar://$PROJECT_DIR$/dist/lib/sources.zip!/jps/model-api/src" />

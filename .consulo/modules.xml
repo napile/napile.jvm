@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ModuleManager">
+    <modules>
+      <module name="napile.jvm" dirurl="file://$PROJECT_DIR$">
+        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="SOURCE_DIR" />
+        <content url="file://$MODULE_DIR$">
+          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
+          <content-folder type="TEST" url="file://$MODULE_DIR$/src/test/java" />
+          <content-folder type="TEST" url="file://$MODULE_DIR$/dist/classpath" />
+          <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/src/main/resource" />
+        </content>
+        <orderEntry type="module-extension-sdk" extension-id="java" />
+        <orderEntry type="sourceFolder" forTests="false" />
+        <orderEntry type="module-library">
+          <library>
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dist/lib/log4j-1.2.16.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="library" name="dom4j" level="project" />
+        <orderEntry type="library" name="napile.asm" level="project" />
+        <orderEntry type="library" name="idea-sdk" level="project" />
+        <orderEntry type="module-library">
+          <library>
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dist/lib/antlr-4.0ea-complete.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library>
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dist/lib/java2napile.runtime-0.1.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES>
+              <root url="jar://$MODULE_DIR$/dist/lib/java2napile.runtime-0.1-sources.jar!/" />
+            </SOURCES>
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library>
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dist/lib/junit-4.10.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library>
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dist/lib/trove4j.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+      </module>
+    </modules>
+  </component>
+</project>
+

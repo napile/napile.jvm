@@ -3,7 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/dist/lib/dom4j2.0dev.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <DOCUMENTATION />
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/dist/lib/dom4j2.0dev-sources.jar!/" />
     </SOURCES>
